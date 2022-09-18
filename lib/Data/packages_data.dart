@@ -1,0 +1,78 @@
+import 'package:get/get.dart';
+
+List packages = [
+  {
+    "id": "1",
+    "name": "3 Month Pass",
+    "duration/days": 90,
+    "expiryDate": DateTime.now().add(365.days),
+    "routes": "all",
+    "price": 30.000,
+    "company": "KPTC",
+  },
+  {
+    "id": "2",
+    "name": "Monthly Pass",
+    "duration/days": 30,
+    "expiryDate": DateTime.now().add(180.days),
+    "routes": "all",
+    "price": 12.500,
+    "company": "KPTC",
+  },
+  {
+    "id": "3",
+    "name": "Weekly Pass",
+    "duration/days": 7,
+    "expiryDate": DateTime.now().add(90.days),
+    "routes": "all",
+    "price": 5.000,
+    "company": "KPTC",
+  },
+  {
+    "id": "4",
+    "name": "Daily Pass",
+    "duration/days": 1,
+    "expiryDate": DateTime.now().add(60.days),
+    "routes": "all",
+    "price": 0.75,
+    "company": "KPTC",
+    "isActive":false
+  },
+  {
+    "id": "1",
+    "name": "3 Month Pass",
+    "duration/days": 90,
+    "expiryDate": DateTime.now().add(365.days),
+    "routes": "all",
+    "price": 30.000,
+    "company": "KPTC",
+  },
+  {
+    "id": "2",
+    "name": "Monthly Pass",
+    "duration/days": 30,
+    "expiryDate": DateTime.now().add(180.days),
+    "routes": "all",
+    "price": 12.500,
+    "company": "KPTC",
+  },
+  {
+    "id": "3",
+    "name": "Weekly Pass",
+    "duration/days": 7,
+    "expiryDate": DateTime.now().add(90.days),
+    "routes": "all",
+    "price": 5.000,
+    "company": "KPTC",
+  },
+  {
+    "id": "4",
+    "name": "Daily Pass",
+    "duration/days": 1,
+    "expiryDate": DateTime.now().add(60.days),
+    "routes": "all",
+    "price": 0.75,
+    "company": "KPTC",
+    "isActive":false
+  },
+];
