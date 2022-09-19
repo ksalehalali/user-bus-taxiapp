@@ -74,7 +74,7 @@ dependencies:
   share_plus: ^4.0.8
   myfatoorah_pay: any
   myfatoorah_flutter: ^2.1.13
-  flutter_barcode_scanner: ^2.0.0
+  flutter_barcode_scanner:
 
 
 dev_dependencies:
