@@ -13,6 +13,7 @@ class StartUpController extends GetxController {
 
   final loginController = Get.put(LoginController());
   var promoterId ="".obs;
+  var isConnected = false.obs;
 
 
 

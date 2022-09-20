@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
@@ -96,21 +99,69 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   late final AnimationController _controller;
   static const locationChannel = MethodChannel('location');
   final arguments = {'name': 'khaled'};
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     FirebaseDynamicLinkService.initDynamicLink(context);
-
+getConnectivity();
     startUpController.fetchUserLoginPreference();
     getLocation();
     Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
     });
 
-
   }
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+            (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected) {
+            startUpController.isConnected.value = false;
+            if (!isAlertSet) {
+              showDialogBox();
+               isAlertSet = true;
+
+            }
+          }else{
+            startUpController.isConnected.value = true;
+
+          }
+        },
+      );
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('No Connection'),
+      content: const Text('Please check your internet connectivity'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+           // setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected && isAlertSet == false) {
+              showDialogBox();
+              setState(() => isAlertSet = true);
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
 
   var assistantMethods = AssistantMethods();
 
@@ -210,11 +261,6 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     locationController.addPickUp.value = true;
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

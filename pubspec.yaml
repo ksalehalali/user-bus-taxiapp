@@ -75,6 +75,10 @@ dependencies:
   myfatoorah_pay: any
   myfatoorah_flutter: ^2.1.13
   flutter_barcode_scanner:
+  flutter_offline: ^2.1.0
+  internet_connection_checker: ^0.0.1+4
+  connectivity_plus:
+
 
 
 dev_dependencies:
