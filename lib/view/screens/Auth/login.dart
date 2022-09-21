@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -149,9 +151,15 @@ class _LoginState extends State<Login> {
                                   //FirebaseDynamicLinkService.createDynamicLink(false, 'user.id');
 
                                   // TODO: login API
-                                  loginController.isLoginLoading.value = true;
-                                  await loginController.makeLoginRequest();
-                                  loginController.isLoginLoading.value = false;
+                                 bool connected = await loginController.isConnected();
+                                 if (connected) {
+                                   loginController.isLoginLoading.value = true;
+                                   await loginController.makeLoginRequest();
+                                   loginController.isLoginLoading.value = false;
+                                 }else{
+                                   _showDialogBoxNoneConnection();
+                                 }
+
                                 },
                                 icon: !loginController.isLoginLoading.value ?
                                 Container(
@@ -224,5 +232,22 @@ class _LoginState extends State<Login> {
     );
   }
 
+
+  _showDialogBoxNoneConnection() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('No Connection'),
+      content: const Text('Please check your internet connectivity'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
 
 }

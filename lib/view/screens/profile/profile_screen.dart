@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/personal_information_controller.dart';
+import '../../../controller/sign_up_controller.dart';
 import '../../../controller/start_up_controller.dart';
 import '../../widgets/headerDesgin.dart';
 import '../Auth/login.dart';
@@ -17,10 +19,38 @@ import 'your_activities_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final personalInfoController = Get.put(PersonalInformationController());
+
   final StartUpController startUpController = Get.find();
+
+  final SignUpController signUpController= Get.find();
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Account delete'),
+      content: const Text('Your account will be deleted'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            //signUpController.deleteMyAccount('id');
+            Navigator.pop(context, 'Confirm');
+
+          },
+          child: const Text('Confirm'),
+        ),
+      ],
+    ),
+  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -367,8 +397,39 @@ class ProfileScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10.0.h,
+
+                                Padding(
+                                  padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
+                                  child: InkWell(
+                                    onTap: () {
+                                      showDialogBox();
+
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.delete_forever_outlined,
+                                          size: 32.sp,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(
+                                          width: 8.0.w,
+                                        ),
+                                        Text(
+                                          'Remove account_txt'.tr,
+                                          style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
+
+                                        ),
+                                        Spacer(),
+                                        Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          size: 22.sp,
+                                          color: Colors.grey,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Container(
                                   height: 2.h,

@@ -13,6 +13,7 @@ import 'package:lottie/lottie.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:myfatoorah_flutter/utils/MFCountry.dart';
 import 'package:myfatoorah_flutter/utils/MFEnvironment.dart';
+import 'package:routes/view/screens/Auth/login.dart';
 import 'Assistants/assistantMethods.dart';
 import 'Assistants/firebase_dynamic_link.dart';
 import 'Assistants/globals.dart';
@@ -24,6 +25,7 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart' as loc;
 
 import 'controller/payment_controller.dart';
+import 'controller/sign_up_controller.dart';
 import 'controller/start_up_controller.dart';
 import 'controller/transactions_controller.dart';
 import 'controller/trip_controller.dart';
@@ -60,6 +62,8 @@ Future<void> main() async {
       Get.putAsync(() async => TransactionsController(), permanent: true);
   final langController =
       Get.putAsync(() async => LangController(), permanent: true);
+  Get.lazyPut(()=>SignUpController());
+
   setupLocator();
   MFSDK.init(
       'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL',
@@ -108,13 +112,33 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     FirebaseDynamicLinkService.initDynamicLink(context);
-getConnectivity();
-    startUpController.fetchUserLoginPreference();
-    getLocation();
+
     Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
     });
+    getConnectivity();
+start();
+  }
 
+  start()async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+      startUpController.fetchUserLoginPreference();
+      getLocation();
+      print('mobile.......');
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+      startUpController.fetchUserLoginPreference();
+      print('wifi.......');
+      getLocation();
+    }else if (connectivityResult == ConnectivityResult.none) {
+      // I am connected to a wifi network.
+      startUpController.isConnected.value =false;
+      print('none.......');
+      showDialogBoxNoneConnection();
+
+    }
   }
   @override
   void dispose() {
@@ -123,16 +147,14 @@ getConnectivity();
   }
 
   getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-            (ConnectivityResult result) async {
+      subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
           isDeviceConnected = await InternetConnectionChecker().hasConnection;
+         print('is Device Connected $isDeviceConnected');
           if (!isDeviceConnected) {
             startUpController.isConnected.value = false;
-            if (!isAlertSet) {
               showDialogBox();
                isAlertSet = true;
 
-            }
           }else{
             startUpController.isConnected.value = true;
 
@@ -163,6 +185,27 @@ getConnectivity();
     ),
   );
 
+  showDialogBoxNoneConnection() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('No Connection'),
+      content: const Text('Please check your internet connectivity'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+            // setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected) {
+              Get.offAll(()=>Login());
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
   var assistantMethods = AssistantMethods();
 
   Future getCurrentLocationFromChannel() async {

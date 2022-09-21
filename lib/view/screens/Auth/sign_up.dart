@@ -16,7 +16,8 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  final signUpController = Get.put(SignUpController());
+  final SignUpController signUpController= Get.find();
+
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

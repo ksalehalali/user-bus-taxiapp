@@ -18,7 +18,9 @@ Map<String,String> ar ={
   'setting_title':'الإعدادات',
   'btn_contact':'اتصل بنا',
   'btn_aboutUs':'عن التطبيق',
-'btn_logOut': 'خروج',
+  "Remove account_txt":"مسح حسابي",
+
+  'btn_logOut': 'خروج',
 
   //-
 'profile_btn':'ملفي',
@@ -141,6 +143,7 @@ Map<String,String> en ={
   'setting_title':'Setting',
   'btn_contact':'Contact Us',
   'btn_aboutUs':'About Us',
+  "Remove account_txt":"Remove Account",
   'btn_logOut': 'Log Out',
 
   //-
