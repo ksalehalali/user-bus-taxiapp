@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -35,6 +36,29 @@ class LoginController extends GetxController {
     super.onClose();
     usernameController.dispose();
     passwordController.dispose();
+  }
+
+
+  Future<bool> isConnected()async{
+    bool connected = false;
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+
+      print('mobile......2.');
+      connected = true ;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+
+      print('wifi.......');
+      connected =true;
+
+    }else if (connectivityResult == ConnectivityResult.none) {
+      // I am connected to a wifi network.
+      print('none.......');
+      connected = false;
+    }
+    return connected;
   }
 
   Future<void> makeLoginRequest () async{
@@ -182,14 +206,14 @@ class LoginController extends GetxController {
     else if (response.statusCode == 200){
       var jsonResponse = json.decode(response.body);
       if(jsonResponse["status"]){
-        print("user == ${jsonResponse["description"]}");
+        //print("user == ${jsonResponse["description"]}");
         print('==================================');
         user.id = jsonResponse["description"]['id'];
         // TODO: store token in shared preferences then navigate to the following screen
         storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"]);
         user.accessToken = jsonResponse["description"]["token"];
         user.name = jsonResponse["description"]["name"];
-        print(jsonResponse["description"]["token"]);
+        print("new token  ${jsonResponse["description"]["token"]}");
 
         //call func to save installation
         //saveInstallationForPromoters(promoterId);

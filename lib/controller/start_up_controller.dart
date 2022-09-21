@@ -21,7 +21,7 @@ class StartUpController extends GetxController {
   void onInit()async {
     // TODO: implement onInit
     super.onInit();
-    fetchUserLoginPreference();
+   // fetchUserLoginPreference();
   }
 
   Future saveInstallationForPromoters(String promoterIdN) async {
@@ -37,7 +37,7 @@ class StartUpController extends GetxController {
     String? prefUsername = prefs.getString('username');
     String? prefPassword = prefs.getString('password');
 
-    print("ssssss ${prefToken}");
+    print("last token ::: ${prefToken}");
     if(prefToken == null){
       print('null');
       Get.to(Login());
