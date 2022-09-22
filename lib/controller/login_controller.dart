@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +44,7 @@ class LoginController extends GetxController {
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
 
-      print('mobile......2.');
+      print('mobile.......');
       connected = true ;
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
@@ -216,7 +215,7 @@ class LoginController extends GetxController {
         print("new token  ${jsonResponse["description"]["token"]}");
 
         //call func to save installation
-        //saveInstallationForPromoters(promoterId);
+        //if(promoterId!="")saveInstallationForPromoters(promoterId);
 
      Timer(const Duration(milliseconds: 200), (){
        Get.to(MainScreen(indexOfScreen: 0,));
@@ -249,7 +248,7 @@ class LoginController extends GetxController {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/AddPromoterInstallation'));
+    var request = http.Request('POST', Uri.parse(baseURL + '/api/AddPromoterInstallation'));
     request.body = json.encode({
       "PromoterID": promoterIdN
     });
