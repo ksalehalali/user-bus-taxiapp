@@ -35,7 +35,9 @@ Map<String,String> ar ={
 
 'start_pay_txt':'امسح الكود لتقوم بالدفع',
 'msg_0_balance':'الرصيد المتبقي غير كافي لاتمام العملية',
-'scan_btn':'امسح',
+  'msg_offline':"انت غير متصل بالشبكة",
+  'Pay offline_btn':'ادفع بدون اتصال',
+  'scan_btn':'امسح',
   'Pay via show QR code_txt':'اظهر qr code للدفع',
   'Pay via scan QR code_txt':'امسح qr code للدفع',
 
@@ -159,6 +161,9 @@ Map<String,String> en ={
 
   'start_pay_txt':'Start direct payment by scanning the QR code via your camera',
   'msg_0_balance':'Remaining amount is not enough to complete the payment',
+  'msg_offline':"You are\'nt connected to the network",
+  'Pay offline_btn':'Pay offline',
+
   'scan_btn':'Scan',
   'Pay via show QR code_txt':'Pay via show QR code',
   'Pay via scan QR code_txt':'Pay via scan QR code',
@@ -239,6 +244,7 @@ Map<String,String> en ={
   "please enter amount at last 0.500_txt":"please enter amount at last 0.500",
   "Continue_txt":"Continue",
   "Enter User Id_txt":"Enter User Id",
+  "Enter User Phone_txt":"Enter User's Phone Number",
   "OR_txt":"OR",
   "Scan QRCode_txt":"Scan QRCode",
   "Confirm_txt":"Confirm",

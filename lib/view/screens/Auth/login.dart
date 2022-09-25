@@ -1,13 +1,18 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/view/screens/Auth/sign_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/login_controller.dart';
@@ -21,14 +26,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final loginController = Get.put(LoginController());
   final profilePicController = Get.put(ProfilePicController());
+  final LoginController loginController =  Get.find();
 
   bool chooseCamera = false;
   PhoneNumber number = PhoneNumber(isoCode: 'KW');
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Container(
       // decoration: BoxDecoration(
       //   image: DecorationImage(
@@ -181,7 +187,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height:screenSize.height *0.1.h-60,
                       ),
 
                       // SIGN UP / FORGOT PASSWORD SECTION
@@ -220,7 +226,45 @@ class _LoginState extends State<Login> {
                                 ),
                               )),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height:screenSize.height *0.1.h-20,
+                      ),
+                      //pay offline button
+                      Align(
+                        alignment:Alignment.bottomCenter,
+                        child: OutlinedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:MaterialStateProperty.all(Colors.white),
+                            foregroundColor: MaterialStateProperty.all(routes_color),
+                            padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 16.w)),
+
+                          ) ,
+                          onPressed: ()async{
+                            createQRCodeToPay();
+                              // Fluttertoast.showToast(
+                              //     msg: "msg_offline".tr,
+                              //     toastLength: Toast.LENGTH_SHORT,
+                              //     gravity: ToastGravity.CENTER,
+                              //     timeInSecForIosWeb: 1,
+                              //     backgroundColor: Colors.white70,
+                              //     textColor: Colors.black,
+                              //     fontSize: 16.0.sp);
+
+                          }, label: Text(
+                          "Pay offline_btn".tr,
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.bold
+
+                          ),
+                        ), icon: Icon(Icons.qr_code), ),
+                      ),
+
+                      SizedBox(
+                        height: 30.h,
+                      ),
                     ],
                   ),
                 )
@@ -250,4 +294,32 @@ class _LoginState extends State<Login> {
     ),
   );
 
+  Future createQRCodeToPay()async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int code = Random().nextInt(999999);
+
+    print("{\"userName\":\"${user.name}\",\"isConnected\":\"${user.isConnected}\",\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$code${prefs.getString('lastPhone')}\"}");
+
+    return Get.dialog(Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            15.0,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          height:360.h,
+          color: Colors.white,
+          child: Center(
+            child: QrImage(
+              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$code${prefs.getString('lastPhone')!}\"}",
+              version: QrVersions.auto,
+              size: 250.0.sp,
+            ),
+          ),
+        )
+    ));
+  }
 }

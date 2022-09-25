@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
@@ -62,135 +63,7 @@ class _WalletScreenState extends State<WalletScreen> {
       final jsonData = jsonDecode(qrCode);
 
       if (jsonData != null) {
-        Get.dialog(
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Center(
-              child: Container(
-                height: screenSize.height * 0.3,
-                width: screenSize.width * 0.8,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Icon(
-                            Icons.close_sharp,
-                            size: 39,
-                            color: Colors.redAccent,
-                          )),
-                    ),
-                    SizedBox(
-                      height: screenSize.height * .1 - 70.h,
-                    ),
-                    Align(
-                      alignment: langController.appLocal == "en"
-                          ? Alignment.topLeft
-                          : Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                        child: Column(
-                          crossAxisAlignment: langController.appLocal == "en"
-                              ? CrossAxisAlignment.start
-                              : CrossAxisAlignment.end,
-                          mainAxisAlignment: langController.appLocal == "en"
-                              ? MainAxisAlignment.start
-                              : MainAxisAlignment.end,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                  text: 'amount'.tr,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: ": ${amountController.text}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black))
-                            ])),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                  text: 'The recipient name_txt'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: " ${jsonData['userName']} ",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black))
-                            ])),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                  text: 'The recipient ID_txt'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: " ${jsonData['userId']} ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black))
-                            ])),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenSize.height * 0.1 - 40,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          amountController.clear();
-                          var res = await walletController.send(jsonData['userId'],amount);
-                          Navigator.pop(context);
-                          showSendResultDialog(res);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          foregroundColor:
-                              MaterialStateProperty.all(routes_color),
-                          padding: MaterialStateProperty.all(
-                              EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 22)),
-                        ),
-                        child: Text('Confirm_txt'.tr),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
+        _confirmInfoDialog(jsonData);
       }
 
       //  walletController.send(user.id!);
@@ -260,7 +133,7 @@ class _WalletScreenState extends State<WalletScreen> {
       backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          height: screenSize.height * 0.4,
+          height: screenSize.height * 0.4-40,
           width: screenSize.width * 0.8,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -316,23 +189,36 @@ class _WalletScreenState extends State<WalletScreen> {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (double.parse(amountController.text) > 0.499) {
-                              print(
-                                  'amount is ${double.parse(amountController.text)}');
-                              Navigator.of(context).pop();
-                              showEnterUserIdDialog();
-                            } else {
-                              print(
-                                  'amount is ${double.parse(amountController.text)}');
-                              Get.snackbar("Wrong Value_txt".tr,
-                                  "please enter amount at last 0.500_txt".tr);
+                            if(amountController.text !=''&& !amountController.text.isEmpty){
+                              if (double.parse(amountController.text) > 0.499) {
+                                print(
+                                    'amount is ${double.parse(amountController.text)}');
+                                Navigator.of(context).pop();
+                                showEnterUserPhoneDialog();
+                              } else {
+                                print(
+                                    'amount is ${double.parse(amountController.text)}');
+                                Get.snackbar("Wrong Value_txt".tr,
+                                    "please enter amount at last 0.500_txt".tr);
+                              }
+                            }else{
+                              Fluttertoast.showToast(
+                                  msg: "wrong value",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0.sp);
+
                             }
+
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            foregroundColor:
                                 MaterialStateProperty.all(routes_color),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
                             padding: MaterialStateProperty.all(
                                 EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 22)),
@@ -738,12 +624,13 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  void showEnterUserIdDialog() {
+  void showEnterUserPhoneDialog() {
+    TextEditingController phoneTextEditingController =  TextEditingController();
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          height: screenSize.height * 0.4,
+          height: screenSize.height * 0.5,
           width: screenSize.width * 0.8,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -778,20 +665,25 @@ class _WalletScreenState extends State<WalletScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: screenSize.width / 3,
+                        width: screenSize.width / 2-10,
                         child: TextFormField(
+                          controller: phoneTextEditingController,
+                            keyboardType:TextInputType.number,
+                          maxLength: 8,
+                          maxLines: 1,
                           decoration:
-                              InputDecoration(hintText: 'Enter User Id_txt'.tr),
+                              InputDecoration(hintText: 'Enter User Phone_txt'.tr),
+
                         ),
                       ),
                       SizedBox(
-                        height: 18.0,
+                        height: 12.0,
                       ),
                       Align(
                           alignment: Alignment.center,
                           child: Text('OR_txt'.tr)),
                       const SizedBox(
-                        height: 18.0,
+                        height: 12.0,
                       ),
                       ElevatedButton.icon(
                         onPressed: () {
@@ -809,6 +701,27 @@ class _WalletScreenState extends State<WalletScreen> {
                         icon: Icon(Icons.camera_alt),
                         label: Text('Scan QRCode_txt'.tr),
                       ),
+                      const SizedBox(
+                        height: 52.0,
+                      ),
+
+                      ElevatedButton(
+                        onPressed: () {
+                          if(phoneTextEditingController.text.length > 0 && !phoneTextEditingController.text.isEmpty){
+                            _confirmInfoDialog({"phoneNumber": phoneTextEditingController.text,"userName": "userName","userId":"123456"});
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(routes_color),
+                          foregroundColor:
+                          MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 42)),
+                        ),
+                         child: Text('Continue_txt'.tr),
+                      ),
                     ],
                   ),
                 ),
@@ -818,5 +731,138 @@ class _WalletScreenState extends State<WalletScreen> {
         ),
       ),
     ));
+  }
+
+  void _confirmInfoDialog(jsonData) {
+    Get.dialog(
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Container(
+            height: screenSize.height * 0.3,
+            width: screenSize.width * 0.8,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Icon(
+                        Icons.close_sharp,
+                        size: 39,
+                        color: Colors.redAccent,
+                      )),
+                ),
+                SizedBox(
+                  height: screenSize.height * .1 - 70.h,
+                ),
+                Align(
+                  alignment: langController.appLocal == "en"
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: Column(
+                      crossAxisAlignment: langController.appLocal == "en"
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.end,
+                      mainAxisAlignment: langController.appLocal == "en"
+                          ? MainAxisAlignment.start
+                          : MainAxisAlignment.end,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: 'amount'.tr,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: ": ${amountController.text}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black))
+                            ])),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: 'The recipient name_txt'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: " ${jsonData['userName']} ",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black))
+                            ])),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: 'The recipient ID_txt'.tr,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: " ${jsonData['userId']} ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.black))
+                            ])),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenSize.height * 0.1 - 40,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      amountController.clear();
+                      var res = await walletController.send(jsonData['userId'],amount);
+                      Navigator.pop(context);
+                      showSendResultDialog(res);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all(Colors.white),
+                      foregroundColor:
+                      MaterialStateProperty.all(routes_color),
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 22)),
+                    ),
+                    child: Text('Confirm_txt'.tr),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
   }
 }

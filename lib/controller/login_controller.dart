@@ -31,6 +31,12 @@ class LoginController extends GetxController {
   RxString phoneNum = "".obs;
 
   @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getUserLoginPreference();
+  }
+  @override
   void onClose() {
     super.onClose();
     usernameController.dispose();
@@ -43,11 +49,12 @@ class LoginController extends GetxController {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
-
+      user.isConnected = true;
       print('mobile.......');
       connected = true ;
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
+      user.isConnected = true;
 
       print('wifi.......');
       connected =true;
@@ -56,8 +63,26 @@ class LoginController extends GetxController {
       // I am connected to a wifi network.
       print('none.......');
       connected = false;
+      user.isConnected = false;
+
     }
     return connected;
+  }
+
+  //logout
+  Future<void> logout()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lastToken', prefs.getString('token')!);
+    await prefs.setString('lastPhone', prefs.getString('phoneNumber')!);
+
+
+    prefs.remove('token');
+    prefs.remove('username');
+    prefs.remove('id');
+    prefs.remove('phoneNumber');
+
+    print("last token :: ${prefs.getString('lastToken')}");
+    print("last phone number :: ${prefs.getString('lastPhone')}");
   }
 
   Future<void> makeLoginRequest () async{
@@ -98,7 +123,7 @@ class LoginController extends GetxController {
           "FCMToken":fcmToken
         },
       ), headers: head
-      ).timeout(const Duration(seconds: 20), onTimeout:(){
+      ).timeout(const Duration(seconds: 10), onTimeout:(){
         Fluttertoast.showToast(
             msg: "The connection has timed out, Please try again!",
             toastLength: Toast.LENGTH_SHORT,
@@ -108,6 +133,7 @@ class LoginController extends GetxController {
             textColor: Colors.black,
             fontSize: 16.0
         );
+        Get.offAll(()=>Login());
         throw TimeoutException('The connection has timed out, Please try again!');
       });
 
@@ -123,16 +149,15 @@ class LoginController extends GetxController {
       }
       else if (response.statusCode == 200){
         var jsonResponse = json.decode(response.body);
+        print('user info ::====::: $jsonResponse');
         if(jsonResponse["status"]){
           print(jsonResponse["description"]);
           print('==================================');
-          print("my token is ::: ${jsonResponse["description"]['token']}");
+          print("my new token is ::: ${jsonResponse["description"]['token']}");
           user.id = jsonResponse["description"]['id'];
           // TODO: store token in shared preferences then navigate to the following screen
-          storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"]);
+          storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"], jsonResponse["description"]["phoneNumber"]);
           user.accessToken = jsonResponse["description"]["token"];
-          print(jsonResponse["description"]["token"]);
-
 
           Get.offAll(MainScreen(indexOfScreen: 0,));
           phoneNum.value = "";
@@ -177,7 +202,7 @@ class LoginController extends GetxController {
         "FCMToken":fcmToken
       },
     ), headers: head
-    ).timeout(const Duration(seconds: 20), onTimeout:(){
+    ).timeout(const Duration(seconds: 10), onTimeout:(){
       Fluttertoast.showToast(
           msg: "The connection has timed out, Please try again!",
           toastLength: Toast.LENGTH_SHORT,
@@ -187,6 +212,8 @@ class LoginController extends GetxController {
           textColor: Colors.black,
           fontSize: 16.0
       );
+      Get.offAll(()=>Login());
+
       throw TimeoutException('The connection has timed out, Please try again!');
     });
 
@@ -204,12 +231,13 @@ class LoginController extends GetxController {
     }
     else if (response.statusCode == 200){
       var jsonResponse = json.decode(response.body);
+      print('user info ::==auto login==::: $jsonResponse');
+
       if(jsonResponse["status"]){
-        //print("user == ${jsonResponse["description"]}");
         print('==================================');
         user.id = jsonResponse["description"]['id'];
         // TODO: store token in shared preferences then navigate to the following screen
-        storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"]);
+        storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"],jsonResponse["description"]["phoneNumber"]);
         user.accessToken = jsonResponse["description"]["token"];
         user.name = jsonResponse["description"]["name"];
         print("new token  ${jsonResponse["description"]["token"]}");
@@ -266,13 +294,27 @@ class LoginController extends GetxController {
 
   }
 
-  Future<void> storeUserLoginPreference(token, username, password, id) async {
+  Future<void> storeUserLoginPreference(token, username, password, id,phone) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('token', token);
+
     await prefs.setString('username', username);
     await prefs.setString('password', password);
     await prefs.setString('id', id);
+    await prefs.setString('phoneNumber', phone);
+
   }
+
+  Future<void> getUserLoginPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    user.accessToken =await prefs.getString('token');
+    user.name =await prefs.getString('username');
+    user.id =  await prefs.getString('id');
+    user.phone =  await prefs.getString('phoneNumber');
+
+  }
+
 
 }

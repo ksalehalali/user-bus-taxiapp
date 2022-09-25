@@ -30,7 +30,7 @@ class _DirectPaymentState extends State<DirectPayment> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = Get.size;
+    final screenSize = MediaQuery.of(context).size;
 
     return Container(
       decoration: BoxDecoration(
