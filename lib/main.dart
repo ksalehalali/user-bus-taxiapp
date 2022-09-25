@@ -24,6 +24,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart' as loc;
 
+import 'controller/login_controller.dart';
 import 'controller/payment_controller.dart';
 import 'controller/sign_up_controller.dart';
 import 'controller/start_up_controller.dart';
@@ -62,7 +63,10 @@ Future<void> main() async {
       Get.putAsync(() async => TransactionsController(), permanent: true);
   final langController =
       Get.putAsync(() async => LangController(), permanent: true);
-  Get.lazyPut(()=>SignUpController());
+  final signUpController =
+  Get.putAsync(() async => SignUpController(), permanent: true);
+  Get.lazyPut(()=>LoginController());
+
 
   setupLocator();
   MFSDK.init(
@@ -124,6 +128,7 @@ start();
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
+      user.isConnected = true;
       startUpController.fetchUserLoginPreference();
       getLocation();
       print('mobile.......');
@@ -131,11 +136,15 @@ start();
       // I am connected to a wifi network.
       startUpController.fetchUserLoginPreference();
       print('wifi.......');
+      user.isConnected = true;
+
       getLocation();
     }else if (connectivityResult == ConnectivityResult.none) {
       // I am connected to a wifi network.
       startUpController.isConnected.value =false;
       print('none.......');
+      user.isConnected = false;
+
       showDialogBoxNoneConnection();
 
     }
@@ -154,9 +163,13 @@ start();
             startUpController.isConnected.value = false;
               showDialogBox();
                isAlertSet = true;
+            user.isConnected = false;
+
 
           }else{
             startUpController.isConnected.value = true;
+            user.isConnected = true;
+
 
           }
         },

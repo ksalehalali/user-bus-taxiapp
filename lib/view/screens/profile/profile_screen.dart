@@ -8,6 +8,7 @@ import '../../../Assistants/firebase_dynamic_link.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
+import '../../../controller/login_controller.dart';
 import '../../../controller/personal_information_controller.dart';
 import '../../../controller/sign_up_controller.dart';
 import '../../../controller/start_up_controller.dart';
@@ -30,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final personalInfoController = Get.put(PersonalInformationController());
 
   final StartUpController startUpController = Get.find();
+  final LoginController loginController =  Get.find();
 
   final SignUpController signUpController= Get.find();
 
@@ -447,10 +449,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         color: Colors.red,
                                       ),
                                       onPressed: ()async {
-                                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                                        print(prefs.getString('token'));
-                                        prefs.remove('token');
-                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Login()), (route) => false);
+                                       await loginController.logout();
+                                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Login()), (route) => false);
                                       },
                                       label: Text('btn_logOut'.tr,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
                                       style: ElevatedButton.styleFrom(

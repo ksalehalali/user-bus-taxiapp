@@ -11,8 +11,9 @@ class User {
   String? fcmToken;
   double? totalBalance;
   String? PaymentCode;
+  bool? isConnected;
 
-  User({this.phone,this.name,this.email,this.id,this.avatarUrl,this.accessToken,this.fcmToken,this.totalBalance,this.PaymentCode});
+  User({this.phone,this.name,this.email,this.id,this.avatarUrl,this.accessToken,this.fcmToken,this.totalBalance,this.PaymentCode,this.isConnected});
 
   User.fromSnapshot(){
     id ='';
@@ -21,6 +22,7 @@ class User {
     phone = '';
     avatarUrl = '';
     PaymentCode = '';
+    isConnected =false;
 
 
   }
