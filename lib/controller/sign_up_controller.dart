@@ -40,29 +40,7 @@ class SignUpController extends GetxController {
   }
 
 
-  void deleteMyAccount(String id) async {
 
-    print('from delete');
-
-    var headers = {
-      'Authorization': 'bearer ${user.accessToken}',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/AddPromoterInstallation'));
-    request.body = json.encode({
-      "id": id
-    });
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    }
-    else {
-    print(response.reasonPhrase);
-    }
-  }
 
 
   Future<void> makeSignUpRequest(context) async {

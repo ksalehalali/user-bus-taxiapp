@@ -12,7 +12,7 @@ class PersonalInformationEdit extends StatefulWidget {
 }
 
 class _PersonalInformationEditState extends State<PersonalInformationEdit> {
-  final personalInfoController = Get.put(PersonalInformationController());
+  PersonalInformationController personalInfoController = Get.find();
   final profilePicController = Get.put(ProfilePicController());
 
   @override

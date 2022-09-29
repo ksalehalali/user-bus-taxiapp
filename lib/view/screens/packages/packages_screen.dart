@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../Assistants/globals.dart';
-import '../../../Data/packages_data.dart';
 import '../../../controller/lang_controller.dart';
+import '../../../helper/constants.dart';
 
 class PackagesScreen extends StatefulWidget {
   const PackagesScreen({Key? key}) : super(key: key);
