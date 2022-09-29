@@ -20,7 +20,7 @@ class PersonalInformation extends StatefulWidget {
 class _PersonalInformationState extends State<PersonalInformation> {
   final PaymentController paymentController = Get.find();
 
-  final personalInfoController = Get.put(PersonalInformationController());
+  PersonalInformationController personalInfoController = Get.find();
   var payCode ='';
   @override
   void initState() {

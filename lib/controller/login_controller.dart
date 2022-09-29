@@ -83,8 +83,11 @@ class LoginController extends GetxController {
 
     print("last token :: ${prefs.getString('lastToken')}");
     print("last phone number :: ${prefs.getString('lastPhone')}");
+
+    Get.offAll(()=>Login());
   }
 
+  //login
   Future<void> makeLoginRequest () async{
 //  isLoginLoading.value = true;
     final fcmToken = await FirebaseMessaging.instance.getToken();

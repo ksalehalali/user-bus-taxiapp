@@ -45,6 +45,32 @@ class PersonalInformationController extends GetxController {
 //    emailController.dispose();
   }
 
+  //delete account
+  void deleteMyAccount(String id) async {
+
+    print('from delete');
+
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('GET', Uri.parse('https://route.click68.com/api/DeleteAccount'));
+    request.body = json.encode({
+      "id": id
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  //get personal_information
   Future<void> fetchPersonalInformation(token) async{
     var head = {
       "Authorization": "Bearer $token",

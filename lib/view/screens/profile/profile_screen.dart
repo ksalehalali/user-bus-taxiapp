@@ -28,7 +28,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final personalInfoController = Get.put(PersonalInformationController());
+  PersonalInformationController personalInfoController = Get.find();
 
   final StartUpController startUpController = Get.find();
   final LoginController loginController =  Get.find();
@@ -43,8 +43,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
       actions: <Widget>[
         TextButton(
           onPressed: () async {
-            //signUpController.deleteMyAccount('id');
             Navigator.pop(context, 'Confirm');
+             personalInfoController.deleteMyAccount('id');
+             loginController.logout();
+
+             //notify the user account deleted
+            CupertinoAlertDialog(
+              title: const Text('Account deleted'),
+              content: const Text('Your account deleted'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context, 'Ok');
+                  },
+                  child: const Text('Ok'),
+                ),
+              ],
+            );
+
 
           },
           child: const Text('Confirm'),
