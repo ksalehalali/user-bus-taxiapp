@@ -51,9 +51,8 @@ class _WalletScreenState extends State<WalletScreen> {
     walletController.getMyListOfPayments();
   }
 
-  final screenSize = Get.size;
 
-  Future<void> scanQRCode() async {
+  Future<void> scanQRCode(screenSize) async {
     Navigator.of(context).pop();
 
     try {
@@ -63,7 +62,7 @@ class _WalletScreenState extends State<WalletScreen> {
       final jsonData = jsonDecode(qrCode);
 
       if (jsonData != null) {
-        _confirmInfoDialog(jsonData);
+        _confirmInfoDialog(jsonData,screenSize);
       }
 
       //  walletController.send(user.id!);
@@ -74,7 +73,7 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 
   //show send result dialog
-  showSendResultDialog(var res){
+  showSendResultDialog(var res,screenSize){
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -128,7 +127,7 @@ class _WalletScreenState extends State<WalletScreen> {
       ),
     ));
   }
-  showEnterAmountDialog() {
+  showEnterAmountDialog(screenSize) {
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -194,7 +193,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 print(
                                     'amount is ${double.parse(amountController.text)}');
                                 Navigator.of(context).pop();
-                                showEnterUserPhoneDialog();
+                                showEnterUserPhoneDialog(screenSize);
                               } else {
                                 print(
                                     'amount is ${double.parse(amountController.text)}');
@@ -237,6 +236,8 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.blue[50]!.withOpacity(0.5),
       body: Padding(
@@ -356,7 +357,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        showEnterAmountDialog();
+                        showEnterAmountDialog(screenSize);
                       },
                       child: Text(
                         "Send_txtBtn".tr,
@@ -624,7 +625,7 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  void showEnterUserPhoneDialog() {
+  void showEnterUserPhoneDialog(screenSize) {
     TextEditingController phoneTextEditingController =  TextEditingController();
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
@@ -687,7 +688,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                       ElevatedButton.icon(
                         onPressed: () {
-                          scanQRCode();
+                          scanQRCode(screenSize);
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -708,7 +709,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if(phoneTextEditingController.text.length > 0 && !phoneTextEditingController.text.isEmpty){
-                            _confirmInfoDialog({"phoneNumber": phoneTextEditingController.text,"userName": "userName","userId":"123456"});
+                            _confirmInfoDialog({"phoneNumber": phoneTextEditingController.text,"userName": "userName","userId":"123456"},screenSize);
                           }
                         },
                         style: ButtonStyle(
@@ -733,7 +734,7 @@ class _WalletScreenState extends State<WalletScreen> {
     ));
   }
 
-  void _confirmInfoDialog(jsonData) {
+  void _confirmInfoDialog(jsonData ,screenSize) {
     Get.dialog(
       Scaffold(
         backgroundColor: Colors.transparent,
@@ -843,7 +844,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       amountController.clear();
                       var res = await walletController.send(jsonData['userId'],amount);
                       Navigator.pop(context);
-                      showSendResultDialog(res);
+                      showSendResultDialog(res,screenSize);
                     },
                     style: ButtonStyle(
                       backgroundColor:

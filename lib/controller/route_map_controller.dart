@@ -13,7 +13,7 @@ import 'package:routes/controller/trip_controller.dart';
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
-import '../view/map.dart';
+import '../view/screens/map/map.dart';
 import 'location_controller.dart';
 
 class RouteMapController extends GetxController {

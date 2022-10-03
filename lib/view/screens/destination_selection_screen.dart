@@ -9,7 +9,7 @@ import '../../controller/location_controller.dart';
 import '../../controller/route_map_controller.dart';
 import '../../model/address.dart';
 import '../../model/placePredictions.dart';
-import '../map.dart';
+import 'map/map.dart';
 import '../widgets/divider.dart';
 import '../widgets/dialogs.dart';
 import 'main_screen.dart';
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = Get.size;
+    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Column(

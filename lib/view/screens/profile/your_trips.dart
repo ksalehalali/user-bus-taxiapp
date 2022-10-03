@@ -13,7 +13,6 @@ class YourTrips extends StatefulWidget {
 
 class _YourTripsState extends State<YourTrips> {
   final TripController trips = Get.find();
-  final screenSize = Get.size;
   @override
   void initState() {
     // TODO: implement initState
@@ -21,6 +20,8 @@ class _YourTripsState extends State<YourTrips> {
   }
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("${assetsDir}background/sign_up_bg.png"), fit: BoxFit.cover),
+            image: AssetImage("${assetsDir}/background/WhatsApp Image 2022-10-02 at 12.55.00 PM.jpeg"), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -129,13 +129,13 @@ class _SignUpState extends State<SignUp> {
                             maxLength: 8,
                             ignoreBlank: false,
                             autoValidateMode: AutovalidateMode.disabled,
-                            selectorTextStyle: TextStyle(color: Colors.white),
-                            textStyle: TextStyle(color: Colors.white),
+                            selectorTextStyle: TextStyle(color: Colors.black87),
+                            textStyle: TextStyle(color: Colors.black87),
                             inputDecoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
-                                  color: Colors.white,
+                                  color: Colors.black87,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
@@ -161,13 +161,13 @@ class _SignUpState extends State<SignUp> {
                           // PASSWORD TEXT FIELD
                           TextField(
                             controller: signUpController.passwordController,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black87),
                             obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Colors.black87,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -177,7 +177,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
                                 hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.black87),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -192,7 +192,7 @@ class _SignUpState extends State<SignUp> {
                               Text(
                                 'Sign Up',
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black87,
                                     fontSize: 27,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -236,7 +236,7 @@ class _SignUpState extends State<SignUp> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontSize: 18),
                                 ),
                                 style: ButtonStyle(),

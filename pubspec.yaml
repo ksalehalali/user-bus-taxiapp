@@ -78,7 +78,7 @@ dependencies:
   flutter_offline: ^2.1.0
   internet_connection_checker: ^0.0.1+4
   connectivity_plus:
-
+  double_back_to_close_app: ^2.1.0
 
 
 dev_dependencies:

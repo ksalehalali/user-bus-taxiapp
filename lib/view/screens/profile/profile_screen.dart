@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = Get.size;
+    final screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
