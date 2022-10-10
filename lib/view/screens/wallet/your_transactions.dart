@@ -14,7 +14,6 @@ class YourTransactionsScreen extends StatefulWidget {
 
 class _YourTransactionsScreenState extends State<YourTransactionsScreen> {
   final PaymentController walletController = Get.find();
-  final screenSize = Get.size;
   @override
   void initState() {
     // TODO: implement initState
@@ -22,6 +21,8 @@ class _YourTransactionsScreenState extends State<YourTransactionsScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final screenSize =MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

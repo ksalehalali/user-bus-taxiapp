@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,11 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = Get.size;
+    final screenSize = MediaQuery.of(context).size;
+
+    print("Screen Width :: ${screenSize.width}");
+    print("Screen height :: ${screenSize.height}");
+
     print(
       screenSize.height,
     );
@@ -86,118 +91,123 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-          body: Stack(
-            children: [
-              GoogleMap(
-                initialCameraPosition: cameraPosition,
-                mapToolbarEnabled: true,
-                padding: EdgeInsets.only(top: 100.h, bottom: 160.h),
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                onMapCreated: (GoogleMapController controller) {
-                  _controllerMaps.complete(controller);
-                  homeMapController = controller;
-                  setState(() {
-                    bottomPaddingOfMap = 320.0;
-                  });
-                  locatePosition();
-                },
-              ),
-              Positioned(
-                top: screenSize.height.h * 0.7 - 68.h,
-                width: screenSize.width,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(18),
-                          topRight: Radius.circular(18)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: routes_color7,
-                          blurRadius: 6.0,
-                          spreadRadius: 0.5,
-                          offset: Offset(0.7, 0.7),
-                        )
-                      ]),
-                  height: screenSize.height.h * 0.2 + 80.h,
-                  width: screenSize.width.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 8.0.h),
-                          child: Container(
-                            width: 38.0.w,
-                            height: 5.0.h,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[400],
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(22.0),
-                        child: Text(
-                          'where_to_txt'.tr,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey[900],
-                              fontSize: 22.sp),
-                        ),
-                      ),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchScreen()));
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                top: 1.h, right: 22.w, left: 22.w),
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                                color: routes_color7.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 8.0.w,
-                                ),
-                                SvgPicture.asset(
-                                  "assets/icons/search.svg",
-                                  width: 28.w,
-                                  color: Colors.grey[900],
-                                ),
-                                SizedBox(
-                                  width: 8.0.w,
-                                ),
-                                Text(
-                                  'enter_your_destination_txt'.tr,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey[500]),
-                                )
-                              ],
+          body: DoubleBackToCloseApp(
+            snackBar: const SnackBar(
+              content: Text('Tap back again to leave'),
+            ),
+            child: Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: cameraPosition,
+                  mapToolbarEnabled: true,
+                  padding: EdgeInsets.only(top: 100.h, bottom: 160.h),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controllerMaps.complete(controller);
+                    homeMapController = controller;
+                    setState(() {
+                      bottomPaddingOfMap = 320.0;
+                    });
+                    locatePosition();
+                  },
+                ),
+                Positioned(
+                  top: screenSize.height.h * 0.7 - 68.h,
+                  width: screenSize.width,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[50],
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(18),
+                            topRight: Radius.circular(18)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: routes_color7,
+                            blurRadius: 6.0,
+                            spreadRadius: 0.5,
+                            offset: Offset(0.7, 0.7),
+                          )
+                        ]),
+                    height: screenSize.height.h * 0.2 + 80.h,
+                    width: screenSize.width.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 8.0.h),
+                            child: Container(
+                              width: 38.0.w,
+                              height: 5.0.h,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[400],
+                                  borderRadius: BorderRadius.circular(5.0)),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(22.0),
+                          child: Text(
+                            'where_to_txt'.tr,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey[900],
+                                fontSize: 22.sp),
+                          ),
+                        ),
+                        Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchScreen()));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  top: 1.h, right: 22.w, left: 22.w),
+                              padding: EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                  color: routes_color7.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8.0.w,
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/icons/search.svg",
+                                    width: 28.w,
+                                    color: Colors.grey[900],
+                                  ),
+                                  SizedBox(
+                                    width: 8.0.w,
+                                  ),
+                                  Text(
+                                    'enter_your_destination_txt'.tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey[500]),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                  top: 0.0,
-                  width: screenSize.width,
-                  child: SizedBox(
-                      height: screenSize.height * 0.1.h,
-                      width: screenSize.width.w,
-                      child: Header(screenSize))),
-            ],
+                Positioned(
+                    top: 0.0,
+                    width: screenSize.width,
+                    child: SizedBox(
+                        height: screenSize.height * 0.1.h,
+                        width: screenSize.width.w,
+                        child: Header(screenSize))),
+              ],
+            ),
           ),
         ),
       ),

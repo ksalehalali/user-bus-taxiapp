@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/view/screens/Auth/sign_up.dart';
@@ -35,13 +36,18 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    //time
+    print(DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now()));
+
+
     return Container(
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //       image: AssetImage("${assetsDir}background/login_bg.png"), fit: BoxFit.cover),
-      // ),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage("assets/images/background/WhatsApp Image 2022-10-02 at 12.55.00 PM.jpeg"), fit: BoxFit.cover),
+      ),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
+
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(
@@ -71,7 +77,7 @@ class _LoginState extends State<Login> {
                       Container(
                         padding: EdgeInsets.only(left: 8.0),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             width: 1.0,
@@ -97,13 +103,13 @@ class _LoginState extends State<Login> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.transparent,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.transparent,
                               ),
                             ),
                           ),
@@ -127,7 +133,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(),
                         obscureText: true,
                         decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
+                          fillColor: Colors.transparent,
                           filled: true,
                           hintText: "Password",
                           focusedBorder: OutlineInputBorder(
@@ -235,8 +241,8 @@ class _LoginState extends State<Login> {
                         alignment:Alignment.bottomCenter,
                         child: OutlinedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor:MaterialStateProperty.all(Colors.white),
-                            foregroundColor: MaterialStateProperty.all(routes_color),
+                            backgroundColor:MaterialStateProperty.all(routes_color.withOpacity(0.9)),
+                            foregroundColor: MaterialStateProperty.all(Colors.white),
                             padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 16.w)),
 
                           ) ,
@@ -298,8 +304,9 @@ class _LoginState extends State<Login> {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int code = Random().nextInt(999999);
+    String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
 
-    print("{\"userName\":\"${user.name}\",\"isConnected\":\"${user.isConnected}\",\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$code${prefs.getString('lastPhone')}\"}");
+    print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}");
 
     return Get.dialog(Dialog(
         shape: RoundedRectangleBorder(
@@ -314,7 +321,7 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           child: Center(
             child: QrImage(
-              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$code${prefs.getString('lastPhone')!}\"}",
+              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}",
               version: QrVersions.auto,
               size: 250.0.sp,
             ),

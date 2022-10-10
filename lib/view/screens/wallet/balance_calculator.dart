@@ -40,6 +40,7 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
         darkMode = true;
       });
     }
+    checkLocalMode();
 
   }
 
@@ -74,7 +75,6 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    checkLocalMode();
 
     return Scaffold(
       backgroundColor: darkMode ? colorDark : colorLight,

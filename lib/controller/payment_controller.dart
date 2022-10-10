@@ -5,7 +5,7 @@ import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
 import '../model/payment_saved_model.dart';
 import '../model/transaction_model.dart';
-import '../view/map.dart';
+import '../view/screens/map/map.dart';
 import '../view/widgets/dialogs.dart';
 
 

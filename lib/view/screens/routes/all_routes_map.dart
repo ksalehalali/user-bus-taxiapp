@@ -80,7 +80,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
   }
   @override
   Widget build(BuildContext context) {
-    final screenSize = Get.size;
+    final screenSize = MediaQuery.of(context).size;
     return Obx(()=> Scaffold(
         body:  Stack(children: [
           google_maps.GoogleMap(
