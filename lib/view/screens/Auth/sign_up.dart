@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("${assetsDir}/background/WhatsApp Image 2022-10-02 at 12.55.00 PM.jpeg"), fit: BoxFit.cover),
+            image: AssetImage("assets/images/background/WhatsApp Image 2022-10-02 at 12.55.00 PM.jpeg"), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -39,14 +39,7 @@ class _SignUpState extends State<SignUp> {
         ),
         body: Stack(
           children: [
-            // TITLE
-//            Container(
-//              padding: EdgeInsets.only(left: 35, top: 30),
-//              child: Text(
-//                'Create\nAccount',
-//                style: TextStyle(color: Colors.white, fontSize: 33),
-//              ),
-//            ),
+
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
@@ -58,62 +51,7 @@ class _SignUpState extends State<SignUp> {
                       margin: EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
-//                          // PHONE TEXT FIELD
-//                          Row(
-//                            crossAxisAlignment: CrossAxisAlignment.start,
-//                            children: [
-//                              // FIXED INIT NUMBER
-//                              Container(
-//                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-//                                height: 60,
-//                                decoration: BoxDecoration(
-//                                  borderRadius: BorderRadius.circular(10),
-//                                  border: Border.all(color: Colors.white)
-//                                ),
-//                                child: Center(
-//                                  child: Text(
-//                                    "965",
-//                                    style: TextStyle(
-//                                      color: Colors.white
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                              SizedBox(width: 16.0,),
-//                              Expanded(
-//                                child: Container(
-//                                  child: TextField(
-//                                    controller: signUpController.phoneNumController,
-//                                    keyboardType: TextInputType.number,
-//                                    maxLength: 8,
-//                                    style: TextStyle(color: Colors.white),
-//                                    decoration: InputDecoration(
-//                                        enabledBorder: OutlineInputBorder(
-//                                          borderRadius: BorderRadius.circular(10),
-//                                          borderSide: BorderSide(
-//                                            color: Colors.white,
-//                                          ),
-//                                        ),
-//                                        focusedBorder: OutlineInputBorder(
-//                                          borderRadius: BorderRadius.circular(10),
-//                                          borderSide: BorderSide(
-//                                            color: Colors.black,
-//                                          ),
-//                                        ),
-//                                        hintText: "Phone Number",
-//                                        hintStyle: TextStyle(color: Colors.white),
-//                                        border: OutlineInputBorder(
-//                                          borderRadius: BorderRadius.circular(10),
-//                                        )),
-//                                  ),
-//                                ),
-//                              ),
-//                            ],
-//                          ),
-//                          SizedBox(
-//                            height: 30,
-//                          ),
-                          // PHONE TEXT FIELD
+
                           InternationalPhoneNumberInput(
                             onInputChanged: (PhoneNumber number) {
                               print(number.phoneNumber);

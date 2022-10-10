@@ -408,7 +408,7 @@ class _DetailsOneRouteState extends State<DetailsOneRoute> {
                   () => Container(
                 child: locationController.tripCreatedDone.value == true
                     ? Expanded(
-                  key:_formKey2 ,
+                  key: _formKey2 ,
                   child: ListView(
                     key: _formKey,
                     padding: EdgeInsets.zero,
