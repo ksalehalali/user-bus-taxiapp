@@ -248,6 +248,7 @@ class LoginController extends GetxController {
         storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"],jsonResponse["description"]["phoneNumber"]);
         user.accessToken = jsonResponse["description"]["token"];
         user.name = jsonResponse["description"]["name"];
+        user.phone =jsonResponse["description"]["phoneNumber"];
         print("new token  ${jsonResponse["description"]["token"]}");
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
