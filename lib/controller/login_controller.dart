@@ -77,7 +77,6 @@ class LoginController extends GetxController {
 
 
     prefs.remove('token');
-    prefs.remove('username');
     prefs.remove('id');
     prefs.remove('phoneNumber');
 
@@ -161,10 +160,6 @@ class LoginController extends GetxController {
           // TODO: store token in shared preferences then navigate to the following screen
           storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"], jsonResponse["description"]["phoneNumber"]);
           user.accessToken = jsonResponse["description"]["token"];
-
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('lastToken', jsonResponse["description"]["token"]);
-          await prefs.setString('lastPhone', jsonResponse["description"]["phoneNumber"]);
 
 
           Get.offAll(MainScreen(indexOfScreen: 0,));
@@ -251,9 +246,7 @@ class LoginController extends GetxController {
         user.phone =jsonResponse["description"]["phoneNumber"];
         print("new token  ${jsonResponse["description"]["token"]}");
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('lastToken', jsonResponse["description"]["token"]);
-        await prefs.setString('lastPhone', jsonResponse["description"]["phoneNumber"]);
+
 
         //call func to save installation
         //if(promoterId!="")saveInstallationForPromoters(promoterId);
@@ -316,6 +309,8 @@ class LoginController extends GetxController {
     await prefs.setString('password', password);
     await prefs.setString('id', id);
     await prefs.setString('phoneNumber', phone);
+    await prefs.setString('lastToken', token);
+    await prefs.setString('lastPhone', phone);
 
   }
 
