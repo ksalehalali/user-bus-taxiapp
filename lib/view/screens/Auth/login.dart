@@ -303,8 +303,8 @@ class _LoginState extends State<Login> {
   Future createQRCodeToPay()async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int code = Random().nextInt(999999);
     String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+    int code = Random().nextInt(999999);
 
     print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}");
 
@@ -321,7 +321,7 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           child: Center(
             child: QrImage(
-              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}",
+              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"\"userName\":\"${prefs.getString('userName')!}\"}",
               version: QrVersions.auto,
               size: 250.0.sp,
             ),

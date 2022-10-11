@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
@@ -319,7 +320,9 @@ class _WalletScreenState extends State<WalletScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        await walletController.getPaymentCode();
+
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
                         Get.dialog(Dialog(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
@@ -333,8 +336,7 @@ class _WalletScreenState extends State<WalletScreen> {
                               color: Colors.white,
                               child: Center(
                                 child: QrImage(
-                                  data:
-                                      "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
+                                  data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"\"userName\":\"${prefs.getString('userName')!}\"}",
                                   version: QrVersions.auto,
                                   size: 250.0.sp,
                                 ),
@@ -670,7 +672,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         child: TextFormField(
                           controller: phoneTextEditingController,
                             keyboardType:TextInputType.number,
-                          maxLength: 8,
+                          maxLength: 12,
                           maxLines: 1,
                           decoration:
                               InputDecoration(hintText: 'Enter User Phone_txt'.tr),
