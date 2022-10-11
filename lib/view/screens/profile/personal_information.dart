@@ -155,7 +155,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 SizedBox(height: 32.0.h,),
 
                 QrImage(
-                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
+                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\",\"phone\":\"${user.phone}\"}",
                   version: QrVersions.auto,
                   size: 300.0.sp,
                 ),

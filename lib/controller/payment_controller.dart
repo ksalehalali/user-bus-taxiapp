@@ -172,17 +172,17 @@ print(invoiceId);
   }
 
   //send amount  user - user
-  Future send(String userId,double value) async {
+  Future send(String userName,double value) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ChargeWalletByInspector'));
+    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ChargeWalletByUser'));
 
       request.body = json.encode({
         "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
         "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
-        "UserId":userId,
+        "ReciveUserName":userName,
         "Value":  value ,
       });
 

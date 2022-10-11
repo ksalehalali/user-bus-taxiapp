@@ -709,7 +709,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if(phoneTextEditingController.text.length > 0 && !phoneTextEditingController.text.isEmpty){
-                            _confirmInfoDialog({"phoneNumber": phoneTextEditingController.text,"userName": "userName","userId":"123456"},screenSize);
+                            _confirmInfoDialog({"phone": phoneTextEditingController.text,"userName": phoneTextEditingController.text,},screenSize);
                           }
                         },
                         style: ButtonStyle(
@@ -824,7 +824,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                       fontSize: 14,
                                       color: Colors.black)),
                               TextSpan(
-                                  text: " ${jsonData['userId']} ",
+                                  text: " ${jsonData['phoneNumber']} ",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -842,7 +842,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: ElevatedButton(
                     onPressed: () async {
                       amountController.clear();
-                      var res = await walletController.send(jsonData['userId'],amount);
+                      var res = await walletController.send(jsonData['phone'],amount);
                       Navigator.pop(context);
                       showSendResultDialog(res,screenSize);
                     },

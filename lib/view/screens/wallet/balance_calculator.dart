@@ -40,23 +40,14 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
         darkMode = true;
       });
     }
-    checkLocalMode();
+
 
   }
 
-  checkLocalMode(){
-    if(MediaQuery.of(context).platformBrightness == Brightness.dark){
-      setState(() {
-        darkMode = true;
-      });
-    }else{
-      setState(() {
-        darkMode = false;
-      });
-    }
-  }
+
   Widget buildButton(
       String buttonText, double buttonHeight, Color buttonColor) {
+    checkLocalMode();
     return Container(
       height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
       color: buttonColor,
@@ -196,7 +187,17 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
       ),
     );
   }
-
+  checkLocalMode(){
+    if(MediaQuery.of(context).platformBrightness == Brightness.dark){
+      setState(() {
+        darkMode = true;
+      });
+    }else{
+      setState(() {
+        darkMode = false;
+      });
+    }
+  }
   Widget _switchMode() {
     return NeuContainer(
       darkMode: darkMode,
