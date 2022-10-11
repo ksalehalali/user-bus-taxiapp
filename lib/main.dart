@@ -143,11 +143,11 @@ start();
       getLocation();
     }else if (connectivityResult == ConnectivityResult.none) {
       // I am connected to a wifi network.
-      startUpController.isConnected.value =false;
+      //startUpController.isConnected.value =false;
       print('none.......');
-      user.isConnected = false;
-
-      showDialogBoxNoneConnection();
+      //user.isConnected = false;
+     // Get.offAll(()=>Login());
+      //showDialogBoxNoneConnection();
 
     }
   }
@@ -161,16 +161,17 @@ start();
       subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
           isDeviceConnected = await InternetConnectionChecker().hasConnection;
          print('is Device Connected $isDeviceConnected');
-          if (!isDeviceConnected) {
+          if (!isDeviceConnected && !isAlertSet) {
             startUpController.isConnected.value = false;
-              showDialogBox();
+
                isAlertSet = true;
             user.isConnected = false;
-
-
+            Get.offAll(()=>Login());
+            showDialogBox();
           }else{
             startUpController.isConnected.value = true;
             user.isConnected = true;
+            startUpController.fetchUserLoginPreference();
 
 
           }
@@ -186,12 +187,10 @@ start();
         TextButton(
           onPressed: () async {
             Navigator.pop(context, 'Cancel');
-           // setState(() => isAlertSet = false);
             isDeviceConnected =
             await InternetConnectionChecker().hasConnection;
-            if (!isDeviceConnected && isAlertSet == false) {
-              showDialogBox();
-              setState(() => isAlertSet = true);
+            if (!isDeviceConnected) {
+
             }
           },
           child: const Text('OK'),
@@ -203,17 +202,16 @@ start();
   showDialogBoxNoneConnection() => showCupertinoDialog<String>(
     context: context,
     builder: (BuildContext context) => CupertinoAlertDialog(
-      title: const Text('No Connection'),
+      title: const Text('No Connection2'),
       content: const Text('Please check your internet connectivity'),
       actions: <Widget>[
         TextButton(
           onPressed: () async {
             Navigator.pop(context, 'Cancel');
             // setState(() => isAlertSet = false);
-            isDeviceConnected =
-            await InternetConnectionChecker().hasConnection;
+            isDeviceConnected = await InternetConnectionChecker().hasConnection;
             if (!isDeviceConnected) {
-              Get.offAll(()=>Login());
+
             }
           },
           child: const Text('OK'),

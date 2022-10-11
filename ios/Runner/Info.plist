@@ -44,7 +44,7 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>need to get image for profile</string>
 	<key>NSCameraUsageDescription</key>
-	<string>need camera access to take pictures</string>
+	<string>Routes App needs permission to use camera for two purpose ,which is to take a picture and use it as your profile picture and use camera for scan QRCode to pay for bus service.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow</string>
 	<key>NSLocationAlwaysUsageDescription</key>
