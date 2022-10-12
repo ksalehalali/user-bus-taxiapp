@@ -305,7 +305,7 @@ class LoginController extends GetxController {
 
     await prefs.setString('token', token);
 
-    await prefs.setString('username', username);
+    await prefs.setString('userName', username);
     await prefs.setString('password', password);
     await prefs.setString('id', id);
     await prefs.setString('phoneNumber', phone);

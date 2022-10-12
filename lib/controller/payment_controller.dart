@@ -172,7 +172,7 @@ print(invoiceId);
   }
 
   //send amount  user - user
-  Future send(String userName,double value) async {
+  Future send({required String userName, required double value}) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -193,18 +193,12 @@ print(invoiceId);
     print(jsonResponse);
 
     if (jsonResponse['status']== true) {
-      //
-      // user.totalBalance = double.parse(jsonResponse['description']['total']);
-      //  paymentSaved.id = jsonResponse['description']['paymentId'];
-      //  paymentSaved.routeName = jsonResponse['description']['routeName'];
-      //  paymentSaved.userName = jsonResponse['description']['userName'];
       print('value send :: ${jsonResponse}');
 
       update();
       return jsonResponse;
     }
     else {
-      openCam.value =false;
       var json = jsonDecode(await response.stream.bytesToString());
       print(json);
 

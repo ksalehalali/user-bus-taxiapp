@@ -107,6 +107,7 @@ Map<String,String> ar ={
 
 
   "Send some credit to your friends_txt":"ارسل بعض الرصيد الى اصدقائك",
+  "Fill in the recipient's phone number or scan the QR code for data":"قم بتعبئة رقم هاتف المستلم ثم اظغط زر المتابعة او امسح كيو ار كود البينات",
   "User ID_txt":"رقم المستخدم :",
   "The recipient name_txt":"اسم المستقبل :",
   "The recipient ID_txt":"رقم المستقبل :",
@@ -235,6 +236,8 @@ Map<String,String> en ={
 
 
   "Send some credit to your friends_txt":"Send some credit to your friends",
+  "Fill in the recipient's phone number then press \"Continue\" Button or scan the QR code for data_txt":"Fill in the recipient's phone number or scan the QR code for data",
+
   "User ID_txt":"User ID",
   "The recipient name_txt":"The recipient name",
   "The recipient ID_txt":"The recipient ID",

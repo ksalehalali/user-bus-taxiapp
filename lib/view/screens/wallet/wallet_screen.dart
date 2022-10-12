@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,7 @@ import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/dialogs.dart';
+import '../main_screen.dart';
 import 'balance_calculator.dart';
 
 class WalletScreen extends StatefulWidget {
@@ -79,8 +81,8 @@ class _WalletScreenState extends State<WalletScreen> {
       backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          height: screenSize.height * 0.3+30,
-          width: screenSize.width * 0.7,
+          height: screenSize.height * 0.3-20,
+          width: screenSize.width * 0.7+22,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10)),
@@ -110,7 +112,7 @@ class _WalletScreenState extends State<WalletScreen> {
             Spacer(),
             ElevatedButton(
               onPressed: () async {
-                Navigator.pop(context);
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 2,)), (route) => false);
               },
               style: ButtonStyle(
                 backgroundColor:
@@ -190,7 +192,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             if(amountController.text !=''&& !amountController.text.isEmpty){
-                              if (double.parse(amountController.text) > 0.499) {
+                              if (double.parse(amountController.text) > 0.499 && !amountController.text.contains(RegExp(r'[A-Z]'), 1)) {
                                 print(
                                     'amount is ${double.parse(amountController.text)}');
                                 Navigator.of(context).pop();
@@ -481,135 +483,13 @@ class _WalletScreenState extends State<WalletScreen> {
                             )
                           : Container()),
                       showPayments
-                          ? SizedBox(
-                              height: screenSize.height - 200.h,
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: 122.0.h),
-                                child: CustomScrollView(
-                                  slivers: [
-                                    Obx(
-                                      () => SliverList(
-                                        delegate: SliverChildBuilderDelegate(
-                                            (context, index) {
-                                          return Column(
-                                            children: [
-                                              ListTile(
-                                                title: Text(
-                                                  'route ${walletController.payments[index].routeName.toString()}',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                subtitle: Text(
-                                                  DateFormat(
-                                                          'yyyy-MM-dd  HH:mm :ss')
-                                                      .format(DateTime.parse(
-                                                          walletController
-                                                              .payments[index]
-                                                              .date!)),
-                                                  style: TextStyle(height: 2),
-                                                ),
-                                                trailing: Text(
-                                                  walletController
-                                                      .payments[index].value!
-                                                      .toStringAsFixed(3),
-                                                  style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          CustomDialog(
-                                                            payment:
-                                                                walletController
-                                                                        .payments[
-                                                                    index],
-                                                            fromPaymentLists:
-                                                                false,
-                                                            failedPay: false,
-                                                          ));
-                                                },
-                                              ),
-                                              Divider(
-                                                thickness: 1,
-                                                height: 10.h,
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                            childCount: walletController
-                                                .payments.length),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))
+                          ?  _buildPaymentsList(screenSize)
                           : Container(),
                       showRecharges
-                          ? SizedBox(
-                              height: screenSize.height - 200.h,
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: 122.0.h),
-                                child: CustomScrollView(
-                                  slivers: [
-                                    Obx(
-                                      () => SliverList(
-                                        delegate: SliverChildBuilderDelegate(
-                                            (context, index) {
-                                          // print( DateFormat('yyyy-MM-dd-HH:mm').format(walletController.allTrans[0].time as DateTime));
-                                          //final sortedCars = walletController.allTrans..sort((a, b) => a.time!.compareTo(b.time!));
-                                          //print(sortedCars);
-                                          return Column(
-                                            children: [
-                                              ListTile(
-                                                //leading: Icon(Icons.payments_outlined),
-                                                title: Text(
-                                                  walletController
-                                                      .recharges[index]
-                                                      .paymentGateway
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                subtitle: Text(
-                                                  DateFormat(
-                                                          'yyyy-MM-dd  HH:mm :ss')
-                                                      .format(DateTime.parse(
-                                                          walletController
-                                                              .recharges[index]
-                                                              .createdDate!)),
-                                                  style: TextStyle(height: 2),
-                                                ),
-                                                trailing: Text(
-                                                  walletController
-                                                      .recharges[index]
-                                                      .invoiceValue!
-                                                      .toStringAsFixed(3),
-                                                  style: TextStyle(
-                                                      color: routes_color,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                              Divider(
-                                                thickness: 1,
-                                                height: 10.h,
-                                              )
-                                            ],
-                                          );
-                                        },
-                                            childCount: walletController
-                                                .recharges.length),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))
+                          ?  _buildRechargesList(screenSize)
                           : Container(),
                       SizedBox(
-                        height: 10.0.h,
+                        height: 10.0.h
                       ),
                       Container(
                         width: screenSize.width - 20.w,
@@ -628,12 +508,15 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 
   void showEnterUserPhoneDialog(screenSize) {
+    PhoneNumber number = PhoneNumber(isoCode: 'KW');
+    late String recipientNumber = "";
+
     TextEditingController phoneTextEditingController =  TextEditingController();
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          height: screenSize.height * 0.5,
+          height: screenSize.height * 0.5+30,
           width: screenSize.width * 0.8,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -655,7 +538,12 @@ class _WalletScreenState extends State<WalletScreen> {
               const SizedBox(
                 height: 18.0,
               ),
-              Text('Send some credit to your friends_txt'.tr),
+              Text('Send some credit to your friends_txt'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+              SizedBox(height:12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:18.0),
+                child: Text('Fill in the recipient\'s phone number or scan the QR code for data_txt'.tr,style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal)),
+              ),
               SizedBox(
                 height: 28.0,
               ),
@@ -668,15 +556,61 @@ class _WalletScreenState extends State<WalletScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: screenSize.width / 2-10,
-                        child: TextFormField(
-                          controller: phoneTextEditingController,
-                            keyboardType:TextInputType.number,
-                          maxLength: 12,
-                          maxLines: 1,
-                          decoration:
-                              InputDecoration(hintText: 'Enter User Phone_txt'.tr),
+                        width: screenSize.width / 2+40,
+                        height: screenSize.height * 0.1 -30,
+                        child:  Container(
+                          padding: EdgeInsets.only(left: 8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              width: 1.0,
+                            ),
+                          ),
+                          child: InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              print(number.phoneNumber);
+                              recipientNumber = number.phoneNumber!;
+                              print( recipientNumber.replaceRange(0, 1, ""));
 
+                                  },
+                            onInputValidated: (bool value) {
+                              print(value);
+                            },
+                            selectorConfig: SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                            ),
+                            maxLength: 8,
+                            ignoreBlank: false,
+                            autoValidateMode: AutovalidateMode.disabled,
+                            selectorTextStyle: TextStyle(color: Colors.black),
+                            textStyle: TextStyle(color: Colors.black),
+                            inputDecoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                            ),
+                            initialValue: number,
+//                            textFieldController: controller,
+                            formatInput: false,
+                            keyboardType:
+                            TextInputType.numberWithOptions(signed: true, decimal: true),
+                            inputBorder: OutlineInputBorder(),
+                            onSaved: (PhoneNumber number) {
+                              print('On Saved: $number');
+                              recipientNumber = number.phoneNumber!;
+
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -710,8 +644,8 @@ class _WalletScreenState extends State<WalletScreen> {
 
                       ElevatedButton(
                         onPressed: () {
-                          if(phoneTextEditingController.text.length > 0 && !phoneTextEditingController.text.isEmpty){
-                            _confirmInfoDialog({"phone": phoneTextEditingController.text,"userName": phoneTextEditingController.text,},screenSize);
+                          if(recipientNumber.length > 7){
+                            _confirmInfoDialog({"phone":recipientNumber.replaceRange(0, 1, ""),"userName": phoneTextEditingController.text,},screenSize);
                           }
                         },
                         style: ButtonStyle(
@@ -742,7 +676,7 @@ class _WalletScreenState extends State<WalletScreen> {
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
-            height: screenSize.height * 0.3,
+            height: screenSize.height * 0.3-30,
             width: screenSize.width * 0.8,
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -808,43 +742,43 @@ class _WalletScreenState extends State<WalletScreen> {
                                       fontSize: 14,
                                       color: Colors.black)),
                               TextSpan(
-                                  text: " ${jsonData['userName']} ",
+                                  text: " ${jsonData['phone']} ",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
                                       color: Colors.black))
                             ])),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        RichText(
-                            text: TextSpan(children: [
-                              TextSpan(
-                                  text: 'The recipient ID_txt'.tr,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: " ${jsonData['phoneNumber']} ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: Colors.black))
-                            ])),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
+                        // RichText(
+                        //     text: TextSpan(children: [
+                        //       TextSpan(
+                        //           text: 'The recipient ID_txt'.tr,
+                        //           style: const TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               fontSize: 14,
+                        //               color: Colors.black)),
+                        //       TextSpan(
+                        //           text: " ${jsonData['phone']} ",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               fontSize: 14,
+                        //               color: Colors.black))
+                        //     ])),
                       ],
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: screenSize.height * 0.1 - 40,
+                  height: screenSize.height * 0.1 - 50,
                 ),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     onPressed: () async {
                       amountController.clear();
-                      var res = await walletController.send(jsonData['phone'],amount);
+                      var res = await walletController.send(userName:jsonData['phone'], value:amount, );
                       Navigator.pop(context);
                       showSendResultDialog(res,screenSize);
                     },
@@ -857,7 +791,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           EdgeInsets.symmetric(
                               vertical: 12, horizontal: 22)),
                     ),
-                    child: Text('Confirm_txt'.tr),
+                    child: Text('Confirm_txt'.tr,style: TextStyle(fontSize:16,fontWeight: FontWeight.bold),),
                   ),
                 ),
               ],
@@ -868,4 +802,140 @@ class _WalletScreenState extends State<WalletScreen> {
     );
 
   }
+
+  Widget _buildPaymentsList(Size screenSize) {
+    final PaymentController walletController = Get.find();
+
+    return SizedBox(
+        height: screenSize.height - 200.h,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 122.0.h),
+          child: CustomScrollView(
+            slivers: [
+              Obx(
+                    () => SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                'route ${walletController.payments[index].routeName.toString()}',
+                                style: TextStyle(
+                                    color: Colors.black),
+                              ),
+                              subtitle: Text(
+                                DateFormat(
+                                    'yyyy-MM-dd  HH:mm :ss')
+                                    .format(DateTime.parse(
+                                    walletController
+                                        .payments[index]
+                                        .date!)),
+                                style: TextStyle(height: 2),
+                              ),
+                              trailing: Text(
+                                walletController
+                                    .payments[index].value!
+                                    .toStringAsFixed(3),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight:
+                                    FontWeight.w600),
+                              ),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        CustomDialog(
+                                          payment:
+                                          walletController
+                                              .payments[
+                                          index],
+                                          fromPaymentLists:
+                                          false,
+                                          failedPay: false,
+                                        ));
+                              },
+                            ),
+                            Divider(
+                              thickness: 1,
+                              height: 10.h,
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: walletController
+                          .payments.length),
+                ),
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget _buildRechargesList(screenSize) {
+    final PaymentController walletController = Get.find();
+
+    return SizedBox(
+        height: screenSize.height - 200.h,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 122.0.h),
+          child: CustomScrollView(
+            slivers: [
+              Obx(
+                    () => SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                        // print( DateFormat('yyyy-MM-dd-HH:mm').format(walletController.allTrans[0].time as DateTime));
+                        //final sortedCars = walletController.allTrans..sort((a, b) => a.time!.compareTo(b.time!));
+                        //print(sortedCars);
+                        return Column(
+                          children: [
+                            ListTile(
+                              //leading: Icon(Icons.payments_outlined),
+                              title: Text(
+                                walletController
+                                    .recharges[index]
+                                    .paymentGateway
+                                    .toString(),
+                                style: TextStyle(
+                                    color: Colors.black),
+                              ),
+                              subtitle: Text(
+                                DateFormat(
+                                    'yyyy-MM-dd  HH:mm :ss')
+                                    .format(DateTime.parse(
+                                    walletController
+                                        .recharges[index]
+                                        .createdDate!)),
+                                style: TextStyle(height: 2),
+                              ),
+                              trailing: Text(
+                                walletController
+                                    .recharges[index]
+                                    .invoiceValue!
+                                    .toStringAsFixed(3),
+                                style: TextStyle(
+                                    color: routes_color,
+                                    fontWeight:
+                                    FontWeight.w600),
+                              ),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              height: 10.h,
+                            )
+                          ],
+                        );
+                      },
+                      childCount: walletController
+                          .recharges.length),
+                ),
+              )
+            ],
+          ),
+        ));
+  }
 }
+
+
