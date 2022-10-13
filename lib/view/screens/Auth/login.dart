@@ -321,7 +321,7 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           child: Center(
             child: QrImage(
-              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"\"userName\":\"${prefs.getString('userName')!}\"}",
+              data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
               version: QrVersions.auto,
               size: 250.0.sp,
             ),
