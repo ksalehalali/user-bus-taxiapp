@@ -557,7 +557,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     children: [
                       SizedBox(
                         width: screenSize.width / 2+40,
-                        height: screenSize.height * 0.1 -30,
+                        height: screenSize.height * 0.1 -18,
                         child:  Container(
                           padding: EdgeInsets.only(left: 8.0),
                           decoration: BoxDecoration(

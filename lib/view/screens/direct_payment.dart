@@ -3,7 +3,9 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
 import '../../controller/location_controller.dart';
@@ -131,8 +133,10 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
                               ) ,
                               onPressed: ()async{
-                              await walletController.getPaymentCode();
-                              Get.dialog(Dialog(
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+
+                                Get.dialog(Dialog(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                       15.0,
@@ -145,7 +149,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                                     color: Colors.white,
                                     child: Center(
                                       child: QrImage(
-                                        data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
+                                        data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
                                         version: QrVersions.auto,
                                         size: 250.0.sp,
                                       ),
