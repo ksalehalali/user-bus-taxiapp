@@ -41,8 +41,6 @@ import 'package:flutter/foundation.dart';
 import 'notifications/push_notification_service.dart';
 
 
-
-
 PushNotificationService pushNotificationService = PushNotificationService();
 
 
@@ -50,19 +48,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseMessaging.onBackgroundMessage(pushNotificationService.firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(
+      pushNotificationService.firebaseMessagingBackgroundHandler);
 
 
   final controller =
-      Get.putAsync(() async => LocationController(), permanent: true);
+  Get.putAsync(() async => LocationController(), permanent: true);
   final paymentController =
-      Get.putAsync(() async => PaymentController(), permanent: true);
+  Get.putAsync(() async => PaymentController(), permanent: true);
   final tripsController =
-      Get.putAsync(() async => TripController(), permanent: true);
+  Get.putAsync(() async => TripController(), permanent: true);
   final transactionsController =
-      Get.putAsync(() async => TransactionsController(), permanent: true);
+  Get.putAsync(() async => TransactionsController(), permanent: true);
   final langController =
-      Get.putAsync(() async => LangController(), permanent: true);
+  Get.putAsync(() async => LangController(), permanent: true);
   final signUpController =
   Get.putAsync(() async => SignUpController(), permanent: true);
   final loginController =
@@ -78,23 +77,27 @@ Future<void> main() async {
   await GetStorage.init();
 
 
-
   runApp(
-    ScreenUtilInit(
-        designSize:  Size(390, 815),
+      ScreenUtilInit(
+          designSize: Size(390, 815),
 
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context , child) {
-        return GetMaterialApp(
-            locale: Locale('en'),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return GetMaterialApp(
+                locale: Locale('en'),
             fallbackLocale: Locale('en'),
             translations: Localization(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(),
-            home: MYApp());
-      }
-  ));
+            home:StreamBuilder<ConnectivityResult>(
+            stream: Connectivity().onConnectivityChanged,
+            builder: (context, snapshot) {
+            return snapshot.data == ConnectivityResult.none ? Center(child: Text("No Internet")): MYApp();
+            }));
+
+          }
+      ));
 }
 
 class MYApp extends StatefulWidget {
@@ -123,12 +126,18 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
       getCurrentLocationFromChannel();
     });
     getConnectivity();
-start();
+    start();
+    checkConnectivity();
   }
 
-  start()async{
+  checkConnectivity()async {
+    var isDeviceConnected = await Connectivity().checkConnectivity();
+    print('isDeviceConnected :: ${isDeviceConnected.name}');
+  }
+  start() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
+      startUpController.isConnected.value = true;
       // I am connected to a mobile network.
       user.isConnected = true;
       startUpController.fetchUserLoginPreference();
@@ -136,21 +145,22 @@ start();
       print('mobile.......');
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
+      startUpController.isConnected.value = true;
       startUpController.fetchUserLoginPreference();
       print('wifi.......');
       user.isConnected = true;
 
       getLocation();
-    }else if (connectivityResult == ConnectivityResult.none) {
+    } else if (connectivityResult == ConnectivityResult.none) {
       // I am connected to a wifi network.
-      //startUpController.isConnected.value =false;
+      startUpController.isConnected.value =false;
       print('none.......');
       //user.isConnected = false;
-     // Get.offAll(()=>Login());
-      //showDialogBoxNoneConnection();
-
+      Get.offAll(() => Login());
+      showDialogBoxNoneConnection();
     }
   }
+
   @override
   void dispose() {
     subscription.cancel();
@@ -158,74 +168,79 @@ start();
   }
 
   getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-         print('is Device Connected $isDeviceConnected');
-          if (!isDeviceConnected && !isAlertSet) {
-            startUpController.isConnected.value = false;
+      subscription = Connectivity().onConnectivityChanged.listen((
+          ConnectivityResult result) async {
+        isDeviceConnected = await InternetConnectionChecker().hasConnection;
+        print('is Device Connected $isDeviceConnected');
+        if (!isDeviceConnected && !isAlertSet) {
 
-               isAlertSet = true;
-            user.isConnected = false;
-            Get.offAll(()=>Login());
-            showDialogBox();
-          }else{
-            startUpController.isConnected.value = true;
-            user.isConnected = true;
-            startUpController.fetchUserLoginPreference();
+          startUpController.isConnected.value = false;
 
-
-          }
-        },
+          isAlertSet = true;
+          user.isConnected = false;
+          Get.offAll(() => Login());
+          showDialogBox();
+        } else {
+          startUpController.isConnected.value = true;
+          user.isConnected = true;
+          startUpController.fetchUserLoginPreference();
+        }
+      },
       );
 
-  showDialogBox() => showCupertinoDialog<String>(
-    context: context,
-    builder: (BuildContext context) => CupertinoAlertDialog(
-      title: const Text('No Connection'),
-      content: const Text('Please check your internet connectivity'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () async {
-            Navigator.pop(context, 'Cancel');
-            isDeviceConnected =
-            await InternetConnectionChecker().hasConnection;
-            if (!isDeviceConnected) {
+  showDialogBox() =>
+      showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            CupertinoAlertDialog(
+              title: const Text('No Connection'),
+              content: const Text('Please check your internet connectivity'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context, 'Cancel');
+                    isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                    if (!isDeviceConnected) {
 
-            }
-          },
-          child: const Text('OK'),
-        ),
-      ],
-    ),
-  );
+                    }
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
 
-  showDialogBoxNoneConnection() => showCupertinoDialog<String>(
-    context: context,
-    builder: (BuildContext context) => CupertinoAlertDialog(
-      title: const Text('No Connection2'),
-      content: const Text('Please check your internet connectivity'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () async {
-            Navigator.pop(context, 'Cancel');
-            // setState(() => isAlertSet = false);
-            isDeviceConnected = await InternetConnectionChecker().hasConnection;
-            if (!isDeviceConnected) {
+  showDialogBoxNoneConnection() =>
+      showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            CupertinoAlertDialog(
+              title: const Text('No Connection'),
+              content: const Text('Please check your internet connectivity'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context, 'Cancel');
+                    // setState(() => isAlertSet = false);
+                    isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                    if (!isDeviceConnected) {
 
-            }
-          },
-          child: const Text('OK'),
-        ),
-      ],
-    ),
-  );
+                    }
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
   var assistantMethods = AssistantMethods();
 
   Future getCurrentLocationFromChannel() async {
     var value;
     try {
       value =
-          await locationChannel.invokeMethod("getCurrentLocation", arguments);
+      await locationChannel.invokeMethod("getCurrentLocation", arguments);
       var lat = value['lat'];
       var lng = value['lng'];
       if (lng > 0.0) {
@@ -270,7 +285,7 @@ start();
     _permissionGranted = permissionStatus;
     if (_permissionGranted != loc.PermissionStatus.granted) {
       final loc.PermissionStatus permissionStatusReqResult =
-          await location.requestPermission();
+      await location.requestPermission();
 
       _permissionGranted = permissionStatusReqResult;
     }
@@ -308,7 +323,7 @@ start();
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
 
     String address =
-        await assistantMethods.searchCoordinateAddress(position, true);
+    await assistantMethods.searchCoordinateAddress(position, true);
     trip.startPointAddress = address;
     trip.startPoint =
         LocationModel(latLngPosition.latitude, latLngPosition.longitude);

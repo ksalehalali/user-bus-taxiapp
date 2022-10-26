@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
-import '../view/screens/main_screen.dart';
+import '../view/screens/home/main_screen.dart';
 
 class SignUpController extends GetxController {
 

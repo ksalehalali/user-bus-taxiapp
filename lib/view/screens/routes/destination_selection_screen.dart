@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import '../../Assistants/globals.dart';
-import '../../Assistants/request-assistant.dart';
-import '../../Data/current_data.dart';
-import '../../config-maps.dart';
-import '../../controller/location_controller.dart';
-import '../../controller/route_map_controller.dart';
-import '../../model/address.dart';
-import '../../model/placePredictions.dart';
-import 'map/map.dart';
-import '../widgets/divider.dart';
-import '../widgets/dialogs.dart';
-import 'main_screen.dart';
+import '../../../Assistants/globals.dart';
+import '../../../Assistants/request-assistant.dart';
+import '../../../Data/current_data.dart';
+import '../../../config-maps.dart';
+import '../../../controller/location_controller.dart';
+import '../../../controller/route_map_controller.dart';
+import '../../../model/address.dart';
+import '../../../model/placePredictions.dart';
+import '../map/map.dart';
+import '../../widgets/divider.dart';
+import '../../widgets/dialogs.dart';
+import '../home/main_screen.dart';
 
 
 class SearchScreen extends StatefulWidget {

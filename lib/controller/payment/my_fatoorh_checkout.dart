@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfatoorah_pay/myfatoorah_pay.dart';
 import '../../Data/current_data.dart';
-import '../../view/screens/Home.dart';
-import '../../view/screens/main_screen.dart';
+import '../../view/screens/home/Home.dart';
+import '../../view/screens/home/main_screen.dart';
 import '../lang_controller.dart';
 import '../payment_controller.dart';
 

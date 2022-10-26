@@ -9,15 +9,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../Assistants/assistantMethods.dart';
-import '../../Assistants/globals.dart';
-import '../../notifications/push_notification_service.dart';
-import '../widgets/destination_selection.dart';
-import '../widgets/headerDesgin.dart';
-import 'destination_selection_screen.dart';
+import '../../../Assistants/assistantMethods.dart';
+import '../../../Assistants/globals.dart';
+import '../../../notifications/push_notification_service.dart';
+import '../../widgets/destination_selection.dart';
+import '../../widgets/headerDesgin.dart';
+import '../routes/destination_selection_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'routes/all_routes_map.dart';
+import '../routes/all_routes_map.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

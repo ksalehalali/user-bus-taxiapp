@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Assistants/globals.dart';
 import '../../controller/location_controller.dart';
-import '../screens/destination_selection_screen.dart';
+import '../screens/routes/destination_selection_screen.dart';
 
 class DestinationSelection extends StatelessWidget {
   const DestinationSelection({Key? key}) : super(key: key);

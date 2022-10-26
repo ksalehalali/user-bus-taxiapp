@@ -79,6 +79,7 @@ dependencies:
   internet_connection_checker: ^0.0.1+4
   connectivity_plus:
   double_back_to_close_app: ^2.1.0
+  encrypt: ^5.0.1
 
 
 dev_dependencies:

@@ -20,8 +20,8 @@ import '../../../controller/all_routes_controller.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
-import '../destination_selection_screen.dart';
-import '../main_screen.dart';
+import 'destination_selection_screen.dart';
+import '../home/main_screen.dart';
 import 'filter_local_list_page.dart';
 
 class AllRoutesMap extends StatefulWidget {

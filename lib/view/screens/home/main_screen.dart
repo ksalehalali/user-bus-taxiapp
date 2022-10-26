@@ -7,21 +7,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:location/location.dart' as loc ;
 
-import '../../Assistants/assistantMethods.dart';
-import '../../Assistants/globals.dart';
-import '../../Data/current_data.dart';
-import '../../controller/lang_controller.dart';
-import '../../controller/location_controller.dart';
-import '../../controller/payment_controller.dart';
-import '../../controller/route_map_controller.dart';
-import '../../controller/start_up_controller.dart';
-import '../../model/location.dart';
+import '../../../Assistants/assistantMethods.dart';
+import '../../../Assistants/globals.dart';
+import '../../../Data/current_data.dart';
+import '../../../controller/lang_controller.dart';
+import '../../../controller/location_controller.dart';
+import '../../../controller/payment_controller.dart';
+import '../../../controller/route_map_controller.dart';
+import '../../../controller/start_up_controller.dart';
+import '../../../model/location.dart';
+import '../wallet/direct_payment.dart';
 import 'Home.dart';
-import 'direct_payment.dart';
-import 'profile/help_screen.dart';
-import 'profile/profile_screen.dart';
-import 'routes/all_routes_map.dart';
-import 'wallet/wallet_screen.dart';
+import '../profile/help_screen.dart';
+import '../profile/profile_screen.dart';
+import '../routes/all_routes_map.dart';
+import '../wallet/wallet_screen.dart';
 
 class  MainScreen extends StatefulWidget {
    int indexOfScreen = 0;

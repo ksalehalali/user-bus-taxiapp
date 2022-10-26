@@ -26,7 +26,7 @@ import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
 import '../../widgets/QRCodeScanner.dart';
-import '../destination_selection_screen.dart';
+import '../routes/destination_selection_screen.dart';
 import 'multi-route-details.dart';
 import 'one-route-details.dart';
 

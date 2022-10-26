@@ -6,12 +6,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Assistants/globals.dart';
-import '../../Data/current_data.dart';
-import '../../controller/location_controller.dart';
-import '../../controller/payment_controller.dart';
-import '../widgets/QRCodeScanner.dart';
-import '../widgets/headerDesgin.dart';
+import '../../../Assistants/encryption.dart';
+import '../../../Assistants/globals.dart';
+import '../../../controller/location_controller.dart';
+import '../../../controller/payment_controller.dart';
+import '../../widgets/QRCodeScanner.dart';
+import '../../widgets/headerDesgin.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DirectPayment extends StatefulWidget {
@@ -102,6 +103,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                               onPressed: ()async{
                               String balance = await checkWallet();
                               double balanceNum = double.parse(balance);
+
                               if(balanceNum >= 0.200) {
                                 paymentController.ticketPayed.value = false;
                                 scanQRCodeToPay(context,true);
@@ -135,7 +137,8 @@ class _DirectPaymentState extends State<DirectPayment> {
                               onPressed: ()async{
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
                                 String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-
+                                EncryptionData encrypt = EncryptionData();
+                                encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
                                 Get.dialog(Dialog(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
@@ -149,14 +152,14 @@ class _DirectPaymentState extends State<DirectPayment> {
                                     color: Colors.white,
                                     child: Center(
                                       child: QrImage(
-                                        data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                                        data: "{\"guidUser\":\"${prefs.getString('guidUser')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}",
                                         version: QrVersions.auto,
                                         size: 250.0.sp,
                                       ),
                                     ),
                                   )
                               ));
-                              print("{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}");
+                              print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
                             }, icon: Icon(Icons.qr_code),
                             label:Text(
                               "Pay via show QR code_txt".tr,

@@ -16,7 +16,7 @@ import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/dialogs.dart';
-import '../main_screen.dart';
+import '../home/main_screen.dart';
 import 'balance_calculator.dart';
 
 class WalletScreen extends StatefulWidget {

@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../view/screens/Auth/login.dart';
-import '../view/screens/main_screen.dart';
+import '../view/screens/home/main_screen.dart';
 
 
 class LoginController extends GetxController {
@@ -79,7 +79,6 @@ class LoginController extends GetxController {
     prefs.remove('token');
     prefs.remove('id');
     prefs.remove('phoneNumber');
-
     print("last token :: ${prefs.getString('lastToken')}");
     print("last phone number :: ${prefs.getString('lastPhone')}");
 
@@ -158,7 +157,7 @@ class LoginController extends GetxController {
           print("my new token is ::: ${jsonResponse["description"]['token']}");
           user.id = jsonResponse["description"]['id'];
           // TODO: store token in shared preferences then navigate to the following screen
-          storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"], jsonResponse["description"]["phoneNumber"]);
+          storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"], jsonResponse["description"]["phoneNumber"],jsonResponse["description"]["guidUser"]);
           user.accessToken = jsonResponse["description"]["token"];
 
 
@@ -240,7 +239,7 @@ class LoginController extends GetxController {
         print('==================================');
         user.id = jsonResponse["description"]['id'];
         // TODO: store token in shared preferences then navigate to the following screen
-        storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"],jsonResponse["description"]["phoneNumber"]);
+        storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"],jsonResponse["description"]["phoneNumber"],jsonResponse["description"]["guidUser"]);
         user.accessToken = jsonResponse["description"]["token"];
         user.name = jsonResponse["description"]["name"];
         user.phone =jsonResponse["description"]["phoneNumber"];
@@ -300,7 +299,7 @@ class LoginController extends GetxController {
 
   }
 
-  Future<void> storeUserLoginPreference(token, username, password, id,phone) async {
+  Future<void> storeUserLoginPreference(token, username, password, id,phone,userGuid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('token', token);
@@ -311,6 +310,8 @@ class LoginController extends GetxController {
     await prefs.setString('phoneNumber', phone);
     await prefs.setString('lastToken', token);
     await prefs.setString('lastPhone', phone);
+    await prefs.setString('guidUser', userGuid);
+
 
   }
 
