@@ -21,6 +21,11 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        foregroundColor: Colors.black87,
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16.0),
