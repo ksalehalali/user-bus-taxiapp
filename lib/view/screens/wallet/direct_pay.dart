@@ -11,16 +11,17 @@ import '../../../Assistants/globals.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/QRCodeScanner.dart';
+import '../../widgets/flutter_toast.dart';
 import '../../widgets/headerDesgin.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DirectPayment extends StatefulWidget {
+class DirectPay extends StatefulWidget {
   @override
-  State<DirectPayment> createState() => _DirectPaymentState();
+  State<DirectPay> createState() => _DirectPayState();
 }
 
-class _DirectPaymentState extends State<DirectPayment> {
+class _DirectPayState extends State<DirectPay> {
   final PaymentController paymentController = Get.find();
   final LocationController locationController = Get.find();
   final PaymentController walletController = Get.find();
@@ -109,14 +110,8 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 scanQRCodeToPay(context,true);
 
                               } else {
-                                Fluttertoast.showToast(
-                                    msg: "msg_0_balance".tr,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.white70,
-                                    textColor: Colors.black,
-                                    fontSize: 16.0.sp);
+
+                                showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white);
                               }
                             }, label: Text(
                               "Pay via scan QR code_txt".tr,
@@ -135,31 +130,40 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
                               ) ,
                               onPressed: ()async{
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-                                EncryptionData encrypt = EncryptionData();
-                                encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
-                                Get.dialog(Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      15.0,
-                                    ),
-                                  ),
-                                  elevation: 0,
-                                  backgroundColor: Colors.transparent,
-                                  child: Container(
-                                    height:360.h,
-                                    color: Colors.white,
-                                    child: Center(
-                                      child: QrImage(
-                                        data: "{\"guidUser\":\"${prefs.getString('guidUser')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}",
-                                        version: QrVersions.auto,
-                                        size: 250.0.sp,
+                                //String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+                                //EncryptionData encrypt = EncryptionData();
+                                //encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+                                String balance = await checkWallet();
+                                double balanceNum = double.parse(balance);
+                                String? code ;
+                                if(balanceNum>0.200){
+                                  code =await paymentController.getEncryptedCode();
+                                  Get.dialog(Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          15.0,
+                                        ),
                                       ),
-                                    ),
-                                  )
-                              ));
-                              print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+                                      elevation: 0,
+                                      backgroundColor: Colors.transparent,
+                                      child: Container(
+                                        height:360.h,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: QrImage(
+                                            data: "${code}",
+                                            version: QrVersions.auto,
+                                            size: 250.0.sp,
+                                          ),
+                                        ),
+                                      )
+                                  ));
+                                }else{
+                                  showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white);
+                                }
+
+
+                              //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
                             }, icon: Icon(Icons.qr_code),
                             label:Text(
                               "Pay via show QR code_txt".tr,

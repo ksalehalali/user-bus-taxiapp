@@ -16,7 +16,7 @@ import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
 import '../../../controller/start_up_controller.dart';
 import '../../../model/location.dart';
-import '../wallet/direct_payment.dart';
+import '../wallet/direct_pay.dart';
 import 'Home.dart';
 import '../profile/help_screen.dart';
 import '../profile/profile_screen.dart';
@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     Home(),
-    DirectPayment(),
+    DirectPay(),
     WalletScreen(),
     AllRoutesMap(),
     ProfileScreen(),

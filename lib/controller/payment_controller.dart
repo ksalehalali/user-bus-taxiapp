@@ -55,6 +55,35 @@ class PaymentController extends GetxController {
     return data['description'];
   }
 
+  Future getEncryptedCode()async{
+    var data;
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/QRCode'));
+    request.body = json.encode({
+      "Longitude": 11,
+      "Latitude": 12
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(await response.stream.bytesToString());
+      data = json['description'];
+
+      print('Encrypted code ====== $data');
+
+    } else {
+      print('payment code ====== ERROR');
+
+      print(response.reasonPhrase);
+    }
+    return data;
+  }
+
 
   Future pay(bool isDirect) async {
     var headers = {
