@@ -13,5 +13,5 @@ void showFlutterToast({required String message, required Color backgroundColor, 
       timeInSecForIosWeb: 1,
       backgroundColor: backgroundColor,
       textColor: textColor,
-      fontSize: 15.0.sp);
+      fontSize: 16.0.sp);
 }

@@ -147,13 +147,13 @@ class _DirectPayState extends State<DirectPay> {
                                       elevation: 0,
                                       backgroundColor: Colors.transparent,
                                       child: Container(
-                                        height:360.h,
+                                        height:380.h,
                                         color: Colors.white,
                                         child: Center(
                                           child: QrImage(
                                             data: "${code}",
                                             version: QrVersions.auto,
-                                            size: 250.0.sp,
+                                            size: 322.0.sp,
                                           ),
                                         ),
                                       )
