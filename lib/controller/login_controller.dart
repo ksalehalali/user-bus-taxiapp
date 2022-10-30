@@ -190,7 +190,7 @@ class LoginController extends GetxController {
   Future<void> makeAutoLoginRequest (username, password) async{
 
     final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(" 0000000000 FCM token: " + fcmToken!);
+    print(" 0000000000 FCM token1: " + fcmToken!);
 
     var head = {
       "Accept": "application/json",
@@ -218,6 +218,7 @@ class LoginController extends GetxController {
 
       throw TimeoutException('The connection has timed out, Please try again!');
     });
+    var jsonResponse = json.decode(response.body);
 
     if(response.statusCode == 500) {
       Fluttertoast.showToast(
@@ -232,11 +233,11 @@ class LoginController extends GetxController {
 
     }
     else if (response.statusCode == 200){
-      var jsonResponse = json.decode(response.body);
+
       print('user info ::==auto login==::: $jsonResponse');
 
       if(jsonResponse["status"]){
-        print('==================================');
+        print('===================true==================');
         user.id = jsonResponse["description"]['id'];
         // TODO: store token in shared preferences then navigate to the following screen
         storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"],jsonResponse["description"]["phoneNumber"],jsonResponse["description"]["guidUser"]);
@@ -244,8 +245,6 @@ class LoginController extends GetxController {
         user.name = jsonResponse["description"]["name"];
         user.phone =jsonResponse["description"]["phoneNumber"];
         print("new token  ${jsonResponse["description"]["token"]}");
-
-
 
         //call func to save installation
         //if(promoterId!="")saveInstallationForPromoters(promoterId);

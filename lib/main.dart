@@ -183,7 +183,7 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
         } else {
           startUpController.isConnected.value = true;
           user.isConnected = true;
-          startUpController.fetchUserLoginPreference();
+          //startUpController.fetchUserLoginPreference();
         }
       },
       );

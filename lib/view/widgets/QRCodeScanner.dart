@@ -25,16 +25,14 @@ Future<void> scanQRCodeToPay(BuildContext context,isDirectPay) async {
       paymentSaved.value = jsonData['value'];
       if(isDirectPay ==true){
 
-        // for(int i =0; i<200;i++){
-        //  Timer(5.milliseconds, ()async{
+
         var pay = await paymentController.pay(true);
         if (pay == true) {
           print(pay);
         } else {
           print(pay);
         }
-        // });
-        // }
+
       }else{
         var pay = await paymentController.pay(false);
         if (pay == true) {

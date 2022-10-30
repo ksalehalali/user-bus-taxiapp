@@ -33,8 +33,8 @@ class StartUpController extends GetxController {
   Future<void> fetchUserLoginPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? prefToken = prefs.getString('token');
-    String? prefUsername = prefs.getString('username');
+    String? prefToken = prefs.getString('lastToken');
+    String? prefUsername = prefs.getString('userName');
     String? prefPassword = prefs.getString('password');
 
     print("last token ::: ${prefToken}");
