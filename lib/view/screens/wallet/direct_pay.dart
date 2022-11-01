@@ -1,19 +1,14 @@
 import 'dart:async';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Assistants/encryption.dart';
 import '../../../Assistants/globals.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/QRCodeScanner.dart';
 import '../../widgets/flutter_toast.dart';
 import '../../widgets/headerDesgin.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DirectPay extends StatefulWidget {
