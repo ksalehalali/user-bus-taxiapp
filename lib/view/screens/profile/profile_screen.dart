@@ -231,6 +231,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
+                              'Packages'.tr,
+                              style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[800]),
+
+                            ),
+                          ),
+
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(()=> const HelpScreen());
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.subway_sharp,
+                                    size: 32.sp,
+                                    color: Colors.grey,
+                                  ),
+                                  SizedBox(
+                                    width: 8.0.w,
+                                  ),
+                                  Text(
+                                    'Add_Package'.tr,
+                                    style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
+
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios_outlined,
+                                    size: 22.sp,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
                               'get_support_btn'.tr,
                               style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[800]),
 
@@ -269,6 +311,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
+
 
                           // SizedBox(
                           //   height: 12,

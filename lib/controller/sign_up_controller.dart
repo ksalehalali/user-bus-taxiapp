@@ -7,6 +7,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:routes/view/screens/Auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Assistants/globals.dart';
@@ -261,7 +262,7 @@ class SignUpController extends GetxController {
 
           saveInstallationForPromoters(promoterId);
 
-          Get.to(()=>MainScreen(indexOfScreen: 0,));
+          Get.offAll(()=>Login());
         } else{
           Fluttertoast.showToast(
               msg: "${jsonResponse["description"]}",
