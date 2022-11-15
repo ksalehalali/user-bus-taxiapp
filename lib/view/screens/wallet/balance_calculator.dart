@@ -252,7 +252,7 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
             //go payment
             //showD(context);
             MyFatoorahCheckOut myFatoorh = MyFatoorahCheckOut();
-            myFatoorh.initiate(context, amount.toDouble()/1000, 0);
+            myFatoorh.initiate(context, amount.toDouble()/1000, 0,false,'');
 
             return;
           }else if(isSend==true&&isDelete==false && amount >= 100 ){

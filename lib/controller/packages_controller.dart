@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,13 +51,13 @@ class PackagesController extends GetxController {
     var data;
 
     var headers = {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiY29tcEtHTCIsIlJvbGUiOiJDb21wYW55IiwiZXhwIjoxNjY4MzM1ODQ0LCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.z61RGXbakb63Ny2mhhynbIvqVF-SHxm9UekmDNNd06A',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiY29tcEtHTCIsIlJvbGUiOiJDb21wYW55IiwiZXhwIjoxNjY4NTE1ODU0LCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.kM5Ly-OTfP5p5At_O-TKcVEERNn6OeO24ZdKDbKqTlI',
       'Content-Type': 'application/json'
     };
     var request = http.Request(
         'POST', Uri.parse('$baseURL/api/ListPackageByUserIdForCompany'));
     request.body = json.encode({
-      "userId": "b692c12c-c4ba-4cee-b092-ac3cb276dd38"
+      "userId": user.id,
     });
     request.headers.addAll(headers);
 
@@ -74,27 +76,37 @@ class PackagesController extends GetxController {
     }
 
 
-    Future<bool> addPackage(String id) async {
-      var headers = {
-        'Authorization': 'Bearer ${user.accessToken}',
-        'Content-Type': 'application/json'
-      };
-      var request = http.Request(
-          'POST', Uri.parse('$baseURL/api/AddPackageUser'));
-      request.body = json.encode({
-        "PackageID": id
-      });
-      request.headers.addAll(headers);
 
-      http.StreamedResponse response = await request.send();
+  }
+  Future<bool> addPackage({required String id, required String invoiceId , required bool isCard}) async {
+    var headers = {
+      'Authorization': 'Bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('$baseURL/api/AddPackageUser'));
+    request.body = json.encode({
+      "PackageID": id
+    });
+    request.headers.addAll(headers);
 
-      if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
-        return true;
-      }
-      else {
-        print(response.reasonPhrase);
-        return false;
-      }
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      Fluttertoast.showToast(msg: 'Packages added successfully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white70,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
+      return true;
     }
-  }}
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+  }
+}

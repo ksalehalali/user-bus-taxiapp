@@ -192,6 +192,7 @@ class PaymentController extends GetxController {
 print(invoiceId);
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
+      getMyWallet();
     } else {
       print('recharge field =--------..........');
       print(response.reasonPhrase);

@@ -7,14 +7,14 @@ import '../../../controller/packages_controller.dart';
 import '../../../controller/payment/my_fatoorh_checkout.dart';
 import '../../../helper/constants.dart';
 
-class PackagesScreen extends StatefulWidget {
-  const PackagesScreen({Key? key}) : super(key: key);
+class MyPackagesScreen extends StatefulWidget {
+  const MyPackagesScreen({Key? key}) : super(key: key);
 
   @override
-  State<PackagesScreen> createState() => _PackagesScreenState();
+  State<MyPackagesScreen> createState() => _MyPackagesScreenState();
 }
 
-class _PackagesScreenState extends State<PackagesScreen> {
+class _MyPackagesScreenState extends State<MyPackagesScreen> {
   final LangController langController = Get.find();
   final PackagesController packagesController =  Get.find();
 
@@ -72,7 +72,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: packagesController.allPackages.length,
+                    itemCount: packagesController.myPackages.length,
 
                     itemBuilder: (context,index)=>InkWell(
                       onTap: (){
@@ -102,8 +102,8 @@ class _PackagesScreenState extends State<PackagesScreen> {
                                     children: [
 
                                       SizedBox(
-                                        width: 220.0,
-                                        child: Text(  packagesController.allPackages[index]['name'],overflow:TextOverflow.ellipsis,maxLines: 1
+                                        width: screenSize.width *0.4 ,
+                                        child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
                                           ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                                       ),
                                       SizedBox(height: 8.0,),
@@ -112,12 +112,12 @@ class _PackagesScreenState extends State<PackagesScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              // langController.appLocal=="en"?
-                                              // Text("Expiry Date : ${DateFormat('yyyy-MM-dd  HH:mm :ss').format(packagesController.allPackages[index]['name'])}",style: TextStyle(color: Colors.black,),):
-                                           // Text("${DateFormat('yyyy-MM-dd  HH:mm :ss').format(packages[index]['expiryDate'])}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
+                                              langController.appLocal=="en"?
+                                              Text("Expiry Date : ${packagesController.myPackages[index]['expirationDate']}",style: TextStyle(color: Colors.black,),):
+                                              Text("${packages[index]['expirationDate']}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
                                               SizedBox(height: 12.0,),
-                                              langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
-                                              Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
+                                              // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
+                                              // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
 
                                             ],
                                           )
@@ -128,11 +128,13 @@ class _PackagesScreenState extends State<PackagesScreen> {
                                   Spacer(),
                                   //Text('Route : ${trips.trips[index]['rout']}'),
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+
                                     children: [
                                       RichText(text: TextSpan(
                                           children: [
-                                            TextSpan(text: 'Routes : _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                            TextSpan(text: "all",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black)),
+                                            TextSpan(text: 'Activation Date '.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
+                                            TextSpan(text: "${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
 
                                           ]
                                       )),
@@ -140,7 +142,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
                                       RichText(text: TextSpan(
                                           children: [
-                                          TextSpan(text: 'Unlimited Pass',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
+                                            TextSpan(text: 'Rema',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
 
                                           ]
                                       )),
@@ -178,7 +180,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
           body: Center(
             child: Container(
               height:
-                  MediaQuery.of(context).size.height *0.4-20,
+              MediaQuery.of(context).size.height *0.4-20,
               width:  MediaQuery.of(context).size.width *0.9,
               decoration: BoxDecoration(
                   color: Colors.white,

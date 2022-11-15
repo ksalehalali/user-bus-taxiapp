@@ -105,7 +105,7 @@ Future<void> showD(context) async {
                                         value = 1;
                                         print(value);
 
-                                        myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),1);
+                                        //myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),1,false);
 
                                       });
                                     },
@@ -138,7 +138,7 @@ Future<void> showD(context) async {
                                       color: Colors.grey.shade300),
                                   child: InkWell(
                                     onTap: () {
-                                      myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),2);
+                                      //myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),2,false);
 
                                       // Navigator.of(context).push(
                                       //     MaterialPageRoute(
@@ -174,7 +174,7 @@ Future<void> showD(context) async {
                                     onTap: () {
                                         value = 1;
                                         print(value);
-                                        myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),2);
+                                        //myFatoorh.initiate(context, chargeSaved.invoiceValue!.toDouble(),2,false);
 
                                     },
                                     child: Padding(

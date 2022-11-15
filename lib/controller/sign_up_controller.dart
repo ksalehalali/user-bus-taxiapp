@@ -259,7 +259,15 @@ class SignUpController extends GetxController {
         if(jsonResponse["status"]){
           Navigator.pop(context, 'OK');
           //add the installation to promoter
-
+          Fluttertoast.showToast(
+              msg: "Everything done!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.white70,
+              textColor: Colors.black,
+              fontSize: 16.0
+          );
           saveInstallationForPromoters(promoterId);
 
           Get.offAll(()=>Login());

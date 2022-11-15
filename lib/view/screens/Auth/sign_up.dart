@@ -142,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                                 child:  Obx(() => IconButton(
                                   color: Colors.white,
                                   onPressed: () async{
-
+                                   validatePassword(signUpController.passwordController.text);
                                   },
                                   icon: !signUpController.isSignUpLoading.value ?
                                   Icon(Icons.arrow_forward,
@@ -215,11 +215,12 @@ class _SignUpState extends State<SignUp> {
         padding: const EdgeInsets.only(bottom: 12.0),
         child: const Text('Wrong Password'),
       ),
-      content:  Text('Password must contain :\n > A uppercase character\n > A lowercase character\n > A number\n > A special character\n > Minimum 8 characters ',textAlign: TextAlign.left ,style: TextStyle()),
+      content:  Text('Password must contain :\n > A uppercase character\n > A lowercase character\n > A number\n > A special character( ! @ # \$ & * ~ )\n > Minimum 8 characters ',textAlign: TextAlign.left ,style: TextStyle()),
       actions: <Widget>[
         TextButton(
           onPressed: () async {
             Navigator.pop(context, 'Cancel');
+
           },
           child: const Text('OK'),
         ),

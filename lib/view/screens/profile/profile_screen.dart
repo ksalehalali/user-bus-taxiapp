@@ -9,11 +9,13 @@ import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/login_controller.dart';
+import '../../../controller/packages_controller.dart';
 import '../../../controller/personal_information_controller.dart';
 import '../../../controller/sign_up_controller.dart';
 import '../../../controller/start_up_controller.dart';
 import '../../widgets/headerDesgin.dart';
 import '../Auth/login.dart';
+import '../packages/my_packages_screen.dart';
 import '../packages/packages_screen.dart';
 import 'help_screen.dart';
 import 'your_activities_screen.dart';
@@ -241,13 +243,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
                             child: InkWell(
                               onTap: () {
-                                Get.to(()=> const HelpScreen());
+                                Get.to(()=>PackagesScreen());
+
                               },
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    Icons.subway_sharp,
+                                    Icons.add_circle_outline,
                                     size: 32.sp,
                                     color: Colors.grey,
                                   ),
@@ -255,7 +258,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     width: 8.0.w,
                                   ),
                                   Text(
-                                    'Add_Package'.tr,
+                                    'Add Package'.tr,
+                                    style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
+
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios_outlined,
+                                    size: 22.sp,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(()=>MyPackagesScreen());
+
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.view_list,
+                                    size: 32.sp,
+                                    color: Colors.grey,
+                                  ),
+                                  SizedBox(
+                                    width: 8.0.w,
+                                  ),
+                                  Text(
+                                    'My Packages'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
 
                                   ),
@@ -526,7 +563,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     onTap: ()async{
                                       // final genDynUrl=await FirebaseDynamicLinkService.createDynamicLink(false,'a1');
                                       // print(genDynUrl);
-                                      Get.to(()=>PackagesScreen());
                                     },
                                     child:Text('terms_conditions_btn'.tr,style: TextStyle(fontSize: 15.sp,color: Colors.green[700]),),
                                   ),
