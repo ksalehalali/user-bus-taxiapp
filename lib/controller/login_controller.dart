@@ -77,6 +77,7 @@ class LoginController extends GetxController {
 
 
     prefs.remove('token');
+    prefs.remove('lastToken');
     prefs.remove('id');
     prefs.remove('phoneNumber');
     print("last token :: ${prefs.getString('lastToken')}");

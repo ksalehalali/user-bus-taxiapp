@@ -16,8 +16,12 @@ class MyPackagesScreen extends StatefulWidget {
 
 class _MyPackagesScreenState extends State<MyPackagesScreen> {
   final LangController langController = Get.find();
-  final PackagesController packagesController =  Get.find();
-
+  final PackagesController packagesController =  Get.find();@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    packagesController.getMyPackages();
+  }
   @override
   Widget build(BuildContext context) {
     var screenSize =MediaQuery.of(context).size;
@@ -52,11 +56,12 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
               Column(
                 children: [
                   Center(
-                    child: Text('Bus Pass_txt'.tr,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+                    child: Text('Packages_txt'.tr,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                   ),
+                  SizedBox(height:4),
                   Container(
                     height: 2,
-                    width: screenSize.width /5,
+                    width: screenSize.width /4,
                     decoration: BoxDecoration(
                       color: Colors.grey[400],
 
@@ -69,102 +74,103 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
 
               Container(
                 height: screenSize.height-screenSize.height *0.2-20,
-                child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: packagesController.myPackages.length,
+                child: Obx(()=> ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: packagesController.myPackages.length,
 
-                    itemBuilder: (context,index)=>InkWell(
-                      onTap: (){
-                        buyPackageDialog(context,index);
+                      itemBuilder: (context,index)=>InkWell(
+                        onTap: (){
+                          buyPackageDialog(context,index);
 
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
 
-                            Container(
-                              child: Row(
-                                children: [
-                                  Container(padding: EdgeInsets.zero,
-                                    height: screenSize.height *0.1,
-                                    width: 3 ,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[400],
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Container(padding: EdgeInsets.zero,
+                                      height: screenSize.height *0.1,
+                                      width: 3 ,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[400],
 
-                                    ),
-                                  ),
-                                  SizedBox(width: 14,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-
-                                      SizedBox(
-                                        width: screenSize.width *0.4 ,
-                                        child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
-                                          ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
                                       ),
-                                      SizedBox(height: 8.0,),
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                    ),
+                                    SizedBox(width: 14,),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+
+                                        SizedBox(
+                                          width: screenSize.width *0.4 ,
+                                          child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
+                                            ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+                                        ),
+                                        SizedBox(height: 8.0,),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                langController.appLocal=="en"?
+                                                Text("Expiry Date : ${packagesController.myPackages[index]['expirationDate']}",style: TextStyle(color: Colors.black,),):
+                                                Text("${packages[index]['expirationDate']}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
+                                                SizedBox(height: 12.0,),
+                                                // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
+                                                // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
+
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    //Text('Route : ${trips.trips[index]['rout']}'),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                                      children: [
+                                        RichText(text: TextSpan(
                                             children: [
-                                              langController.appLocal=="en"?
-                                              Text("Expiry Date : ${packagesController.myPackages[index]['expirationDate']}",style: TextStyle(color: Colors.black,),):
-                                              Text("${packages[index]['expirationDate']}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
-                                              SizedBox(height: 12.0,),
-                                              // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
-                                              // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
+                                              TextSpan(text: 'Activation Date '.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
+                                              TextSpan(text: "${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
 
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  //Text('Route : ${trips.trips[index]['rout']}'),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                            ]
+                                        )),
+                                        const SizedBox(height: 8,),
 
-                                    children: [
-                                      RichText(text: TextSpan(
-                                          children: [
-                                            TextSpan(text: 'Activation Date '.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                            TextSpan(text: "${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
+                                        RichText(text: TextSpan(
+                                            children: [
+                                              TextSpan(text: 'Remaining Days: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
 
-                                          ]
-                                      )),
-                                      const SizedBox(height: 8,),
-
-                                      RichText(text: TextSpan(
-                                          children: [
-                                            TextSpan(text: 'Rema',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
-
-                                          ]
-                                      )),
-                                    ],
-                                  )
-                                ],
+                                            ]
+                                        )),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8,),
-                            Container(
-                              height: 2,
-                              width: screenSize.width ,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
+                              const SizedBox(height: 8,),
+                              Container(
+                                height: 2,
+                                width: screenSize.width ,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[400],
 
+                                ),
                               ),
-                            ),
 
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    )),
+                      )),
+                ),
               ),
             ],
           ),

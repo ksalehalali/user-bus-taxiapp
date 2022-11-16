@@ -255,8 +255,10 @@ Map<String,String> en ={
 
   "Close_txt":"Close",
   "The amount has been transferred_txt":"The amount has been transferred",
-  "The amount has not been transferred_txt":"The amount has not been transferred"
+  "The amount has not been transferred_txt":"The amount has not been transferred",
+  //-
 
+  "Packages_txt":"Packages"
 
 
 

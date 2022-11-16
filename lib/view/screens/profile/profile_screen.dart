@@ -277,6 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
                             child: InkWell(
                               onTap: () {
+
                                 Get.to(()=>MyPackagesScreen());
 
                               },

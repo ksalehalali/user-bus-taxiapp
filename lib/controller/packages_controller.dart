@@ -51,7 +51,7 @@ class PackagesController extends GetxController {
     var data;
 
     var headers = {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiY29tcEtHTCIsIlJvbGUiOiJDb21wYW55IiwiZXhwIjoxNjY4NTE1ODU0LCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.kM5Ly-OTfP5p5At_O-TKcVEERNn6OeO24ZdKDbKqTlI',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiY29tcEtHTCIsIlJvbGUiOiJDb21wYW55IiwiZXhwIjoxNjY4NTkxNDA3LCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.N__bvp9qmR9HfdQ0LbXeP-YIq1r2VaM95R2fYdX6VHY',
       'Content-Type': 'application/json'
     };
     var request = http.Request(
@@ -102,6 +102,7 @@ class PackagesController extends GetxController {
           textColor: Colors.black,
           fontSize: 16.0
       );
+
       return true;
     }
     else {
