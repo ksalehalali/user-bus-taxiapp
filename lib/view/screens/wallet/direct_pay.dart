@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Assistants/encryption.dart';
 import '../../../Assistants/globals.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
@@ -130,6 +128,8 @@ class _DirectPayState extends State<DirectPay> {
                                 padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
                               ) ,
                               onPressed: ()async{
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
                                 //String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
                                 //EncryptionData encrypt = EncryptionData();
                                 //encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
@@ -151,7 +151,7 @@ class _DirectPayState extends State<DirectPay> {
                                         color: Colors.white,
                                         child: Center(
                                           child: QrImage(
-                                            data: "${code}",
+                                            data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
                                             version: QrVersions.auto,
                                             size: 322.0.sp,
                                           ),

@@ -12,6 +12,7 @@ import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/location_controller.dart';
+import '../../../controller/packages_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
 import '../../../controller/start_up_controller.dart';
@@ -57,6 +58,8 @@ class _MainScreenState extends State<MainScreen> {
 
   void autoLang()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    final packagesController =
+    Get.putAsync(() async => PackagesController(), permanent: true);
 
     var lang = await prefs.getString('lang');
     print("lang ====== lang === $lang");
@@ -94,8 +97,6 @@ class _MainScreenState extends State<MainScreen> {
     });
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    user.accessToken = prefs.get('token').toString() ;
-
     geo.Position position = await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.high);
     print("--------------------position $position");
 

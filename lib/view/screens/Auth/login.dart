@@ -165,9 +165,7 @@ class _LoginState extends State<Login> {
                                   // TODO: login API
                                  bool connected = await loginController.isConnected();
                                  if (connected) {
-                                   loginController.isLoginLoading.value = true;
-                                   await loginController.makeLoginRequest();
-                                   loginController.isLoginLoading.value = false;
+                                  validatePassword(loginController.passwordController.text);
                                  }else{
                                    _showDialogBoxNoneConnection();
                                  }
@@ -300,11 +298,45 @@ class _LoginState extends State<Login> {
     ),
   );
 
+  _showDialogBoxWrongPassword() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: const Text('Wrong Password'),
+      ),
+      content:  Text('Password must contain :\n > A uppercase character\n > A lowercase character\n > A number\n > A special character\n > Minimum 8 characters ',textAlign: TextAlign.left ,style: TextStyle()),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+
+  void validatePassword(String value)async {
+    RegExp regex =
+    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    if (value.isEmpty) {
+      _showDialogBoxWrongPassword();
+    } else {
+      if (!regex.hasMatch(value)) {
+        _showDialogBoxWrongPassword();
+      } else {
+        loginController.isLoginLoading.value = true;
+        await loginController.makeLoginRequest();
+      }
+    }
+  }
+
   Future createQRCodeToPay()async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-    int code = Random().nextInt(999999);
 
     print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}");
 
