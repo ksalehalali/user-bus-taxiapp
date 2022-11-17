@@ -97,8 +97,6 @@ class _MainScreenState extends State<MainScreen> {
     });
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    user.accessToken = prefs.get('token').toString() ;
-
     geo.Position position = await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.high);
     print("--------------------position $position");
 

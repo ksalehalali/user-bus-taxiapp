@@ -240,6 +240,7 @@ print(invoiceId);
 
   //get my wallet
   Future getMyWallet() async {
+    myBalance.value ="0.000";
     var headers = {
       'Authorization':
           'bearer ${user.accessToken}'

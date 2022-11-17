@@ -337,7 +337,6 @@ class _LoginState extends State<Login> {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-    int code = Random().nextInt(999999);
 
     print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\"}");
 

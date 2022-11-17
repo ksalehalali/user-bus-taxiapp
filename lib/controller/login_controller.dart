@@ -64,6 +64,7 @@ class LoginController extends GetxController {
       print('none.......');
       connected = false;
       user.isConnected = false;
+      isLoginLoading.value =false;
 
     }
     return connected;
@@ -75,13 +76,12 @@ class LoginController extends GetxController {
     await prefs.setString('lastToken', prefs.getString('token')!);
     await prefs.setString('lastPhone', prefs.getString('phoneNumber')!);
 
-
+    isLoginLoading.value =false;
+    user.accessToken='';
     prefs.remove('token');
     prefs.remove('lastToken');
     prefs.remove('id');
     prefs.remove('phoneNumber');
-    print("last token :: ${prefs.getString('lastToken')}");
-    print("last phone number :: ${prefs.getString('lastPhone')}");
 
     Get.offAll(()=>Login());
   }
@@ -117,6 +117,8 @@ class LoginController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      isLoginLoading.value = false;
+
     } else {
       var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
         {
@@ -135,6 +137,7 @@ class LoginController extends GetxController {
             textColor: Colors.black,
             fontSize: 16.0
         );
+        isLoginLoading.value = false;
         Get.offAll(()=>Login());
         throw TimeoutException('The connection has timed out, Please try again!');
       });
@@ -148,6 +151,8 @@ class LoginController extends GetxController {
             backgroundColor: Colors.white70,
             textColor: Colors.black,
             fontSize: 16.0);
+        isLoginLoading.value = false;
+
       }
       else if (response.statusCode == 200){
         var jsonResponse = json.decode(response.body);
@@ -160,8 +165,6 @@ class LoginController extends GetxController {
           // TODO: store token in shared preferences then navigate to the following screen
           storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"], jsonResponse["description"]["phoneNumber"],jsonResponse["description"]["guidUser"]);
           user.accessToken = jsonResponse["description"]["token"];
-
-
           Get.offAll(MainScreen(indexOfScreen: 0,));
           phoneNum.value = "";
 
@@ -177,6 +180,8 @@ class LoginController extends GetxController {
               textColor: Colors.black,
               fontSize: 16.0);
         }
+        isLoginLoading.value = false;
+
       }
     }
     loginIcon.value = Container(
@@ -215,6 +220,8 @@ class LoginController extends GetxController {
           textColor: Colors.black,
           fontSize: 16.0
       );
+      isLoginLoading.value = false;
+
       Get.offAll(()=>Login());
 
       throw TimeoutException('The connection has timed out, Please try again!');
@@ -230,6 +237,8 @@ class LoginController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      isLoginLoading.value = false;
+
       Get.to(()=>Login());
 
     }
@@ -317,8 +326,6 @@ class LoginController extends GetxController {
 
   Future<void> getUserLoginPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    user.accessToken =await prefs.getString('token');
     user.name =await prefs.getString('username');
     user.id =  await prefs.getString('id');
     user.phone =  await prefs.getString('phoneNumber');

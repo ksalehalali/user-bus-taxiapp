@@ -107,6 +107,14 @@ class PackagesController extends GetxController {
     }
     else {
       print(response.reasonPhrase);
+      Fluttertoast.showToast(msg: 'Something went wrong!!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white70,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
       return false;
     }
   }
