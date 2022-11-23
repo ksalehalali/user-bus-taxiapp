@@ -42,7 +42,11 @@ class MyFatoorahCheckOut {
     print(response.url);
     if(!response.isSuccess){
     if(isPackage ==false){
-      walletController.recharge(invoiceId:response.paymentId!,invoiceValue: amount,paymentGateway:'visa/mastercard',  );
+      walletController.recharge(
+          invoiceId: response.paymentId!,
+          invoiceValue: amount,
+          paymentGateway: 'visa/mastercard',
+        );
 
       print("booody :: ${response}");
       chargeSaved.invoiceId = response.paymentId;
@@ -50,7 +54,7 @@ class MyFatoorahCheckOut {
 
       Get.offAll(MainScreen(indexOfScreen: 2,));
     }else{
-      packagesController.addPackage(invoiceId: response.paymentId!,id:packageId,isCard: true );
+      packagesController.addPackage(value:amount,invoiceId: response.paymentId!,id:packageId,isCard: true );
     }
     }else{
       print('recharge field');

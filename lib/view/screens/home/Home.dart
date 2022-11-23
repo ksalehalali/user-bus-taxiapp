@@ -100,7 +100,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 GoogleMap(
                   initialCameraPosition: cameraPosition,
                   mapToolbarEnabled: true,
-                  padding: EdgeInsets.only(top: 100.h, bottom: 160.h),
+                  padding: EdgeInsets.only(top: screenSize.height*0.1.h, bottom: screenSize.height*0.2-20.h,),
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   onMapCreated: (GoogleMapController controller) {
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   },
                 ),
                 Positioned(
-                  top: screenSize.height.h * 0.7 - 68.h,
+                  top:screenSize.height >880? screenSize.height.h * 0.6-10.h:screenSize.height.h * 0.7 - 68.h,
                   width: screenSize.width,
                   child: Container(
                     decoration: BoxDecoration(

@@ -118,8 +118,8 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 langController.appLocal=="en"?
-                                                Text("Expiry Date : ${packagesController.myPackages[index]['expirationDate']}",style: TextStyle(color: Colors.black,),):
-                                                Text("${packages[index]['expirationDate']}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
+                                                Text("Expiry Date : ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),):
+                                                Text("تاريخ الانتهاء: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),),
                                                 SizedBox(height: 12.0,),
                                                 // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
                                                 // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
@@ -138,8 +138,8 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                       children: [
                                         RichText(text: TextSpan(
                                             children: [
-                                              TextSpan(text: 'Activation Date '.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                              TextSpan(text: "${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
+                                              TextSpan(text: 'Activation Date: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
+                                              TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
 
                                             ]
                                         )),
@@ -147,7 +147,8 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
 
                                         RichText(text: TextSpan(
                                             children: [
-                                              TextSpan(text: 'Remaining Days: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
+                                              TextSpan(text: 'Remaining : _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
+                                              TextSpan(text: ' ${packagesController.myPackages[index]['duration']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
 
                                             ]
                                         )),

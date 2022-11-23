@@ -51,11 +51,11 @@ class PackagesController extends GetxController {
     var data;
 
     var headers = {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiY29tcEtHTCIsIlJvbGUiOiJDb21wYW55IiwiZXhwIjoxNjY4NTkxNDA3LCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.N__bvp9qmR9HfdQ0LbXeP-YIq1r2VaM95R2fYdX6VHY',
+      'Authorization': 'Bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
     var request = http.Request(
-        'POST', Uri.parse('$baseURL/api/ListPackageByUserIdForCompany'));
+        'POST', Uri.parse('$baseURL/api/ListMyPackages'));
     request.body = json.encode({
       "userId": user.id,
     });
@@ -78,22 +78,39 @@ class PackagesController extends GetxController {
 
 
   }
-  Future<bool> addPackage({required String id, required String invoiceId , required bool isCard}) async {
+  Future<bool> addPackage({required double value, required String id, required String invoiceId , required bool isCard}) async {
+    print("is card  $isCard");
+    print("package $id");
+    print("package invoice id $invoiceId");
+    print("package price $value");
     var headers = {
       'Authorization': 'Bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
     var request = http.Request(
         'POST', Uri.parse('$baseURL/api/AddPackageUser'));
-    request.body = json.encode({
-      "PackageID": id
-    });
+if(isCard){
+  request.body = json.encode({
+    "PackageID": id,
+    "invoiceId":invoiceId,
+    "paymentGateway":"Visa/Mastercard",
+    "invoiceValue":value
+
+  });
+}else{
+  request.body = json.encode({
+    "PackageID": id,
+    "invoiceValue":value
+
+  });
+}
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
+    var jsonR = jsonDecode(await response.stream.bytesToString());
 
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+    print('package res $jsonR');
+    if (jsonR['status']==true) {
       Fluttertoast.showToast(msg: 'Packages added successfully',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -102,7 +119,6 @@ class PackagesController extends GetxController {
           textColor: Colors.black,
           fontSize: 16.0
       );
-
       return true;
     }
     else {

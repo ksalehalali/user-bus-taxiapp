@@ -233,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Packages'.tr,
+                              'Packages_txt'.tr,
                               style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[800]),
 
                             ),
@@ -258,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     width: 8.0.w,
                                   ),
                                   Text(
-                                    'Add Package'.tr,
+                                    'Add Package_txt'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
 
                                   ),
@@ -293,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     width: 8.0.w,
                                   ),
                                   Text(
-                                    'My Packages'.tr,
+                                    'My Packages_txt'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,color: Colors.grey[600]),
 
                                   ),

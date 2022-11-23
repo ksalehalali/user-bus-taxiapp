@@ -99,7 +99,7 @@ Map<String,String> ar ={
   //-
 
   "Unlimited travel on all routes_txt":"رحلات غير محدودة في كل الخطوط",
-  "Bus Pass_txt":"البطاقات",
+  "Bus Pass_txt":"الباقات",
   "BUY NOW_txtBtn":"اشتر الان",
   "Expiry Date : ":"تاريخ الانتهاء : ",
   "Price : ":"السعر :",
@@ -123,7 +123,19 @@ Map<String,String> ar ={
 
   "Close_txt":"اغلاق",
   "The amount has been transferred_txt":"تم تحويل المبلغ",
-  "The amount has not been transferred_txt":"لم يتم تحويل المبلغ"
+  "The amount has not been transferred_txt":"لم يتم تحويل المبلغ",
+  //-
+
+  "Packages_txt":"الباقات",
+  "Add Package_txt":"إضافة باقة",
+  "Unlimited Pass_txt":"تذاكر غير محدودة",
+  "BUY WITH WALLET_btn":"ادفع من المحفظة",
+  "BUY WITH CARD_btn":"ادفع ببطاقة الدفع",
+  "Cancel_btn":"إلغاء",
+  "My Packages_txt":"باقاتي",
+  "Activation Date: _txt":"تاريخ التفعيل:",
+  "Remaining : _txt":"تبقى:"
+
 
 
 };
@@ -258,7 +270,17 @@ Map<String,String> en ={
   "The amount has not been transferred_txt":"The amount has not been transferred",
   //-
 
-  "Packages_txt":"Packages"
+  "Packages_txt":"Packages",
+"Add Package_txt":"Add Package",
+"Unlimited Pass_txt":"Unlimited Pass",
+  "BUY WITH WALLET_btn":"BUY WITH WALLET",
+  "BUY WITH CARD_btn":"BUY WITH CARD",
+  "Cancel_btn":"Cancel",
+  "My Packages_txt":"My packages",
+  "Activation Date: _txt":"Activation Date: ",
+  "Remaining : _txt":"Remaining"
+
+
 
 
 
