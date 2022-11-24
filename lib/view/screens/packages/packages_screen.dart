@@ -54,7 +54,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
                 ],
               ),
-               SizedBox(height:screenSize.height *0.1-74),
+               SizedBox(height:screenSize.height *0.1-76),
               Column(
                 children: [
                   Center(
@@ -71,10 +71,10 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
                 ],
               ),
-              SizedBox(height: screenSize.height *0.1-60,),
+              SizedBox(height: screenSize.height *0.1-70,),
 
               Container(
-                height: screenSize.height-screenSize.height *0.2-5,
+                height: screenSize.height-screenSize.height *0.2-15,
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -82,7 +82,6 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
                     itemBuilder: (context,index)=>InkWell(
                       onTap: (){
-                        buyPackageDialog(context,index);
 
                       },
                       child: Padding(
@@ -123,7 +122,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                                            // Text("${DateFormat('yyyy-MM-dd  HH:mm :ss').format(packages[index]['expiryDate'])}تاريخ الانتهاء: ",style: TextStyle(color: Colors.black,),),
                                               SizedBox(height: 12.0,),
                                               langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
-                                              Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
+                                              Text("السعر :  ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),),
 
                                             ],
                                           )
@@ -146,7 +145,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
 
                                       RichText(text: TextSpan(
                                           children: [
-                                          TextSpan(text: 'Unlimited Pass',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
+                                          TextSpan(text: 'Unlimited Pass_txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
 
                                           ]
                                       )),
@@ -161,14 +160,14 @@ class _PackagesScreenState extends State<PackagesScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ElevatedButton(onPressed:(){
-                                  confirmBuyPackage(context,packagesController.allPackages[index]['id']);
+                                  confirmBuyPackage(context,packagesController.allPackages[index]['id'],double.parse(packagesController.allPackages[index]['price'].toString()),packagesController.allPackages[index]['name']);
                                 },
                                   style: ButtonStyle(
                                     backgroundColor:MaterialStateProperty.all(Colors.white),
                                     foregroundColor: MaterialStateProperty.all(routes_color),
                                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 6,horizontal: 12)),
                                   ) ,
-                                  child:Text('BUY WITH WALLET'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+                                  child:Text('BUY WITH WALLET_btn'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
                                     ,style: TextStyle(color: routes_color,fontSize: 14,fontWeight: FontWeight.bold),), ),
 
                                 ElevatedButton(onPressed:(){
@@ -180,7 +179,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                                     foregroundColor: MaterialStateProperty.all(routes_color),
                                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 6,horizontal: 12)),
                                   ) ,
-                                  child:Text('BUY WITH CARD'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+                                  child:Text('BUY WITH CARD_btn'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
                                     ,style: TextStyle(color: routes_color,fontSize: 14,fontWeight: FontWeight.bold),), ),
                               ],
                             ),
@@ -206,86 +205,86 @@ class _PackagesScreenState extends State<PackagesScreen> {
     );
   }
 
-  void buyPackageDialog(BuildContext context,int index) {
-    Get.dialog(
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Container(
-              height:
-                  MediaQuery.of(context).size.height *0.4-20,
-              width:  MediaQuery.of(context).size.width *0.9,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              child: Center(child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                        onTap: (){
+  // void buyPackageDialog(BuildContext context,int index, double value) {
+  //   Get.dialog(
+  //       Scaffold(
+  //         backgroundColor: Colors.transparent,
+  //         body: Center(
+  //           child: Container(
+  //             height:
+  //                 MediaQuery.of(context).size.height *0.4-20,
+  //             width:  MediaQuery.of(context).size.width *0.9,
+  //             decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 borderRadius: BorderRadius.circular(10)
+  //             ),
+  //             child: Center(child: Column(
+  //               children: [
+  //                 Align(
+  //                   alignment: Alignment.topRight,
+  //                   child: InkWell(
+  //                       onTap: (){
+  //
+  //                         Navigator.of(context).pop();
+  //                       },
+  //                       child: Icon(Icons.close_sharp,size: 37,color: Colors.redAccent,)),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.all(8.0),
+  //                   child: Text(  packagesController.allPackages[index]['name'],overflow:TextOverflow.ellipsis,maxLines: 1
+  //                     ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+  //                 ),
+  //                 SizedBox(height: 18.0,),
+  //
+  //                 Text('Unlimited travel on all routes_txt'.tr),
+  //                 const SizedBox(height: 118.0,),
+  //
+  //                 Row(
+  //                   crossAxisAlignment: CrossAxisAlignment.center,
+  //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                   children: [
+  //                     ElevatedButton(onPressed:(){
+  //                       confirmBuyPackage(context,packagesController.allPackages[index]['id'],value,packagesController.allPackages[index]['name']);
+  //                     },
+  //                       style: ButtonStyle(
+  //                         backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
+  //                         foregroundColor: MaterialStateProperty.all(routes_color),
+  //                         padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
+  //                       ) ,
+  //                       child:Text('BUY WITH WALLET'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+  //                         ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
+  //
+  //                     ElevatedButton(onPressed:(){
+  //                       MyFatoorahCheckOut myFatoorh = MyFatoorahCheckOut();
+  //                       myFatoorh.initiate(context,double.parse(packagesController.allPackages[index]['price'].toString()) , 0,true,packagesController.allPackages[index]['id'].toString());
+  //                     },
+  //                       style: ButtonStyle(
+  //                         backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
+  //                         foregroundColor: MaterialStateProperty.all(routes_color),
+  //                         padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
+  //                       ) ,
+  //                       child:Text('BUY WITH CARD'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+  //                         ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
+  //                   ],
+  //                 ),
+  //
+  //
+  //
+  //               ],
+  //             )),
+  //           ),
+  //         ),
+  //       )
+  //   );
+  // }
 
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(Icons.close_sharp,size: 37,color: Colors.redAccent,)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(  packagesController.allPackages[index]['name'],overflow:TextOverflow.ellipsis,maxLines: 1
-                      ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
-                  ),
-                  SizedBox(height: 18.0,),
-
-                  Text('Unlimited travel on all routes_txt'.tr),
-                  const SizedBox(height: 118.0,),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(onPressed:(){
-                        confirmBuyPackage(context,packagesController.allPackages[index]['id']);
-                      },
-                        style: ButtonStyle(
-                          backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
-                          foregroundColor: MaterialStateProperty.all(routes_color),
-                          padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
-                        ) ,
-                        child:Text('BUY WITH WALLET'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
-                          ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
-
-                      ElevatedButton(onPressed:(){
-                        MyFatoorahCheckOut myFatoorh = MyFatoorahCheckOut();
-                        myFatoorh.initiate(context,double.parse(packagesController.allPackages[index]['price'].toString()) , 0,true,packagesController.allPackages[index]['id'].toString());
-                      },
-                        style: ButtonStyle(
-                          backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
-                          foregroundColor: MaterialStateProperty.all(routes_color),
-                          padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
-                        ) ,
-                        child:Text('BUY WITH CARD'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
-                          ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
-                    ],
-                  ),
-
-
-
-                ],
-              )),
-            ),
-          ),
-        )
-    );
-  }
-
-  void confirmBuyPackage(BuildContext context,String packageId) {
+  void confirmBuyPackage(BuildContext context,String packageId ,double value,String packageName) {
     Get.dialog(Scaffold(
       backgroundColor: Colors.transparent,
 
       body: Center(child: Container(
           height:
-          MediaQuery.of(context).size.height *0.2-50,
+          MediaQuery.of(context).size.height *0.2-60,
           width:  MediaQuery.of(context).size.width *0.6,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -293,27 +292,43 @@ class _PackagesScreenState extends State<PackagesScreen> {
           ),
         child:Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                    onTap: (){
-                      Get.back();
+              SizedBox(height: 10,),
+              Text('Buy $packageName package for ${value.toStringAsFixed(2)} KD',style: TextStyle(fontSize: 14)),
+              SizedBox(height: 10,),
 
-                    },
-                    child: Icon(Icons.close_sharp,size: 37,color: Colors.redAccent,)),
-              ),
-              ElevatedButton(onPressed:()async{
-                await packagesController.addPackage(id: packageId, invoiceId: '', isCard: false);
 
-              },
-                style: ButtonStyle(
-                  backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
-                  foregroundColor: MaterialStateProperty.all(routes_color),
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 6,horizontal: 12)),
-                ) ,
-                child:Text('Confirm'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
-                  ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), )
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(onPressed:()async{
+                   var addPackage = await packagesController.addPackage(value:value,id: packageId, invoiceId: '', isCard: false);
+                    if(addPackage)Get.back();
+
+                  },
+                    style: ButtonStyle(
+                      backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
+                      foregroundColor: MaterialStateProperty.all(routes_color),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 6,horizontal: 12)),
+                    ) ,
+                    child:Text('Confirm_txt'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+                      ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
+                ElevatedButton(onPressed:()async{
+                  Get.back();
+                },
+                  style: ButtonStyle(
+                    backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
+                    foregroundColor: MaterialStateProperty.all(routes_color),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 6,horizontal: 12)),
+                  ) ,
+                  child:Text('Cancel_btn'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
+                    ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
+              ],
+            )
+
+
             ]
           ),
         )
