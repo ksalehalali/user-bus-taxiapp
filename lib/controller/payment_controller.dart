@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
 import '../model/payment_saved_model.dart';
 import '../model/transaction_model.dart';
+import '../view/screens/home/main_screen.dart';
 import '../view/screens/map/map.dart';
 import '../view/widgets/dialogs.dart';
 
@@ -55,7 +57,7 @@ class PaymentController extends GetxController {
     return data['description'];
   }
 
-  Future getEncryptedCode()async{
+  Future getEncryptedCode(int paymentKind)async{
     var data;
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
@@ -64,7 +66,8 @@ class PaymentController extends GetxController {
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/QRCode'));
     request.body = json.encode({
       "Longitude": 11,
-      "Latitude": 12
+      "Latitude": 12,
+      "PaymentKind":paymentKind
     });
     request.headers.addAll(headers);
 
@@ -170,6 +173,93 @@ class PaymentController extends GetxController {
 
   }
 
+
+  //pay with options
+  Future payWithOptions(bool isDirect) async {
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/PaymentMyWallet'));
+    if(isDirect ==false){
+      request.body = json.encode({
+        "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
+        "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
+        "Value":   paymentSaved.value,
+        "TripID": tripToSave.id,
+        "BusId": paymentSaved.busId
+      });
+    }else{
+      request.body = json.encode({
+        "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
+        "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
+        "Value":   paymentSaved.value,
+        "BusId": paymentSaved.busId
+      });
+    }
+
+    if(ticketPayed.value ==false){
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      var jsonResponse = jsonDecode(await response.stream.bytesToString());
+      print(jsonResponse);
+
+      if (jsonResponse['status']== true) {
+        if(isDirect==true){
+          directPaymentDone.value = true;
+          directPaymentFailed.value =false;
+        }{
+          paymentFailed.value =false;
+          paymentDone.value = true;
+        }
+
+        user.totalBalance = double.parse(jsonResponse['description']['total']);
+        paymentSaved.id = jsonResponse['description']['paymentId'];
+        paymentSaved.routeName = jsonResponse['description']['routeName'];
+        paymentSaved.userName = jsonResponse['description']['userName'];
+        print('value payed :: ${jsonResponse}');
+        ticketPayed.value =true;
+        if(isDirect ==false) panelController.open();
+        openCam.value =false;
+
+        Get.dialog(CustomDialog(
+          fromPaymentLists: false,
+          failedPay: false,
+          payment: PaymentSaved(
+              id:  paymentSaved.id,
+              routeName: paymentSaved.routeName,
+              userName: paymentSaved.userName,
+              date: DateTime.now().toString(),
+              createdDate: DateTime.now().toString(),
+              value: paymentSaved.value),
+        ));
+        update();
+        return true;
+      }
+      else {
+        openCam.value =false;
+        Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
+        var json = jsonDecode(await response.stream.bytesToString());
+        print(json);
+        if(isDirect==true){
+          directPaymentDone.value = false;
+          directPaymentFailed.value =true;
+          openCam.value =false;
+
+        }{
+          paymentDone.value = false;
+          paymentFailed.value =true;
+          openCam.value =false;
+
+        }
+        update();
+        return false;
+      }
+    }
+
+  }
+
   Future<bool> recharge({required double invoiceValue,required String invoiceId,required String paymentGateway}) async {
     print('---------- == invoiceValue ::$invoiceValue ,,invoiceId :: $invoiceId ,, paymentGateway :: $paymentGateway ');
     var headers = {
@@ -189,16 +279,32 @@ class PaymentController extends GetxController {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-print(invoiceId);
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+    var jsonResponse = jsonDecode(await response.stream.bytesToString());
+
+    if (response.statusCode == 200 && jsonResponse['status'] ==true) {
+      // Get.offAll(MainScreen(indexOfScreen: 2,));
+
+      Get.snackbar("Success", "Recharge done",colorText: Colors.green);
       getMyWallet();
+      getMyListOfRecharges();
+      gotRecharges.value =true;
+      gotPayments.value =true;
+      update();
+      return true;
+
     } else {
       print('recharge field =--------..........');
+      Get.snackbar("Failed", "SomeThing wont wrong!!");
+
       print(response.reasonPhrase);
+      print(jsonResponse);
+      gotRecharges.value =true;
+      gotPayments.value =true;
+      update();
+      return false;
+
     }
 
-    return true;
   }
 
   //send amount  user - user
@@ -253,10 +359,12 @@ print(invoiceId);
       gotMyBalance.value = true;
       myBalance.value = jsonResponse['description']['total'];
       print(res.body);
+      gotRecharges.value =true;
+      gotPayments.value =true;
     } else {
       print(res.reasonPhrase);
     }
-
+    update();
     return res.body;
   }
 

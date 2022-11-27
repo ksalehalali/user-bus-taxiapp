@@ -9,7 +9,7 @@ import '../../Data/current_data.dart';
 import '../../controller/payment_controller.dart';
 
 
-Future<void> scanQRCodeToPay(BuildContext context,isDirectPay) async {
+Future<void> scanQRCodeToPay(BuildContext context,isDirectPay,int paymentType) async {
   final PaymentController paymentController = Get.find();
 
   try {

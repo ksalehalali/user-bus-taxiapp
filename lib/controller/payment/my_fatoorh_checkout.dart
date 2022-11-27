@@ -42,17 +42,20 @@ class MyFatoorahCheckOut {
     print(response.url);
     if(!response.isSuccess){
     if(isPackage ==false){
-      walletController.recharge(
+      var charge =await walletController.recharge(
           invoiceId: response.paymentId!,
           invoiceValue: amount,
           paymentGateway: 'visa/mastercard',
         );
-
       print("booody :: ${response}");
       chargeSaved.invoiceId = response.paymentId;
       chargeSaved.invoiceValue = amount;
+      if(charge==true){
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 2)), (route) => false);
 
-      Get.offAll(MainScreen(indexOfScreen: 2,));
+      }
+
+
     }else{
       packagesController.addPackage(value:amount,invoiceId: response.paymentId!,id:packageId,isCard: true );
     }
@@ -60,7 +63,6 @@ class MyFatoorahCheckOut {
       print('recharge field');
       print(response.status);
       Get.snackbar('Recharge Failed', 'Some thing wont wrong!',);
-
     }
 
   }
