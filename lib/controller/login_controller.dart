@@ -80,7 +80,8 @@ class LoginController extends GetxController {
     user.accessToken='';
     prefs.remove('token');
     prefs.remove('lastToken');
-    prefs.remove('id');
+    prefs.remove('id');        isLoginLoading.value = false;
+
     prefs.remove('phoneNumber');
 
     Get.offAll(()=>Login());

@@ -16,6 +16,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../Assistants/assistantMethods.dart';
@@ -26,6 +27,7 @@ import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
 import '../../widgets/QRCodeScanner.dart';
+import '../../widgets/flutter_toast.dart';
 import '../routes/destination_selection_screen.dart';
 import 'multi-route-details.dart';
 import 'one-route-details.dart';
@@ -626,7 +628,7 @@ class _MapState extends State<Map> {
               if(balanceNum >= 0.200) {
                 paymentController.ticketPayed.value = false;
 
-                scanQRCodeToPay(context,false);
+                scanQRCodeToPay(context,false,0);
 
               } else {
                 Fluttertoast.showToast(
@@ -654,31 +656,44 @@ class _MapState extends State<Map> {
               padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
             ) ,
             onPressed: ()async{
-              final PaymentController walletController = Get.find();
+              SharedPreferences prefs =
+              await SharedPreferences.getInstance();
+              String codeDate =
+              DateFormat('yyyy-MM-dd-HH:mm-ss')
+                  .format(DateTime.now());
 
-              await walletController.getPaymentCode();
-              Get.dialog(Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      15.0,
-                    ),
-                  ),
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  child: Container(
-                    height:360.h,
-                    color: Colors.white,
-                    child: Center(
-                      child: QrImage(
-                        data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
-                        version: QrVersions.auto,
-                        size: 250.0.sp,
+              String balance = await checkWallet();
+              double balanceNum = double.parse(balance);
+              String? code;
+              if (balanceNum > 0.200) {
+                code =
+                await paymentController.getEncryptedCode(0);
+                Get.dialog(Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        15.0,
                       ),
                     ),
-                  )
-              ));
-              print("{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}");
-            }, icon: Icon(Icons.qr_code),
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    child: Container(
+                      height: 380.h,
+                      color: Colors.white,
+                      child: Center(
+                        child: QrImage(
+                          data:
+                          "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                          version: QrVersions.auto,
+                          size: 322.0.sp,
+                        ),
+                      ),
+                    )));
+              } else {
+                showFlutterToast(
+                    message: "msg_0_balance",
+                    backgroundColor: Colors.redAccent,
+                    textColor: Colors.white);
+              }}, icon: Icon(Icons.qr_code),
             label:Text(
               "Pay via show QR code_txt".tr,
               style: TextStyle(

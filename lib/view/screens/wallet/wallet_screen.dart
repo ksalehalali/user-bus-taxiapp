@@ -266,12 +266,14 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                       Obx(
                         () => walletController.gotMyBalance.value == true
-                            ? Text(
-                                walletController.myBalance.value,
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.bold),
-                              )
+                            ? Obx(()=>
+                            Text(
+                                  walletController.myBalance.value,
+                                  style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                            )
                             : SizedBox(
                                 height: 18.h,
                                 width: 18.w,
