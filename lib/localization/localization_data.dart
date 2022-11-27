@@ -40,6 +40,8 @@ Map<String,String> ar ={
   'scan_btn':'امسح',
   'Pay via show QR code_txt':'اظهر qr code للدفع',
   'Pay via scan QR code_txt':'امسح qr code للدفع',
+"Use Package_txt":"استخدم الباقة",
+"Use Wallet_txt":"استخدم المحفظة",
 
 
   //-
@@ -187,6 +189,8 @@ Map<String,String> en ={
   'add_redit_btn':'Add Credit',
   'payments_txt':'Payments',
   'recharges_txt':'Recharges',
+  "Use Package_txt":"Use Package",
+  "Use Wallet_txt":"Use Wallet",
   //-
 
   "route_name_txt":'Route Name',
