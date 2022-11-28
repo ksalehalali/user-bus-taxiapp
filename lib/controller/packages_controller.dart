@@ -10,6 +10,7 @@ import '../Data/current_data.dart';
 class PackagesController extends GetxController {
   var allPackages =[].obs;
   var myPackages =[].obs;
+  var hasAPackage =false.obs;
 
   @override
   void onInit() {
@@ -66,6 +67,11 @@ class PackagesController extends GetxController {
     if (response.statusCode == 200) {
       var json = jsonDecode(await response.stream.bytesToString());
       data = json['description'];
+      if(data.length > 0){
+        hasAPackage.value =true;
+      }else{
+        hasAPackage.value =false;
+      }
       myPackages.value = data;
       print('My Packages ====== $data');
       update();

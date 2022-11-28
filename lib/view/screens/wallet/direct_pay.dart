@@ -8,6 +8,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Assistants/globals.dart';
 import '../../../controller/location_controller.dart';
+import '../../../controller/packages_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/QRCodeScanner.dart';
 import '../../widgets/flutter_toast.dart';
@@ -23,7 +24,7 @@ class DirectPay extends StatefulWidget {
 class _DirectPayState extends State<DirectPay> {
   final PaymentController paymentController = Get.find();
   final LocationController locationController = Get.find();
-  final PaymentController walletController = Get.find();
+  final PackagesController packagesController = Get.find();
 
   @override
   void initState() {
@@ -95,7 +96,7 @@ class _DirectPayState extends State<DirectPay> {
                         children: [
 
                           //scan to pay button
-                          CupertinoContextMenu(
+                          packagesController.hasAPackage.value == true ?CupertinoContextMenu(
                               actions: <Widget>[
                                 CupertinoContextMenuAction(
                                   child: Text(
@@ -172,41 +173,41 @@ class _DirectPayState extends State<DirectPay> {
                                         color: Colors.black87),
                                   ),
                                 ),
-                              )),
-                          // OutlinedButton.icon(
-                          //   style: ButtonStyle(
-                          //     backgroundColor:MaterialStateProperty.all(Colors.white),
-                          //     foregroundColor: MaterialStateProperty.all(routes_color),
-                          //     padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 6.w)),
-                          //
-                          //   ) ,
-                          //   onPressed: ()async{
-                          //   String balance = await checkWallet();
-                          //   double balanceNum = double.parse(balance);
-                          //
-                          //   if(balanceNum >= 0.200) {
-                          //     paymentController.ticketPayed.value = false;
-                          //     scanQRCodeToPay(context,true);
-                          //
-                          //   } else {
-                          //
-                          //     showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white);
-                          //   }
-                          // }, label: Text(
-                          //   "Pay via scan QR code_txt".tr,
-                          //   style: TextStyle(
-                          //       fontSize: 13.sp,
-                          //       letterSpacing: 0,
-                          //       fontWeight: FontWeight.bold
-                          //
-                          //   ),
-                          // ), icon: Icon(Icons.qr_code), ),
+                              )):
+                          OutlinedButton.icon(
+                            style: ButtonStyle(
+                              backgroundColor:MaterialStateProperty.all(Colors.white),
+                              foregroundColor: MaterialStateProperty.all(routes_color),
+                              padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 6.w)),
+
+                            ) ,
+                            onPressed: ()async{
+                            String balance = await checkWallet();
+                            double balanceNum = double.parse(balance);
+
+                            if(balanceNum >= 0.200) {
+                              paymentController.ticketPayed.value = false;
+                              scanQRCodeToPay(context,true,0);
+
+                            } else {
+
+                              showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white);
+                            }
+                          }, label: Text(
+                            "Pay via scan QR code_txt".tr,
+                            style: TextStyle(
+                                fontSize: 13.sp,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.bold
+
+                            ),
+                          ), icon: Icon(Icons.qr_code), ),
                           SizedBox(
                             width: screenSize.width * 0.1 - 26.w,
                           ),
 
                           //scan to pay button
-                          CupertinoContextMenu(
+                          packagesController.hasAPackage.value == true ? CupertinoContextMenu(
                               actions: <Widget>[
                                 CupertinoContextMenuAction(
                                   child: Text(
@@ -347,71 +348,71 @@ class _DirectPayState extends State<DirectPay> {
                                         color: Colors.black87),
                                   ),
                                 ),
-                              )),
+                              )):
 
-                          // OutlinedButton.icon(
-                          //   style: ButtonStyle(
-                          //     backgroundColor:
-                          //         MaterialStateProperty.all(Colors.white),
-                          //     foregroundColor:
-                          //         MaterialStateProperty.all(routes_color),
-                          //     padding: MaterialStateProperty.all(
-                          //         EdgeInsets.symmetric(
-                          //             vertical: 12, horizontal: 6)),
-                          //   ),
-                          //   onPressed: () async {
-                          //     SharedPreferences prefs =
-                          //         await SharedPreferences.getInstance();
-                          //     String codeDate =
-                          //         DateFormat('yyyy-MM-dd-HH:mm-ss')
-                          //             .format(DateTime.now());
-                          //     //String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-                          //     //EncryptionData encrypt = EncryptionData();
-                          //     //encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
-                          //     String balance = await checkWallet();
-                          //     double balanceNum = double.parse(balance);
-                          //     String? code;
-                          //     if (balanceNum > 0.200) {
-                          //       code =
-                          //           await paymentController.getEncryptedCode(1);
-                          //       Get.dialog(Dialog(
-                          //           shape: RoundedRectangleBorder(
-                          //             borderRadius: BorderRadius.circular(
-                          //               15.0,
-                          //             ),
-                          //           ),
-                          //           elevation: 0,
-                          //           backgroundColor: Colors.transparent,
-                          //           child: Container(
-                          //             height: 380.h,
-                          //             color: Colors.white,
-                          //             child: Center(
-                          //               child: QrImage(
-                          //                 data:
-                          //                     "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
-                          //                 version: QrVersions.auto,
-                          //                 size: 322.0.sp,
-                          //               ),
-                          //             ),
-                          //           )));
-                          //     } else {
-                          //       showFlutterToast(
-                          //           message: "msg_0_balance",
-                          //           backgroundColor: Colors.redAccent,
-                          //           textColor: Colors.white);
-                          //     }
-                          //
-                          //     //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
-                          //   },
-                          //   icon: Icon(Icons.qr_code),
-                          //   label: Text(
-                          //     "Pay via show QR code_txt".tr,
-                          //     style: TextStyle(
-                          //         fontSize: 13.sp,
-                          //         letterSpacing: 0,
-                          //         fontWeight: FontWeight.bold),
-                          //   ),
-                          // ),
+                          OutlinedButton.icon(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              foregroundColor:
+                                  MaterialStateProperty.all(routes_color),
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 6)),
+                            ),
+                            onPressed: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              String codeDate =
+                                  DateFormat('yyyy-MM-dd-HH:mm-ss')
+                                      .format(DateTime.now());
+                              //String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+                              //EncryptionData encrypt = EncryptionData();
+                              //encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+                              String balance = await checkWallet();
+                              double balanceNum = double.parse(balance);
+                              String? code;
+                              if (balanceNum > 0.200) {
+                                code =
+                                    await paymentController.getEncryptedCode(1);
+                                Get.dialog(Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        15.0,
+                                      ),
+                                    ),
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      height: 380.h,
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: QrImage(
+                                          data:
+                                              "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                                          version: QrVersions.auto,
+                                          size: 322.0.sp,
+                                        ),
+                                      ),
+                                    )));
+                              } else {
+                                showFlutterToast(
+                                    message: "msg_0_balance",
+                                    backgroundColor: Colors.redAccent,
+                                    textColor: Colors.white);
+                              }
+
+                              //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+                            },
+                            icon: Icon(Icons.qr_code),
+                            label: Text(
+                              "Pay via show QR code_txt".tr,
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       ),
                     ),

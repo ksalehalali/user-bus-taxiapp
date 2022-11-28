@@ -16,6 +16,7 @@ import '../../../Data/current_data.dart';
 import '../../../controller/lang_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/dialogs.dart';
+import '../../widgets/flutter_toast.dart';
 import '../home/main_screen.dart';
 import 'balance_calculator.dart';
 
@@ -324,30 +325,44 @@ class _WalletScreenState extends State<WalletScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
+                        SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                        String codeDate =
+                        DateFormat('yyyy-MM-dd-HH:mm-ss')
+                            .format(DateTime.now());
 
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-                        Get.dialog(Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                15.0,
-                              ),
-                            ),
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                            child: Container(
-                              height: 360.h,
-                              color: Colors.white,
-                              child: Center(
-                                child: QrImage(
-                                  data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
-                                  version: QrVersions.auto,
-                                  size: 250.0.sp,
+                        double balanceNum = double.parse(walletController.myBalance.value);
+                        String? code;
+                        if (balanceNum > 0.200) {
+                          code = await walletController.getEncryptedCode(0);
+                          Get.dialog(Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  15.0,
                                 ),
                               ),
-                            )));
-                        print(
-                            "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}");
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                              child: Container(
+                                height: 380.h,
+                                color: Colors.white,
+                                child: Center(
+                                  child: QrImage(
+                                    data:
+                                    "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                                    version: QrVersions.auto,
+                                    size: 322.0.sp,
+                                  ),
+                                ),
+                              )));
+                        } else {
+                          showFlutterToast(
+                              message: "msg_0_balance",
+                              backgroundColor: Colors.redAccent,
+                              textColor: Colors.white);
+                        }
+
+
                       },
                       child: Text(
                         "pay_btn".tr,
