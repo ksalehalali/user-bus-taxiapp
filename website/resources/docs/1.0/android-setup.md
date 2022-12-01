@@ -24,7 +24,7 @@ Major things to do:
 
         ```java
         public interface URL {
-           String BaseURL = "https://admin.tagxi.com/";
+           String BaseURL = "https://admin.routes.com/";
         }
         
         ```
@@ -76,7 +76,7 @@ Major things to do:
  }
 
 ```
-    - [Sample-json](https://admin.tagxi.com/firebase-database.json)
+    - [Sample-json](https://admin.routes.com/firebase-database.json)
 
         * call_FB_OTP node is used to configure whether the firebase otp should used or dummy otp should use for our testing purpose
 

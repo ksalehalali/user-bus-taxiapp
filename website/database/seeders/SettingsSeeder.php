@@ -100,7 +100,7 @@ class SettingsSeeder extends Seeder
         ],
         SettingSlug::APP_NAME => [
             'category'=>SettingCategory::GENERAL,
-            'value' => 'Tagxi',
+            'value' => 'routes',
             'field' => SettingValueType::TEXT,
             'option_value' => null,
             'group_name' => null,
@@ -142,7 +142,7 @@ class SettingsSeeder extends Seeder
         ],
         SettingSlug::CONTACT_US_LINK => [
             'category'=>SettingCategory::GENERAL,
-            'value' => 'https://tagxi-landing.ondemandappz.com/',
+            'value' => 'https://routes-landing.ondemandappz.com/',
             'field' => SettingValueType::TEXT,
             'option_value' => null,
             'group_name' => null,

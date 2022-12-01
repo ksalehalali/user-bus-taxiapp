@@ -78,7 +78,7 @@
                             <div class="media-body">
                                 <div class="text-muted">
                                     <h5>Arjun</h5>
-                                    <p class="mb-1">arjun@tagxi.com</p>
+                                    <p class="mb-1">arjun@routes.com</p>
                                     <p class="mb-0">Id no: #SK0234</p>
                                 </div>
                             </div>

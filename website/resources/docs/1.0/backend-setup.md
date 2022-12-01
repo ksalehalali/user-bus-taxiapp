@@ -40,7 +40,7 @@ You are almost finished and ready to setup your back end part. once you setup je
 * Create a database using phpmyadmin
 * Setup DB config in .env file
     ```php
-    APP_URL=http://tagxi.com/future/public
+    APP_URL=http://routes.com/future/public
     ```
    ```php
    DB_PORT=3306
@@ -52,7 +52,7 @@ DB_PASSWORD=your_passoword
 
    * Sample .env file
    ```php
-APP_NAME=tagxi
+APP_NAME=routes
 APP_ENV=local
 APP_KEY=base64:8zIYjbZv9brVUOy0XdixW2Oxpkg7S7DCe20ptOMbaRU=
 APP_DEBUG=true
@@ -83,8 +83,8 @@ MAIL_PORT=587
 MAIL_USERNAME=apikey
 MAIL_PASSWORD=SG.=KNd4LUxxowWdtklHgamytGu_mIBGMQhHVINFZiY
 MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=suport@tagxi.com
-MAIL_FROM_NAME="tagxi"
+MAIL_FROM_ADDRESS=suport@routes.com
+MAIL_FROM_NAME="routes"
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_DEFAULT_REGION=us-east-1

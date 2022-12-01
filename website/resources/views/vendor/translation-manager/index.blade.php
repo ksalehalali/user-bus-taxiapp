@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tagxi | Taxi Dispatch Software/System, Carpool Software App for Android &amp; iOS</title>
+    <title>routes | Taxi Dispatch Software/System, Carpool Software App for Android &amp; iOS</title>
     <link rel="shortcut icon" href="http://localhost/tagyourtaxi/future/public/assets/images/favicon.ico">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">

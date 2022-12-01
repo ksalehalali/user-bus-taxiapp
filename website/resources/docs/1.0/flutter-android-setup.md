@@ -226,7 +226,7 @@ String mapkey = 'your map key here';
 * We need to create nodes in firebase realtime database, please find the sample json database below or refer firebase setup.
 
 
-* [Sample-json](https://tagxi-server.ondemandappz.com/firebase-database.json)
+* [Sample-json](https://routes-server.ondemandappz.com/firebase-database.json)
 
 * <strong> call_FB_OTP </strong> node is used to configure whether the firebase otp should used or dummy otp should use for our testing purpose
 
@@ -393,7 +393,7 @@ android:label="project name"
   foregroundNotificationConfig:
             const geolocs.ForegroundNotificationConfig(
           notificationText:
-              "Tagxi Driver will continue to receive your location in background",
+              "routes Driver will continue to receive your location in background",
           notificationTitle: "Location background service running",
 ```
 

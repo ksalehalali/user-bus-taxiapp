@@ -45,13 +45,13 @@ class AdminViewController extends BaseController
 
         $conditional_host = explode('.',$host_name);
 
-        if($conditional_host[0] =='tagxi-docs'){
+        if($conditional_host[0] =='routes-docs'){
 
         return redirect('user-manual');
 
         }
         
-        if($conditional_host[0] =='tagxi-server'){
+        if($conditional_host[0] =='routes-server'){
 
             $user = User::belongsToRole('super-admin')->first();
 
@@ -62,7 +62,7 @@ class AdminViewController extends BaseController
 
         }
         
-        if($conditional_host[0] =='tagxi-dispatch'){
+        if($conditional_host[0] =='routes-dispatch'){
 
         $user = User::belongsToRole('dispatcher')->first();
         

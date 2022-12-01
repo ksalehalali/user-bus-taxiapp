@@ -400,7 +400,7 @@ if (!function_exists('get_distance_matrix')) {
 }
 
 if (!function_exists('get_distance_matrix_of_clients')) {
-    function get_distance_matrix_of_clients($pick_lat, $pick_lng, $drop_lat, $drop_lng, $traffic = false,$map_key)
+    function get_distance_matrix_of_clients($pick_lat, $pick_lng, $drop_lat, $drop_lng, $traffic = false,$map_key = '')
     {
         $client = new \GuzzleHttp\Client();
         $url = 'https://maps.googleapis.com/maps/api/distancematrix/json';

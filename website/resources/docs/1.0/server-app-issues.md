@@ -18,7 +18,7 @@
 		```
 	* We need to update the base url in .env in the below param like this
 		```php
-			APP_URL=http://tagxi-server.ondemandappz.com
+			APP_URL=http://routes-server.ondemandappz.com
 		```
 
 
@@ -31,7 +31,7 @@
 	* We need to update the firebase service-accounts.json in the below path
 		Path: server-app-folder/public/push-configurations/firebase.json
 
-		* Reference For downloading service-accounts.json - https://tagxi-docs.ondemandappz.com/user-manual/1.0/backend-setup#section-5
+		* Reference For downloading service-accounts.json - https://routes-docs.ondemandappz.com/user-manual/1.0/backend-setup#section-5
 
 	* Make sure that you have updated the correct path & firebase database url in .env file like below
 		```php
@@ -68,5 +68,5 @@
 
 * Please Make sure that you have done the firebase setup & the laravel supervisor setup.
 
-* reference link for supervisor-setup - https://tagxi-docs.ondemandappz.com/user-manual/1.0/backend-setup#section-6
+* reference link for supervisor-setup - https://routes-docs.ondemandappz.com/user-manual/1.0/backend-setup#section-6
 

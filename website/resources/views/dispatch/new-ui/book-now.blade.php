@@ -232,7 +232,7 @@
                 <div class="d-flex align-items-center"><img class="me-2"
                         src="{{ app_logo() ?? asset('images/email/logo.svg') }}" style="width: 26px;padding-right: 5px;" alt="" />
                         <span>
-                            {{ app_name() ?? 'Tagxi' }}
+                            {{ app_name() ?? 'routes' }}
                         </span>
                         
                     </div>
