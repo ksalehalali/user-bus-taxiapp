@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
-
 <head>
     <meta charset="utf-8" />
     <title>@lang('view_pages.admin_login')</title>
@@ -17,16 +16,16 @@
     <link rel="shortcut icon" href="{{ fav_icon() ?? asset('assets/images/favicon.ico') }}">
 
     <!-- Bootstrap 4.0-->
-    <link rel="stylesheet" href="{{ url('assets/vendor_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap/dist/css/bootstrap.min.css') }}">
 
     <!-- Bootstrap extend-->
-    <link rel="stylesheet" href="{{ url('assets/css/bootstrap-extend.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-extend.css') }}">
 
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ url('assets/css/master_style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/master_style.css') }}">
 
     <!-- Fab Admin skins -->
-    <link rel="stylesheet" href="{{ url('assets/css/skins/_all-skins.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/skins/_all-skins.css') }}">
     <style>
         .error-style {
             list-style: none;
@@ -37,7 +36,7 @@
         }
 
         body {
-            background-image: url(assets/images/bg.jpg) !important;
+            background-image: asset(assets/images/bg.jpg) !important;
             background-size: cover !important;
         }
 
@@ -59,7 +58,6 @@
                         <img src="{{ fav_icon() ?? asset('images/favicon.png') }}" alt="">
                         <h3 class="text-center">@lang('view_pages.admin_panel')</h3>
                         <p class="login-box-msg"></p>
-                        <!-- action="{{ url('api/spa/login') }}" method="post" -->
                         <form class="login_form" id="form" enctype="multipart/form-data">
                             <div class="col-12 form-group has-feedback"
                                 style="display:flex;margin-bottom:15px;background: #fff;padding: 0px;">
@@ -124,11 +122,11 @@
     </div>
 
     <!-- jQuery 3 -->
-    <script src="{{ url('assets/vendor_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor_components/jquery/dist/jquery.min.js') }}"></script>
 
 
     <!-- Bootstrap 4.0-->
-    <script src="{{ url('assets/vendor_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- App js -->
     <script src="{{ asset('assets/js/jquery.form-validator.js') }}"></script>
