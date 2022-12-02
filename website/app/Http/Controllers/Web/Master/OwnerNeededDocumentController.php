@@ -45,7 +45,7 @@ class OwnerNeededDocumentController extends BaseController
 
     public function create()
     {
-        $page = trans('pages_names.add_owner_needed_doc');
+        $page = trans('pages_names.add-company_needed_doc');
 
         $main_menu = 'master';
         $sub_menu = 'owner_needed_document';
@@ -72,7 +72,7 @@ class OwnerNeededDocumentController extends BaseController
 
         $this->neededDoc->create($created_params);
 
-        $message = trans('succes_messages.owner_needed_doc_added_succesfully');
+        $message = trans('succes_messages.company_needed_doc_added_succesfully');
 
         return redirect('owner_needed_doc')->with('success', $message);
     }
@@ -105,7 +105,7 @@ class OwnerNeededDocumentController extends BaseController
 
         $neededDoc->update($updated_params);
 
-        $message = trans('succes_messages.owner_needed_doc_updated_succesfully');
+        $message = trans('succes_messages.company_needed_doc_updated_succesfully');
 
         return redirect('owner_needed_doc')->with('success', $message);
     }
@@ -115,7 +115,7 @@ class OwnerNeededDocumentController extends BaseController
         $status = $neededDoc->isActive() ? false: true;
         $neededDoc->update(['active' => $status]);
 
-        $message = trans('succes_messages.owner_needed_doc_status_changed_succesfully');
+        $message = trans('succes_messages.company_needed_doc_status_changed_succesfully');
         return redirect('owner_needed_doc')->with('success', $message);
     }
 
@@ -123,7 +123,7 @@ class OwnerNeededDocumentController extends BaseController
     {
         $neededDoc->delete();
 
-        $message = trans('succes_messages.owner_needed_doc_deleted_succesfully');
+        $message = trans('succes_messages.company_needed_doc_deleted_succesfully');
         return redirect('owner_needed_doc')->with('success', $message);
     }
 }

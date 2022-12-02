@@ -15,13 +15,13 @@
 <div class="row p-0 m-0">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">@lang('view_pages.edit_owner')</h4>
+            <h4 class="mb-0 font-size-18">@lang('view_pages.edit_company')</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="{{url('owners/by_area',$item->service_location_id) }}">@lang('view_pages.manage_owner')</a>
+                    <li class="breadcrumb-item"><a href="{{url('owners/by_area',$item->service_location_id) }}">@lang('view_pages.manage_company')</a>
                     </li>
-                    <li class="breadcrumb-item active">@lang('view_pages.edit_owner')</li>
+                    <li class="breadcrumb-item active">@lang('view_pages.edit_company')</li>
                 </ol>
             </div>
         </div>
@@ -50,7 +50,7 @@
                                             <li class="nav-item">
                                                 <a href="#owner-details" class="nav-link" data-toggle="tab">
                                                     <span class="step-number mr-2">01</span>
-                                                    @lang('view_pages.owner_details')
+                                                    @lang('view_pages.company_details')
                                                 </a>
                                             </li>
                                             <li class="nav-item">
@@ -88,8 +88,8 @@
 
                                                     <div class="col-sm-6 float-left mb-md-3">
                                                         <div class="form-group">
-                                                            <label for="owner_name">@lang('view_pages.owner_name') <span class="text-danger">*</span></label>
-                                                            <input class="form-control" type="text" id="owner_name" name="owner_name" value="{{ old('owner_name',$item->owner_name) }}" required="" placeholder="@lang('view_pages.enter') @lang('view_pages.owner_name')">
+                                                            <label for="owner_name">@lang('view_pages.company_name') <span class="text-danger">*</span></label>
+                                                            <input class="form-control" type="text" id="owner_name" name="owner_name" value="{{ old('owner_name',$item->owner_name) }}" required="" placeholder="@lang('view_pages.enter') @lang('view_pages.company_name')">
                                                             <span class="text-danger">{{ $errors->first('owner_name') }}</span>
                                                         </div>
                                                     </div>

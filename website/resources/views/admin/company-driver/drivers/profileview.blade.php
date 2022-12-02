@@ -73,7 +73,7 @@
                             <tbody>
                                
                                 <tr>
-                                    <th scope="row">@lang('view_pages.owner_name') :</th>
+                                    <th scope="row">@lang('view_pages.company_name') :</th>
                                     <td>{{ $item->owner ? $item->owner->name : '-' }}</td>
                                 </tr>
                                 <tr>

@@ -57,7 +57,7 @@ class OwnerController extends BaseController
 
     public function index(ServiceLocation $area)
     {
-        $page = trans('pages_names.owners');
+        $page = trans('pages_names.companies');
         $main_menu = 'manage_owners';
         $sub_menu = $area->name;
         $activeOwners = Owner::whereApprove(true)->whereServiceLocationId($area->id)->count();
@@ -95,7 +95,7 @@ class OwnerController extends BaseController
     
     public function create(ServiceLocation $area)
     {
-        $page = trans('pages_names.add_owner');
+        $page = trans('pages_names.add-company');
 
         $services = ServiceLocation::whereActive(true)->get();
         $main_menu = 'manage_owners';
@@ -140,7 +140,7 @@ class OwnerController extends BaseController
         }
     }
         
-        $message = trans('succes_messages.owner_added_succesfully');
+        $message = trans('succes_messages.company_added_succesfully');
 
         return redirect("owners/by_area/$request->service_location_id")->with('success', $message);
     }
@@ -173,7 +173,7 @@ class OwnerController extends BaseController
             $docController = new OwnerDocumentController($this->imageUploader);
             $docController->uploadOwnerDoc($name,$expiry_date,$request,$owner,$doc);
         }
-        $message = trans('succes_messages.owner_updated_succesfully');
+        $message = trans('succes_messages.company_updated_succesfully');
 
         return redirect("owners/by_area/$owner->service_location_id")->with('success', $message);
     }
@@ -182,7 +182,7 @@ class OwnerController extends BaseController
     {
         $owner->user()->delete();
 
-        $message = trans('succes_messages.owner_deleted_succesfully');
+        $message = trans('succes_messages.company_deleted_succesfully');
         // return $message;
         return redirect("owners/by_area/$owner->service_location_id")->with('success', $message);
     }
@@ -199,7 +199,7 @@ class OwnerController extends BaseController
             $uploadedDoc = count($owner->ownerDocument);
     
             if ($neededDoc != $uploadedDoc) {
-                $message = trans('succes_messages.owner_document_not_uploaded');
+                $message = trans('succes_messages.company_document_not_uploaded');
                 return redirect("owners/by_area/$owner->service_location_id")->with('warning', $message);
             }
     
@@ -210,7 +210,7 @@ class OwnerController extends BaseController
             }
     
             if ($err) {
-                $message = trans('succes_messages.owner_document_not_uploaded');
+                $message = trans('succes_messages.company_document_not_uploaded');
                 return redirect("owners/by_area/$owner->service_location_id")->with('warning', $message);
             }
         }
@@ -221,7 +221,7 @@ class OwnerController extends BaseController
 
         $this->database->getReference('owners/'.$owner->id)->update(['approve'=>(int)$status,'updated_at'=> Database::SERVER_TIMESTAMP]);
 
-        $message = trans('succes_messages.owner_approve_status_changed_succesfully');
+        $message = trans('succes_messages.company_approve_status_changed_succesfully');
 
         return redirect("owners/by_area/$owner->service_location_id")->with('success', $message);
     }

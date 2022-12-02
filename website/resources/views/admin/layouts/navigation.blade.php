@@ -97,12 +97,12 @@ if(str_contains((string)request()->path(),'translations')){
           @endif  
           @if(auth()->user()->can('manage-owner-needed-document'))
           <li class="{{ 'owner_needed_document' == $sub_menu ? 'active' : '' }}">
-            <a href="{{url('/owner_needed_doc')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.owner_needed_doc')</a>
+            <a href="{{url('/owner_needed_doc')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.company_needed_document')</a>
           </li>
           @endif 
           @if(auth()->user()->can('manage-fleet-needed-document'))
           <li class="{{ 'fleet_needed_document' == $sub_menu ? 'active' : '' }}">
-            <a href="{{url('/fleet_needed_doc')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.fleet_needed_doc')</a>
+            <a href="{{url('/fleet_needed_doc')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.vehicle_needed_doc')</a>
           </li>
           @endif 
           @if(auth()->user()->can('package-type'))
@@ -130,7 +130,7 @@ if(str_contains((string)request()->path(),'translations')){
         <li class="treeview {{ 'manage_owners' == $main_menu ? 'active menu-open' : '' }}">
         <a href="javascript: void(0);">
           <i class="fa fa-code-fork"></i>
-          <span> @lang('pages_names.owners') </span>
+          <span> @lang('pages_names.companies') </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
@@ -151,7 +151,7 @@ if(str_contains((string)request()->path(),'translations')){
             <li class="{{ $main_menu == 'manage_fleet' ? 'active' : ''}}">
                 <a href="{{ route('viewFleet') }}">
                     <i class="fa fa-bus"></i>
-                    <span> {{ trans('pages_names.manage_fleet') }} </span>
+                    <span> {{ trans('pages_names.manage_vehicle') }} </span>
                 </a>
             </li>
             @endif
@@ -318,7 +318,7 @@ if(str_contains((string)request()->path(),'translations')){
         <li class="treeview {{ 'fleet-drivers' == $main_menu ? 'active menu-open' : '' }}">
           <a href="javascript: void(0);">
             <i class="fa fa-users"></i>
-            <span> @lang('pages_names.fleet_drivers') </span>
+            <span> @lang('pages_names.vehicle_drivers') </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
@@ -327,7 +327,7 @@ if(str_contains((string)request()->path(),'translations')){
           <ul class="treeview-menu">
             @if(auth()->user()->can('view-approved-fleet-drivers'))
             <li class="{{ 'driver_details' == $sub_menu ? 'active' : '' }}">
-              <a href="{{url($route)}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.approved_fleet_drivers')</a>
+              <a href="{{url($route)}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.approved_vehicle_drivers')</a>
             </li>
             @endif
   
@@ -466,13 +466,13 @@ if(str_contains((string)request()->path(),'translations')){
           <li class="treeview {{ 'owner-complaint' == $sub_menu ? 'active' : '' }}">
              <a href="javascript: void(0);">
                 <i class="fa fa-circle-thin"></i>
-                <span> @lang('pages_names.owner_complaints') </span>
+                <span> @lang('pages_names.company_complaints') </span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-right pull-right"></i>
                 </span>
               </a>
 
-          {{--   <a href="{{url('/complaint/owner')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.owner_complaints')</a> --}}
+          {{--   <a href="{{url('/complaint/owner')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.company_complaints')</a> --}}
              <ul class="treeview-menu">
                <li class="{{ 'owner-general-complaint' == $sub_menu ? 'active' : '' }}">
             <a href="{{url('/complaint/owner/general')}}">@lang('pages_names.general_complaints')</a></li>
@@ -518,7 +518,7 @@ if(str_contains((string)request()->path(),'translations')){
 
           @if(auth()->user()->can('owner-report'))
           <li class="{{ 'owner_report' == $sub_menu ? 'active' : '' }}">
-            <a href="{{url('/reports/owner')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.owner_report')</a>
+            <a href="{{url('/reports/owner')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.company_report')</a>
           </li>
           @endif
 

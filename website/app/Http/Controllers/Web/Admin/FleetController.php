@@ -44,7 +44,7 @@ class FleetController extends BaseController
 
     public function index()
     {
-        $page = trans('pages_names.fleets');
+        $page = trans('pages_names.vehicles');
         $main_menu = 'manage_fleet';
         $sub_menu = '';
 
@@ -61,7 +61,7 @@ class FleetController extends BaseController
 
     public function create()
     {
-        $page = trans('pages_names.add_fleet');
+        $page = trans('pages_names.add_vehicle');
 
         $main_menu = 'manage_fleet';
         $sub_menu = '';
@@ -112,14 +112,14 @@ class FleetController extends BaseController
             }
         }
 
-        $message = trans('succes_messages.fleet_added_succesfully');
+        $message = trans('succes_messages.vehicle_added_succesfully');
 
         return redirect('fleets')->with('success', $message);
     }
 
     public function getById(Fleet $fleet)
     {
-        $page = trans('pages_names.edit_fleet');
+        $page = trans('pages_names.edit_vehicle');
         $item = $fleet;
 
         $main_menu = 'manage_fleet';
@@ -158,7 +158,7 @@ class FleetController extends BaseController
             }
         }
 
-        $message = trans('succes_messages.fleet_updated_succesfully');
+        $message = trans('succes_messages.vehicle_updated_succesfully');
 
         return redirect('fleets')->with('success', $message);
     }
@@ -172,7 +172,7 @@ class FleetController extends BaseController
             'active' => $status
         ]);
 
-        $message = trans('succes_messages.fleet_status_changed_succesfully');
+        $message = trans('succes_messages.vehicle_status_changed_succesfully');
 
         return redirect('fleets')->with('success', $message);
     }
@@ -213,18 +213,18 @@ class FleetController extends BaseController
 
         $user = $fleet->user;
 
-        $title = trans('push_notifications.fleet_declined_title',[],$user->lang);
-        $body = trans('push_notifications.fleet_declined_body',[],$user->lang);
+        $title = trans('push_notifications.vehicle_declined_title',[],$user->lang);
+        $body = trans('push_notifications.vehicle_declined_body',[],$user->lang);
 
         if($status){
-            $title = trans('push_notifications.fleet_approved_title',[],$user->lang);
-            $body = trans('push_notifications.fleet_approved_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_approved_title',[],$user->lang);
+            $body = trans('push_notifications.vehicle_approved_body',[],$user->lang);
     
         }
         
         dispatch(new SendPushNotification($user,$title,$body));
 
-        $message = trans('succes_messages.fleet_approval_status_changed_succesfully');
+        $message = trans('succes_messages.vehicle_approval_status_changed_succesfully');
         return redirect('fleets')->with('success', $message);
     }
 
@@ -246,7 +246,7 @@ class FleetController extends BaseController
 
         $fleet->delete();
 
-        $message = trans('succes_messages.fleet_deleted_succesfully');
+        $message = trans('succes_messages.vehicle_deleted_succesfully');
 
         return redirect('fleets')->with('success', $message);
     }
@@ -267,7 +267,7 @@ class FleetController extends BaseController
 
     public function assignDriverView(Fleet $fleet)
     {
-        $page = trans('pages_names.fleets');
+        $page = trans('pages_names.vehicles');
         $main_menu = 'manage_fleet';
         $sub_menu = '';
 

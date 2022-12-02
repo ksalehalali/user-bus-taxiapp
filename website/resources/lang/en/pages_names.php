@@ -159,4 +159,27 @@ return array (
   'vehicle_make' => 'Vehicle Make',
   'vehicle_model' => 'Vehicle Model',
 
+
+  'company_needed_document' => 'Company Needed Document',
+  'companies' => 'Companies',
+  'company_complaints' => 'Company Complaints',
+  'company_report' => 'Company Report',
+  'manage_companies' => 'Manage Companies',
+  'add-company' => 'Add Company',
+  'edit-company' => 'Edit Company',
+  'delete-company' => 'Delete Company',
+  'add_company_needed_doc' => 'Add Company Needed Document',
+  'company_needed_document' => 'Company Needed Document',
+
+
+  'fleet-drivers' => 'Vehicle Drivers',
+  'add_fleet_needed_doc' => 'Add Vehicle Needed Doc',
+  'fleet_needed_doc' => 'Owner Vehicle Doc',
+  'approved_fleet_drivers' => 'Approved Vehicle Drivers',
+  'fleet_document' => 'Vehicle Document',
+  'fleet_drivers' => 'Vehicle Drivers',
+  'fleets' => 'Vehicles',
+  'add_fleet' => 'Add Vehicles',
+  'edit_fleet' => 'Edit Vehicle',
+  'manage_fleet' => 'Manage Vehicle',
 );
