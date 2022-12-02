@@ -9,6 +9,7 @@ import 'package:tagyourtaxi_driver/pages/referralcode/referral_code.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
+import '../onTripPage/map_page.dart';
 import './login.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
@@ -85,7 +86,7 @@ class _GetStartedState extends State<GetStarted> {
   navigate() {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const Referral()),
+        MaterialPageRoute(builder: (context) => const Maps()),
         (route) => false);
   }
 

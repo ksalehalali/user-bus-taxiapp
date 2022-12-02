@@ -1,27 +1,30 @@
+import 'dart:async';
 import 'dart:math';
-import 'package:tagyourtaxi_driver/pages/onTripPage/booking_confirmation.dart';
-import 'package:tagyourtaxi_driver/pages/onTripPage/drop_loc_select.dart';
-import 'package:tagyourtaxi_driver/pages/login/login.dart';
-import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
-import 'package:tagyourtaxi_driver/translations/translation.dart';
-import 'package:uuid/uuid.dart';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart' as geolocs;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart' as perm;
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/functions/geohash.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
+import 'package:tagyourtaxi_driver/pages/login/login.dart';
+import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
+import 'package:tagyourtaxi_driver/pages/onTripPage/booking_confirmation.dart';
+import 'package:tagyourtaxi_driver/pages/onTripPage/drop_loc_select.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:async';
-import 'package:location/location.dart';
+import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
-import 'dart:ui' as ui;
-import '../navDrawer/nav_drawer.dart';
-import 'package:geolocator/geolocator.dart' as geolocs;
-import 'package:permission_handler/permission_handler.dart' as perm;
+import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math.dart' as vector;
+
+import '../navDrawer/nav_drawer.dart';
 
 class Maps extends StatefulWidget {
   const Maps({Key? key}) : super(key: key);
@@ -1033,178 +1036,178 @@ class _MapsState extends State<Maps>
                                                         ],
                                                       ),
                                                     )),
-                                                Positioned(
-                                                  right: 10,
-                                                  top: 150,
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      if (contactus == false) {
-                                                        setState(() {
-                                                          contactus = true;
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          contactus = false;
-                                                        });
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      height: media.width * 0.1,
-                                                      width: media.width * 0.1,
-                                                      decoration: BoxDecoration(
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                                blurRadius: 2,
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.2),
-                                                                spreadRadius: 2)
-                                                          ],
-                                                          color: page,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(media
-                                                                          .width *
-                                                                      0.02)),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Image.asset(
-                                                        'assets/images/customercare.png',
-                                                        fit: BoxFit.contain,
-                                                        width:
-                                                            media.width * 0.06,
-                                                      ),
-                                                      // Icon(
-                                                      //     Icons
-                                                      //         .my_location_sharp,
-                                                      //     size: media
-                                                      //             .width *
-                                                      //         0.06),
-                                                    ),
-                                                  ),
-                                                ),
-                                                (contactus == true)
-                                                    ? Positioned(
-                                                        right: 10,
-                                                        top: 190,
-                                                        child: InkWell(
-                                                          onTap: () async {},
-                                                          child: Container(
-                                                              padding:
-                                                                 const EdgeInsets.all(
-                                                                      10),
-                                                              height:
-                                                                  media.width *
-                                                                      0.3,
-                                                              width:
-                                                                  media.width *
-                                                                      0.45,
-                                                              decoration: BoxDecoration(
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        blurRadius:
-                                                                            2,
-                                                                        color: Colors
-                                                                            .black
-                                                                            .withOpacity(
-                                                                                0.2),
-                                                                        spreadRadius:
-                                                                            2)
-                                                                  ],
-                                                                  color: page,
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          media.width *
-                                                                              0.02)),
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      makingPhoneCall(
-                                                                          userDetails[
-                                                                              'contact_us_mobile1']);
-                                                                    },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        const Expanded(
-                                                                            flex:
-                                                                                20,
-                                                                            child:
-                                                                                Icon(Icons.call)),
-                                                                        Expanded(
-                                                                            flex:
-                                                                                80,
-                                                                            child:
-                                                                                Text(
-                                                                              userDetails['contact_us_mobile1'],
-                                                                              style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
-                                                                            ))
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      makingPhoneCall(
-                                                                          userDetails[
-                                                                              'contact_us_mobile1']);
-                                                                    },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        const Expanded(
-                                                                            flex:
-                                                                                20,
-                                                                            child:
-                                                                                Icon(Icons.call)),
-                                                                        Expanded(
-                                                                            flex:
-                                                                                80,
-                                                                            child:
-                                                                                Text(
-                                                                              userDetails['contact_us_mobile2'],
-                                                                              style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
-                                                                            ))
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      openBrowser(
-                                                                          userDetails['contact_us_link']
-                                                                              .toString());
-                                                                    },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        const Expanded(
-                                                                            flex:
-                                                                                20,
-                                                                            child:
-                                                                                Icon(Icons.vpn_lock_rounded)),
-                                                                        Expanded(
-                                                                            flex:
-                                                                                80,
-                                                                            child:
-                                                                                Text(
-                                                                              'Goto URL',
-                                                                              maxLines: 1,
-                                                                              // overflow:
-                                                                              //     TextOverflow.ellipsis,
-                                                                              style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
-                                                                            ))
-                                                                      ],
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              )),
-                                                        ),
-                                                      )
-                                                    : Container(),
+                                                // Positioned(
+                                                //   right: 10,
+                                                //   top: 150,
+                                                //   child: InkWell(
+                                                //     onTap: () async {
+                                                //       if (contactus == false) {
+                                                //         setState(() {
+                                                //           contactus = true;
+                                                //         });
+                                                //       } else {
+                                                //         setState(() {
+                                                //           contactus = false;
+                                                //         });
+                                                //       }
+                                                //     },
+                                                //     child: Container(
+                                                //       height: media.width * 0.1,
+                                                //       width: media.width * 0.1,
+                                                //       decoration: BoxDecoration(
+                                                //           boxShadow: [
+                                                //             BoxShadow(
+                                                //                 blurRadius: 2,
+                                                //                 color: Colors
+                                                //                     .black
+                                                //                     .withOpacity(
+                                                //                         0.2),
+                                                //                 spreadRadius: 2)
+                                                //           ],
+                                                //           color: page,
+                                                //           borderRadius:
+                                                //               BorderRadius
+                                                //                   .circular(media
+                                                //                           .width *
+                                                //                       0.02)),
+                                                //       alignment:
+                                                //           Alignment.center,
+                                                //       child: Image.asset(
+                                                //         'assets/images/customercare.png',
+                                                //         fit: BoxFit.contain,
+                                                //         width:
+                                                //             media.width * 0.06,
+                                                //       ),
+                                                //       // Icon(
+                                                //       //     Icons
+                                                //       //         .my_location_sharp,
+                                                //       //     size: media
+                                                //       //             .width *
+                                                //       //         0.06),
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                // (contactus == true)
+                                                //     ? Positioned(
+                                                //         right: 10,
+                                                //         top: 190,
+                                                //         child: InkWell(
+                                                //           onTap: () async {},
+                                                //           child: Container(
+                                                //               padding:
+                                                //                  const EdgeInsets.all(
+                                                //                       10),
+                                                //               height:
+                                                //                   media.width *
+                                                //                       0.3,
+                                                //               width:
+                                                //                   media.width *
+                                                //                       0.45,
+                                                //               decoration: BoxDecoration(
+                                                //                   boxShadow: [
+                                                //                     BoxShadow(
+                                                //                         blurRadius:
+                                                //                             2,
+                                                //                         color: Colors
+                                                //                             .black
+                                                //                             .withOpacity(
+                                                //                                 0.2),
+                                                //                         spreadRadius:
+                                                //                             2)
+                                                //                   ],
+                                                //                   color: page,
+                                                //                   borderRadius:
+                                                //                       BorderRadius.circular(
+                                                //                           media.width *
+                                                //                               0.02)),
+                                                //               alignment:
+                                                //                   Alignment
+                                                //                       .center,
+                                                //               child: Column(
+                                                //                 mainAxisAlignment:
+                                                //                     MainAxisAlignment
+                                                //                         .spaceEvenly,
+                                                //                 children: [
+                                                //                   InkWell(
+                                                //                     onTap: () {
+                                                //                       makingPhoneCall(
+                                                //                           userDetails[
+                                                //                               'contact_us_mobile1']);
+                                                //                     },
+                                                //                     child: Row(
+                                                //                       children: [
+                                                //                         const Expanded(
+                                                //                             flex:
+                                                //                                 20,
+                                                //                             child:
+                                                //                                 Icon(Icons.call)),
+                                                //                         Expanded(
+                                                //                             flex:
+                                                //                                 80,
+                                                //                             child:
+                                                //                                 Text(
+                                                //                               userDetails['contact_us_mobile1'],
+                                                //                               style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
+                                                //                             ))
+                                                //                       ],
+                                                //                     ),
+                                                //                   ),
+                                                //                   InkWell(
+                                                //                     onTap: () {
+                                                //                       makingPhoneCall(
+                                                //                           userDetails[
+                                                //                               'contact_us_mobile1']);
+                                                //                     },
+                                                //                     child: Row(
+                                                //                       children: [
+                                                //                         const Expanded(
+                                                //                             flex:
+                                                //                                 20,
+                                                //                             child:
+                                                //                                 Icon(Icons.call)),
+                                                //                         Expanded(
+                                                //                             flex:
+                                                //                                 80,
+                                                //                             child:
+                                                //                                 Text(
+                                                //                               userDetails['contact_us_mobile2'],
+                                                //                               style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
+                                                //                             ))
+                                                //                       ],
+                                                //                     ),
+                                                //                   ),
+                                                //                   InkWell(
+                                                //                     onTap: () {
+                                                //                       openBrowser(
+                                                //                           userDetails['contact_us_link']
+                                                //                               .toString());
+                                                //                     },
+                                                //                     child: Row(
+                                                //                       children: [
+                                                //                         const Expanded(
+                                                //                             flex:
+                                                //                                 20,
+                                                //                             child:
+                                                //                                 Icon(Icons.vpn_lock_rounded)),
+                                                //                         Expanded(
+                                                //                             flex:
+                                                //                                 80,
+                                                //                             child:
+                                                //                                 Text(
+                                                //                               'Goto URL',
+                                                //                               maxLines: 1,
+                                                //                               // overflow:
+                                                //                               //     TextOverflow.ellipsis,
+                                                //                               style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
+                                                //                             ))
+                                                //                       ],
+                                                //                     ),
+                                                //                   )
+                                                //                 ],
+                                                //               )),
+                                                //         ),
+                                                //       )
+                                                //     : Container(),
                                                 (_bottom == 0)
                                                     ? Positioned(
                                                         top: MediaQuery.of(

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'product name',
+            title: 'Routes User',
             theme: ThemeData(),
             home: const LoadingPage()));
   }

@@ -99,7 +99,7 @@ class _OtpState extends State<Otp> {
   otpFalse() async {
     if (phoneAuthCheck == false) {
       _loading = true;
-      otpController.text = '123456';
+     // otpController.text = '123456';
       otpNumber = otpController.text;
       var verify = await verifyUser(phnumber);
 

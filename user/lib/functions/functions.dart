@@ -37,8 +37,8 @@ var audio = 'audio/notification_sound.mp3';
 bool internet = true;
 
 //base url
-String url = 'your base url'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'map key';
+String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String mapkey = 'AIzaSyCylFiVDHyJsUfiSpDcw32-BUkBxr_vRSU';
 
 //check internet connection
 

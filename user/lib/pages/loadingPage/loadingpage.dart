@@ -172,13 +172,17 @@ class _LoadingPageState extends State<LoadingPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(media.width * 0.01),
-                    width: media.width * 0.429,
-                    height: media.width * 0.429,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/logo.png'),
-                            fit: BoxFit.contain)),
+                    // padding: EdgeInsets.all(media.width * 0.01),
+                    width: media.width,
+                    height: media.height,
+                    // decoration: const BoxDecoration(
+                    //     image: DecorationImage(
+                    //         image: AssetImage('assets/images/splash.jpg'),
+                    //         fit: BoxFit.contain)),
+                    child: Image.asset(
+                      "assets/images/splash.jpg",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ],
               ),

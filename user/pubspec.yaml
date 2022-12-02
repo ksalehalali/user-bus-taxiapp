@@ -46,7 +46,7 @@ dependencies:
   geolocator: ^9.0.1
   location: ^4.3.0
   audioplayers: ^0.20.1
-  url_launcher: ^6.0.8
+  url_launcher: ^6.1.7
   flutter_local_notifications: ^9.3.2
   connectivity_plus: ^2.2.0
   contacts_service: ^0.6.3
