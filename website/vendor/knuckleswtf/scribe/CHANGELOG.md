@@ -12,6 +12,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Removed
 
+# 4.7.1 (28 November 2022)
+## Fixed
+- Use correct URL in response calls ([ebadfcdc](https://github.com/knuckleswtf/scribe/commit/ebadfcdcaf6eac2a36f7c080570c12a2b2fffbd6))
+
+# 4.7.0 (28 November 2022)
+## Added
+- `scribe:config:diff` command for easier debugging
+
+## Modified
+- Don't escape slashes in response content ([fdb8f4e5](https://github.com/knuckleswtf/scribe/commit/fdb8f4e5cab6e9b16339a5af1cb698fbcf77dafa))
+
+## Fixed
+- Fix default theme CSS ([#571](https://github.com/knuckleswtf/scribe/pull/571))
+
+# 4.6.1 (25 November 2022)
+## Fixed
+- Fix content overflow (closes #567) ([1fad3eb0](https://github.com/knuckleswtf/scribe/commit/1fad3eb021e3fd763485e5cf4c9d9ce495e9dd4a))
+
+# 4.6.0 (18 November 2022)
+## Modified
+- Styling improvements for the default theme; also show example with parameter description. ([e9bd84fb](https://github.com/knuckleswtf/scribe/commit/e9bd84fb7d1ad3330506ff045380a362bfaa4d99))
+- Description generation: pluralize/singularize values from Laravel's validator. ([0b9473b5](https://github.com/knuckleswtf/scribe/commit/0b9473b5cd8046df9fb230b36fff61b3159e9fb2))
+
+## Fixed
+- Don't include status code in description (closes #561) ([8a90c2d1](https://github.com/knuckleswtf/scribe/commit/8a90c2d1ea808a39e570778e8717604c07d8326f))
+- Remove mistaken example check (Fix #557) ([ad4f808](https://github.com/knuckleswtf/scribe/commit/ad4f8089692d75fc4870f37bbd96ba1df9f34dea))
+
+# 4.5.0 (16 November 2022)
+## Modified
+- Smarter example generation; Scribe now uses the parameter name as an added hint. ([46e3bbc](https://github.com/knuckleswtf/scribe/commit/46e3bbc2e007566df1bbef8c32b940bb1f4c0f58))
+
+# 4.4.0 (16 November 2022)
+- Fixes and improvements for the `default` theme
+
+# 4.3.0 (15 November 2022)
+### Added
+- New theme (beta)! Try it out by setting `theme` in your config to `elements`. ([#559](https://github.com/knuckleswtf/scribe/pull/559))
+
+
+# 4.2.2 (10 November 2022)
+### Fixed
+- Support #[ResponseField] on API resources ([66492aa](https://github.com/knuckleswtf/scribe/commit/66492aabdddb9481f0b74adca40fc6ce9a015253))
+
+# 4.2.1 (9 November 2022)
+### Fixed
+- Fix display of headings when append file has a H1 ([4924499](https://github.com/knuckleswtf/scribe/commit/4924499dc4411aa656e0e41dac7a317ab5fba94c))
+
+# 4.2.0 (8 November 2022)
+### Added
+- Allow users customize endpoint URL normalization ([fe70df9e](https://github.com/knuckleswtf/scribe/commit/fe70df9ef07c9f1a21bdc4f06c59435ab24b2141))
+- Set operationId on endpoints in OpenAPI spec ([69aeec6](https://github.com/knuckleswtf/scribe/commit/69aeec6fe37d0946e104d676455aa91f32856599))
+
+### Fixed
+- Fixed bug in extracting URL "thing" ([#548](https://github.com/knuckleswtf/scribe/pull/548/))
+- Fix bug in normalizing URL ([d0e7e3](https://github.com/knuckleswtf/scribe/commit/d0e7e3a4b26031bfa24fc71cf88cacf2da61f921/))
+
+# 4.1.0 (15 October 2022)
+### Added
+- Set bearer token properly in Postman Collection ([#529](https://github.com/knuckleswtf/scribe/pull/529/))
+- Customizable "Last updated at" label ([44996fe](https://github.com/knuckleswtf/scribe/commit/44996fe6f09b42648da19df97dd444d1aac8b003))
+- Turn subgroups into folders in Postman collection ([3152793](https://github.com/knuckleswtf/scribe/commit/3152793064afdf26a5de2c310bac73acc6581c48))
+
 # 4.0.0 (10 September 2022)
 ### Removed
 - [Breaking Change] Sorting groups or endpoints via editing/renaming the Camel files is no longer supported. Use the `groups.order` config item instead. 

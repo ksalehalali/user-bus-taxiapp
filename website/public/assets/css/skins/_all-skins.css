@@ -238,7 +238,7 @@ Project:	Fab Admin - Responsive Admin Template
 /*---light sidebar---*/
 
 .skin-blue-light .main-header .navbar {
-    background-color: #0B4DD8;
+    background: #16549d;
 }
 
 .skin-blue-light .main-header .navbar .nav>li>a {
@@ -284,14 +284,14 @@ Project:	Fab Admin - Responsive Admin Template
 }
 
 .skin-blue-light .main-header .logo {
-    background-color: #2a3042;
+    background-color: #fff;
     color: #ffffff;
     border-bottom: 0 solid transparent;
     text-align: center;
 }
 
 .skin-blue-light .main-header .logo:hover {
-    background-color: #2a3042;
+    background-color: #fff;
 }
 
 .skin-blue-light .main-header li.user-header {
@@ -309,7 +309,7 @@ Project:	Fab Admin - Responsive Admin Template
 .skin-blue-light .wrapper,
 .skin-blue-light .main-sidebar,
 .skin-blue-light .left-side {
-    background-color: #2a3042;
+    background-color: #fff;
     box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -319,7 +319,7 @@ Project:	Fab Admin - Responsive Admin Template
 }
 
 .skin-blue-light .sidebar {
-    border-color: #0B4DD8;
+    border-color: #fff;
 }
 
 .skin-blue-light .sidebar-menu>li.header {
@@ -333,17 +333,17 @@ Project:	Fab Admin - Responsive Admin Template
 .skin-blue-light .sidebar-menu>li:hover>a,
 .skin-blue-light .sidebar-menu>li.active>a {
     color: #fff;
-    background: #0b4cd81c;
+    background: #16549d;
 }
 
 .skin-blue-light .sidebar-menu>li.active>a,
 .skin-blue-light .sidebar-menu>li.menu-open>a {
     color: #fff;
-    background: #0b4cd84b;
+    background: #16549d;
 }
 
 .skin-blue-light .sidebar-menu>li.active>a {
-    border-left-color: #0B4DD8;
+    border-left-color: #16549d;
 }
 
 .skin-blue-light .sidebar-menu>li>.treeview-menu {
@@ -352,7 +352,7 @@ Project:	Fab Admin - Responsive Admin Template
 }
 
 .skin-blue-light .sidebar a {
-    color: #a2a5af;
+    color: #1f1f1f;
 }
 
 .skin-blue-light .sidebar a:hover {
@@ -360,12 +360,12 @@ Project:	Fab Admin - Responsive Admin Template
 }
 
 .skin-blue-light .sidebar-menu .treeview-menu>li>a {
-    color: #a2a5af;
+    color: #2e3849;
 }
 
 .skin-blue-light .sidebar-menu .treeview-menu>li.active>a,
 .skin-blue-light .sidebar-menu .treeview-menu>li>a:hover {
-    color: #ffffff;
+    color: #1f1f1f;
 }
 
 .skin-blue-light .sidebar-form {
@@ -2501,4 +2501,9 @@ Project:	Fab Admin - Responsive Admin Template
 .skin-yellow-light .main-header .notifications-menu .dropdown-toggle i::after,
 .skin-yellow-light .main-header .tasks-menu .dropdown-toggle i::after {
     border-color: #e9ab2e;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover, .nav-tabs .nav-item.open .nav-link, .nav-tabs .nav-item.open .nav-link:focus, .nav-tabs .nav-item.open .nav-link:hover{
+    border-bottom-color: #16549d;
+    background-color: #16549d;
 }
