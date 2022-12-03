@@ -264,6 +264,37 @@ $sub_menu = 'translations';
                 </ul>
             </li>
             @endif
+            @if(auth()->user()->can('manage-map'))
+            <li class="treeview {{ 'manage-map' == $main_menu ? 'active menu-open' : '' }}">
+                <a href="javascript: void(0);">
+                    <i class="fa fa-globe"></i>
+                    <span> @lang('pages_names.manage-map') </span>
+                    <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    @if(auth()->user()->can('heat-map'))
+                    <li class="{{ 'heat_map' == $sub_menu ? 'active' : '' }}">
+                        <a href="{{url('map/heatmap')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.heat_map')</a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->can('map-view'))
+                    <li class="{{ 'map' == $sub_menu ? 'active' : '' }}">
+                        <a href="{{route('mapView')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.map_view')</a>
+                    </li>
+
+                    {{--
+                    <li class="{{ 'map-mapbox' == $sub_menu ? 'active' : '' }}">
+                        <a href="{{route('mapViewMapbox')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.map_view_mapbox')</a>
+                    </li>
+                    --}}
+                    @endif
+                </ul>
+            </li>
+            @endif
             @if(auth()->user()->can('vehicle-fare'))
             <li class="{{'vehicle-fare' == $main_menu ? 'active' : '' }}">
                 <a href="{{url('/vehicle_fare')}}"><i class="fa fa-money"></i>@lang('pages_names.set_price')</a>
@@ -549,37 +580,7 @@ $sub_menu = 'translations';
             </li>
             @endif
 
-            @if(auth()->user()->can('manage-map'))
-            <li class="treeview {{ 'manage-map' == $main_menu ? 'active menu-open' : '' }}">
-                <a href="javascript: void(0);">
-                    <i class="fa fa-globe"></i>
-                    <span> @lang('pages_names.manage-map') </span>
-                    <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-                </a>
-
-                <ul class="treeview-menu">
-                    @if(auth()->user()->can('heat-map'))
-                    <li class="{{ 'heat_map' == $sub_menu ? 'active' : '' }}">
-                        <a href="{{url('map/heatmap')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.heat_map')</a>
-                    </li>
-                    @endif
-
-                    @if(auth()->user()->can('map-view'))
-                    <li class="{{ 'map' == $sub_menu ? 'active' : '' }}">
-                        <a href="{{route('mapView')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.map_view')</a>
-                    </li>
-
-                    {{--
-                    <li class="{{ 'map-mapbox' == $sub_menu ? 'active' : '' }}">
-                        <a href="{{route('mapViewMapbox')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.map_view_mapbox')</a>
-                    </li>
-                    --}}
-                    @endif
-                </ul>
-            </li>
-            @endif
+            
             @if(auth()->user()->can('manage-faq'))
             <li class="{{'faq' == $main_menu ? 'active' : '' }}">
                 <a href="{{url('/faq')}}">

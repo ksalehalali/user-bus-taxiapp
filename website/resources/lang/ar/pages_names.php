@@ -165,4 +165,6 @@ return array (
   'add_vehicle' => 'أضف المركبات',
   'edit_vehicle' => 'تحرير السيارة',
   'manage_vehicle' => 'إدارة السيارة',
+  'countries' => 'بلدان',
+
 );

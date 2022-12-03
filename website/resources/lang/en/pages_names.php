@@ -182,4 +182,5 @@ return array (
   'add_vehicle' => 'Add Vehicles',
   'edit_vehicle' => 'Edit Vehicle',
   'manage_vehicle' => 'Manage Vehicle',
+  'countries' => 'Countries',
 );
