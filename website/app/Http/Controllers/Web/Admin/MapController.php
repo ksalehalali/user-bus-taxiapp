@@ -52,28 +52,42 @@ class MapController extends Controller
 
         if ($zone) {
             if (access()->hasRole(Role::SUPER_ADMIN)) {
-            } else {
+            }else if(auth()->user()->admin){
                 $admin_detail = auth()->user()->admin;
-                $zone = $admin_detail->serviceLocationDetail->zones()->first();
-            }
-
-            $coordinates = $zone->coordinates->toArray();
-
-            $multi_polygon = [];
-
-            foreach ($coordinates as $key => $coordinate) {
-                $polygon = [];
-                foreach ($coordinate[0] as $key => $point) {
-                    $pp = new \stdClass;
-                    $pp->lat = $point->getLat();
-                    $pp->lng = $point->getLng();
-                    $polygon [] = $pp;
+                if(!empty($admin_detail->serviceLocationDetail)){
+                    $zone = $admin_detail->serviceLocationDetail->zones()->first();
                 }
-                $multi_polygon[] = $polygon;
+                $zone = $admin_detail->serviceLocationDetail->zones()->first();
+            } else if(auth()->user()->owner) {
+                $admin_detail = auth()->user()->owner;
+                if($admin_detail->service_location_id){
+                    $serviceLocationDetail = ServiceLocation::where('id', $admin_detail->service_location_id)->first();
+                    if(!empty($serviceLocationDetail->id)){
+                        $zone = Zone::where('service_location_id',$serviceLocationDetail->id)->active()->companyKey()->first();
+                    }
+                }
             }
 
-            $default_lat = $polygon[0]->lat;
-            $default_lng = $polygon[0]->lng;
+            if(!empty($zone)){
+                $coordinates = $zone->coordinates->toArray();
+
+                $multi_polygon = [];
+
+                foreach ($coordinates as $key => $coordinate) {
+                    $polygon = [];
+                    foreach ($coordinate[0] as $key => $point) {
+                        $pp = new \stdClass;
+                        $pp->lat = $point->getLat();
+                        $pp->lng = $point->getLng();
+                        $polygon [] = $pp;
+                    }
+                    $multi_polygon[] = $polygon;
+                }
+
+                $default_lat = $polygon[0]->lat;
+                $default_lng = $polygon[0]->lng;
+            }
+            
         }
 
 
