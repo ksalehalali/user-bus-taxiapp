@@ -9,10 +9,7 @@
     <a href="#" class="logo">
         <!-- mini logo -->
         <b class="logo-mini">
-             <span class="light-logo" style="display: flex;align-items: end;"><img
-                     src="{{ url('/public/images/logo.png') }}" style="padding-right: 5px;"
-                     alt="logo"></span>
-
+             <span class="light-logo" style="display: flex;align-items: end;"><img src="{{ app_logo() ?? asset('images/email/logo.svg') }}" style="padding-right: 5px;" alt="logo"></span>
          </b>
          <!-- logo-->
          <!--  <span class="logo-lg">
