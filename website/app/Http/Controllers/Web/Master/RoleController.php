@@ -165,7 +165,7 @@ class RoleController extends BaseController
         $attachable_permissions = $this->permission->get();
 
         $permissions = $this->getAttachablePermissions($attachable_permissions);
-       dd($permissions);
+       // dd($permissions);
         $main_menu = 'settings';
 
         $sub_menu = 'roles';

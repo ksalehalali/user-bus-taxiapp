@@ -162,7 +162,7 @@ $sub_menu = 'translations';
             </li>
             @endif --}}
 
-            @if(auth()->user()->can('view-requests'))
+            @if(auth()->user()->can('master-data'))
             <li class="treeview {{ 'trip-request' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">
                     <i class="fa fa-map"></i>
