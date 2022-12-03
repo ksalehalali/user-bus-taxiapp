@@ -157,6 +157,7 @@ class RoleController extends BaseController
      */
     public function assignPermissionView($id)
     {
+
         $role = $this->role->where('id', $id)->first();
 
         $page = trans('pages_names.assign_permissions');
@@ -164,7 +165,7 @@ class RoleController extends BaseController
         $attachable_permissions = $this->permission->get();
 
         $permissions = $this->getAttachablePermissions($attachable_permissions);
-
+       dd($permissions);
         $main_menu = 'settings';
 
         $sub_menu = 'roles';
