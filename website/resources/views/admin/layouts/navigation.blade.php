@@ -33,22 +33,48 @@ $sub_menu = 'translations';
             </li>
             @endif
 
-            @if(auth()->user()->can('view-settings'))
-            <li class="treeview {{ 'settings' == $main_menu ? 'active menu-open' : '' }}">
+
+
+            @if(auth()->user()->can('get-all-roles') || auth()->user()->can('view-users') || auth()->user()->can('admin') )
+            <li class="treeview {{ 'users' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">
                     <i class="fa fa-cogs"></i>
-                    <span> @lang('pages_names.settings') </span>
+                    <span> @lang('pages_names.users') </span>
                     <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
                 </a>
-
                 <ul class="treeview-menu">
                     @if(auth()->user()->can('get-all-roles'))
                     <li class="{{ 'roles' == $sub_menu ? 'active' : '' }}">
                         <a href="{{url('/roles')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.roles')</a>
                     </li>
                     @endif
+                    @if(auth()->user()->can('admin'))
+                    <li class="{{'admin' == $main_menu ? 'active' : '' }}">
+                        <a href="{{url('/admins')}}">
+                            <i class="fa fa-circle-thin"></i><span>@lang('pages_names.admins')</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if(auth()->user()->can('view-users'))
+                    <li class="{{ 'user_details' == $sub_menu ? 'active' : '' }}">
+                        <a href="{{url('/users')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.customers')</a>
+                    </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
+            @if(auth()->user()->can('view-settings'))
+            <li class="treeview {{ 'settings' == $main_menu ? 'active menu-open' : '' }}">
+                <a href="javascript: void(0);">
+                    <i class="fa fa-cogs"></i>
+                    <span> @lang('pages_names.settings') </span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
                     @if(auth()->user()->can('view-system-settings'))
                     <li class="{{ 'system_settings' == $sub_menu ? 'active' : '' }}">
                         <a href="{{url('/system/settings')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.system_settings')</a>
@@ -72,15 +98,13 @@ $sub_menu = 'translations';
             <li class="treeview {{ 'master' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">
                     <i class="fa fa-code-fork"></i>
-                    <span> @lang('pages_names.master') </span>
+                    <span> @lang('pages_names.documents') </span>
                     <span class="pull-right-container">
             <i class="fa fa-angle-right pull-right"></i>
           </span>
                 </a>
 
                 <ul class="treeview-menu">
-
-
                     @if(auth()->user()->can('manage-driver-needed-document'))
                     <li class="{{ 'needed_document' == $sub_menu ? 'active' : '' }}">
                         <a href="{{url('/needed_doc')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.needed_doc')</a>
@@ -147,13 +171,7 @@ $sub_menu = 'translations';
             </li>
             @endif
 
-            @if(auth()->user()->can('admin'))
-            <li class="{{'admin' == $main_menu ? 'active' : '' }}">
-                <a href="{{url('/admins')}}">
-                    <i class="fa fa-user-circle-o"></i> <span>@lang('pages_names.admins')</span>
-                </a>
-            </li>
-            @endif
+
             {{-- @if(auth()->user()->can('view-requests'))
             <li class="{{'request' == $main_menu ? 'active' : '' }}">
                 <a href="{{url('/requests')}}">
@@ -185,7 +203,7 @@ $sub_menu = 'translations';
                     @if(auth()->user()->can('view-types'))
                     <li class="{{'types' == $main_menu ? 'active' : '' }}">
                         <a href="{{url('/types')}}">
-                            <i class="fa fa-circle-thin"></i> <span>@lang('pages_names.types')</span>
+                            <i class="fa fa-circle-thin"></i><span>@lang('pages_names.types')</span>
                         </a>
                     </li>
                     @endif
@@ -232,7 +250,6 @@ $sub_menu = 'translations';
                 </ul>
             </li>
             @endif
-
 
 
             @if(auth()->user()->can('map-menu'))
@@ -356,25 +373,6 @@ $sub_menu = 'translations';
                     @endif
                 </ul>
 
-            </li>
-            @endif
-            @if(auth()->user()->can('user-menu'))
-            <li class="treeview {{ 'users' == $main_menu ? 'active menu-open' : '' }}">
-                <a href="javascript: void(0);">
-                    <i class="fa fa-user"></i>
-                    <span> @lang('pages_names.users') </span>
-                    <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-          </span>
-                </a>
-
-                <ul class="treeview-menu">
-                    @if(auth()->user()->can('view-users'))
-                    <li class="{{ 'user_details' == $sub_menu ? 'active' : '' }}">
-                        <a href="{{url('/users')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.user_details')</a>
-                    </li>
-                    @endif
-                </ul>
             </li>
             @endif
 

@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="50d68801-7a2b-4748-917c-2ed72839c9eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/master_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/master_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/common_styles.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/common_styles.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navigation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navigation.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
