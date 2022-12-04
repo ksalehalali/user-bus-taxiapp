@@ -28,7 +28,7 @@ class AssistantMethods {
 
       }
       placeAddress = res['features'][0]['place_name']  ;
-
+      print("address ===== $placeAddress");
       Address userAddress = new Address();
       userAddress.latitude = position.latitude;
       userAddress.longitude = position.longitude;
