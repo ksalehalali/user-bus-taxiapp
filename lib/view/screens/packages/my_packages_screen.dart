@@ -100,7 +100,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
 
                                       ),
                                     ),
-                                    SizedBox(width: 14,),
+                                    SizedBox(width: 10,),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -108,7 +108,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                         SizedBox(
                                           width: screenSize.width *0.4 ,
                                           child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
-                                            ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
+                                            ,style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),),
                                         ),
                                         SizedBox(height: 8.0,),
                                         Row(
@@ -138,7 +138,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                         RichText(text: TextSpan(
                                             children: [
                                               TextSpan(text: 'Activation Date: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                              TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800])),
+                                              TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.green[800])),
 
                                             ]
                                         )),
