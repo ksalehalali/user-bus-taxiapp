@@ -84,7 +84,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
 
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -106,7 +106,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                       children: [
 
                                         SizedBox(
-                                          width: screenSize.width *0.4 ,
+                                          width: screenSize.width *0.3 ,
                                           child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
                                             ,style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),),
                                         ),
