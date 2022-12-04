@@ -81,7 +81,6 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
 
                       itemBuilder: (context,index)=>InkWell(
                         onTap: (){
-                          buyPackageDialog(context,index);
 
                         },
                         child: Padding(
@@ -180,76 +179,4 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
     );
   }
 
-  void buyPackageDialog(BuildContext context,int index) {
-    Get.dialog(
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Container(
-              height:
-              MediaQuery.of(context).size.height *0.4-20,
-              width:  MediaQuery.of(context).size.width *0.9,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              child: Center(child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                        onTap: (){
-
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(Icons.close_sharp,size: 37,color: Colors.redAccent,)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(  packagesController.allPackages[index]['name'],overflow:TextOverflow.ellipsis,maxLines: 1
-                      ,style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),),
-                  ),
-                  SizedBox(height: 18.0,),
-
-                  Text('Unlimited travel on all routes_txt'.tr),
-                  const SizedBox(height: 118.0,),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(onPressed:(){
-
-                      },
-                        style: ButtonStyle(
-                          backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
-                          foregroundColor: MaterialStateProperty.all(routes_color),
-                          padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
-                        ) ,
-                        child:Text('BUY WITH WALLET'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
-                          ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
-
-                      ElevatedButton(onPressed:(){
-                        MyFatoorahCheckOut myFatoorh = MyFatoorahCheckOut();
-                        myFatoorh.initiate(context,double.parse(packagesController.allPackages[index]['price'].toString()) , 0,true,packagesController.allPackages[index]['price'].toString());
-                      },
-                        style: ButtonStyle(
-                          backgroundColor:MaterialStateProperty.all(Colors.blue[800]),
-                          foregroundColor: MaterialStateProperty.all(routes_color),
-                          padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 12)),
-                        ) ,
-                        child:Text('BUY WITH CARD'.tr,overflow:TextOverflow.ellipsis,maxLines: 1
-                          ,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),), ),
-                    ],
-                  ),
-
-
-
-                ],
-              )),
-            ),
-          ),
-        )
-    );
-  }
 }

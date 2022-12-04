@@ -102,7 +102,10 @@ class LocationController extends GetxController {
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
-    print('loca ...............  $loca');
+    loc.Location.instance.onLocationChanged.listen((location) {
+      print('location ........ listening.......  ${location.longitude}');
+
+    });
 
     if (loca.latitude != null) {
      changePickUpAddress('Current Location');
