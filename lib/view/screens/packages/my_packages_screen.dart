@@ -117,7 +117,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 langController.appLocal=="en"?
-                                                Text("Expiry Date : ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),):
+                                                Text("Expiry: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),):
                                                 Text("تاريخ الانتهاء: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),),
                                                 SizedBox(height: 12.0,),
                                                 // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
@@ -137,7 +137,7 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
                                       children: [
                                         RichText(text: TextSpan(
                                             children: [
-                                              TextSpan(text: 'Activation Date: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
+                                              TextSpan(text: 'Activation: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
                                               TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.green[800])),
 
                                             ]
