@@ -17,7 +17,9 @@ import '../../styles/styles.dart';
 import '../../functions/functions.dart';
 import 'package:http/http.dart' as http;
 
-import '../login/signupmethod.dart';
+import '../login/driver_or_owner.dart';
+import '../login/login.dart';
+import '../login/welcome_screen.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -62,7 +64,6 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     getLanguageDone();
-
     super.initState();
   }
 
@@ -131,9 +132,9 @@ class _LoadingPageState extends State<LoadingPage> {
         }
         //if user is not login in this device
         else if (val == '2') {
-          Future.delayed(const Duration(seconds: 2), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const SignupMethod()));
+                MaterialPageRoute(builder: (context) => const WelcomeScreen()));
           });
         } else {
           //user installing first time and didnt yet choosen language
@@ -166,13 +167,14 @@ class _LoadingPageState extends State<LoadingPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(media.width * 0.01),
-                    width: media.width * 0.429,
-                    height: media.width * 0.429,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/logo.png'),
-                            fit: BoxFit.contain)),
+                    // padding: EdgeInsets.all(media.width * 0.01),
+                    width: media.width,
+                    height: media.height,
+                    // decoration: const BoxDecoration(
+                    //     image: DecorationImage(
+                    //         image: AssetImage('assets/images/logo.png'),
+                    //         fit: BoxFit.contain)),
+                    child: Image.asset('assets/images/splash.jpg', fit: BoxFit.fill,),
                   ),
                 ],
               ),

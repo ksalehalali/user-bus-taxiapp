@@ -24,7 +24,8 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import 'package:permission_handler/permission_handler.dart' as perm;
 import 'package:vector_math/vector_math.dart' as vector;
 
-import '../login/signupmethod.dart';
+import '../login/driver_or_owner.dart';
+import '../login/enter_phone_number.dart';
 
 class Maps extends StatefulWidget {
   const Maps({Key? key}) : super(key: key);
@@ -4287,7 +4288,7 @@ class _MapsState extends State<Maps>
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
-                                                                            const Login()),
+                                                                            const EnterPhoneNumber()),
                                                                 (route) => false);
                                                             userDetails.clear();
                                                           });
@@ -4387,7 +4388,7 @@ class _MapsState extends State<Maps>
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
-                                                                            const SignupMethod()),
+                                                                            const DriverOrOwner()),
                                                                 (route) => false);
                                                             userDetails.clear();
                                                           });

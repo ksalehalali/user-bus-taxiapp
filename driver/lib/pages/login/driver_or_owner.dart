@@ -6,15 +6,16 @@ import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 
 import '../../translation/translation.dart';
+import 'enter_phone_number.dart';
 
-class SignupMethod extends StatefulWidget {
-  const SignupMethod({Key? key}) : super(key: key);
+class DriverOrOwner extends StatefulWidget {
+  const DriverOrOwner({Key? key}) : super(key: key);
 
   @override
-  State<SignupMethod> createState() => _SignupMethodState();
+  State<DriverOrOwner> createState() => _DriverOrOwnerState();
 }
 
-class _SignupMethodState extends State<SignupMethod> {
+class _DriverOrOwnerState extends State<DriverOrOwner> {
   @override
   void initState() {
     ischeckownerordriver = '';
@@ -104,9 +105,7 @@ class _SignupMethodState extends State<SignupMethod> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: media.width * 0.1,
-                  ),
+                  SizedBox(height: media.width * 0.1),
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -185,7 +184,7 @@ class _SignupMethodState extends State<SignupMethod> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Login()));
+                                  builder: (context) => const EnterPhoneNumber()));
                         },
                         text: languages[choosenLanguage]['text_continue']),
                   )

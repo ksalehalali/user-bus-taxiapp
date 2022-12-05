@@ -14,6 +14,8 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'enter_phone_number.dart';
+
 class OwnersRegister extends StatefulWidget {
   const OwnersRegister({Key? key}) : super(key: key);
 
