@@ -6,6 +6,7 @@ import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import '../../functions/functions.dart';
 import '../../widgets/widgets.dart';
+import '../login/enter_phone_number.dart';
 
 class Languages extends StatefulWidget {
   const Languages({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _LanguagesState extends State<Languages> {
 //navigate
   navigate() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Login()));
+        context, MaterialPageRoute(builder: (context) => const EnterPhoneNumber()));
   }
 
   @override
