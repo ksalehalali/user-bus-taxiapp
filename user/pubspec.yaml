@@ -63,7 +63,12 @@ dependencies:
   awesome_notifications: ^0.6.21
   webview_flutter: ^3.0.4
   intl: ^0.17.0
+<<<<<<< Updated upstream
   flutter_inappwebview: ^5.5.0+1
+=======
+  flutter_inappwebview: 5.3.2
+  flutter_otp_text_field: ^1.1.1
+>>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +95,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/animated_images/
     - assets/audio/
     - assets/map_style.json
     - assets/maps_style.json
