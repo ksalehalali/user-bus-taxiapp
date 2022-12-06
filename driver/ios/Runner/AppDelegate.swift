@@ -10,19 +10,19 @@ import Firebase
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     FirebaseApp.configure()
-    GMSServices.provideAPIKey("map key")
+    GMSServices.provideAPIKey("AIzaSyAly0S-jbb1aVNCAYtXrRRybxZUM8Z5CVo")
     GeneratedPluginRegistrant.register(with: self)
    UIApplication.shared.beginReceivingRemoteControlEvents()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
 }
 var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0);
     override func applicationDidEnterBackground(_ application: UIApplication) {
-        
+
                 bgTask = application.beginBackgroundTask()
     }
     override func applicationDidBecomeActive(_ application: UIApplication) {
         application.endBackgroundTask(bgTask);
         application.applicationIconBadgeNumber = 0;
     }
-    
+
 }
