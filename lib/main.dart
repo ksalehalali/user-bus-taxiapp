@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -8,14 +9,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:myfatoorah_flutter/utils/MFCountry.dart';
 import 'package:myfatoorah_flutter/utils/MFEnvironment.dart';
 import 'package:routes/controller/location_controller.dart';
 import 'package:routes/controller/personal_information_controller.dart';
+import 'package:routes/services/background_services.dart';
+import 'package:routes/services/notifications/push_notification_service.dart';
 import 'package:routes/view/screens/Auth/login.dart';
-import 'Assistants/assistantMethods.dart';
 import 'Assistants/firebase_dynamic_link.dart';
 import 'Assistants/globals.dart';
 import 'Data/current_data.dart';
@@ -29,18 +30,18 @@ import 'controller/transactions_controller.dart';
 import 'controller/trip_controller.dart';
 import 'localization/localization.dart';
 
-
 import 'package:flutter/foundation.dart';
 
-import 'notifications/push_notification_service.dart';
 
 
 PushNotificationService pushNotificationService = PushNotificationService();
 
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+ // await initializeService();
 
   FirebaseMessaging.onBackgroundMessage(
       pushNotificationService.firebaseMessagingBackgroundHandler);
@@ -118,6 +119,8 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     start();
     checkConnectivity();
   }
+
+
 
   checkConnectivity()async {
     var isDeviceConnected = await Connectivity().checkConnectivity();

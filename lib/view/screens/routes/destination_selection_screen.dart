@@ -206,7 +206,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             locationController.startAddingPickUpStatus(false);
                             locationController.startAddingDropOffStatus(true);
                             print(locationController.startAddingDropOff.value);
-                            locationController.findPlace(val);
+                            if(val.length > 2)locationController.findPlace(val);
                           },
                           onTap: () {
                             pickUpFilling = false;

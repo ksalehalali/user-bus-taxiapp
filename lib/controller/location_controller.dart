@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:background_location/background_location.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -102,9 +103,13 @@ class LocationController extends GetxController {
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
-    loc.Location.instance.onLocationChanged.listen((location) {
-      print('location ........ listening.......  ${location.longitude}');
-
+    // loc.Location.instance.onLocationChanged.listen((location) {
+    //   print('location ........ listening.......  ${location.longitude}');
+    //
+    // });
+    BackgroundLocation.startLocationService(distanceFilter : 1);
+    BackgroundLocation.getLocationUpdates((location) {
+      print("location ....... background update ${location.longitude} - ${location.latitude}");
     });
 
     if (loca.latitude != null) {
@@ -229,7 +234,7 @@ class LocationController extends GetxController {
             lng: element.lng
           ));
         });
-        print(placePredictionList.first.mainText);
+        print(placePredictionList.first);
         update();
       }
     }
