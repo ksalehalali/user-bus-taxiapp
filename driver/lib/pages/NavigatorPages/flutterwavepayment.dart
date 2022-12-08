@@ -77,7 +77,7 @@ class _FlutterWavePageState extends State<FlutterWavePage> {
         customization: Customization(title: "Payment"),
         isTestMode: (walletBalance['flutterwave_environment'] == 'test')
             ? true
-            : false);
+            : false, redirectUrl: '');
 
     setState(() {
       _isLoading = false;
