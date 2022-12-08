@@ -58,7 +58,7 @@ String ischeckownerordriver = '';
 
 //base url
 String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'AIzaSyCylFiVDHyJsUfiSpDcw32-BUkBxr_vRSU';
+String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
 String mapStyle = '';
 
 getDetailsOfDevice() async {
@@ -226,12 +226,9 @@ List languagesCode = [
 uploadDocs() async {
   dynamic result;
   try {
-    var response = http.MultipartRequest(
-        'POST', Uri.parse('${url}api/v1/driver/upload/documents'));
-    response.headers
-        .addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
-    response.files
-        .add(await http.MultipartFile.fromPath('document', imageFile));
+    var response = http.MultipartRequest('POST', Uri.parse('${url}api/v1/driver/upload/documents'));
+    response.headers.addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
+    response.files.add(await http.MultipartFile.fromPath('document', imageFile));
     if (documentsNeeded[choosenDocs]['has_expiry_date'] == true) {
       response.fields['expiry_date'] = expDate.toString().substring(0, 19);
     }
@@ -470,7 +467,7 @@ getvehicleType() async {
   dynamic res;
   try {
     final response = await http.get(
-      Uri.parse('${url}api/v1/types/$myServiceId'),
+      Uri.parse('${url}api/v1/types/${myServiceId}'),
     );
 
     if (response.statusCode == 200) {
@@ -485,7 +482,6 @@ getvehicleType() async {
       internet = false;
     }
   }
-
   return res;
 }
 
@@ -2398,10 +2394,8 @@ updateProfile(name, email) async {
       'POST',
       Uri.parse('${url}api/v1/user/driver-profile'),
     );
-    response.headers
-        .addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
-    response.files.add(
-        await http.MultipartFile.fromPath('profile_picture', proImageFile));
+    response.headers.addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
+    response.files.add(await http.MultipartFile.fromPath('profile_picture', proImageFile));
     response.fields['email'] = email;
     response.fields['name'] = name;
     var request = await response.send();

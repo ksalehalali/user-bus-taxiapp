@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/functions/geohash.dart';
 import 'package:tagyourtaxi_driver/pages/chatPage/chat_page.dart';
+import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/login/login.dart';
@@ -1505,7 +1506,7 @@ class _MapsState extends State<Maps>
                                                         height:
                                                             media.height * 0.31,
                                                         child: Image.asset(
-                                                          'assets/images/allow_location_permission.png',
+                                                          'assets/animated_images/location_access.png',
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
@@ -1515,11 +1516,11 @@ class _MapsState extends State<Maps>
                                                       ),
                                                       Text(
                                                         languages[choosenLanguage]
-                                                            ['text_trustedtaxi'],
+                                                            ['text_allow_access'],
                                                         style: GoogleFonts.roboto(
                                                             fontSize:
                                                                 media.width *
-                                                                    eighteen,
+                                                                    twentyeight,
                                                             fontWeight:
                                                                 FontWeight.w600),
                                                       ),
@@ -1643,17 +1644,25 @@ class _MapsState extends State<Maps>
                                                           ],
                                                         ),
                                                       ),
+                                                      SizedBox(height: 35),
                                                       Container(
-                                                          padding: EdgeInsets.all(
-                                                              media.width * 0.05),
-                                                          child: Button(
-                                                              onTap: () async {
+                                                          height: 60,
+                                                          width: MediaQuery.of(context).size.width/2.5,
+                                                          // padding: EdgeInsets.all(
+                                                          //     media.width * 0.05),
+                                                          child: ElevatedButton(
+                                                                 style: ElevatedButton.styleFrom(
+                                                                  primary: notUploadedColor,
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(36.0)
+                                                                  )
+                                                              ), 
+                                                                      onPressed: () async {
                                                                 getLocationPermission();
                                                               },
-                                                              text: languages[
-                                                                      choosenLanguage]
-                                                                  [
-                                                                  'text_continue']))
+                                                              child: Text(languages[choosenLanguage]['text_allow_access'], style: TextStyle(fontSize: 18.0),),
+                                                              )
+                                                      )
                                                     ],
                                                   ),
                                                 )
@@ -4388,7 +4397,7 @@ class _MapsState extends State<Maps>
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
-                                                                            const DriverOrOwner()),
+                                                                            const WelcomeScreen()),
                                                                 (route) => false);
                                                             userDetails.clear();
                                                           });

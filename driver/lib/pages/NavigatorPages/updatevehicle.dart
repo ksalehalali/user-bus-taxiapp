@@ -177,14 +177,14 @@ class _UpdateVehicleState extends State<UpdateVehicle> {
                       ))),
 
               //navigate to pick service page
-              Button(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ServiceArea()));
-                  },
-                  text: languages[choosenLanguage]['text_edit'])
+              // Button(
+              //     onTap: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const ServiceArea()));
+              //     },
+              //     text: languages[choosenLanguage]['text_edit'])
             ],
           ),
         ),
