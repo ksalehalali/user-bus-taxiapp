@@ -33,7 +33,6 @@ class _LoadingState extends State<Loading> {
         });
       }
     });
-
     super.initState();
   }
 
@@ -44,44 +43,53 @@ class _LoadingState extends State<Loading> {
       alignment: Alignment.center,
       height: media.height * 1,
       width: media.width * 1,
-      color: Colors.transparent.withOpacity(0.6),
+      // color: Colors.transparent.withOpacity(0.6),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color.fromRGBO(3, 140, 200, 1),
+            Color.fromRGBO(22, 84, 157, 1),
+          ],
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 20,
-            width: media.width * 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 225),
-                  height: _size1,
-                  width: _size1,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: loaderColor),
-                ),
-                const SizedBox(width: 5),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 225),
-                  height: _size2,
-                  width: _size2,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: loaderColor),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 225),
-                  height: _size3,
-                  width: _size3,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: loaderColor),
-                )
-              ],
-            ),
-          )
+          // SizedBox(
+          //   height: 20,
+          //   width: media.width * 1,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       AnimatedContainer(
+          //         duration: const Duration(milliseconds: 225),
+          //         height: _size1,
+          //         width: _size1,
+          //         decoration:
+          //             BoxDecoration(shape: BoxShape.circle, color: loaderColor),
+          //       ),
+          //       const SizedBox(width: 5),
+          //       AnimatedContainer(
+          //         duration: const Duration(milliseconds: 225),
+          //         height: _size2,
+          //         width: _size2,
+          //         decoration:
+          //             BoxDecoration(shape: BoxShape.circle, color: loaderColor),
+          //       ),
+          //       const SizedBox(width: 5),
+          //       AnimatedContainer(
+          //         duration: const Duration(milliseconds: 225),
+          //         height: _size3,
+          //         width: _size3,
+          //         decoration:
+          //             BoxDecoration(shape: BoxShape.circle, color: loaderColor),
+          //       )
+          //     ],
+          //   ),
+          // )
+          Image.asset('assets/images/Logo-animated.gif')
         ],
       ),
     );

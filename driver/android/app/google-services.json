@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:893435407802:android:76391efde557b77fdd4183",
+        "android_client_info": {
+          "package_name": "com.routestaxi.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893435407802-sic2uhantte17quoaranj9mv8eob3g7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGpd_vK1w4hbCtbuk4mqbKOl0WuOe6FGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893435407802-sic2uhantte17quoaranj9mv8eob3g7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:893435407802:android:0da3aae752968561dd4183",
         "android_client_info": {
           "package_name": "com.routestaxi.user"

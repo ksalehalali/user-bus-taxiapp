@@ -34,6 +34,7 @@ import 'package:tagyourtaxi_driver/pages/vehicleInformations/vehicle_year.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../pages/NavigatorPages/fleetdocuments.dart';
+import '../pages/login/enter_phone_number.dart';
 import '../pages/login/ownerregister.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -56,8 +57,8 @@ dynamic centerCheck;
 String ischeckownerordriver = '';
 
 //base url
-String url = 'your base url'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'map key';
+String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String mapkey = 'AIzaSyCylFiVDHyJsUfiSpDcw32-BUkBxr_vRSU';
 String mapStyle = '';
 
 getDetailsOfDevice() async {
@@ -1026,7 +1027,7 @@ verifyUser(String number) async {
   try {
     var response = await http.post(
         Uri.parse('${url}api/v1/driver/validate-mobile-for-login'),
-        body: {"mobile": number, "role": ischeckownerordriver});
+        body: {"mobile": number, "role": "driver"});
 
     if (response.statusCode == 200) {
       val = jsonDecode(response.body)['success'];

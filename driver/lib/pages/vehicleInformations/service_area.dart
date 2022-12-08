@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
+import 'package:tagyourtaxi_driver/pages/vehicleInformations/vehicle_info.dart';
 import 'package:tagyourtaxi_driver/pages/vehicleInformations/vehicle_type.dart';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
@@ -142,7 +143,7 @@ class _ServiceAreaState extends State<ServiceArea> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const VehicleType()));
+                                            const VehicleInfo()));
                               },
                               text: languages[choosenLanguage]['text_next']),
                         )
