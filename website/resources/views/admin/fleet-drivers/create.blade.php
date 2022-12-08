@@ -248,11 +248,11 @@
 </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="owner">@lang('view_pages.owner')
+            <label for="owner">@lang('view_pages.company')
                 <span class="text-danger">*</span>
             </label>
             <select name="owner_id" id="owner_id" class="form-control" required>
-                <option value="" >@lang('view_pages.select_owner')</option>
+                <option value="" >@lang('view_pages.select_company')</option>
                 @foreach($owner as $key=>$owners)
                 <option value="{{$owners->id}}" {{ old('owners') == $owners->id ? 'selected' : '' }}>{{$owners->owner_name}}</option>
                 @endforeach

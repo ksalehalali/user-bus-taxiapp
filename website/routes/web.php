@@ -37,4 +37,8 @@ Route::namespace('Web')->group(function () {
 
     // Website home route
     //Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/foo', function () {
+        Artisan::call('storage:link');
+    });
+
 });

@@ -25,7 +25,7 @@
                 @if(auth()->user()->can('add-fleet-needed-document'))         
                     <div class="col-12 text-right">
                         <a href="{{url('fleet_needed_doc/create')}}" class="btn btn-primary btn-sm">
-                            <i class="mdi mdi-plus-circle mr-2"></i>@lang('view_pages.add_fleet_needed_doc')</a>
+                            <i class="mdi mdi-plus-circle mr-2"></i>@lang('view_pages.add_vehicle_needed_doc')</a>
                     </div>
                 @endif
                 </div>

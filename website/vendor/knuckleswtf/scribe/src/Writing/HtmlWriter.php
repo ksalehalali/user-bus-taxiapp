@@ -2,6 +2,7 @@
 
 namespace Knuckles\Scribe\Writing;
 
+use http\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Knuckles\Camel\Output\OutputEndpointData;
@@ -80,9 +81,9 @@ class HtmlWriter
         Utils::copyDirectory("{$assetsFolder}/images/", "{$destinationFolder}/images");
 
         $assets = [
-            "{$assetsFolder}/css/theme-default.style.css" => ["$destinationFolder/css/", "theme-$theme.style.css"],
-            "{$assetsFolder}/css/theme-default.print.css" => ["$destinationFolder/css/", "theme-$theme.print.css"],
-            "{$assetsFolder}/js/theme-default.js" => ["$destinationFolder/js/", WritingUtils::getVersionedAsset("theme-$theme.js")],
+            "{$assetsFolder}/css/theme-$theme.style.css" => ["$destinationFolder/css/", "theme-$theme.style.css"],
+            "{$assetsFolder}/css/theme-$theme.print.css" => ["$destinationFolder/css/", "theme-$theme.print.css"],
+            "{$assetsFolder}/js/theme-$theme.js" => ["$destinationFolder/js/", WritingUtils::getVersionedAsset("theme-$theme.js")],
         ];
 
         if ($this->config->get('try_it_out.enabled', true)) {
@@ -104,37 +105,67 @@ class HtmlWriter
         return $this->markdownParser->text(file_get_contents($markdownFilePath));
     }
 
-    protected function getMetadata(): array
+    public function getMetadata(): array
     {
-        $links = [];
+        // todo remove 'links' in future
+        $links = []; // Left for backwards compat
 
         // NB:These paths are wrong for laravel type but will be set correctly by the Writer class
         if ($this->config->get('postman.enabled', true)) {
             $links[] = "<a href=\"{$this->assetPathPrefix}collection.json\">View Postman collection</a>";
+            $postmanCollectionUrl = "{$this->assetPathPrefix}collection.json";
         }
         if ($this->config->get('openapi.enabled', false)) {
             $links[] = "<a href=\"{$this->assetPathPrefix}openapi.yaml\">View OpenAPI spec</a>";
+            $openApiSpecUrl = "{$this->assetPathPrefix}openapi.yaml";
         }
 
         $auth = $this->config->get('auth');
-        if ($auth['in'] === 'bearer' || $auth['in'] === 'basic') {
-            $auth['name'] = 'Authorization';
-            $auth['location'] = 'header';
-            $auth['prefix'] = ucfirst($auth['in']) . ' ';
-        } else {
-            $auth['location'] = $auth['in'];
-            $auth['prefix'] = '';
+        if ($auth) {
+            if ($auth['in'] === 'bearer' || $auth['in'] === 'basic') {
+                $auth['name'] = 'Authorization';
+                $auth['location'] = 'header';
+                $auth['prefix'] = ucfirst($auth['in']) . ' ';
+            } else {
+                $auth['location'] = $auth['in'];
+                $auth['prefix'] = '';
+            }
         }
 
         return [
             'title' => $this->config->get('title') ?: config('app.name', '') . ' Documentation',
             'example_languages' => $this->config->get('example_languages'),
             'logo' => $this->config->get('logo') ?? false,
-            'last_updated' => date("F j Y"),
+            'last_updated' => $this->getLastUpdated(),
             'auth' => $auth,
             'try_it_out' => $this->config->get('try_it_out'),
+            "postman_collection_url" => $postmanCollectionUrl ?? null,
+            "openapi_spec_url" => $openApiSpecUrl ?? null,
             'links' => array_merge($links, ['<a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a>']),
         ];
+    }
+
+    protected function getLastUpdated()
+    {
+        $lastUpdated = $this->config->get('last_updated', 'Last updated: {date:F j, Y}');
+
+        $tokens = [
+            "date" => fn($format) => date($format),
+            "git" => fn($format) => match ($format) {
+                "short" => trim(shell_exec('git rev-parse --short HEAD')),
+                "long" => trim(shell_exec('git rev-parse HEAD')),
+                default => throw new InvalidArgumentException("The `git` token only supports formats 'short' and 'long', but you specified $format"),
+            },
+        ];
+
+        foreach ($tokens as $token => $resolver) {
+            $matches = [];
+            if(preg_match('#(\{'.$token.':(.+?)})#', $lastUpdated, $matches)) {
+                $lastUpdated = str_replace($matches[1], $resolver($matches[2]), $lastUpdated);
+            }
+        }
+
+        return $lastUpdated;
     }
 
     protected function getHeadings(array $headingsBeforeEndpoints, array $endpointsByGroupAndSubgroup, array $headingsAfterEndpoints)
@@ -156,7 +187,7 @@ class HtmlWriter
             }
         }
 
-        $headings = array_merge($headings, array_map(function ($group) {
+        $headings = array_merge($headings, array_values(array_map(function ($group) {
             $groupSlug = Str::slug($group['name']);
 
             return [
@@ -168,7 +199,7 @@ class HtmlWriter
                             'slug' => $endpoint->fullSlug(),
                             'name' => $endpoint->name(),
                             'subheadings' => []
-                        ])->all();
+                        ])->values();
                     }
 
                     return [
@@ -179,12 +210,12 @@ class HtmlWriter
                                 'slug' => $endpoint->fullSlug(),
                                 'name' => $endpoint->name(),
                                 'subheadings' => []
-                            ])->all(),
+                            ])->values(),
                         ],
                     ];
-                })->all(),
+                })->values(),
             ];
-        }, $endpointsByGroupAndSubgroup));
+        }, $endpointsByGroupAndSubgroup)));
 
         $lastL1ElementIndex = null;
         foreach ($headingsAfterEndpoints as $heading) {

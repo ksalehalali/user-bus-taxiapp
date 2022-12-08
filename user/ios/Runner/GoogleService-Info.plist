@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>427832602406-r06ij4l617glot697f9p4oota8b42ibi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.427832602406-r06ij4l617glot697f9p4oota8b42ibi</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>427832602406-30qsmk92oq8v8k7rnuh280fqt1mh9uno.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDAwdwt_QPocr2axk3nj63_gvrTtq_9lPY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>427832602406</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.routestaxi.userapp</string>
+	<key>PROJECT_ID</key>
+	<string>routes-user-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>routes-user-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:427832602406:ios:57f31674e34cb85b2ddbe7</string>
+	<key>DATABASE_URL</key>
+	<string>https://routes-user-app-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

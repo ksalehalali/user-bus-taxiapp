@@ -135,13 +135,13 @@ class FleetDriverDocumentController extends BaseController
 
         $user = User::find($driver->user_id);
         if ($status) {
-            $title = trans('push_notifications.fleet_driver_approved',[],$user->lang);
-            $body = trans('push_notifications.fleet_driver_approved_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_driver_approved',[],$user->lang);
+            $body = trans('push_notifications.vehicle_driver_approved_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::DRIVER_ACCOUNT_APPROVED];
             $socket_success_message = PushEnums::DRIVER_ACCOUNT_APPROVED;
         } else {
-            $title = trans('push_notifications.fleet_driver_declined_title',[],$user->lang);
-            $body = trans('push_notifications.fleet_driver_declined_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_driver_declined_title',[],$user->lang);
+            $body = trans('push_notifications.vehicle_driver_declined_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::DRIVER_ACCOUNT_DECLINED];
             $socket_success_message = PushEnums::DRIVER_ACCOUNT_DECLINED;
         }

@@ -9,10 +9,7 @@
     <a href="#" class="logo">
         <!-- mini logo -->
         <b class="logo-mini">
-             <span class="light-logo" style="display: flex;align-items: end;"><img
-                     src="{{ app_logo() ?? asset('images/email/logo.svg') }}" style="width: 40px;padding-right: 5px;"
-                     alt="logo">{{ app_name() ?? 'routes' }}</span>
-
+             <span class="light-logo" style="display: flex;align-items: end;"><img src="{{ app_logo() ?? asset('images/email/logo.svg') }}" style="padding-right: 5px;" alt="logo"></span>
          </b>
          <!-- logo-->
          <!--  <span class="logo-lg">

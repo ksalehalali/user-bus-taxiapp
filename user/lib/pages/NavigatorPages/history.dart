@@ -130,7 +130,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 0)
-                                              ? const Color(0xff222222)
+                                              ? buttonColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]
@@ -165,7 +165,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 1)
-                                              ? const Color(0xff222222)
+                                              ? buttonColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]
@@ -200,7 +200,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 2)
-                                              ? const Color(0xff222222)
+                                              ? buttonColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]

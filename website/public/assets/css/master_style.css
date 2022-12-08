@@ -351,7 +351,7 @@ a:active, a:focus, a:hover {
     padding: 15px 20px;
     font-family: fontAwesome;
     font-size: 23px;
-    border-right: 1px solid #3c75ec;
+    /*border-right: 1px solid #3c75ec;*/
 }
 
 .main-header .sidebar-toggle:before {
@@ -10108,8 +10108,8 @@ button.btn.dropdown-toggle::after, .wysihtml5-toolbar .btn.dropdown-toggle::afte
 }
 
 .btn-info {
-    background-color: #0b4dd8;
-    border-color: #0b4dd8;
+    background: rgb(3,140,200);
+    border-color: transparent;
     color: #fff;
 }
 
@@ -13167,7 +13167,8 @@ tfoot input {
 
 .login-page, .register-page {
     /*url(../../images/login-register.jpg)*/
-    background: center center no-repeat #0b4dd8;
+    background: rgb(3,140,200);
+    background: linear-gradient(0deg, rgba(3,140,200,1) 0%, rgba(22,84,157,1) 100%);
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -16702,11 +16703,11 @@ ul.top-search li {
 /* Naveen 2021-04-26 */
 
 .main-sidebar {
-    padding-top: 81px;
+    padding-top: 60px;
 }
 
 .sidebar {
-    overflow: scroll !important;
+    /*overflow: scroll !important;*/
     border-top: 5px solid #444444;
 }
 

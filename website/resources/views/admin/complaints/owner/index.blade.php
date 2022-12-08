@@ -18,7 +18,7 @@
                             <tr>
                                 <th> @lang('view_pages.s_no')</th>
                                 <th> @lang('view_pages.complaint_type')</th>
-                                <th> @lang('view_pages.owner_name')</th>
+                                <th> @lang('view_pages.company_name')</th>
                                 <th> @lang('view_pages.title')</th>
                                 <th> @lang('view_pages.description')</th>
                                 <th> @lang('view_pages.status')</th>

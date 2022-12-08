@@ -34,28 +34,20 @@
             margin-top: 15%;
             padding: 0;
         }
-
-        body {
-            background-image: asset(assets/images/bg.jpg) !important;
-            background-size: cover !important;
-        }
-
     </style>
 </head>
-
 <body class="hold-transition login-page">
 
     <div class="container h-p100">
         <div class="row align-items-center justify-content-md-center h-p100">
 
             <div class="col-lg-8 col-md-4 d-none d-md-block">
-                <!-- <img src="http://localhost/tagyourtaxi/future/public/assets/images/left.svg" alt=""> -->
             </div>
 
             <div class="col-lg-4 col-md-8 col-12">
                 <div class="login-box">
                     <div class="login-box-body text-center">
-                        <img src="{{ fav_icon() ?? asset('images/favicon.png') }}" alt="">
+                        <img src="{{ url('/public/images/logo.png') }}" alt="">
                         <h3 class="text-center">@lang('view_pages.admin_panel')</h3>
                         <p class="login-box-msg"></p>
                         <form class="login_form" id="form" enctype="multipart/form-data">
