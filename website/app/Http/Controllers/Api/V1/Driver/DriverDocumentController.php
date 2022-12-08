@@ -107,6 +107,7 @@ class DriverDocumentController extends BaseController
     */
     public function uploadDocuments(DriverDocumentUploadRequest $request)
     {
+        
         $created_params = $request->only(['document_id','identify_number','expiry_date']);
 
         if (auth()->user()->hasRole(Role::DRIVER)) {
