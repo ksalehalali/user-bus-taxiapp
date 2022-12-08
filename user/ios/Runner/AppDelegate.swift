@@ -10,7 +10,7 @@ import Firebase
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     FirebaseApp.configure()
-    GMSServices.provideAPIKey("AIzaSyAly0S-jbb1aVNCAYtXrRRybxZUM8Z5CVo")
+    GMSServices.provideAPIKey("AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE")
     GeneratedPluginRegistrant.register(with: self)
  UIApplication.shared.beginReceivingRemoteControlEvents()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
