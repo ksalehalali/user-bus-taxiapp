@@ -17,6 +17,9 @@ class FrontPageController extends Controller
 
     public function index()
     {
+        return redirect()->guest('/login');
+
+        
         $host_name = request()->getHost();
 
         $conditional_host = explode('.',$host_name);

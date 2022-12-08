@@ -205,6 +205,7 @@
       <path value="$PROJECT_DIR$/website/vendor/srmklive/paypal" />
       <path value="$PROJECT_DIR$/website/vendor/mtdowling/jmespath.php" />
       <path value="$PROJECT_DIR$/website/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/website/vendor/psr/clock" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

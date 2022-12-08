@@ -17,7 +17,7 @@
 
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ fav_icon() ?? asset('assets/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{ url('/public/images/favicon.png') }}">
      
 
     @include('admin.layouts.common_styles')

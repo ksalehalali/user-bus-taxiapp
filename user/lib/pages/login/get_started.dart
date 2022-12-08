@@ -9,9 +9,12 @@ import 'package:tagyourtaxi_driver/pages/referralcode/referral_code.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
+import '../onTripPage/map_page.dart';
 import './login.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'enter_phone_number.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -85,14 +88,12 @@ class _GetStartedState extends State<GetStarted> {
   navigate() {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const Referral()),
+        MaterialPageRoute(builder: (context) => const Maps()),
         (route) => false);
   }
 
-  TextEditingController emailText =
-      TextEditingController(); //email textediting controller
-  TextEditingController nameText =
-      TextEditingController(); //name textediting controller
+  TextEditingController emailText = TextEditingController(); //email textediting controller
+  TextEditingController nameText = TextEditingController(); //name textediting controller
 
   @override
   void initState() {
@@ -113,37 +114,45 @@ class _GetStartedState extends State<GetStarted> {
           child: Stack(
             children: [
               Container(
-                padding: EdgeInsets.only(
-                    left: media.width * 0.08, right: media.width * 0.08),
+                padding: EdgeInsets.only(left: media.width * 0.06, right: media.width * 0.08),
                 height: media.height * 1,
                 width: media.width * 1,
                 color: page,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                        height: media.height * 0.12,
-                        width: media.width * 1,
-                        color: topBar,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Icon(Icons.arrow_back)),
-                          ],
-                        )),
+                    SafeArea(
+                      child: Container(
+                          height: media.height * 0.05,
+                          width: media.width * 1,
+                          color: topBar,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.arrow_back_ios),
+                                      Text('BACK', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),)
+                                    ],
+                                  )),
+                            ],
+                          )),
+                    ),
                     Expanded(
                         child: SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,                        children: [
                           SizedBox(
                             height: media.height * 0.04,
                           ),
                           SizedBox(
-                            width: media.width * 1,
+                            // width: media.width * 1,
                             child: Text(
                               languages[choosenLanguage]['text_get_started'],
                               style: GoogleFonts.roboto(
@@ -189,50 +198,59 @@ class _GetStartedState extends State<GetStarted> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: backgroundColor,
+                                        border: Border.all(color: buttonColor, width: 3)
                                       ),
-                                      child: Text(
-                                        languages[choosenLanguage]
-                                            ['text_add_photo'],
-                                        style: GoogleFonts.roboto(
-                                            fontSize: media.width * fourteen,
-                                            color: textColor),
-                                      ),
+                                      child: Icon(Icons.add_a_photo_rounded, color: light_grey, size: 50.0,),
+                                // child: Text(
+                                //         languages[choosenLanguage]
+                                //             ['text_add_photo'],
+                                //         style: GoogleFonts.roboto(
+                                //             fontSize: media.width * fourteen,
+                                //             color: textColor),
+                                //       ),
                                     ),
                             ),
                           ),
                           SizedBox(height: media.height * 0.04),
-                          InputField(
-                            icon: Icons.person_outline_rounded,
-                            text: languages[choosenLanguage]['text_name'],
-                            onTap: (val) {
-                              setState(() {
-                                name = nameText.text;
-                              });
-                            },
-                            textController: nameText,
-                          ),
+                        textField(languages[choosenLanguage]['text_name'], nameText,
+                            Icon(Icons.person_outline, color: light_grey,)),
+                          // InputField(
+                          //   icon: Icons.person_outline_rounded,
+                          //   text: languages[choosenLanguage]['text_name'],
+                          //   onTap: (val) {
+                          //     setState(() {
+                          //       name = nameText.text;
+                          //     });
+                          //   },
+                          //   textController: nameText,
+                          // ),
                           SizedBox(
                             height: media.height * 0.012,
                           ),
-                          InputField(
-                            icon: Icons.email_outlined,
-                            text: languages[choosenLanguage]['text_email'],
-                            onTap: (val) {
-                              setState(() {
-                                email = emailText.text;
-                              });
-                            },
-                            textController: emailText,
-                            color: (verifyEmailError == '') ? null : Colors.red,
-                          ),
+                        textField(languages[choosenLanguage]['text_email'], emailText,
+                            Icon(Icons.email_outlined, color: light_grey,)),
+                          // InputField(
+                          //   icon: Icons.email_outlined,
+                          //   text: languages[choosenLanguage]['text_email'],
+                          //   onTap: (val) {
+                          //     setState(() {
+                          //       email = emailText.text;
+                          //     });
+                          //   },
+                          //   textController: emailText,
+                          //   color: (verifyEmailError == '') ? null : Colors.red,
+                          // ),
                           SizedBox(
                             height: media.height * 0.012,
                           ),
 
                           Container(
                             decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: underline))),
+                                borderRadius: BorderRadius.circular(28.0),
+                                border: Border.all(color: light_grey),
+                                // border: Border(
+                                //     bottom: BorderSide(color: underline))
+                            ),
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Row(
                               children: [
@@ -289,10 +307,16 @@ class _GetStartedState extends State<GetStarted> {
                           (nameText.text.isNotEmpty &&
                                   emailText.text.isNotEmpty)
                               ? Container(
-                                  width: media.width * 1,
-                                  alignment: Alignment.center,
-                                  child: Button(
-                                      onTap: () async {
+                                  height: 55,
+                                  width: MediaQuery.of(context).size.width/2.5,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: notUploadedColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(36.0)
+                                        )
+                                    ),
+                                    onPressed: () async {
                                         String pattern =
                                             r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])*$";
                                         RegExp regex = RegExp(pattern);
@@ -335,15 +359,14 @@ class _GetStartedState extends State<GetStarted> {
                                         } else {
                                           setState(() {
                                             verifyEmailError =
-                                                languages[choosenLanguage]
-                                                    ['text_email_validation'];
+                                            languages[choosenLanguage]
+                                            ['text_email_validation'];
                                             _error = languages[choosenLanguage]
-                                                ['text_email_validation'];
+                                            ['text_email_validation'];
                                           });
                                         }
                                       },
-                                      text: languages[choosenLanguage]
-                                          ['text_next']))
+                                      child: Text(languages[choosenLanguage]['text_next'], style: TextStyle(fontSize: 18.0),),))
                               : Container()
                         ],
                       ),
@@ -603,6 +626,27 @@ class _GetStartedState extends State<GetStarted> {
                   : Container()
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget textField(hintText, controller, icon) {
+    return Container(
+      height: 50, width: MediaQuery.of(context).size.width,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+            hintText: hintText,
+            prefixIcon: icon,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28.0),
+                borderSide: BorderSide(color: buttonColor)
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28.0),
+                borderSide: BorderSide(color: light_grey)
+            )
         ),
       ),
     );

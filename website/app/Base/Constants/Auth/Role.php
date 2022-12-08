@@ -98,7 +98,8 @@ class Role
         return [
             self::USER,
             self::DRIVER,
-            self::OWNER,
+//            self::OWNER,
+
         ];
     }
 }

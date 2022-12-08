@@ -49,4 +49,12 @@ class Fleet extends Model
     public function driverDetail(){
         return $this->belongsTo(Driver::class,'driver_id','id');
     }
+    public static function get_fleets(){
+        if (auth()->user()->admin) {
+            $query = Fleet::query();
+        } else {
+            $query = Fleet::query()->where('owner_id', auth()->user()->id);
+        }
+        return $query;
+    }
 }

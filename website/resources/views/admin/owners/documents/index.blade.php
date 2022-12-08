@@ -25,8 +25,8 @@
             <h4 class="mb-0 font-size-18"> @lang('view_pages.manage_document')</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="{{ url('owners/by_area',$owner->service_location_id) }}"> @lang('view_pages.manage_owner')</a></li>
-                    <li class="breadcrumb-item active">@lang('view_pages.owner_document')</li>
+                    <li class="breadcrumb-item"><a href="{{ url('owners/by_area',$owner->service_location_id) }}"> @lang('view_pages.manage_company')</a></li>
+                    <li class="breadcrumb-item active">@lang('view_pages.company_document')</li>
                 </ol>
             </div>
         </div>

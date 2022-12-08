@@ -64,8 +64,8 @@
     </div>
           <div class="col-sm-6">
             <div class="form-group">
-            <label for="owner_name">@lang('view_pages.owner_name')</label>
-            <input class="form-control" type="text" id="owner_name" name="owner_name" value="{{old('owner_name',$result->owner_name)}}" required="" placeholder="@lang('view_pages.enter_owner_name')">
+            <label for="owner_name">@lang('view_pages.company_name')</label>
+            <input class="form-control" type="text" id="owner_name" name="owner_name" value="{{old('owner_name',$result->owner_name)}}" required="" placeholder="@lang('view_pages.enter_company_name')">
             <span class="text-danger">{{ $errors->first('owner_name') }}</span>
 
         </div>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/functions/notifications.dart';
+import 'firebase_option.dart';
 import 'pages/loadingPage/loadingpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   checkInternetConnection();
 
   initMessaging();
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'product name',
+            title: 'Routes User',
             theme: ThemeData(),
             home: const LoadingPage()));
   }

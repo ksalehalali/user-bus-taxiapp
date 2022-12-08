@@ -42,7 +42,7 @@
                                             <select name="document_for" id="document_for" class="form-control" required>
                                                 <option value="" selected disabled>@lang('view_pages.select')</option>
                                                 <option value="1" {{ old('is_individual',$item->is_individual) == '1' ? 'selected' : '' }}>@lang('view_pages.individual')</option>
-                                                <option value="0" {{ old('is_individual',$item->is_individual) == '0' ? 'selected' : '' }}>@lang('view_pages.fleet_drivers')</option>
+                                                <option value="0" {{ old('is_individual',$item->is_individual) == '0' ? 'selected' : '' }}>@lang('view_pages.vehicle_drivers')</option>
                                             </select>
                                             <span class="text-danger">{{ $errors->first('document_for') }}</span>
                                         </div>

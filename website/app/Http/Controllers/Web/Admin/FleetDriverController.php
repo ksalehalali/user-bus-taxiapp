@@ -100,7 +100,7 @@ class FleetDriverController extends BaseController
     */
     public function index()
     {
-        $page = trans('pages_names.fleet-driversF');
+        $page = trans('pages_names.vehicle-driversF');
         $main_menu = 'fleet-drivers';
         $sub_menu = 'driver_details';
         $services = ServiceLocation::whereActive(true)->companyKey()->get();
@@ -133,7 +133,7 @@ class FleetDriverController extends BaseController
     }
     public function approvalPending()
     {
-        $page = trans('pages_names.fleet-drivers');
+        $page = trans('pages_names.vehicle-drivers');
         $main_menu = 'fleet-drivers';
         $sub_menu = 'driver_approval_pending';
         $services = ServiceLocation::whereActive(true)->companyKey()->get();
@@ -246,7 +246,7 @@ class FleetDriverController extends BaseController
         // Create Empty Wallet to the driver
         $driver_wallet = $driver->driverWallet()->create(['amount_added'=>0]);
 
-        $message = trans('succes_messages.fleet_driver_added_succesfully');
+        $message = trans('succes_messages.vehicle_driver_added_succesfully');
 
         cache()->tags('fleet_drivers_list')->flush();
 
@@ -317,7 +317,7 @@ class FleetDriverController extends BaseController
             'profile_picture'=>$user_param['profile']
         ]);
 
-        $message = trans('succes_messages.fleet_driver_updated_succesfully');
+        $message = trans('succes_messages.vehicle_driver_updated_succesfully');
         cache()->tags('fleet_drivers_list')->flush();
         return redirect('fleet-drivers')->with('success', $message);
     }
@@ -329,7 +329,7 @@ class FleetDriverController extends BaseController
             'active' => $status
         ]);
 
-        $message = trans('succes_messages.fleet_driver_status_changed_succesfully');
+        $message = trans('succes_messages.vehicle_driver_status_changed_succesfully');
         return redirect('fleet-drivers')->with('success', $message);
     }
     public function toggleApprove(Driver $driver, $approval_status)
@@ -370,15 +370,15 @@ class FleetDriverController extends BaseController
             'approve' => $status
         ]);
 
-        $message = trans('succes_messages.fleet_driver_approve_status_changed_succesfully');
+        $message = trans('succes_messages.vehicle_driver_approve_status_changed_succesfully');
         $user = User::find($driver->user_id);
         if ($status) {
-            $title = trans('push_notifications.fleet_driver_approved',[],$user->lang);
-            $body = trans('push_notifications.fleet_driver_approved_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_driver_approved',[],$user->lang);
+            $body = trans('push_notifications.vehicle_driver_approved_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::DRIVER_ACCOUNT_APPROVED];
             $socket_success_message = PushEnums::DRIVER_ACCOUNT_APPROVED;
         } else {
-            $title = trans('push_notifications.fleet_driver_declined_title',[],$user->lang);
+            $title = trans('push_notifications.vehicle_driver_declined_title',[],$user->lang);
             $body = trans('push_notifications.driver_declined_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::DRIVER_ACCOUNT_DECLINED];
             $socket_success_message = PushEnums::DRIVER_ACCOUNT_DECLINED;
@@ -408,7 +408,7 @@ class FleetDriverController extends BaseController
             'available' => $status
         ]);
 
-        $message = trans('succes_messages.fleet_driver_available_status_changed_succesfully');
+        $message = trans('succes_messages.vehicle_driver_available_status_changed_succesfully');
         return redirect('fleet-drivers')->with('success', $message);
     }
 
@@ -422,7 +422,7 @@ class FleetDriverController extends BaseController
         }
         $driver->user()->delete();
 
-        $message = trans('succes_messages.fleet_driver_deleted_succesfully');
+        $message = trans('succes_messages.vehicle_driver_deleted_succesfully');
 
         return redirect('fleet-drivers')->with('success', $message);
     }
@@ -565,7 +565,7 @@ class FleetDriverController extends BaseController
 
     // public function driverRatingView(Driver $driver)
     // {
-    //     $page = trans('pages_names.fleet-drivers');
+    //     $page = trans('pages_names.vehicle-drivers');
     //     $main_menu = 'fleet-drivers';
     //     $sub_menu = 'driver_ratings';
     //     $trips = RequestRating::where('driver_id',$driver->id)->whereNotNull('user_id')->whereUserRating(true)->paginate(10);
