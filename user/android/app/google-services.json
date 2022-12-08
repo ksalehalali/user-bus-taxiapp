@@ -1,34 +1,86 @@
 {
   "project_info": {
-    "project_number": "893435407802",
-    "project_id": "routes-6b43b",
-    "storage_bucket": "routes-6b43b.appspot.com"
+    "project_number": "427832602406",
+    "firebase_url": "https://routes-user-app-default-rtdb.firebaseio.com",
+    "project_id": "routes-user-app",
+    "storage_bucket": "routes-user-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:893435407802:android:0da3aae752968561dd4183",
+        "mobilesdk_app_id": "1:427832602406:android:a4eb9ed09143d5622ddbe7",
         "android_client_info": {
-          "package_name": "com.routestaxi.user"
+          "package_name": "com.routestaxi.driverapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "893435407802-sic2uhantte17quoaranj9mv8eob3g7p.apps.googleusercontent.com",
+          "client_id": "427832602406-q7t8sdfla6too2q1glsuatqeucqcqqtu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDGpd_vK1w4hbCtbuk4mqbKOl0WuOe6FGE"
+          "current_key": "AIzaSyDqr5DtRX73j768ipXbCQF-7Qqix4rn_Vo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "893435407802-sic2uhantte17quoaranj9mv8eob3g7p.apps.googleusercontent.com",
+              "client_id": "427832602406-q7t8sdfla6too2q1glsuatqeucqcqqtu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "427832602406-q79rfsn49mknl0tnj0opg2isk9emvmec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.routestaxi.driverapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427832602406:android:2728cf1201827e022ddbe7",
+        "android_client_info": {
+          "package_name": "com.routestaxi.userapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427832602406-9e9eqptqlbbqncirve4vch0klo88l986.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.routestaxi.userapp",
+            "certificate_hash": "8ed52f9b600f6013bef07445336cb378d6b2dbf3"
+          }
+        },
+        {
+          "client_id": "427832602406-q7t8sdfla6too2q1glsuatqeucqcqqtu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqr5DtRX73j768ipXbCQF-7Qqix4rn_Vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427832602406-q7t8sdfla6too2q1glsuatqeucqcqqtu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "427832602406-q79rfsn49mknl0tnj0opg2isk9emvmec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.routestaxi.driverapp"
+              }
             }
           ]
         }

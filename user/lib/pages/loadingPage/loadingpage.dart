@@ -176,13 +176,13 @@ class _LoadingPageState extends State<LoadingPage> {
                     // padding: EdgeInsets.all(media.width * 0.01),
                     width: media.width,
                     height: media.height,
-                    // decoration: const BoxDecoration(
-                    //     image: DecorationImage(
-                    //         image: AssetImage('assets/images/splash.jpg'),
-                    //         fit: BoxFit.contain)),
+                   // decoration: const BoxDecoration(
+                   //      image: DecorationImage(
+                   //          image: AssetImage('assets/images/splash.jpg'),
+                   //          fit: BoxFit.fill)),
                     child: Image.asset(
                       "assets/images/splash.jpg",
-                      fit: BoxFit.fill,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ],
