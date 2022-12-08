@@ -120,16 +120,12 @@
                     <!-- /.login-box-body -->
                 </div>
                 <!-- /.login-box -->
-
             </div>
-
-
         </div>
     </div>
 
     <!-- jQuery 3 -->
     <script src="{{ url('assets/vendor_components/jquery/dist/jquery.min.js') }}"></script>
-
 
     <!-- Bootstrap 4.0-->
     <script src="{{ url('assets/vendor_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -154,7 +150,6 @@
                 onSuccess: function($form) {
                     $('.submit_button').attr('disabled', 'disabled');
                     login();
-
                     return false;
                 }
             });
@@ -194,8 +189,6 @@
                     $('.submit_button').removeAttr('disabled');
                 });
             }
-
-
         });
 
     </script>

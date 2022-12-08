@@ -110,7 +110,7 @@ class LoginController extends ApiController
         if (auth()->user()->hasRole(Role::DISPATCHER)) {
             $redirect = 'dispatch-login';
         } else if (auth()->user()->hasRole('owner')) {
-            $redirect = 'company-login';
+            $redirect = 'login';
         }else{
             $redirect = 'login';
         }
@@ -159,7 +159,7 @@ class LoginController extends ApiController
      */
     protected function loginUserAccount($request, $role, $needsToken = true, array $conditions = [])
     {
-        
+
 
         if ($request->has('social_id')) {
             return $this->setLoginIdentifier('social_id')

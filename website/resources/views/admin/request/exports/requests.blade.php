@@ -8,7 +8,7 @@
             <th> @lang('trip_end_time')</th>
             <th> @lang('view_pages.user_name')</th>
             <th> @lang('view_pages.driver_name')</th>
-            <th> @lang('view_pages.owner_name')</th>
+            <th> @lang('view_pages.company_name')</th>
             <th> @lang('view_pages.trip_status')</th>
             <th> @lang('view_pages.is_paid_status')</th>
             <th> @lang('view_pages.payment_option')</th>

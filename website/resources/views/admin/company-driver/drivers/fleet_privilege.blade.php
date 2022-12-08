@@ -7,13 +7,13 @@
 <div class="row p-0 m-0">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">@lang('view_pages.drivers_privileged_fleet')</h4>
+            <h4 class="mb-0 font-size-18">@lang('view_pages.drivers_privileged_vehicle')</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="{{url('company/drivers') }}">@lang('view_pages.manage_driver')</a>
                     </li>
-                    <li class="breadcrumb-item active"> @lang('view_pages.drivers_privileged_fleet') </li>
+                    <li class="breadcrumb-item active"> @lang('view_pages.drivers_privileged_vehicle') </li>
                 </ol>
             </div>
         </div>
@@ -30,8 +30,8 @@
 
                         <div class="col-sm-12 float-left mb-md-3">
                             <div class="form-group">
-                                <label for="area">{{ trans('view_pages.fleets')}} <span class="mandatory">*</span></label>
-                                <select data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100" data-select2-id="1" tabindex="-1" aria-hidden="true" name="fleets[]" id="fleets" title="@lang('view_pages.select_fleet')" multiple required>
+                                <label for="area">{{ trans('view_pages.vehicle')}} <span class="mandatory">*</span></label>
+                                <select data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100" data-select2-id="1" tabindex="-1" aria-hidden="true" name="fleets[]" id="fleets" title="@lang('view_pages.select_vehicle')" multiple required>
                                     @php
                                         $selected = '';
                                         $oldValue = old('fleets');

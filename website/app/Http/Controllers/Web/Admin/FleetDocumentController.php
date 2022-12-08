@@ -40,7 +40,7 @@ class FleetDocumentController extends BaseController
         $neededDocument = FleetNeededDocument::whereActive(true)->get();
         $fleetDoc = FleetDocument::whereFleetId($fleet->id)->get();
 // dd($fleetDoc);
-        $page = trans('pages_names.fleet_document');
+        $page = trans('pages_names.vehicle_document');
         $main_menu = 'manage_fleet';
         $sub_menu = null;
 
@@ -143,13 +143,13 @@ class FleetDocumentController extends BaseController
 
         $user = User::find($fleet->user_id);
         if ($status) {
-            $title = trans('push_notifications.fleet_approved',[],$user->lang);
-            $body = trans('push_notifications.fleet_approved_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_approved',[],$user->lang);
+            $body = trans('push_notifications.vehicle_approved_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::FLEET_ACCOUNT_APPROVED];
             $socket_success_message = PushEnums::FLEET_ACCOUNT_APPROVED;
         } else {
-            $title = trans('push_notifications.fleet_declined_title',[],$user->lang);
-            $body = trans('push_notifications.fleet_declined_body',[],$user->lang);
+            $title = trans('push_notifications.vehicle_declined_title',[],$user->lang);
+            $body = trans('push_notifications.vehicle_declined_body',[],$user->lang);
             $push_data = ['notification_enum'=>PushEnums::FLEET_ACCOUNT_DECLINED];
             $socket_success_message = PushEnums::FLEET_ACCOUNT_DECLINED;
         }

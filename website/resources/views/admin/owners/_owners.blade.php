@@ -8,7 +8,7 @@
                             <tr>
                                 <th> @lang('view_pages.s_no')</th>
                                 <th> @lang('view_pages.company_name')</th>
-                                <th> @lang('view_pages.owner_name')</th>
+                                <th> @lang('view_pages.company_name')</th>
                                 <th> @lang('view_pages.email')</th>
                                 <th> @lang('view_pages.mobile')</th>
                                 @if (auth()->user()->can('view-owner-document'))

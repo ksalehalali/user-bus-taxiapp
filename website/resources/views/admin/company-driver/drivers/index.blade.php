@@ -12,7 +12,7 @@
     </style>
     <!-- Start Page content -->
     <section class="content">
-        {{-- <div class="container-fluid"> --}}
+
 
         <div class="row">
             <div class="col-12">
@@ -64,37 +64,37 @@
                                             <div class="demo-radio-button">
                                                 <input name="active" type="radio" id="active" data-val="1"
                                                     class="with-gap radio-col-green">
-                                                <label for="active">@lang('view_pages.active)</label>
+                                                <label for="active">@lang('view_pages.active')</label>
                                                 <input name="active" type="radio" id="inactive" data-val="0"
                                                     class="with-gap radio-col-grey">
-                                                <label for="inactive">@lang('view_pages.inactive)</label>
+                                                <label for="inactive">@lang('view_pages.inactive')</label>
                                             </div>
-                                            <h4>@lang('view_pages.approve_status)</h4>
+                                            <h4>@lang('view_pages.approve_status')</h4>
                                             <div class="demo-radio-button">
                                                 <input name="approve" type="radio" id="approved" data-val="1"
                                                     class="with-gap radio-col-green">
-                                                <label for="approved">@lang('view_pages.approved)</label>
+                                                <label for="approved">@lang('view_pages.approved')</label>
                                                 <input name="approve" type="radio" id="disapproved" data-val="0"
                                                     class="with-gap radio-col-grey">
-                                                <label for="disapproved">@lang('view_pages.disapproved)</label>
+                                                <label for="disapproved">@lang('view_pages.disapproved')</label>
                                             </div>
-                                            <h4>@lang('view_pages.online_status)</h4>
+                                            <h4>@lang('view_pages.online_status')</h4>
                                             <div class="demo-radio-button">
                                                 <input name="available" type="radio" id="online" data-val="1"
                                                     class="with-gap radio-col-green">
-                                                <label for="online">@lang('view_pages.online)</label>
+                                                <label for="online">@lang('view_pages.online')</label>
                                                 <input name="available" type="radio" id="offline" data-val="0"
                                                     class="with-gap radio-col-grey">
-                                                <label for="offline">@lang('view_pages.offline)</label>
+                                                <label for="offline">@lang('view_pages.offline')</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" data-dismiss="modal"
-                                            class="btn btn-success btn-sm float-right filter">@lang('view_pages.apply_filters)</button>
+                                            class="btn btn-success btn-sm float-right filter">@lang('view_pages.apply_filters')</button>
 
                                         <button type="button" data-dismiss="modal"
-                                            class="btn btn-danger btn-sm resetfilter float-right mr-2">@lang('view_pages.reset_filters)</button>
+                                            class="btn btn-danger btn-sm resetfilter float-right mr-2">@lang('view_pages.reset_filters')</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -114,7 +114,6 @@
             </div>
         </div>
 
-        {{-- </div> --}}
         <!-- container -->
 
 

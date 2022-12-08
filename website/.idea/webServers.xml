@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="11556b29-8b52-4566-b06b-7c1928ae3ff4" name="Taxi Server" url="http://ftp.crescenttechnologies.com.pk">
+        <fileTransfer host="ftp.crescenttechnologies.com.pk" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

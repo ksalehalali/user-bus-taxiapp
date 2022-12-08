@@ -39,3 +39,6 @@ Color online = const Color(0xff309700);
 Color onlineOfflineText = const Color(0xffFFFFFF);
 Color borderLines = const Color(0xffE5E5E5);
 Color starColor = const Color(0xff038cc8);
+Color white = Colors.white;
+Color black = Colors.black;
+Color light_grey = const Color.fromRGBO(171, 171, 171, 1);

@@ -81,7 +81,10 @@ class ResponseCalls extends Strategy
         })->toArray();
         $fileParameters = array_merge($endpointData->fileParameters, $hardcodedFileParams);
 
-        $request = $this->prepareRequest($endpointData->route, $rulesToApply, $urlParameters, $bodyParameters, $queryParameters, $fileParameters, $headers);
+        $request = $this->prepareRequest(
+            $endpointData->route, $endpointData->uri, $rulesToApply, $urlParameters,
+            $bodyParameters, $queryParameters, $fileParameters, $headers
+        );
 
         $request = $this->runPreRequestHook($request, $endpointData);
 
@@ -129,9 +132,10 @@ class ResponseCalls extends Strategy
      *
      * @return Request
      */
-    protected function prepareRequest(Route $route, array $rulesToApply, array $urlParams, array $bodyParams, array $queryParams, array $fileParameters, array $headers): Request
+    protected function prepareRequest(Route $route, string $url, array $rulesToApply, array $urlParams,
+        array $bodyParams, array $queryParams, array $fileParameters, array $headers): Request
     {
-        $uri = Utils::getUrlWithBoundParameters($route->uri(), $urlParams);
+        $uri = Utils::getUrlWithBoundParameters($url, $urlParams);
         $routeMethods = $this->getMethods($route);
         $method = array_shift($routeMethods);
         $cookies = $rulesToApply['cookies'] ?? [];
@@ -146,7 +150,10 @@ class ResponseCalls extends Strategy
 
         // Always use the current app domain for response calls
         $rootUrl = config('app.url');
-        $request = Request::create("$rootUrl/$uri", $method, [], $cookies, $fileParameters, $this->transformHeadersToServerVars($headers), json_encode($bodyParams));
+        $request = Request::create(
+            "$rootUrl/$uri", $method, [], $cookies, $fileParameters,
+            $this->transformHeadersToServerVars($headers), json_encode($bodyParams)
+        );
         // Doing it again to catch any ones we didn't transform properly.
         $request = $this->addHeaders($request, $route, $headers);
 

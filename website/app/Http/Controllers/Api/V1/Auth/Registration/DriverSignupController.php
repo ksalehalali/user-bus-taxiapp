@@ -234,9 +234,15 @@ class DriverSignupController extends LoginController
         $validate_exists_mobile = $this->user->belongsTorole(Role::DRIVER)->where('mobile', $mobile)->exists();
 
         if($request->has('role') && $request->role=='driver'){
-
-        $validate_exists_mobile = $this->user->belongsTorole(Role::DRIVER)->where('mobile', $mobile)->exists();
-
+            $validate_exists_mobile = $this->user->belongsTorole(Role::DRIVER)->where('mobile', $mobile)->exists();
+            if($validate_exists_mobile){
+                $driverExist = Driver::where('mobile',$mobile)->where('approve' , 1)->get()->toArray();
+                if(!empty($driverExist[0])){
+                    $validate_exists_mobile = true; 
+                }else{
+                    $validate_exists_mobile = false;
+                }
+            }
         }
         if($request->has('role') && $request->role=='owner'){
 

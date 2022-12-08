@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>@lang('view_pages.owner_login')</title>
+    <title>@lang('view_pages.company_login')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -60,7 +60,7 @@
                             <ul class="error-style"></ul>
                         </div>
                         <img src="assets/images/favicon.png" alt="">
-                        <h3 class="text-center">@lang('view_pages.owner_panel')</h3>
+                        <h3 class="text-center">@lang('view_pages.company_panel')</h3>
                         <p class="login-box-msg"></p>
                         <!-- action="{{ url('api/spa/login') }}" method="post" -->
                         <form class="login_form" id="form" enctype="multipart/form-data">

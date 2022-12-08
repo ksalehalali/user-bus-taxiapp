@@ -54,7 +54,7 @@ class ReportController extends Controller
     }
     public function ownerReport()
     {
-        $page = trans('pages_names.owner_report');
+        $page = trans('pages_names.company_report');
 
         $main_menu = 'reports';
         $sub_menu = 'owner_report';

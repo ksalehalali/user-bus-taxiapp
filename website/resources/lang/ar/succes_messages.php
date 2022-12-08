@@ -141,4 +141,34 @@ return array (
   'client_status_changed_succesfully' => 'تم تغيير حالة العميل بنجاح',
   'admin_profile_updated_successfully' => 'تم تحديث ملف تعريف المسؤول بنجاح',
   'owner_added_successfully' => 'تمت إضافة المالك بنجاح',
+
+
+  'company_added_succesfully' => 'تمت إضافة المالك بنجاح',
+  'company_updated_succesfully' => 'تم تحديث المالك بنجاح',
+  'company_deleted_succesfully' => 'تم حذف المالك بنجاح',
+  'company_document_not_uploaded' => 'لم يتم تحميل مستند المالك',
+  'company_approve_status_changed_succesfully' => 'تم تغيير حالة المالك بنجاح',
+  'company_needed_doc_added_succesfully' => 'أراد المالك إضافة المستند بنجاح',
+  'company_needed_doc_updated_succesfully' => 'أراد المالك تحديث المستند بنجاح',
+  'company_needed_doc_status_changed_succesfully' => 'احتاج المالك إلى تغيير حالة المستند بنجاح',
+  'company_needed_doc_deleted_succesfully' => 'أراد المالك حذف المستند بنجاح',
+  'company_added_successfully' => 'تمت إضافة المالك بنجاح',
+
+
+
+  'vehicle_needed_doc_added_succesfully' => 'تمت إضافة المستند بنجاح',
+  'vehicle_needed_doc_updated_succesfully' => 'تم تحديث المركبة بنجاح',
+  'vehicle_needed_doc_status_changed_succesfully' => 'تم تغيير حالة المستند المطلوبة للمركبة بنجاح',
+  'vehicle_needed_doc_deleted_succesfully' => 'تم حذف المستند بنجاح',
+  'vehicle_added_succesfully' => 'تمت إضافة السيارة بنجاح',
+  'vehicle_updated_succesfully' => 'تم تحديث السيارة بنجاح',
+  'vehicle_status_changed_succesfully' => 'تم تغيير حالة المركبة بنجاح',
+  'vehicle_approval_status_changed_succesfully' => 'تم تغيير حالة الموافقة على المركبة بنجاح',
+  'vehicle_deleted_succesfully' => 'تم حذف المركبة بنجاح',
+  'vehicle_driver_added_succesfully' => 'تمت إضافة سائق المركبة بنجاح',
+  'vehicle_driver_updated_succesfully' => 'تم تحديث سائق المركبة بنجاح',
+  'vehicle_driver_status_changed_succesfully' => 'تم تغيير حالة سائق المركبة بنجاح',
+  'vehicle_driver_approve_status_changed_succesfully' => 'تم تغيير حالة موافقة سائق المركبة بنجاح',
+  'vehicle_driver_available_status_changed_succesfully' => 'تم تغيير حالة توفر سائق المركبة بنجاح',
+  'vehicle_driver_deleted_succesfully' => 'تم حذف سائق المركبة بنجاح',
 );
