@@ -143,7 +143,7 @@ class _ServiceAreaState extends State<ServiceArea> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const VehicleInfo()));
+                                            const VehicleType()));
                               },
                               text: languages[choosenLanguage]['text_next']),
                         )

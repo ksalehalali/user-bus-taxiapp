@@ -15,6 +15,9 @@ class VehicleInfo extends StatefulWidget {
 }
 
 class _VehicleInfoState extends State<VehicleInfo> {
+
+  String dropDownValue = '';
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -57,7 +60,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   SizedBox(
                     height: media.height * 0.03,
                   ),
-                  textField('Select Vehicle Type'),
+                  dropDownButtonFormField(),
                   SizedBox(
                     height: media.height * 0.02,
                   ),
@@ -121,6 +124,41 @@ class _VehicleInfoState extends State<VehicleInfo> {
                 borderSide: BorderSide(color: light_grey)
             )
         ),
+      ),
+    );
+  }
+
+  Widget dropDownButtonFormField() {
+    return Container(
+      height: 58, width: MediaQuery.of(context).size.width,
+      child: DropdownButtonFormField(
+        decoration: InputDecoration(
+          hintText: 'Select Vehicle Info',
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: light_grey, width: 2),
+            borderRadius: BorderRadius.circular(28.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: buttonColor, width: 2),
+            borderRadius: BorderRadius.circular(28.0),
+          ),
+        ),
+        dropdownColor: Colors.greenAccent,
+        value: dropDownValue,
+        onChanged: (String? newValue) {
+          setState(() {
+            dropDownValue = newValue!;
+          });
+        },
+        items: <String>['Dog', 'Cat', 'Tiger', 'Lion'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

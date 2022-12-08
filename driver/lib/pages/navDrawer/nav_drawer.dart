@@ -534,45 +534,45 @@ class _NavDrawerState extends State<NavDrawer> {
                                   : Container(),
 
                               //documents
-                              InkWell(
-                                onTap: () async {
-                                  var nav = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Docs(
-                                                fromPage: '2',
-                                              )));
-                                  if (nav) {
-                                    setState(() {});
-                                  }
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(media.width * 0.025),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/manageDocuments.png',
-                                        fit: BoxFit.contain,
-                                        width: media.width * 0.075,
-                                      ),
-                                      SizedBox(
-                                        width: media.width * 0.025,
-                                      ),
-                                      SizedBox(
-                                        width: media.width * 0.55,
-                                        child: Text(
-                                          languages[choosenLanguage]
-                                              ['text_manage_docs'],
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.roboto(
-                                              fontSize: media.width * sixteen,
-                                              color: textColor),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: () async {
+                              //     var nav = await Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) => Docs(
+                              //                   fromPage: '2',
+                              //                 )));
+                              //     if (nav) {
+                              //       setState(() {});
+                              //     }
+                              //   },
+                              //   child: Container(
+                              //     padding: EdgeInsets.all(media.width * 0.025),
+                              //     child: Row(
+                              //       children: [
+                              //         Image.asset(
+                              //           'assets/images/manageDocuments.png',
+                              //           fit: BoxFit.contain,
+                              //           width: media.width * 0.075,
+                              //         ),
+                              //         SizedBox(
+                              //           width: media.width * 0.025,
+                              //         ),
+                              //         SizedBox(
+                              //           width: media.width * 0.55,
+                              //           child: Text(
+                              //             languages[choosenLanguage]
+                              //                 ['text_manage_docs'],
+                              //             overflow: TextOverflow.ellipsis,
+                              //             style: GoogleFonts.roboto(
+                              //                 fontSize: media.width * sixteen,
+                              //                 color: textColor),
+                              //           ),
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
 
                               //faq
                               InkWell(
@@ -611,49 +611,49 @@ class _NavDrawerState extends State<NavDrawer> {
                               ),
 
                               //sos
-                              userDetails['role'] != 'owner'
-                                  ? InkWell(
-                                      onTap: () async {
-                                        var nav = await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Sos()));
-
-                                        if (nav) {
-                                          setState(() {});
-                                        }
-                                      },
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.all(media.width * 0.025),
-                                        child: Row(
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/sos.png',
-                                              fit: BoxFit.contain,
-                                              width: media.width * 0.075,
-                                            ),
-                                            SizedBox(
-                                              width: media.width * 0.025,
-                                            ),
-                                            SizedBox(
-                                              width: media.width * 0.55,
-                                              child: Text(
-                                                languages[choosenLanguage]
-                                                    ['text_sos'],
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.roboto(
-                                                    fontSize:
-                                                        media.width * sixteen,
-                                                    color: textColor),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
+                              // userDetails['role'] != 'owner'
+                              //     ? InkWell(
+                              //         onTap: () async {
+                              //           var nav = await Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       const Sos()));
+                              //
+                              //           if (nav) {
+                              //             setState(() {});
+                              //           }
+                              //         },
+                              //         child: Container(
+                              //           padding:
+                              //               EdgeInsets.all(media.width * 0.025),
+                              //           child: Row(
+                              //             children: [
+                              //               Image.asset(
+                              //                 'assets/images/sos.png',
+                              //                 fit: BoxFit.contain,
+                              //                 width: media.width * 0.075,
+                              //               ),
+                              //               SizedBox(
+                              //                 width: media.width * 0.025,
+                              //               ),
+                              //               SizedBox(
+                              //                 width: media.width * 0.55,
+                              //                 child: Text(
+                              //                   languages[choosenLanguage]
+                              //                       ['text_sos'],
+                              //                   overflow: TextOverflow.ellipsis,
+                              //                   style: GoogleFonts.roboto(
+                              //                       fontSize:
+                              //                           media.width * sixteen,
+                              //                       color: textColor),
+                              //                 ),
+                              //               )
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       )
+                              //     : Container(),
 
                               //language
                               InkWell(
@@ -696,42 +696,42 @@ class _NavDrawerState extends State<NavDrawer> {
                               ),
 
                               //bank details
-                              userDetails['owner_id'] == null
-                                  ? InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const BankDetails()));
-                                      },
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.all(media.width * 0.025),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.account_balance,
-                                                size: media.width * 0.075),
-                                            SizedBox(
-                                              width: media.width * 0.025,
-                                            ),
-                                            SizedBox(
-                                              width: media.width * 0.55,
-                                              child: Text(
-                                                languages[choosenLanguage]
-                                                    ['text_updateBank'],
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.roboto(
-                                                    fontSize:
-                                                        media.width * sixteen,
-                                                    color: textColor),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
+                              // userDetails['owner_id'] == null
+                              //     ? InkWell(
+                              //         onTap: () {
+                              //           Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       const BankDetails()));
+                              //         },
+                              //         child: Container(
+                              //           padding:
+                              //               EdgeInsets.all(media.width * 0.025),
+                              //           child: Row(
+                              //             children: [
+                              //               Icon(Icons.account_balance,
+                              //                   size: media.width * 0.075),
+                              //               SizedBox(
+                              //                 width: media.width * 0.025,
+                              //               ),
+                              //               SizedBox(
+                              //                 width: media.width * 0.55,
+                              //                 child: Text(
+                              //                   languages[choosenLanguage]
+                              //                       ['text_updateBank'],
+                              //                   overflow: TextOverflow.ellipsis,
+                              //                   style: GoogleFonts.roboto(
+                              //                       fontSize:
+                              //                           media.width * sixteen,
+                              //                       color: textColor),
+                              //                 ),
+                              //               )
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       )
+                              //     : Container(),
                               //make complaints
                               InkWell(
                                 onTap: () async {
@@ -869,8 +869,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                       SizedBox(
                                         width: media.width * 0.55,
                                         child: Text(
-                                          languages[choosenLanguage]
-                                              ['text_logout'],
+                                          languages[choosenLanguage]['text_logout'],
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
