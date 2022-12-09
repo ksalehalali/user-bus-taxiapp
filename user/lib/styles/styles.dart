@@ -18,6 +18,7 @@ double twentyfour = 0.064;
 double fourty = 0.10667;
 Color backgroundColor = const Color(0xffe5e5e5);
 Color textColor = const Color(0xff12121D);
+Color drawerTextColor = const Color(0xff000000);
 Color backIcon = const Color(0xff12121D);
 Color underline = const Color(0xff12121D).withOpacity(0.3);
 Color hintColor = const Color(0xff12121D).withOpacity(0.3);

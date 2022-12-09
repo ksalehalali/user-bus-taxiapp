@@ -821,7 +821,8 @@ class _MapsState extends State<Maps>
                                                                 ],
                                                               )
                                                             : Image.asset(
-                                                                'assets/images/dropmarker.png'))),
+                                                                'assets/images/dropmarker.png',
+                                                           color: loaderColor,))),
                                                 Positioned(
                                                     top: 0,
                                                     child: AnimatedContainer(
@@ -1505,16 +1506,16 @@ class _MapsState extends State<Maps>
                                                                         decoration: BoxDecoration(
                                                                             shape:
                                                                                 BoxShape.circle,
-                                                                            color: const Color(0xffFF0000).withOpacity(0.3)),
+                                                                            color: loaderColor.withOpacity(0.3)),
                                                                         child:
                                                                             Container(
                                                                           height:
                                                                               media.width * 0.02,
                                                                           width:
                                                                               media.width * 0.02,
-                                                                          decoration: const BoxDecoration(
+                                                                          decoration: BoxDecoration(
                                                                               shape: BoxShape.circle,
-                                                                              color: Color(0xffFF0000)),
+                                                                              color: loaderColor),
                                                                         ),
                                                                       ),
                                                                       SizedBox(
@@ -1796,6 +1797,7 @@ class _MapsState extends State<Maps>
                                                                                           child: Image.asset(
                                                                                             (_dropaddress == true) ? 'assets/images/dropmarker.png' : 'assets/images/pickupmarker.png',
                                                                                             fit: BoxFit.contain,
+                                                                                            color: loaderColor,
                                                                                           ),
                                                                                         ),
                                                                                         SizedBox(

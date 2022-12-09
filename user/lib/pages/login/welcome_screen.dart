@@ -30,11 +30,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: [
               Text('Welcome', style: TextStyle(color: black, fontSize: 24.0, fontWeight: FontWeight.w600),),
               SizedBox(height: 20,),
-              Text('Please Login to enter the exciting',
-                style: TextStyle(color: light_grey, fontSize: 16.0),),
+              Text('Please Login to enter the exciting \n world of ride', textAlign: TextAlign.center,
+                style: TextStyle(color: light_grey, fontSize: 16.0, ), ),
               SizedBox(height: 5,),
-              Text('world of ride and deliveries',
-                style: TextStyle(color: light_grey, fontSize: 16.0),),
+
             ],
           ),
           Container(

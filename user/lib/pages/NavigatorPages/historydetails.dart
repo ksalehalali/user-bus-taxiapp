@@ -36,7 +36,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
     final Uint8List pickicon1 =
         await getBytesFromAsset('assets/images/userloc.png', 40);
     final Uint8List dropicon1 =
-        await getBytesFromAsset('assets/images/droploc.png', 40);
+        await getBytesFromAsset('assets/images/droploc.png', 40,);
 
     // if (mounted) {
     setState(() {

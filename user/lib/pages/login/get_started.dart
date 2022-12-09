@@ -147,7 +147,8 @@ class _GetStartedState extends State<GetStarted> {
                         child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,                        children: [
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           SizedBox(
                             height: media.height * 0.04,
                           ),
@@ -337,6 +338,8 @@ class _GetStartedState extends State<GetStarted> {
                                               verifyEmailError = '';
                                               _error = '';
                                             });
+                                            name = nameText.text;
+                                            email = emailText.text;
                                             var register = await registerUser();
                                             if (register == 'true') {
                                               //referral page

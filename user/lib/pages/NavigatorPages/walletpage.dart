@@ -1024,7 +1024,7 @@ class _WalletPageState extends State<WalletPage> {
                                             controller: phonenumber,
                                             onChanged: (val) {
                                               if (phonenumber.text.length ==
-                                                  countries[phcode]
+                                                  countries[phcode.value]
                                                       ['dial_max_length']) {
                                                 FocusManager
                                                     .instance.primaryFocus

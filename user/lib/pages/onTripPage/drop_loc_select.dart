@@ -241,6 +241,7 @@ class _DropLocationState extends State<DropLocation>
                             'assets/images/dropmarker.png',
                             width: media.width * 0.07,
                             height: media.width * 0.08,
+                            color: loaderColor,
                           ),
                         ],
                       ),

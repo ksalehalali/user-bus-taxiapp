@@ -212,10 +212,11 @@ class _OtpState extends State<Otp> {
                                     child: Text(
                                       languages[choosenLanguage]
                                           ['text_phone_verify'],
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * twentyeight,
                                           fontWeight: FontWeight.bold,
-                                          color: textColor),
+                                          color: textColor,),
                                     ),
                                   ),
                                   const SizedBox(
@@ -225,6 +226,7 @@ class _OtpState extends State<Otp> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       languages[choosenLanguage]['text_enter_otp'],
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * sixteen,
                                           color: textColor.withOpacity(0.3)),

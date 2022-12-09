@@ -181,7 +181,7 @@ class _LoadingPageState extends State<LoadingPage> {
                    //          image: AssetImage('assets/images/splash.jpg'),
                    //          fit: BoxFit.fill)),
                     child: Image.asset(
-                      "assets/images/splash.jpg",
+                      "assets/images/splash.png",
                       fit: BoxFit.fitHeight,
                     ),
                   ),
