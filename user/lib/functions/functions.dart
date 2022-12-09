@@ -26,6 +26,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../pages/login/enter_phone_number.dart';
+
 //languages code
 dynamic phcode;
 dynamic platform;
