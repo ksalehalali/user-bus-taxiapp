@@ -259,8 +259,7 @@ class _PickContactState extends State<PickContact> {
                                 setState(() {
                                   _isLoading = true;
                                 });
-                                var val =
-                                    await addSos(pickedName, pickedNumber);
+                                var val = await addSos(pickedName, pickedNumber);
                                 if (val == 'success') {
                                   pop();
                                 }

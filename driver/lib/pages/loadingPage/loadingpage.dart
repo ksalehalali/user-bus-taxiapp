@@ -174,7 +174,7 @@ class _LoadingPageState extends State<LoadingPage> {
                     //     image: DecorationImage(
                     //         image: AssetImage('assets/images/logo.png'),
                     //         fit: BoxFit.contain)),
-                    child: Image.asset('assets/images/splash.jpg', fit: BoxFit.fill,),
+                    child: Image.asset('assets/images/taxi_logo.png', fit: BoxFit.cover,),
                   ),
                 ],
               ),
