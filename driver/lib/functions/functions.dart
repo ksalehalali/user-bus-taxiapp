@@ -60,6 +60,7 @@ String ischeckownerordriver = '';
 String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
 String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
 String mapStyle = '';
+int drawerSelectedIndex = 0;
 
 getDetailsOfDevice() async {
   var connectivityResult = await (Connectivity().checkConnectivity());

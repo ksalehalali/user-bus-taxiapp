@@ -174,6 +174,8 @@ class _OtpState extends State<Otp> {
                         height: media.height * 1,
                         width: media.width * 1,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                                 width: media.width * 1,
@@ -199,7 +201,7 @@ class _OtpState extends State<Otp> {
                             Image.asset('assets/animated_images/verify_number.png', width: 300,),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
                                     height: media.height * 0.04,
@@ -374,7 +376,7 @@ class _OtpState extends State<Otp> {
                                       },
                                       borcolor:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? underline
+                                              ? secondaryColor
                                               : null,
                                       text: (otpNumber.length == 6)
                                           ? languages[choosenLanguage]
@@ -388,7 +390,7 @@ class _OtpState extends State<Otp> {
                                                   resendTime.toString(),
                                       color:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? underline
+                                              ? primaryColor
                                               : null,
                                     ),
                                   ),

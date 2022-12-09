@@ -42,3 +42,7 @@ Color onlineOfflineText = const Color(0xffFFFFFF);
 Color borderLines = const Color(0xffE5E5E5);
 Color starColor = const Color(0xff038cc8);
 Color light_grey = const Color.fromRGBO(171, 171, 171, 1);
+// Color primaryColor = const Color.fromRGBO(1, 113, 189, 1);
+Color secondaryColor = const Color.fromRGBO(88, 188, 255, 1);
+Color drawerTextColor = const Color.fromRGBO(2, 2, 2, 1.0);
+Color primaryColor = const Color(0xff16549d);

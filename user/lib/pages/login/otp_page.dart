@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/booking_confirmation.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/login/get_started.dart';
@@ -177,12 +177,14 @@ class _OtpState extends State<Otp> {
                         height: media.height * 1,
                         width: media.width * 1,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                                 width: media.width * 1,
                                 color: topBar,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     InkWell(
                                         onTap: () {
@@ -248,7 +250,7 @@ class _OtpState extends State<Otp> {
                                     numberOfFields: 6,
                                     borderColor: Color(0xFF512DA8),
                                     focusedBorderColor: buttonColor,
-                                    borderRadius: BorderRadius.circular(16.0),
+                                             borderRadius: BorderRadius.circular(16.0),
                                     enabledBorderColor: buttonColor,
                                     // orderRadius: BorderRadius.circular(16.0),
                                     // benabledBorderColor: buttonColor,
