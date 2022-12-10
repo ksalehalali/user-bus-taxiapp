@@ -44,7 +44,7 @@ class _LoadingState extends State<Loading> {
         alignment: Alignment.center,
         height: media.height * 1,
         width: media.width * 1,
-        // color: Colors.transparent.withOpacity(0.6),
+         color: white,
         // decoration: BoxDecoration(
         // gradient: LinearGradient(
         //   begin: Alignment.topRight,

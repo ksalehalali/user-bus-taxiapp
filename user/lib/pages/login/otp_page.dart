@@ -397,12 +397,12 @@ class _OtpState extends State<Otp> {
                                                   resendTime.toString(),
                                       color:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? underline
-                                              : null,
+                                              ? buttonColor.withOpacity(0.3)
+                                              : loaderColor,
                                       borcolor:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? underline
-                                              : null,
+                                              ? buttonColor.withOpacity(0.3)
+                                              : loaderColor,
                                     ),
                                   ),
                                 ],
