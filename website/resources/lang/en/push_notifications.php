@@ -49,20 +49,4 @@ return array (
   'reminder_push_title' => 'Gentle Reminder 😊️',
   'reminder_push_body' => 'Please open the app to get ride requests',
   'general_notification' => 'General Notification',
-
-
-
-  'vehicle_removed_from_your_account_title' => 'Vehicle Removed From Your Account Title',
-  'vehicle_removed_from_your_account_body' => 'Vehicle Removed From Your Account Body',
-  'new_vehicle_assigned_title' => 'New Vehicle Assigned Title',
-  'new_vehicle_assigned_body' => 'New Vehicle Assigned Body',
-  'vehicle_approved' => 'Vehicle Approved',
-  'vehicle_approved_body' => 'Vehicle Approved Body',
-  'vehicle_declined_title' => 'Vehicle Declined Title',
-  'vehicle_declined_body' => 'Vehicle declined Body',
-  'vehicle_driver_approved' => 'Vehicle Driver Approved',
-  'vehicle_driver_approved_body' => 'Vehicle Driver Approved Body',
-  'vehicle_driver_declined_title' => 'Vehicle Driver Declined Title',
-  'vehicle_driver_declined_body' => 'Vehicle Driver Declined Body',
-  'vehicle_approved_title' => 'Vehicle Approved Title',
 );

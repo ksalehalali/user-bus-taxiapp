@@ -60,8 +60,6 @@ dependencies:
   package_info_plus: ^1.4.2
   vector_math: ^2.1.1
   awesome_notifications: ^0.6.21
-  webview_flutter: ^3.0.4
-  flutter_inappwebview: ^5.5.0+1
 
 dev_dependencies:
   flutter_test:

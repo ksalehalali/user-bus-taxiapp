@@ -2,11 +2,112 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ed0391-3fc9-4d93-819d-09e65f8ab9e3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.dart_tool/package_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.dart_tool/package_config_subset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.dart_tool/version" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/runConfigurations/main_dart.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/android/app/src/main/kotlin/com/example/driver/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/flutter/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/main.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/my_application.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/linux/my_application.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/AppDelegate.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_128.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_256.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_64.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Base.lproj/MainMenu.xib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Configs/AppInfo.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Configs/Debug.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Configs/Release.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Configs/Warnings.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/DebugProfile.entitlements" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/MainFlutterWindow.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/macos/Runner/Release.entitlements" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/flutter/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/Runner.rc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/flutter_window.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/flutter_window.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/resource.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/resources/app_icon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/runner.exe.manifest" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/utils.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/win32_window.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../driver/windows/runner/win32_window.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/images/background.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentation.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/.metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/ios/Runner/Runner.entitlements" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/lib/pages/NavigatorPages/paystackpayment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/lib/pages/NavigatorPages/paystackpayment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/pubspec.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../driver/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../driver/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/../user/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Base/Constants/Auth/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Base/Constants/Auth/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Admin/FleetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Admin/FleetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/Master/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/Master/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Admin/Fleet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Fleet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/master_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/master_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/push-configurations/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/push-configurations/firebase.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/pages_names.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/pages_names.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/push_notifications.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/push_notifications.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/succes_messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/succes_messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/view_pages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/view_pages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/pages_names.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pages_names.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/push_notifications.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/push_notifications.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/succes_messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/succes_messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/view_pages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/view_pages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/owners/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/owners/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,6 +363,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -272,7 +374,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="50d68801-7a2b-4748-917c-2ed72839c9eb" name="Changes" comment="" />
+      <changelist id="c8ed0391-3fc9-4d93-819d-09e65f8ab9e3" name="Changes" comment="" />
       <created>1669974975867</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -282,6 +384,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -293,6 +398,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

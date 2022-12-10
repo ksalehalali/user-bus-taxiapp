@@ -141,36 +141,4 @@ return array (
   'client_status_changed_succesfully' => 'Client Status Changed Successfully',
   'admin_profile_updated_successfully' => 'Admin Profile Updated Successfully',
   'owner_added_successfully' => 'Owner Added Successfully',
-
-
-  'company_added_succesfully' => 'Company Added Succesfully',
-  'company_updated_succesfully' => 'Company Updated Succesfully',
-  'company_deleted_succesfully' => 'Company Deleted Succesfully',
-  'company_document_not_uploaded' => 'Company Document Not Uploaded',
-  'company_approve_status_changed_succesfully' => 'Company Approve Status Changed Succesfully',
-  'company_needed_doc_added_succesfully' => 'Company Needed Doc Added Succesfully',
-  'company_needed_doc_updated_succesfully' => 'Company Deeded Doc Updated Succesfully',
-  'company_needed_doc_status_changed_succesfully' => 'Company Needed Doc Status Changed Succesfully',
-  'company_needed_doc_deleted_succesfully' => 'CompanyNeeded_Doc Deleted Succesfully',
-  'company_added_successfully' => 'Company Added Successfully',
-
-  'vehicle_needed_doc_added_succesfully' => 'Vehicle Needed Doc Added Successfully',
-  'vehicle_needed_doc_updated_succesfully' => 'Vehicle Needed Doc Updated Successfully',
-  'vehicle_needed_doc_status_changed_succesfully' => 'Vehicle Needed Doc Status Changed Successfully',
-  'vehicle_needed_doc_deleted_succesfully' => 'Vehicle Needed Doc Deleted Successfully',
-  'vehicle_added_succesfully' => 'Vehicle Added Successfully',
-  'vehicle_updated_succesfully' => 'Vehicle Updated Successfully',
-  'vehicle_status_changed_succesfully' => 'Vehicle Status Changed Successfully',
-  'vehicle_approval_status_changed_succesfully' => 'Vehicle Approval Status Changed Successfully',
-  'vehicle_deleted_succesfully' => 'Vehicle Deleted Successfully',
-  'vehicle_driver_added_succesfully' => 'Vehicle Driver Added Successfully',
-  'vehicle_driver_updated_succesfully' => 'Vehicle Driver Updated Successfully',
-  'vehicle_driver_status_changed_succesfully' => 'Vehicle Driver Status Changed Successfully',
-  'vehicle_driver_approve_status_changed_succesfully' => 'Vehicle Driver Approve Status Changed Successfully',
-  'vehicle_driver_available_status_changed_succesfully' => 'Vehicle Driver Available Status  Changed Successfully',
-  'vehicle_driver_deleted_succesfully' => 'Vehicle Driver Deleted Successfully',
-
-
-
-
 );

@@ -8,7 +8,7 @@ import 'package:tagyourtaxi_driver/styles/styles.dart';
 // import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 
 class PayStackPage extends StatefulWidget {
   const PayStackPage({Key? key}) : super(key: key);
@@ -96,17 +96,17 @@ class _PayStackPageState extends State<PayStackPage> {
                           SizedBox(
                             height: media.width * 0.05,
                           ),
-                          Expanded(
-                            child: (paystackCode['authorization_url'] != null &&
-                                    _error == '')
-                                ? WebView(
-                                    initialUrl:
-                                        paystackCode['authorization_url'],
-                                    javascriptMode: JavascriptMode.unrestricted,
-                                    userAgent: 'Flutter;Webview',
-                                  )
-                                : Container(),
-                          )
+                          // Expanded(
+                          //   child: (paystackCode['authorization_url'] != null &&
+                          //           _error == '')flutter create .
+                          //       ? WebView(
+                          //           initialUrl:
+                          //               paystackCode['authorization_url'],
+                          //           javascriptMode: JavascriptMode.unrestricted,
+                          //           userAgent: 'Flutter;Webview',
+                          //         )
+                          //       : Container(),
+                          // )
                         ],
                       ),
                     ),
