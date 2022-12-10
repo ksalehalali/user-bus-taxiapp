@@ -453,37 +453,33 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                       child: Button(
                         onTap: () async {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          // setState(() {
-                          //   _isLoading = true;
-                          // });
-                          var verify = await verifyUser(phnumber);
-                          if(verify) {
-                            //check if otp is true or false
-                            var val = await otpCall();
-                            //otp is true
-                            if (val.value == true) {
-                              phoneAuthCheck = true;
-                              await phoneAuth(countries[phcode]['dial_code'] + phnumber);
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          //check if otp is true or false
+                          var val = await otpCall();
+                          //otp is true
+                          if (val.value == true) {
+                            phoneAuthCheck = true;
+                            await phoneAuth(countries[phcode]['dial_code'] + phnumber);
 
-                              navigate();
-                            }
-                            //otp is false
-                            else if (val.value == false) {
-                              phoneAuthCheck = false;
-                              navigate();
-                            }
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          } else {
-                            showAlertDialog(context);
+                            navigate();
                           }
+                          //otp is false
+                          else if (val.value == false) {
+                            phoneAuthCheck = false;
+                            navigate();
+                          }
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
                         text: languages[choosenLanguage]
                         ['text_login'],
                       ),
                     )
                         : Container(),
+
                   ],
                 )
                     : Container(
