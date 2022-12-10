@@ -24,6 +24,7 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
+import '../login/enter_phone_number.dart';
 import '../navDrawer/nav_drawer.dart';
 
 class Maps extends StatefulWidget {
@@ -403,19 +404,19 @@ class _MapsState extends State<Maps>
                                               SizedBox(
                                                 height: media.height * 0.31,
                                                 child: Image.asset(
-                                                  'assets/images/allow_location_permission.png',
+                                                  'assets/animated_images/location_access.png',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: media.width * 0.05,
+                                                height: media.width * 0.09,
                                               ),
                                               Text(
                                                 languages[choosenLanguage]
-                                                    ['text_trustedtaxi'],
+                                                    ['text_enable_location_access'],
                                                 style: GoogleFonts.roboto(
                                                     fontSize:
-                                                        media.width * eighteen,
+                                                        media.width * twentyeight,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -479,11 +480,20 @@ class _MapsState extends State<Maps>
                                                   ],
                                                 ),
                                               ),
+                                              SizedBox(height: 20,),
                                               Container(
-                                                  padding: EdgeInsets.all(
-                                                      media.width * 0.05),
-                                                  child: Button(
-                                                      onTap: () async {
+                                                  height: 60,
+                                                  width: MediaQuery.of(context).size.width/2.5,
+                                                  // padding: EdgeInsets.all(
+                                                  //     media.width * 0.05),
+                                                  child: ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                          primary: notUploadedColor,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(36.0)
+                                                          )
+                                                      ),
+                                                      onPressed: () async {
                                                         if (serviceEnabled ==
                                                             false) {
                                                           await location
@@ -508,9 +518,9 @@ class _MapsState extends State<Maps>
                                                         });
                                                         getLocs();
                                                       },
-                                                      text: languages[
-                                                              choosenLanguage]
-                                                          ['text_continue']))
+                                                      child: Text(languages[choosenLanguage]['text_allow_access'], style: TextStyle(fontSize: 18.0),)
+                                                  )
+                                              )
                                             ],
                                           ),
                                         )
@@ -811,7 +821,8 @@ class _MapsState extends State<Maps>
                                                                 ],
                                                               )
                                                             : Image.asset(
-                                                                'assets/images/dropmarker.png'))),
+                                                                'assets/images/dropmarker.png',
+                                                           color: loaderColor,))),
                                                 Positioned(
                                                     top: 0,
                                                     child: AnimatedContainer(
@@ -1495,16 +1506,16 @@ class _MapsState extends State<Maps>
                                                                         decoration: BoxDecoration(
                                                                             shape:
                                                                                 BoxShape.circle,
-                                                                            color: const Color(0xffFF0000).withOpacity(0.3)),
+                                                                            color: loaderColor.withOpacity(0.3)),
                                                                         child:
                                                                             Container(
                                                                           height:
                                                                               media.width * 0.02,
                                                                           width:
                                                                               media.width * 0.02,
-                                                                          decoration: const BoxDecoration(
+                                                                          decoration: BoxDecoration(
                                                                               shape: BoxShape.circle,
-                                                                              color: Color(0xffFF0000)),
+                                                                              color: loaderColor),
                                                                         ),
                                                                       ),
                                                                       SizedBox(
@@ -1786,6 +1797,7 @@ class _MapsState extends State<Maps>
                                                                                           child: Image.asset(
                                                                                             (_dropaddress == true) ? 'assets/images/dropmarker.png' : 'assets/images/pickupmarker.png',
                                                                                             fit: BoxFit.contain,
+                                                                                            color: loaderColor,
                                                                                           ),
                                                                                         ),
                                                                                         SizedBox(
@@ -2366,7 +2378,7 @@ class _MapsState extends State<Maps>
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                const Login()),
+                                                                const EnterPhoneNumber()),
                                                         (route) => false);
                                                     userDetails.clear();
                                                   });
@@ -2459,7 +2471,7 @@ class _MapsState extends State<Maps>
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                const Login()),
+                                                                const EnterPhoneNumber()),
                                                         (route) => false);
                                                     userDetails.clear();
                                                   });

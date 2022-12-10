@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tagyourtaxi_driver/functions/functions.dart';
+import 'package:tagyourtaxi_driver/pages/login/enter_phone_number.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/map_page.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
 import 'package:tagyourtaxi_driver/pages/vehicleInformations/upload_docs.dart';
@@ -76,8 +77,7 @@ class _DocsProcessState extends State<DocsProcess> {
                                   ),
                                   const SizedBox(height: 20),
                                   Text(
-                                    languages[choosenLanguage]
-                                        ['text_approval_waiting'],
+                                    languages[choosenLanguage]['text_approval_waiting'],
                                     style: GoogleFonts.roboto(
                                         fontSize: media.width * twenty,
                                         color: textColor,
@@ -85,8 +85,7 @@ class _DocsProcessState extends State<DocsProcess> {
                                   ),
                                   SizedBox(height: media.height * 0.02),
                                   Text(
-                                    languages[choosenLanguage]
-                                        ['text_send_approval'],
+                                    languages[choosenLanguage]['text_send_approval'],
                                     style: GoogleFonts.roboto(
                                       fontSize: media.width * sixteen,
                                       color: textColor,
@@ -121,8 +120,7 @@ class _DocsProcessState extends State<DocsProcess> {
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
-                                        languages[choosenLanguage]
-                                            ['text_account_blocked'],
+                                        languages[choosenLanguage]['text_account_under_process'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * twenty,
                                             color: textColor,
@@ -131,7 +129,7 @@ class _DocsProcessState extends State<DocsProcess> {
                                       SizedBox(height: media.height * 0.02),
                                       Text(
                                         languages[choosenLanguage]
-                                            ['text_document_rejected'],
+                                            ['text_document_under_process'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
                                             color: textColor),
@@ -155,14 +153,19 @@ class _DocsProcessState extends State<DocsProcess> {
                         //button
                         Button(
                             onTap: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Docs(
+                              //               fromPage: '1',
+                              //             )));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Docs(
-                                            fromPage: '1',
-                                          )));
+                                      builder: (context) => EnterPhoneNumber()
+                                  ));
                             },
-                            text: languages[choosenLanguage]['text_edit_docs'])
+                            text: languages[choosenLanguage]['text_go_to_login'])
                       ],
                     ),
                   ),

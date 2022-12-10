@@ -5,7 +5,8 @@ import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import '../../functions/functions.dart';
 import '../../widgets/widgets.dart';
-import '../login/signupmethod.dart';
+import '../login/driver_or_owner.dart';
+import '../login/welcome_screen.dart';
 
 class Languages extends StatefulWidget {
   const Languages({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _LanguagesState extends State<Languages> {
 
   navigate() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const SignupMethod()));
+        context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
   }
 
   @override

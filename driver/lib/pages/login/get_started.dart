@@ -12,6 +12,7 @@ import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import './login.dart';
 import '../vehicleInformations/service_area.dart';
+import 'enter_phone_number.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -256,7 +257,8 @@ class _GetStartedState extends State<GetStarted> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        countries[phcode]['dial_code'],
+                                        '123456789',
+                                        // countries[phcode]['dial_code'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
                                             color: textColor),

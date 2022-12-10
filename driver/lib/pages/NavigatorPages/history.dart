@@ -119,7 +119,7 @@ class _HistoryState extends State<History> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: (_showHistory == 0)
-                                    ? const Color(0xff222222)
+                                    ? primaryColor
                                     : page),
                             child: Text(
                               languages[choosenLanguage]['text_upcoming'],
@@ -152,7 +152,7 @@ class _HistoryState extends State<History> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: (_showHistory == 1)
-                                    ? const Color(0xff222222)
+                                    ? primaryColor
                                     : page),
                             child: Text(
                               languages[choosenLanguage]['text_completed'],
@@ -185,7 +185,7 @@ class _HistoryState extends State<History> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: (_showHistory == 2)
-                                    ? const Color(0xff222222)
+                                    ? primaryColor
                                     : page),
                             child: Text(
                               languages[choosenLanguage]['text_cancelled'],

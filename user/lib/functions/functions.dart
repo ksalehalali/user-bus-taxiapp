@@ -26,6 +26,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../pages/login/enter_phone_number.dart';
+
 //languages code
 dynamic phcode;
 dynamic platform;
@@ -38,7 +40,8 @@ bool internet = true;
 
 //base url
 String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'AIzaSyCylFiVDHyJsUfiSpDcw32-BUkBxr_vRSU';
+String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
+int drawerSelectedIndex = 0;
 
 //check internet connection
 

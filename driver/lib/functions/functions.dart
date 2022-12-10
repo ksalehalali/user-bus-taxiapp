@@ -34,6 +34,7 @@ import 'package:tagyourtaxi_driver/pages/vehicleInformations/vehicle_year.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../pages/NavigatorPages/fleetdocuments.dart';
+import '../pages/login/enter_phone_number.dart';
 import '../pages/login/ownerregister.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -56,9 +57,10 @@ dynamic centerCheck;
 String ischeckownerordriver = '';
 
 //base url
-String url = 'your base url'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'map key';
+String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
 String mapStyle = '';
+int drawerSelectedIndex = 0;
 
 getDetailsOfDevice() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
@@ -225,12 +227,9 @@ List languagesCode = [
 uploadDocs() async {
   dynamic result;
   try {
-    var response = http.MultipartRequest(
-        'POST', Uri.parse('${url}api/v1/driver/upload/documents'));
-    response.headers
-        .addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
-    response.files
-        .add(await http.MultipartFile.fromPath('document', imageFile));
+    var response = http.MultipartRequest('POST', Uri.parse('${url}api/v1/driver/upload/documents'));
+    response.headers.addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
+    response.files.add(await http.MultipartFile.fromPath('document', imageFile));
     if (documentsNeeded[choosenDocs]['has_expiry_date'] == true) {
       response.fields['expiry_date'] = expDate.toString().substring(0, 19);
     }
@@ -469,7 +468,7 @@ getvehicleType() async {
   dynamic res;
   try {
     final response = await http.get(
-      Uri.parse('${url}api/v1/types/$myServiceId'),
+      Uri.parse('${url}api/v1/types/${myServiceId}'),
     );
 
     if (response.statusCode == 200) {
@@ -484,7 +483,6 @@ getvehicleType() async {
       internet = false;
     }
   }
-
   return res;
 }
 
@@ -1026,7 +1024,7 @@ verifyUser(String number) async {
   try {
     var response = await http.post(
         Uri.parse('${url}api/v1/driver/validate-mobile-for-login'),
-        body: {"mobile": number, "role": ischeckownerordriver});
+        body: {"mobile": number, "role": "driver"});
 
     if (response.statusCode == 200) {
       val = jsonDecode(response.body)['success'];
@@ -2397,10 +2395,8 @@ updateProfile(name, email) async {
       'POST',
       Uri.parse('${url}api/v1/user/driver-profile'),
     );
-    response.headers
-        .addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
-    response.files.add(
-        await http.MultipartFile.fromPath('profile_picture', proImageFile));
+    response.headers.addAll({'Authorization': 'Bearer ${bearerToken[0].token}'});
+    response.files.add(await http.MultipartFile.fromPath('profile_picture', proImageFile));
     response.fields['email'] = email;
     response.fields['name'] = name;
     var request = await response.send();

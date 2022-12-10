@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
+import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/booking_confirmation.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/language/languages.dart';
@@ -139,7 +140,7 @@ class _LoadingPageState extends State<LoadingPage> {
           Future.delayed(const Duration(seconds: 2), () {
             //login page
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Login()));
+                MaterialPageRoute(builder: (context) => const WelcomeScreen()));
           });
         } else {
           Future.delayed(const Duration(seconds: 2), () {
@@ -175,13 +176,13 @@ class _LoadingPageState extends State<LoadingPage> {
                     // padding: EdgeInsets.all(media.width * 0.01),
                     width: media.width,
                     height: media.height,
-                    // decoration: const BoxDecoration(
-                    //     image: DecorationImage(
-                    //         image: AssetImage('assets/images/splash.jpg'),
-                    //         fit: BoxFit.contain)),
+                   // decoration: const BoxDecoration(
+                   //      image: DecorationImage(
+                   //          image: AssetImage('assets/images/splash.jpg'),
+                   //          fit: BoxFit.fill)),
                     child: Image.asset(
-                      "assets/images/splash.jpg",
-                      fit: BoxFit.fill,
+                      "assets/images/splash.png",
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ],

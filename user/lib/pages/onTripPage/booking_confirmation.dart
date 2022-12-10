@@ -952,46 +952,46 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
                                         children: [
-                                          (userRequestData.isNotEmpty &&
-                                                  userRequestData[
-                                                          'is_trip_start'] ==
-                                                      1)
-                                              ? InkWell(
-                                                  onTap: () async {
-                                                    setState(() {
-                                                      showSos = true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: media.width * 0.1,
-                                                    width: media.width * 0.1,
-                                                    decoration: BoxDecoration(
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                              blurRadius: 2,
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.2),
-                                                              spreadRadius: 2)
-                                                        ],
-                                                        color: buttonColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(media
-                                                                        .width *
-                                                                    0.02)),
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      'SOS',
-                                                      style: GoogleFonts.roboto(
-                                                          fontSize:
-                                                              media.width *
-                                                                  fourteen,
-                                                          color: page),
-                                                    ),
-                                                  ))
-                                              : Container(),
+                                          // (userRequestData.isNotEmpty &&
+                                          //         userRequestData[
+                                          //                 'is_trip_start'] ==
+                                          //             1)
+                                          //     ? InkWell(
+                                          //         onTap: () async {
+                                          //           setState(() {
+                                          //             showSos = false;
+                                          //           });
+                                          //         },
+                                          //         child: Container(
+                                          //           height: media.width * 0.1,
+                                          //           width: media.width * 0.1,
+                                          //           decoration: BoxDecoration(
+                                          //               boxShadow: [
+                                          //                 BoxShadow(
+                                          //                     blurRadius: 2,
+                                          //                     color: Colors
+                                          //                         .black
+                                          //                         .withOpacity(
+                                          //                             0.2),
+                                          //                     spreadRadius: 2)
+                                          //               ],
+                                          //               color: buttonColor,
+                                          //               borderRadius:
+                                          //                   BorderRadius
+                                          //                       .circular(media
+                                          //                               .width *
+                                          //                           0.02)),
+                                          //           alignment: Alignment.center,
+                                          //           child: Text(
+                                          //             'SOS',
+                                          //             style: GoogleFonts.roboto(
+                                          //                 fontSize:
+                                          //                     media.width *
+                                          //                         fourteen,
+                                          //                 color: page),
+                                          //           ),
+                                          //         ))
+                                          //     : Container(),
                                           SizedBox(
                                             height: media.width * 0.05,
                                           ),
@@ -1233,22 +1233,14 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                             Column(
                                                                                               children: [
                                                                                                 (etaDetails[i]['icon'] != null)
-                                                                                                    ? SizedBox(
-                                                                                                        width: media.width * 0.1,
+                                                                                                    ? Container(
+                                                                                                        width: media.width * 0.2,
+                                                                                                        color: Colors.transparent,
                                                                                                         child: Image.network(
                                                                                                           etaDetails[i]['icon'],
                                                                                                           fit: BoxFit.contain,
                                                                                                         ))
                                                                                                     : Container(),
-                                                                                                (minutes[etaDetails[i]['type_id']] != '')
-                                                                                                    ? Text(
-                                                                                                        minutes[etaDetails[i]['type_id']].toString(),
-                                                                                                        style: GoogleFonts.roboto(fontSize: media.width * twelve, color: textColor.withOpacity(0.3)),
-                                                                                                      )
-                                                                                                    : Text(
-                                                                                                        '- -',
-                                                                                                        style: GoogleFonts.roboto(fontSize: media.width * twelve, color: textColor.withOpacity(0.3)),
-                                                                                                      )
                                                                                               ],
                                                                                             ),
                                                                                             SizedBox(
@@ -1272,16 +1264,30 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                                       ),
                                                                                                     ),
                                                                                                     SizedBox(width: media.width * 0.01),
-                                                                                                    InkWell(
-                                                                                                        onTap: () {
-                                                                                                          setState(() {
-                                                                                                            _showInfoInt = i;
-                                                                                                            _showInfo = true;
-                                                                                                          });
-                                                                                                        },
-                                                                                                        child: Icon(Icons.info_outline, size: media.width * twelve)),
                                                                                                   ],
                                                                                                 ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            Column(
+                                                                                              children: [
+                                                                                                (minutes[etaDetails[i]['type_id']] != '')
+                                                                                                    ? Text(
+                                                                                                  minutes[etaDetails[i]['type_id']].toString(),
+                                                                                                  style: GoogleFonts.roboto(fontSize: media.width * twelve, color: textColor.withOpacity(0.3)),
+                                                                                                )
+                                                                                                    : Text(
+                                                                                                  '- -',
+                                                                                                  style: GoogleFonts.roboto(fontSize: media.width * twelve, color: textColor.withOpacity(0.3)),
+                                                                                                ),
+                                                                                                SizedBox(height: 8),
+                                                                                                InkWell(
+                                                                                                    onTap: () {
+                                                                                                      setState(() {
+                                                                                                        _showInfoInt = i;
+                                                                                                        _showInfo = true;
+                                                                                                      });
+                                                                                                    },
+                                                                                                    child: Icon(Icons.info_outline, size: media.width * twelve)),
                                                                                               ],
                                                                                             ),
                                                                                             Expanded(
@@ -1694,7 +1700,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                     decoration: BoxDecoration(
                                                                         shape: BoxShape
                                                                             .circle,
-                                                                        color: const Color(0xffFF0000)
+                                                                        color: loaderColor
                                                                             .withOpacity(0.3)),
                                                                     child:
                                                                         Container(
@@ -1704,11 +1710,10 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       width: media
                                                                               .width *
                                                                           0.01,
-                                                                      decoration: const BoxDecoration(
+                                                                      decoration:  BoxDecoration(
                                                                           shape: BoxShape
                                                                               .circle,
-                                                                          color:
-                                                                              Color(0xffFF0000)),
+                                                                          color: loaderColor),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -3385,8 +3390,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       userRequestData[
                                                                               'is_trip_start'] !=
                                                                           0)
-                                                                  ? const Color(
-                                                                      0xffFF0000)
+                                                                  ? loaderColor
                                                                   : Colors
                                                                       .transparent),
                                                 ),
@@ -3456,8 +3460,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       userRequestData[
                                                                               'is_trip_start'] ==
                                                                           1)
-                                                                  ? const Color(
-                                                                      0xffFF0000)
+                                                                  ? loaderColor
                                                                   : Colors
                                                                       .transparent,
                                                     ))
@@ -4038,11 +4041,11 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                               height: media.width * 0.025,
                                                                               width: media.width * 0.025,
                                                                               alignment: Alignment.center,
-                                                                              decoration: BoxDecoration(shape: BoxShape.circle, color: const Color(0xffFF0000).withOpacity(0.3)),
+                                                                              decoration: BoxDecoration(shape: BoxShape.circle, color: loaderColor.withOpacity(0.3)),
                                                                               child: Container(
                                                                                 height: media.width * 0.01,
                                                                                 width: media.width * 0.01,
-                                                                                decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xffFF0000)),
+                                                                                decoration:  BoxDecoration(shape: BoxShape.circle, color: loaderColor),
                                                                               ),
                                                                             ),
                                                                           ],
@@ -4389,11 +4392,10 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                           media.width * 0.14,
                                                       width: media.width * 0.14,
                                                       decoration:
-                                                          const BoxDecoration(
+                                                           BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
-                                                              color: Color(
-                                                                  0xffFF0000)),
+                                                              color: loaderColor),
                                                       child: const Center(
                                                         child: Icon(
                                                           Icons.cancel_outlined,
@@ -5577,10 +5579,9 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                   0xff222222)),
                                                           alignment:
                                                               Alignment.center,
-                                                          child: const Icon(
+                                                          child:  Icon(
                                                             Icons.star,
-                                                            color: Color(
-                                                                0xffE60000),
+                                                            color: loaderColor,
                                                           ),
                                                         ),
                                                         Expanded(

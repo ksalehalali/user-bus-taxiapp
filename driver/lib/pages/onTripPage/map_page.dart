@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,10 @@ import 'package:location/location.dart';
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/functions/geohash.dart';
 import 'package:tagyourtaxi_driver/pages/chatPage/chat_page.dart';
+import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/login/login.dart';
-import 'package:tagyourtaxi_driver/pages/navDrawer/nav_drawer.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
 import 'package:tagyourtaxi_driver/pages/vehicleInformations/docs_onprocess.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
@@ -24,7 +25,9 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import 'package:permission_handler/permission_handler.dart' as perm;
 import 'package:vector_math/vector_math.dart' as vector;
 
-import '../login/signupmethod.dart';
+import '../login/driver_or_owner.dart';
+import '../login/enter_phone_number.dart';
+import '../navDrawer/nav_drawer.dart';
 
 class Maps extends StatefulWidget {
   const Maps({Key? key}) : super(key: key);
@@ -375,9 +378,9 @@ class _MapsState extends State<Maps>
                                 bottomRight: Radius.circular(10)),
                         color: const Color(0xff222222)),
                     alignment: Alignment.center,
-                    child: const Icon(
+                    child: Icon(
                       Icons.star,
-                      color: Color(0xffE60000),
+                      color: primaryColor,
                     ),
                   ),
                   Expanded(
@@ -1504,7 +1507,7 @@ class _MapsState extends State<Maps>
                                                         height:
                                                             media.height * 0.31,
                                                         child: Image.asset(
-                                                          'assets/images/allow_location_permission.png',
+                                                          'assets/animated_images/location_access.png',
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
@@ -1514,11 +1517,11 @@ class _MapsState extends State<Maps>
                                                       ),
                                                       Text(
                                                         languages[choosenLanguage]
-                                                            ['text_trustedtaxi'],
+                                                            ['text_allow_access'],
                                                         style: GoogleFonts.roboto(
                                                             fontSize:
                                                                 media.width *
-                                                                    eighteen,
+                                                                    twentyeight,
                                                             fontWeight:
                                                                 FontWeight.w600),
                                                       ),
@@ -1642,17 +1645,25 @@ class _MapsState extends State<Maps>
                                                           ],
                                                         ),
                                                       ),
+                                                      SizedBox(height: 35),
                                                       Container(
-                                                          padding: EdgeInsets.all(
-                                                              media.width * 0.05),
-                                                          child: Button(
-                                                              onTap: () async {
+                                                          height: 60,
+                                                          width: MediaQuery.of(context).size.width/2.5,
+                                                          // padding: EdgeInsets.all(
+                                                          //     media.width * 0.05),
+                                                          child: ElevatedButton(
+                                                                 style: ElevatedButton.styleFrom(
+                                                                  primary: notUploadedColor,
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(36.0)
+                                                                  )
+                                                              ), 
+                                                                      onPressed: () async {
                                                                 getLocationPermission();
                                                               },
-                                                              text: languages[
-                                                                      choosenLanguage]
-                                                                  [
-                                                                  'text_continue']))
+                                                              child: Text(languages[choosenLanguage]['text_allow_access'], style: TextStyle(fontSize: 18.0),),
+                                                              )
+                                                      )
                                                     ],
                                                   ),
                                                 )
@@ -1769,7 +1780,7 @@ class _MapsState extends State<Maps>
                                                                                         : (driverReq['accepted_at'] != null && driverReq['arrived_at'] != null && driverReq['is_trip_start'] == 0)
                                                                                             ? const Color(0xff319900)
                                                                                             : (driverReq['accepted_at'] != null && driverReq['arrived_at'] != null && driverReq['is_trip_start'] != null)
-                                                                                                ? const Color(0xffFF0000)
+                                                                                                ? secondaryColor
                                                                                                 : (driverReq['accepted'] == null && userDetails['active'] == false)
                                                                                                     ? const Color(0xff666666)
                                                                                                     : const Color(0xff319900)),
@@ -1805,7 +1816,7 @@ class _MapsState extends State<Maps>
                                                                                     : (driverReq['accepted_at'] != null && driverReq['arrived_at'] != null && driverReq['is_trip_start'] == 0)
                                                                                         ? const Color(0xff319900)
                                                                                         : (driverReq['accepted_at'] != null && driverReq['arrived_at'] != null && driverReq['is_trip_start'] == 1)
-                                                                                            ? const Color(0xffFF0000)
+                                                                                            ? secondaryColor
                                                                                             : (driverReq['accepted'] == null && userDetails['active'] == false)
                                                                                                 ? const Color(0xff666666)
                                                                                                 : const Color(0xff319900)),
@@ -2363,44 +2374,42 @@ class _MapsState extends State<Maps>
                                                                   CrossAxisAlignment
                                                                       .end,
                                                               children: [
-                                                                (driverReq.isNotEmpty &&
-                                                                        driverReq[
-                                                                                'is_trip_start'] ==
-                                                                            1)
-                                                                    ? InkWell(
-                                                                        onTap:
-                                                                            () async {
-                                                                          setState(
-                                                                              () {
-                                                                            showSos =
-                                                                                true;
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          height: media.width *
-                                                                              0.1,
-                                                                          width: media.width *
-                                                                              0.1,
-                                                                          decoration: BoxDecoration(
-                                                                              boxShadow: [
-                                                                                BoxShadow(blurRadius: 2, color: Colors.black.withOpacity(0.2), spreadRadius: 2)
-                                                                              ],
-                                                                              color:
-                                                                                  buttonColor,
-                                                                              borderRadius:
-                                                                                  BorderRadius.circular(media.width * 0.02)),
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                          child:
-                                                                              Text(
-                                                                            'SOS',
-                                                                            style: GoogleFonts.roboto(
-                                                                                fontSize: media.width * fourteen,
-                                                                                color: page),
-                                                                          ),
-                                                                        ))
-                                                                    : Container(),
+                                                                // (driverReq.isNotEmpty && driverReq['is_trip_start'] ==
+                                                                //     1)
+                                                                //     ? InkWell(
+                                                                //         onTap:
+                                                                //             () async {
+                                                                //           setState(
+                                                                //               () {
+                                                                //             showSos =
+                                                                //                 false;
+                                                                //           });
+                                                                //         },
+                                                                //         child:
+                                                                //             Container(
+                                                                //           height: media.width *
+                                                                //               0.1,
+                                                                //           width: media.width *
+                                                                //               0.1,
+                                                                //           decoration: BoxDecoration(
+                                                                //               boxShadow: [
+                                                                //                 BoxShadow(blurRadius: 2, color: Colors.black.withOpacity(0.2), spreadRadius: 2)
+                                                                //               ],
+                                                                //               color:
+                                                                //                   buttonColor,
+                                                                //               borderRadius:
+                                                                //                   BorderRadius.circular(media.width * 0.02)),
+                                                                //           alignment:
+                                                                //               Alignment.center,
+                                                                //           child:
+                                                                //               Text(
+                                                                //             'SOS',
+                                                                //             style: GoogleFonts.roboto(
+                                                                //                 fontSize: media.width * fourteen,
+                                                                //                 color: page),
+                                                                //           ),
+                                                                //         ))
+                                                                //     : Container(),
                                                                 const SizedBox(
                                                                   height: 20,
                                                                 ),
@@ -2685,6 +2694,7 @@ class _MapsState extends State<Maps>
                                                                                               children: [
                                                                                                 Image.asset(
                                                                                                   'assets/images/picklocation.png',
+                                                                                                  color: secondaryColor,
                                                                                                   width: media.width * 0.075,
                                                                                                 ),
                                                                                                 SizedBox(width: media.width * 0.05),
@@ -2720,7 +2730,7 @@ class _MapsState extends State<Maps>
                                                                                                       Icon(
                                                                                                         Icons.location_on_outlined,
                                                                                                         size: media.width * 0.075,
-                                                                                                        color: Colors.red,
+                                                                                                        color: primaryColor,
                                                                                                       ),
                                                                                                       SizedBox(width: media.width * 0.05),
                                                                                                       Column(
@@ -2995,6 +3005,7 @@ class _MapsState extends State<Maps>
                                                                                                 children: [
                                                                                                   Image.asset(
                                                                                                     'assets/images/picklocation.png',
+                                                                                                    color: secondaryColor,
                                                                                                     width: media.width * 0.075,
                                                                                                   ),
                                                                                                   SizedBox(width: media.width * 0.05),
@@ -3031,7 +3042,7 @@ class _MapsState extends State<Maps>
                                                                                                     ], color: page, borderRadius: BorderRadius.circular(10)),
                                                                                                     child: Row(
                                                                                                       children: [
-                                                                                                        Icon(Icons.location_on_outlined, color: Colors.red, size: media.width * 0.075),
+                                                                                                        Icon(Icons.location_on_outlined, color: secondaryColor, size: media.width * 0.075),
                                                                                                         SizedBox(width: media.width * 0.05),
                                                                                                         Column(
                                                                                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -3071,7 +3082,7 @@ class _MapsState extends State<Maps>
                                                                                   (_bottom == 0)
                                                                                       ? Row(
                                                                                           children: [
-                                                                                            Icon(Icons.location_on_outlined, color: Colors.red, size: media.width * 0.075),
+                                                                                            Icon(Icons.location_on_outlined, color: secondaryColor, size: media.width * 0.075),
                                                                                             SizedBox(width: media.width * 0.05),
                                                                                             Column(
                                                                                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -3191,7 +3202,7 @@ class _MapsState extends State<Maps>
                                                                             : (_bottom == 0 && driverReq['is_trip_start'] == 1 && driverReq['is_rental'] != true && driverReq['drop_address'] != null)
                                                                                 ? Row(
                                                                                     children: [
-                                                                                      Icon(Icons.location_on_outlined, color: Colors.red, size: media.width * 0.075),
+                                                                                      Icon(Icons.location_on_outlined, color: secondaryColor, size: media.width * 0.075),
                                                                                       SizedBox(width: media.width * 0.05),
                                                                                       Column(
                                                                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -4287,7 +4298,7 @@ class _MapsState extends State<Maps>
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
-                                                                            const Login()),
+                                                                            const EnterPhoneNumber()),
                                                                 (route) => false);
                                                             userDetails.clear();
                                                           });
@@ -4387,7 +4398,7 @@ class _MapsState extends State<Maps>
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
-                                                                            const SignupMethod()),
+                                                                            const WelcomeScreen()),
                                                                 (route) => false);
                                                             userDetails.clear();
                                                           });
