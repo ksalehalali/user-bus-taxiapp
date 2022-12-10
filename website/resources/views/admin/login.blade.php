@@ -34,6 +34,9 @@
             margin-top: 15%;
             padding: 0;
         }
+        body {
+            background-image: url("{{ asset('assets/images/background.jpeg') }}");
+        }
     </style>
 </head>
 <body class="hold-transition login-page">

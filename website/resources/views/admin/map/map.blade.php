@@ -66,16 +66,16 @@
 
  
 // Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "{{get_settings('firebase-api-key')}}",
-    authDomain: "{{get_settings('firebase-auth-domain')}}",
-    databaseURL: "{{get_settings('firebase-db-url')}}",
-    projectId: "{{get_settings('firebase-project-id')}}",
-    storageBucket: "{{get_settings('firebase-storage-bucket')}}",
-    messagingSenderId: "{{get_settings('firebase-messaging-sender-id')}}",
-    appId: "{{get_settings('firebase-app-id')}}",
-    measurementId: "{{get_settings('firebase-measurement-id')}}"
-  };
+    var firebaseConfig = {
+        apiKey: "{{get_settings('firebase-api-key')}}",
+        authDomain: "{{get_settings('firebase-auth-domain')}}",
+        databaseURL: "{{get_settings('firebase-db-url')}}",
+        projectId: "{{get_settings('firebase-project-id')}}",
+        storageBucket: "{{get_settings('firebase-storage-bucket')}}",
+        messagingSenderId: "{{get_settings('firebase-messaging-sender-id')}}",
+        appId: "{{get_settings('firebase-app-id')}}",
+        measurementId: "{{get_settings('firebase-measurement-id')}}"
+      };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -165,7 +165,9 @@ var firebaseConfig = {
 
     function loadDriverIcons(data){
         deleteAllMarkers();
-        
+
+
+        alert('test');
         Object.entries(data).forEach(([key, val]) => {
             if( typeof val.l !=  'undefined'  ) {
             var contentString = `<div class="p-2">

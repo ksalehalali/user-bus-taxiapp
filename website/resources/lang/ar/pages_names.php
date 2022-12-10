@@ -139,32 +139,4 @@ return array (
   'add_fleet_needed_doc' => 'إضافة أسطول الوثائق المطلوبة',
   'fleet_needed_doc' => 'وثيقة الأسطول المطلوبة',
   'approved_fleet_drivers' => 'سائقي الأسطول المعتمدين',
-
-
-  'company_needed_document' => 'المستندات المطلوبة للشركة',
-  'companies' => 'شركات',
-  'company_complaints' => 'شكاوى الشركة',
-  'company_report' => 'تقرير الشركة',
-  'manage_companies' => 'إدارة الشركات',
-  'add-company' => 'أضف شركة',
-  'edit-company' => 'تحرير الشركة',
-  'delete-company' => 'حذف الشركة',
-  'add_company_needed_doc' => 'إضافة مستند مطلوب للشركة',
-  'company_needed_document' => 'وثيقة حاجة الشركة',
-
-
-
-
-  'vehicle-drivers' => 'سائقي المركبات',
-  'add_vehicle_needed_doc' => 'إضافة مستند مطلوب مركبة',
-  'vehicle_needed_doc' => 'وثيقة مالك المركبة',
-  'approved_vehicle_drivers' => 'سائقي المركبات المعتمدين',
-  'vehicle_document' => 'وثيقة المركبة',
-  'vehicle_drivers' => 'سائقي المركبات',
-  'vehicles' => 'مركبات',
-  'add_vehicle' => 'أضف المركبات',
-  'edit_vehicle' => 'تحرير السيارة',
-  'manage_vehicle' => 'إدارة السيارة',
-  'countries' => 'بلدان',
-
 );

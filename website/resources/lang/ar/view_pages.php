@@ -730,33 +730,4 @@ return array (
   'default_longitude' => 'خط الطول الافتراضي',
   'google_sheet_id' => 'معرف ورقة Google',
   'minimum_wallet_amount_for_transfer' => 'الحد الأدنى لمبلغ المحفظة المراد تحويله',
-
-
-
-  'enter_company_name' => 'أدخل اسم الشركة',
-  'select_company' => 'حدد شركة',
-  'company_login' => 'تسجيل دخول الشركة',
-  'company_panel' => 'لوحة الشركة',
-  'add_company' => 'أضف شركة',
-  'edit_company' => 'تحرير الشركة',
-  'delete_company' => 'حذف الشركة',
-  'company_document' => 'وثيقة الشركة',
-  'manage_company' => 'إدارة الشركة',
-  'company' => 'شركة',
-  'company_details' => 'تفاصيل الشركة',
-  'add-company' => 'أضف شركة',
-  'edit-company' => 'تحرير الشركة',
-  'delete-company' => 'حذف الشركة',
-  'add_company_needed_doc' => 'إضافة الشركة المطلوبة Doc',
-  'company_name' => 'اسم الشركة',
-
-
-  'add_vehicle_needed_doc' => 'إضافة مستند مطلوب مركبة',
-  'vehicle_drivers' => 'سائقي المركبات',
-  'add_vehicle_driver' => 'إضافة سائق مركبة',
-  'edit_vehicle' => 'تحرير السيارة',
-  'manage_vehicle' => 'إدارة السيارة',
-  'drivers_privileged_vehicle' => 'مركبة مميزة للسائقين',
-  'vehicles' => 'Vehicles',
-  'select_vehicle' => 'اختر السيارة',
 );

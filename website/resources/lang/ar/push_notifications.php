@@ -49,23 +49,4 @@ return array (
   'reminder_push_title' => 'تذكير لطيف 😊️',
   'reminder_push_body' => 'يرجى فتح تطبيق Laravel للحصول على طلبات المشاوير',
   'general_notification' => 'إعلام عام',
-
-
-
-
-  'vehicle_removed_from_your_account_title' => 'تمت إزالة السيارة من عنوان حسابك',
-  'vehicle_removed_from_your_account_body' => 'السيارة التي تمت إزالتها من حسابك',
-  'new_vehicle_assigned_title' => 'العنوان المعين للمركبة الجديدة',
-  'new_vehicle_assigned_body' => 'الهيكل الجديد للسيارة',
-  'vehicle_approved' => 'تمت الموافقة على السيارة',
-  'vehicle_approved_body' => 'الهيئة المعتمدة للمركبة',
-  'vehicle_declined_title' => 'عنوان السيارة المرفوض',
-  'vehicle_declined_body' => 'السيارة مرفوضة الجسم',
-  'vehicle_driver_approved' => 'معتمد من سائق المركبة',
-  'vehicle_driver_approved_body' => 'الهيئة المعتمدة لقائد المركبة',
-  'vehicle_driver_declined_title' => 'رفض لقب سائق المركبة',
-  'vehicle_driver_declined_body' => 'جسم السائق مرفوض',
-  'vehicle_approved_title' => 'عنوان المركبة المعتمد',
-
-
 );
