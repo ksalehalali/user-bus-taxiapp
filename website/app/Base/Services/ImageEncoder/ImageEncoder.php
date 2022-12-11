@@ -31,7 +31,7 @@ class ImageEncoder implements ImageEncoderContract {
 	 *
 	 * @var string
 	 */
-	protected $format = 'jpg';
+	protected $format = 'png';
 
 	/**
 	 * Image encoding quality.
