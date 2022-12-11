@@ -15,7 +15,7 @@ return [
 
     'uploads' => [
         'image' => [
-            'encode' => 'jpg',
+            'encode' => 'png',
             'allowed_mime' => ['jpeg', 'png', 'bmp'],
         ],
     ],
