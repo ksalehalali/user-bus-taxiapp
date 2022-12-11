@@ -184,7 +184,7 @@ class _OtpState extends State<Otp> {
                                 width: media.width * 1,
                                 color: topBar,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     InkWell(
                                         onTap: () {
@@ -201,7 +201,8 @@ class _OtpState extends State<Otp> {
                                         )),
                                   ],
                                 )),
-                            Image.asset('assets/animated_images/verify_number.png', width: 300,),
+                            SizedBox(height: 50,),
+                         //   Image.asset('assets/animated_images/verify_number.png', width: 300,),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -397,12 +398,12 @@ class _OtpState extends State<Otp> {
                                                   resendTime.toString(),
                                       color:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? buttonColor.withOpacity(0.3)
-                                              : loaderColor,
+                                              ? hideButtonColor
+                                              : buttonColor,
                                       borcolor:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? buttonColor.withOpacity(0.3)
-                                              : loaderColor,
+                                              ? hideButtonColor
+                                              : buttonColor,
                                     ),
                                   ),
                                 ],

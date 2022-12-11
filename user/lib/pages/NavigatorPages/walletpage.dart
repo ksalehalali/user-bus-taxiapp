@@ -153,19 +153,19 @@ class _WalletPageState extends State<WalletPage> {
                                           fontSize: media.width * fourty,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(
-                                      height: media.width * 0.05,
-                                    ),
-                                    Button(
-                                      onTap: () {
-                                        setState(() {
-                                          ispop = true;
-                                        });
-                                      },
-                                      text: languages[choosenLanguage]
-                                          ['text_share_money'],
-                                      width: media.width * 0.3,
-                                    ),
+                                    // SizedBox(
+                                    //   height: media.width * 0.05,
+                                    // ),
+                                    // Button(
+                                    //   onTap: () {
+                                    //     setState(() {
+                                    //       ispop = true;
+                                    //     });
+                                    //   },
+                                    //   text: languages[choosenLanguage]
+                                    //       ['text_share_money'],
+                                    //   width: media.width * 0.3,
+                                    // ),
                                     SizedBox(
                                       height: media.width * 0.05,
                                     ),

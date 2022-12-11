@@ -146,7 +146,7 @@ class _LoadingPageState extends State<LoadingPage> {
           Future.delayed(const Duration(seconds: 2), () {
             //choose language page
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Languages()));
+                MaterialPageRoute(builder: (context) => Languages(false)));
           });
         }
       } else {
@@ -181,8 +181,8 @@ class _LoadingPageState extends State<LoadingPage> {
                    //          image: AssetImage('assets/images/splash.jpg'),
                    //          fit: BoxFit.fill)),
                     child: Image.asset(
-                      "assets/images/splash.png",
-                      fit: BoxFit.fitHeight,
+                      "assets/images/splash.gif",
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],

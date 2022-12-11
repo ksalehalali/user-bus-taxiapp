@@ -29,12 +29,12 @@ class _NavDrawerState extends State<NavDrawer> {
   @override
   void initState() {
 
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/images/history.png', History()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/images/walletIcon.png', WalletPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_referal'].toString(), 'assets/images/referral.png', ReferralPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_favourites'].toString(), Icons.favorite_border, Favorite()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages(true)));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_make_complaints'].toString(), 'assets/images/makecomplaint.png', MakeComplaint(fromPage: 0,)));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_delete_account'].toString(), Icons.delete_forever, Splash()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_logout'].toString(), 'assets/images/logout.png', Splash()));
@@ -88,8 +88,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                        image: NetworkImage(
-                                            userDetails['profile_picture']),
+                                        image: NetworkImage(userDetails['profile_picture']),
                                         fit: BoxFit.cover)),
                               ),
                               SizedBox(
@@ -160,7 +159,7 @@ class _NavDrawerState extends State<NavDrawer> {
                             padding: EdgeInsets.zero,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return index == 0 ? ValueListenableBuilder(
+                              return index == 1 ? ValueListenableBuilder(
                                   valueListenable: valueNotifierNotification.value,
                                   builder: (context, value, child) {
                                     return Padding(
@@ -251,7 +250,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                       drawerSelectedIndex = index;
                                     });
 
-                                    if(index == 0){
+                                    if(index == 1){
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

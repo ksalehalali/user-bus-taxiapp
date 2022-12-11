@@ -172,6 +172,7 @@ class _MapsState extends State<Maps>
       }
       _loading = false;
       setState(() {});
+      await perm.Permission.location.request();
     } else if (permission == PermissionStatus.granted ||
         permission == PermissionStatus.grantedLimited) {
       var locs = await geolocs.Geolocator.getLastKnownPosition();
@@ -1821,7 +1822,9 @@ class _MapsState extends State<Maps>
                                                                                             builder: (context) => BookingConfirmation(
                                                                                                   type: 2,
                                                                                                 )));
-                                                                            }, text: languages[choosenLanguage]['text_ridewithout_destination']),
+                                                                            }, 
+                                                                                color: buttonColor,
+                                                                                text: languages[choosenLanguage]['text_ridewithout_destination']),
                                                                             // Row(
                                                                             //   mainAxisAlignment: MainAxisAlignment.center,
                                                                             //   children: [
