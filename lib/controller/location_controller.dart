@@ -1,5 +1,8 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:http/http.dart' as http;
 import 'package:background_location/background_location.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,6 +12,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart' as loc;
 import '../Assistants/assistantMethods.dart';
+import '../Assistants/globals.dart';
 import '../Assistants/request-assistant.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
@@ -38,6 +42,7 @@ class LocationController extends GetxController {
   Address? pickUpLocation;
   Address? dropOffLocation ;
   Rx<Position> positionFromPin =Position(latitude: 29.37631633045168, accuracy: 0.0, altitude: 0.0, speed: 0.0, speedAccuracy: 0.0, longitude: 47.98637351560368, heading: 0.0, timestamp: null).obs;
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
   @override
   void onInit() {
@@ -83,7 +88,31 @@ class LocationController extends GetxController {
     }
   }
 
+  Future updateMyLocationInSystem(LocationModel location)async{
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('$baseURL/api/UserTracking'));
+    request.body = json.encode({
+      "BusID": "55be4b8f-abf6-48f3-52c8-08da1620ad87",
+      "Longitude": location.longitude,
+      "Latitude": location.latitude
+    });
+    request.headers.addAll(headers);
 
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+
+
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
 
   var location = loc.Location();
   geo.Position? currentPosition;
@@ -109,7 +138,13 @@ class LocationController extends GetxController {
     // });
     BackgroundLocation.startLocationService(distanceFilter : 1);
     BackgroundLocation.getLocationUpdates((location) {
+      updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
       print("location ....... background update ${location.longitude} - ${location.latitude}");
+      assetsAudioPlayer.open(
+        Audio("assets/audio/fullsizerender-2-58273.mp3"),
+        autoStart: false,
+        showNotification: false
+      );
     });
 
     if (loca.latitude != null) {
