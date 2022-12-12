@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:http/http.dart' as http;
 import 'package:background_location/background_location.dart';
@@ -19,6 +18,7 @@ import '../config-maps.dart';
 import '../model/address.dart';
 import '../model/location.dart';
 import '../model/placePredictions.dart';
+import '../services/audio_player.dart';
 
 class LocationController extends GetxController {
   var pickUpAddress = ''.obs;
@@ -42,7 +42,7 @@ class LocationController extends GetxController {
   Address? pickUpLocation;
   Address? dropOffLocation ;
   Rx<Position> positionFromPin =Position(latitude: 29.37631633045168, accuracy: 0.0, altitude: 0.0, speed: 0.0, speedAccuracy: 0.0, longitude: 47.98637351560368, heading: 0.0, timestamp: null).obs;
-  final assetsAudioPlayer = AssetsAudioPlayer();
+  AudioPlayerService audioPlayerService = AudioPlayerService();
 
   @override
   void onInit() {
@@ -137,14 +137,11 @@ class LocationController extends GetxController {
     //
     // });
     BackgroundLocation.startLocationService(distanceFilter : 1);
-    BackgroundLocation.getLocationUpdates((location) {
+
+    BackgroundLocation.getLocationUpdates((location) async {
       updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
       print("location ....... background update ${location.longitude} - ${location.latitude}");
-      assetsAudioPlayer.open(
-        Audio("assets/audio/fullsizerender-2-58273.mp3"),
-        autoStart: false,
-        showNotification: false
-      );
+      audioPlayerService.audio1Play();
     });
 
     if (loca.latitude != null) {
@@ -171,7 +168,6 @@ class LocationController extends GetxController {
 
     print("--------------------========== position controller $position");
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
-
 
     addPickUp.value = true;
   }
