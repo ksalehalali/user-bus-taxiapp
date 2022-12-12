@@ -7,9 +7,11 @@ import '../../functions/functions.dart';
 import '../../widgets/widgets.dart';
 import '../login/driver_or_owner.dart';
 import '../login/welcome_screen.dart';
+import '../onTripPage/map_page.dart';
 
 class Languages extends StatefulWidget {
-  const Languages({Key? key}) : super(key: key);
+  var fromMenu;
+  Languages(this.fromMenu,{Key? key}) : super(key: key);
 
   @override
   State<Languages> createState() => _LanguagesState();
@@ -26,8 +28,13 @@ class _LanguagesState extends State<Languages> {
   }
 
   navigate() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+    if(widget.fromMenu) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Maps()));
+    }else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+    }
   }
 
   @override

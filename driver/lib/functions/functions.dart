@@ -1174,7 +1174,7 @@ getUserDetails() async {
                       displayOnForeground: false,
                       fullScreenIntent: true,
                       backgroundColor: page,
-                      color: buttonColor,
+                      color: primaryColor,
                       wakeUpScreen: true,
                       locked: true,
                       notificationLayout: NotificationLayout.BigText),

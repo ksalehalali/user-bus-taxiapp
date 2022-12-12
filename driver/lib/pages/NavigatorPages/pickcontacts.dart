@@ -347,7 +347,7 @@ class _PickContactState extends State<PickContact> {
                                               ['text_open_settings'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         )),
                                     InkWell(
@@ -362,7 +362,7 @@ class _PickContactState extends State<PickContact> {
                                               ['text_done'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         ))
                                   ],

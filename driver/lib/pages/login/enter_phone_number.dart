@@ -99,18 +99,20 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                             ),
                           ),
                         ),
-                        Image.asset('assets/animated_images/enter_phone.png', width: 300,),
-                        Text('Enter Your Phone Number', style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w800),),
+                        SizedBox(
+                          height: 50,
+                          // child: Image.asset('assets/animated_images/enter_phone.png', width: 300,),
+                        ),
+                        Text(languages[choosenLanguage]['text_enter_phone'], style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w800),),
                         SizedBox(height: media.height * 0.01),
                         Text(languages[choosenLanguage]['text_login_in_account'],
                           style: TextStyle(fontSize: 20.0, color: light_grey),),
                         SizedBox(height: media.height * 0.04),
                         Container(
                           padding: const EdgeInsets.only(bottom: 5, left: 7),
-                          // height: 55,
                           width: media.width * 1 - (media.width * 0.08 * 2),
                           decoration: BoxDecoration(
-                              border: Border.all(color: light_grey),
+                              border: Border.all(color: primaryColor),
                               borderRadius: BorderRadius.circular(24.0),
                               // border: Border(bottom: BorderSide(color: underline))),
                           ),
@@ -310,7 +312,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                               Container(
                                 width: 1,
                                 height: media.width * 0.0693,
-                                color: buttonColor,
+                                color: primaryColor,
                               ),
                               const SizedBox(width: 10),
                               Container(
@@ -370,10 +372,10 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                   width: media.width * 0.08,
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: buttonColor, width: 2),
+                                          color: primaryColor, width: 2),
                                       shape: BoxShape.circle,
                                       color:
-                                      (terms == true) ? buttonColor : page),
+                                      (terms == true) ? primaryColor : page),
                                   child: const Icon(Icons.done,
                                       color: Colors.white)),
                             ),
@@ -401,7 +403,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                       languages[choosenLanguage]['text_terms'],
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * sixteen,
-                                          color: buttonColor),
+                                          color: primaryColor),
                                     ),
                                   ),
                                   Text(
@@ -420,7 +422,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                       ['text_privacy'],
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * sixteen,
-                                          color: buttonColor),
+                                          color: primaryColor),
                                     ),
                                   )
                                 ],

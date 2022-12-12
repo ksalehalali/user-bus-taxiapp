@@ -122,7 +122,7 @@ class _ServiceAreaState extends State<ServiceArea> {
                                                     serviceLocations[i]['id'])
                                                 ? Icon(
                                                     Icons.done,
-                                                    color: buttonColor,
+                                                    color: primaryColor,
                                                   )
                                                 : Container()
                                           ],

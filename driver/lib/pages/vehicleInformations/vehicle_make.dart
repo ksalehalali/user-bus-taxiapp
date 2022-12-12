@@ -123,7 +123,7 @@ class _VehicleMakeState extends State<VehicleMake> {
                                                     vehicleMake[i]['id'])
                                                 ? Icon(
                                                     Icons.done,
-                                                    color: buttonColor,
+                                                    color: primaryColor,
                                                   )
                                                 : Container()
                                           ],

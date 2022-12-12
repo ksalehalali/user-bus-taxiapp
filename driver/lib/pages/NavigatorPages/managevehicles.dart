@@ -374,7 +374,7 @@ class _ManageVehiclesState extends State<ManageVehicles> {
                                                                             //     color: Colors.yellow,
                                                                             //     width: 2),
                                                                             color:
-                                                                                buttonColor,
+                                                                                primaryColor,
                                                                             borderRadius:
                                                                                 BorderRadius.circular(5),
                                                                           ),

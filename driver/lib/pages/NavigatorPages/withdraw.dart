@@ -222,7 +222,7 @@ class _WithdrawState extends State<Withdraw> {
                                                                             .width *
                                                                         fourteen,
                                                                     color:
-                                                                        buttonColor),
+                                                                        primaryColor),
                                                               ),
                                                               SizedBox(
                                                                 height: media

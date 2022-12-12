@@ -823,7 +823,7 @@ class _OwnersRegisterState extends State<OwnersRegister> {
                                               ['text_open_settings'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         )),
                                     InkWell(
@@ -840,7 +840,7 @@ class _OwnersRegisterState extends State<OwnersRegister> {
                                               ['text_done'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         ))
                                   ],

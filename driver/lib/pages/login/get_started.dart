@@ -556,7 +556,7 @@ class _GetStartedState extends State<GetStarted> {
                                               ['text_open_settings'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         )),
                                     InkWell(
@@ -573,7 +573,7 @@ class _GetStartedState extends State<GetStarted> {
                                               ['text_done'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
-                                              color: buttonColor,
+                                              color: primaryColor,
                                               fontWeight: FontWeight.w600),
                                         ))
                                   ],

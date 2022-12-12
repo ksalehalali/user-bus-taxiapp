@@ -42,9 +42,9 @@ class _ButtonState extends State<Button> {
             left: media.width * twenty, right: media.width * twenty),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: (widget.color != null) ? widget.color : buttonColor,
+            color: (widget.color != null) ? widget.color : primaryColor,
             border: Border.all(
-              color: (widget.borcolor != null) ? widget.borcolor : buttonColor,
+              color: (widget.borcolor != null) ? widget.borcolor : primaryColor,
               width: 1,
             )),
         alignment: Alignment.center,

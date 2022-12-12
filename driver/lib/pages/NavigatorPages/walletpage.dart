@@ -153,16 +153,16 @@ class _WalletPageState extends State<WalletPage> {
                                     SizedBox(
                                       height: media.width * 0.05,
                                     ),
-                                    Button(
-                                      onTap: () {
-                                        setState(() {
-                                          ispop = true;
-                                        });
-                                      },
-                                      text: languages[choosenLanguage]
-                                          ['text_share_money'],
-                                      width: media.width * 0.3,
-                                    ),
+                                    // Button(
+                                    //   onTap: () {
+                                    //     setState(() {
+                                    //       ispop = true;
+                                    //     });
+                                    //   },
+                                    //   text: languages[choosenLanguage]
+                                    //       ['text_share_money'],
+                                    //   width: media.width * 0.3,
+                                    // ),
                                     SizedBox(
                                       height: media.width * 0.05,
                                     ),
@@ -755,7 +755,7 @@ class _WalletPageState extends State<WalletPage> {
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Icon(Icons.cancel,
-                                                  color: buttonColor),
+                                                  color: primaryColor),
                                             ),
                                           ),
                                         ],

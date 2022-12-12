@@ -450,7 +450,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                       ['text_totalearnings'],
                                   style: GoogleFonts.roboto(
                                       fontSize: media.width * eighteen,
-                                      color: buttonColor),
+                                      color: primaryColor),
                                 ),
                                 Text(
                                   driverTodayEarnings['currency_symbol'] +
@@ -458,7 +458,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                           .toStringAsFixed(2),
                                   style: GoogleFonts.roboto(
                                       fontSize: media.width * eighteen,
-                                      color: buttonColor),
+                                      color: primaryColor),
                                 ),
                               ],
                             ),
@@ -537,7 +537,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                                                     weekDays[i]
                                                                         .toString()))
                                                         : 1,
-                                                    color: buttonColor,
+                                                    color: primaryColor,
                                                   ),
                                                   SizedBox(
                                                     height: media.width * 0.01,
@@ -808,7 +808,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                           ['text_totalearnings'],
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * eighteen,
-                                          color: buttonColor),
+                                          color: primaryColor),
                                     ),
                                     Text(
                                       driverWeeklyEarnings['currency_symbol'] +
@@ -816,7 +816,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                               .toStringAsFixed(2),
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * eighteen,
-                                          color: buttonColor),
+                                          color: primaryColor),
                                     ),
                                   ],
                                 ),
@@ -1321,7 +1321,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                                           fontSize:
                                                               media.width *
                                                                   eighteen,
-                                                          color: buttonColor),
+                                                          color: primaryColor),
                                                     ),
                                                     Text(
                                                       driverReportEarnings[
@@ -1334,7 +1334,7 @@ class _DriverEarningsState extends State<DriverEarnings> {
                                                           fontSize:
                                                               media.width *
                                                                   eighteen,
-                                                          color: buttonColor),
+                                                          color: primaryColor),
                                                     ),
                                                   ],
                                                 ),
