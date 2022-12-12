@@ -40,7 +40,7 @@ class _FlutterWavePageState extends State<FlutterWavePage> {
 
     final style = FlutterwaveStyle(
       appBarText: "Flutterwave Checkout",
-      buttonColor: buttonColor,
+      buttonColor: primaryColor,
       appBarIcon: const Icon(Icons.message, color: Color(0xffd0ebff)),
       buttonTextStyle: const TextStyle(
         color: Colors.black,

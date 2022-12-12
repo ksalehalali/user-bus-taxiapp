@@ -41,6 +41,7 @@ class _LoadingState extends State<Loading> {
     var media = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
+        color: white,
         alignment: Alignment.center,
         height: media.height * 1,
         width: media.width * 1,

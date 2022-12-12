@@ -7,7 +7,7 @@ showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
     style: TextButton.styleFrom(
-      primary: buttonColor
+      primary: primaryColor
     ),
     child: Text("OK"),
     onPressed: () { Navigator.pop(context); },

@@ -97,7 +97,7 @@ class _ReviewState extends State<Review> {
                                   Icons.star,
                                   size: media.width * 0.1,
                                   color:
-                                      (review >= 1) ? buttonColor : Colors.grey,
+                                      (review >= 1) ? primaryColor : Colors.grey,
                                 )),
                             SizedBox(
                               width: media.width * 0.02,
@@ -112,7 +112,7 @@ class _ReviewState extends State<Review> {
                                   Icons.star,
                                   size: media.width * 0.1,
                                   color:
-                                      (review >= 2) ? buttonColor : Colors.grey,
+                                      (review >= 2) ? primaryColor : Colors.grey,
                                 )),
                             SizedBox(
                               width: media.width * 0.02,
@@ -127,7 +127,7 @@ class _ReviewState extends State<Review> {
                                   Icons.star,
                                   size: media.width * 0.1,
                                   color:
-                                      (review >= 3) ? buttonColor : Colors.grey,
+                                      (review >= 3) ? primaryColor : Colors.grey,
                                 )),
                             SizedBox(
                               width: media.width * 0.02,
@@ -142,7 +142,7 @@ class _ReviewState extends State<Review> {
                                   Icons.star,
                                   size: media.width * 0.1,
                                   color:
-                                      (review >= 4) ? buttonColor : Colors.grey,
+                                      (review >= 4) ? primaryColor : Colors.grey,
                                 )),
                             SizedBox(
                               width: media.width * 0.02,
@@ -157,7 +157,7 @@ class _ReviewState extends State<Review> {
                                   Icons.star,
                                   size: media.width * 0.1,
                                   color:
-                                      (review == 5) ? buttonColor : Colors.grey,
+                                      (review == 5) ? primaryColor : Colors.grey,
                                 ))
                           ],
                         ),

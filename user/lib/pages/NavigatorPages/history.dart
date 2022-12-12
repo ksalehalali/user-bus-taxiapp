@@ -130,7 +130,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 0)
-                                              ? buttonColor
+                                              ? loaderColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]
@@ -165,7 +165,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 1)
-                                              ? buttonColor
+                                              ? loaderColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]
@@ -200,7 +200,7 @@ class _HistoryState extends State<History> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color: (_showHistory == 2)
-                                              ? buttonColor
+                                              ? loaderColor
                                               : page),
                                       child: Text(
                                         languages[choosenLanguage]
@@ -821,7 +821,7 @@ class _HistoryState extends State<History> {
                                                                                 },
                                                                                 child: Text(
                                                                                   languages[choosenLanguage]['text_cancel_ride'],
-                                                                                  style: GoogleFonts.roboto(fontSize: media.width * sixteen, fontWeight: FontWeight.w600, color: buttonColor),
+                                                                                  style: GoogleFonts.roboto(fontSize: media.width * sixteen, fontWeight: FontWeight.w600, color: loaderColor),
                                                                                 ),
                                                                               ),
                                                                             ],

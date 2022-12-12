@@ -176,7 +176,15 @@ class _MakeComplaintState extends State<MakeComplaint> {
                               ),
                             ),
                           ]))
-                        : Container(),
+                        : Container(
+                      height: media.width * 0.7,
+                      width: media.width * 0.7,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/nodatafound.gif'),
+                              fit: BoxFit.contain)),
+                    ),
                     (generalComplaintList.isNotEmpty)
                         ? Container(
                             padding: EdgeInsets.all(media.width * 0.05),

@@ -135,7 +135,7 @@ class _ReferralState extends State<Referral> {
                         },
                         text: languages[choosenLanguage]['text_apply'],
                         color: (controller.text.isNotEmpty)
-                            ? buttonColor
+                            ? primaryColor
                             : Colors.grey,
                       )
                     ],

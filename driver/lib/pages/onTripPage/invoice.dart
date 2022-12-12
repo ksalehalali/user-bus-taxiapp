@@ -551,7 +551,7 @@ class _InvoiceState extends State<Invoice> {
                                         : languages[choosenLanguage]['text_card'],
                                 style: GoogleFonts.roboto(
                                     fontSize: media.width * sixteen,
-                                    color: buttonColor),
+                                    color: primaryColor),
                               ),
                               Text(
                                 driverReq['requestBill']['data']

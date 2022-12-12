@@ -32,7 +32,7 @@ void initMessaging() {
           channelKey: 'trip_request',
           channelName: 'Trip Requests',
           channelDescription: 'Channel with Trip Request',
-          defaultColor: buttonColor,
+          defaultColor: primaryColor,
           importance: NotificationImportance.High,
           ledColor: Colors.white,
           channelShowBadge: false,

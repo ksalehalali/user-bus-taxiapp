@@ -97,7 +97,8 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                         ),
                       ),
                     ),
-                    Image.asset('assets/animated_images/enter_phone.png', width: 300,),
+                   // Image.asset('assets/animated_images/enter_phone.png', width: 300,),
+                    SizedBox(height: 50,),
                     Text('Enter Your Phone Number', style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w800),),
                     SizedBox(height: media.height * 0.01),
                     Text(languages[choosenLanguage]['text_login_in_account'],
@@ -108,7 +109,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                       // height: 55,
                       width: media.width * 1 - (media.width * 0.08 * 2),
                       decoration: BoxDecoration(
-                        border: Border.all(color: light_grey),
+                        border: Border.all(color: buttonColor),
                         borderRadius: BorderRadius.circular(24.0),
                         // border: Border(bottom: BorderSide(color: underline))),
                       ),
@@ -148,7 +149,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                                           20),
                                                       border: Border.all(
                                                           color:
-                                                          Colors.grey,
+                                                          buttonColor,
                                                           width: 1.5)),
                                                   child: Center(
                                                     child: TextField(

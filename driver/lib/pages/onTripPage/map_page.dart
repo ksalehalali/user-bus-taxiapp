@@ -1487,7 +1487,7 @@ class _MapsState extends State<Maps>
                                                             fontSize:
                                                                 media.width *
                                                                     twenty,
-                                                            color: buttonColor),
+                                                            color: primaryColor),
                                                       ),
                                                     ),
                                                   )
@@ -2302,7 +2302,7 @@ class _MapsState extends State<Maps>
                                                                     child:
                                                                         Container(
                                                                       color:
-                                                                          buttonColor,
+                                                                          primaryColor,
                                                                       width: media
                                                                               .width *
                                                                           1,
@@ -2340,7 +2340,7 @@ class _MapsState extends State<Maps>
                                                                         child:
                                                                             Container(
                                                                           color:
-                                                                              buttonColor,
+                                                                              primaryColor,
                                                                           width:
                                                                               media.width *
                                                                                   1,
@@ -2396,7 +2396,7 @@ class _MapsState extends State<Maps>
                                                                 //                 BoxShadow(blurRadius: 2, color: Colors.black.withOpacity(0.2), spreadRadius: 2)
                                                                 //               ],
                                                                 //               color:
-                                                                //                   buttonColor,
+                                                                //                   primaryColor,
                                                                 //               borderRadius:
                                                                 //                   BorderRadius.circular(media.width * 0.02)),
                                                                 //           alignment:
@@ -2537,7 +2537,7 @@ class _MapsState extends State<Maps>
                                                                                       alignment: Alignment.center,
                                                                                       margin: EdgeInsets.only(bottom: media.width * 0.025),
                                                                                       padding: EdgeInsets.all(media.width * 0.025),
-                                                                                      decoration: BoxDecoration(color: buttonColor, borderRadius: BorderRadius.circular(6)),
+                                                                                      decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(6)),
                                                                                       width: media.width * 0.9,
                                                                                       child: Text(
                                                                                         languages[choosenLanguage]['text_rideLaterTime'] + " " + driverReq['cv_trip_start_time'],
@@ -2549,7 +2549,7 @@ class _MapsState extends State<Maps>
                                                                                           alignment: Alignment.center,
                                                                                           margin: EdgeInsets.only(bottom: media.width * 0.025),
                                                                                           padding: EdgeInsets.all(media.width * 0.025),
-                                                                                          decoration: BoxDecoration(color: buttonColor, borderRadius: BorderRadius.circular(6)),
+                                                                                          decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(6)),
                                                                                           width: media.width * 0.9,
                                                                                           child: Text(
                                                                                             languages[choosenLanguage]['text_rental_ride'] + ' - ' + driverReq['rental_package_name'],
@@ -2561,7 +2561,7 @@ class _MapsState extends State<Maps>
                                                                                               alignment: Alignment.center,
                                                                                               margin: EdgeInsets.only(bottom: media.width * 0.025),
                                                                                               padding: EdgeInsets.all(media.width * 0.025),
-                                                                                              decoration: BoxDecoration(color: buttonColor, borderRadius: BorderRadius.circular(6)),
+                                                                                              decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(6)),
                                                                                               width: media.width * 0.9,
                                                                                               child: Column(
                                                                                                 children: [
@@ -2762,8 +2762,8 @@ class _MapsState extends State<Maps>
                                                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                               children: [
                                                                                                 Button(
-                                                                                                    borcolor: buttonColor,
-                                                                                                    textcolor: buttonColor,
+                                                                                                    borcolor: primaryColor,
+                                                                                                    textcolor: primaryColor,
                                                                                                     width: media.width * 0.38,
                                                                                                     color: page,
                                                                                                     onTap: () async {
@@ -2912,7 +2912,7 @@ class _MapsState extends State<Maps>
                                                                                           children: [
                                                                                             Icon(
                                                                                               Icons.star,
-                                                                                              color: buttonColor,
+                                                                                              color: primaryColor,
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: media.width * 0.01,
@@ -2947,7 +2947,7 @@ class _MapsState extends State<Maps>
                                                                                                                 alignment: Alignment.center,
                                                                                                                 child: Text(
                                                                                                                   languages[choosenLanguage]['text_waiting_time'],
-                                                                                                                  style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: buttonColor),
+                                                                                                                  style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: primaryColor),
                                                                                                                 ),
                                                                                                               ),
                                                                                                               SizedBox(
@@ -3481,7 +3481,7 @@ class _MapsState extends State<Maps>
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: Icon(Icons.cancel,
-                                                        color: buttonColor),
+                                                        color: primaryColor),
                                                   ),
                                                 ),
                                               ],
@@ -3546,7 +3546,7 @@ class _MapsState extends State<Maps>
                                                                           .width *
                                                                       sixteen,
                                                                   color:
-                                                                      buttonColor,
+                                                                      primaryColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600),
@@ -3571,7 +3571,7 @@ class _MapsState extends State<Maps>
                                                                           .width *
                                                                       sixteen,
                                                                   color:
-                                                                      buttonColor,
+                                                                      primaryColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600),
@@ -3618,7 +3618,7 @@ class _MapsState extends State<Maps>
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: Icon(Icons.cancel,
-                                                          color: buttonColor),
+                                                          color: primaryColor),
                                                     ),
                                                   ),
                                                 ],
@@ -3895,11 +3895,11 @@ class _MapsState extends State<Maps>
                                                             ['text_confirm'],
                                                     color: (driverOtp.length != 4)
                                                         ? Colors.grey
-                                                        : buttonColor,
+                                                        : primaryColor,
                                                     borcolor:
                                                         (driverOtp.length != 4)
                                                             ? Colors.grey
-                                                            : buttonColor,
+                                                            : primaryColor,
                                                   )
                                                 ],
                                               ),
@@ -4152,7 +4152,7 @@ class _MapsState extends State<Maps>
                                                 children: [
                                                   Button(
                                                       color: page,
-                                                      textcolor: buttonColor,
+                                                      textcolor: primaryColor,
                                                       width: media.width * 0.39,
                                                       onTap: () async {
                                                         setState(() {

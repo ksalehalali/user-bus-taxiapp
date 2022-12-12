@@ -59,7 +59,7 @@ dependencies:
   cashfree_pg: ^2.0.9+29
   package_info_plus: ^1.4.2
   vector_math: ^2.1.1
-  awesome_notifications: any
+  awesome_notifications: ^0.6.18+1
   webview_flutter: ^3.0.4
 #  flutter_inappwebview: ^5.5.0+1
   flutter_otp_text_field: ^1.1.1

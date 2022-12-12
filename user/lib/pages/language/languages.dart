@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/login/login.dart';
+import 'package:tagyourtaxi_driver/pages/onTripPage/map_page.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import '../../functions/functions.dart';
@@ -9,7 +10,8 @@ import '../../widgets/widgets.dart';
 import '../login/enter_phone_number.dart';
 
 class Languages extends StatefulWidget {
-  const Languages({Key? key}) : super(key: key);
+  var fromMenu;
+  Languages(this.fromMenu, {Key? key}) : super(key: key);
 
   @override
   State<Languages> createState() => _LanguagesState();
@@ -27,8 +29,16 @@ class _LanguagesState extends State<Languages> {
 
 //navigate
   navigate() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const EnterPhoneNumber()));
+   // Navigator.of(context).pop();
+    if(widget.fromMenu) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Maps()));
+    }else{
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const EnterPhoneNumber()));
+    }
   }
 
   @override

@@ -462,7 +462,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                 height: media.width * 0.05,
                                 width: media.width * 0.05,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, color: buttonColor),
+                                    shape: BoxShape.circle, color: primaryColor),
                                 child: Icon(
                                   Icons.done,
                                   size: media.width * 0.04,
@@ -501,7 +501,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                             margin: EdgeInsets.only(top: media.width * 0.025),
                             height: 1,
                             width: media.width * 0.15,
-                            color: buttonColor,
+                            color: primaryColor,
                           ),
                           Column(
                             children: [
@@ -510,7 +510,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                 height: media.width * 0.05,
                                 width: media.width * 0.05,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, color: buttonColor),
+                                    shape: BoxShape.circle, color: primaryColor),
                                 child: Icon(
                                   Icons.done,
                                   size: media.width * 0.04,
@@ -549,7 +549,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                             margin: EdgeInsets.only(top: media.width * 0.025),
                             height: 1,
                             width: media.width * 0.15,
-                            color: buttonColor,
+                            color: primaryColor,
                           ),
                           Column(
                             children: [
@@ -558,7 +558,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                 height: media.width * 0.05,
                                 width: media.width * 0.05,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, color: buttonColor),
+                                    shape: BoxShape.circle, color: primaryColor),
                                 child: Icon(
                                   Icons.done,
                                   size: media.width * 0.04,
@@ -653,7 +653,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                               Icon(
                                 Icons.star,
                                 size: media.width * twenty,
-                                color: buttonColor,
+                                color: primaryColor,
                               )
                             ],
                           ))
@@ -721,7 +721,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                     Icon(
                                       Icons.star,
                                       size: media.width * twenty,
-                                      color: buttonColor,
+                                      color: primaryColor,
                                     )
                                   ],
                                 ))
@@ -1212,7 +1212,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                     : '',
                             style: GoogleFonts.roboto(
                                 fontSize: media.width * sixteen,
-                                color: buttonColor),
+                                color: primaryColor),
                           ),
                           Text(
                             myHistory[selectedHistory]['requestBill']['data']
