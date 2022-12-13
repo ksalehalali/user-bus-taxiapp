@@ -57,7 +57,7 @@ class Myfatoorahv2
             if (!empty($response['IsSuccess'])) {
                 return $response['Data']['PaymentMethods'];
             } else {
-                return $basURL;
+                return false;
             }
         }
     }

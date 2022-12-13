@@ -55,18 +55,30 @@ class Handler extends ExceptionHandler
             \Config::set('app.debug', $debugSetting);
 
             try {
-                $request = request();
+                // $request = request();
+                
+                $content = [];
+                $content['message'] = $exception->getMessage();
+                $content['file'] = $exception->getFile();
+                $content['line'] = $exception->getLine();
+                $content['trace'] = $exception->getTrace();
 
-                $exceptionStack = (isset($content->original)) ? $content->original : $exception->getMessage();
+                $content['url'] = request()->url();
+                $content['body'] = request()->all();
+                $content['ip'] = request()->ip();
+                // dd($content);
+                // $exceptionStack = (isset($content->original)) ? $content->original : $exception->getMessage();
 
-                $emailTemplateModel['exceptionStack'] = $exceptionStack;
-                $emailTemplateModel['request'] = $request;
+                // $emailTemplateModel['exceptionStack'] = $exceptionStack;
+                // $emailTemplateModel['request'] = $request;
+                // dd($debugSendMailEmail);
+                // $to = ['raja.aqibali@gmail.com']
 
-                // $t2 = \Mail::send('email.errors.exception', $emailTemplateModel, function ($m) use ($debugSendMailEmail, $appName) {
-                //     $m->to($debugSendMailEmail)->subject($appName . 'CRASH Report');
-                // });
-
-                // dispatch(new SendExceptionToEmailNotification($emailTemplateModel, $debugSendMailEmail));
+                $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                    $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
+                });
+                dd($t2);
+                dispatch(new SendExceptionToEmailNotification($emailTemplateModel, $debugSendMailEmail));
             } catch (Throwable $e2) {
                 dd($e2);
             }
