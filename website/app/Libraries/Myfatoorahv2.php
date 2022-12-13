@@ -12,9 +12,11 @@ class Myfatoorahv2
     public $basURL;
     public $merchantCode;
     public $contact_phone;
+    public $allowed_payment_methods;
 
     public function __construct()
     {
+        $this->allowed_payment_methods = [1,2,11];
         $myfatoorah_mode = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'myfatoorah_mode')->first()->value;
         $myfatoorah_status = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'enable-myfatoorah')->first()->value;
         $token = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'my_fatoorah_api_key')->first()->value;
@@ -34,6 +36,7 @@ class Myfatoorahv2
 
     public function Init($price)
     {
+
         $token = $this->token;
         $basURL = $this->basURL;
 
@@ -50,12 +53,19 @@ class Myfatoorahv2
         $err = curl_error($curl);
         curl_close($curl);
 
+        $payment_methods = [];
+
         if ($err) {
             return false;
         } else {
             $response = json_decode($response, true);
             if (!empty($response['IsSuccess'])) {
-                return $response['Data']['PaymentMethods'];
+                foreach ($response['Data']['PaymentMethods'] as $PaymentMethod){
+                    if (in_array($PaymentMethod['PaymentMethodId'],$this->allowed_payment_methods)){
+                        $payment_methods[] = $PaymentMethod;
+                    }
+                }
+                return $payment_methods;
             } else {
                 return $basURL;
             }
@@ -65,6 +75,9 @@ class Myfatoorahv2
     public function getPaymentLink($cust_details, $price, $order_id, $PaymentMethodId = 1, $InvoiceItems = [], $return_url = '', $error_ret_url = '')
     {
 
+        if (!in_array($PaymentMethodId,$this->allowed_payment_methods)){
+            return ["status" => false, "error" => "Invalid payment method id"];
+        }
 
         $token = $this->token;
         $basURL = $this->basURL;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1\Payment;
 
+use App\Libraries\Myfatoorahv2;
+use App\Models\Setting;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -354,6 +356,15 @@ class PaymentController extends BaseController
         $paystack_test_publishable_key = get_settings(Settings::PAYSTACK_TEST_PUBLISHABLE_KEY);
         $paystack_live_publishable_key = get_settings(Settings::PAYSTACK_PRODUCTION_PUBLISHABLE_KEY);
 
+        // MyFatoorah Integration
+        $myfatoorah_status = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'enable-myfatoorah')->first()->value;
+        $myfatoorah_payment_methods = [];
+
+        if ($myfatoorah_status){
+            $myfatoorah_payment_model = new Myfatoorahv2();
+            $myfatoorah_payment_methods = $myfatoorah_payment_model->Init(1);
+        }
+
         return response()->json(['success' => true,
             'message' => 'wallet_history_listed',
             'wallet_balance' => $wallet_balance,
@@ -388,8 +399,8 @@ class PaymentController extends BaseController
             'cashfree_environment' => get_settings(Settings::CASH_FREE_ENVIRONMENT),
             'cashfree_test_app_id' => get_settings(Settings::CASH_FREE_TEST_APP_ID),
             'cashfree_live_app_id' => get_settings(Settings::CASH_FREE_PRODUCTION_APP_ID),
-
-
+            'myfatoorah' => $myfatoorah_status,
+            'myfatoorah_payment_methods' => $myfatoorah_payment_methods,
         ]);
 
         // return $this->respondSuccess($result, 'wallet_history_listed');
