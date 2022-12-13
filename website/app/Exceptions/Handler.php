@@ -72,13 +72,18 @@ class Handler extends ExceptionHandler
                 // dd($debugSendMailEmail);
                 // $to = ['raja.aqibali@gmail.com']
 
-                $statusCode = $exception->getStatusCode();
+                if(!empty($exception)){
+                    if(!empty($exception->getStatusCode())){
+                        $statusCode = $exception->getStatusCode();
 
-                if($statusCode != 404){
-                    $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
-                        $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
-                    });
+                        if($statusCode != 404){
+                            $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                                $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
+                            });
+                        }
+                    }
                 }
+                
             } catch (Throwable $e2) {
                 dd($e2);
             }

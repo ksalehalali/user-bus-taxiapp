@@ -55,7 +55,7 @@
                                 <a class="dropdown-item" href="{{url('vehicle_fare/edit', $result->id)}}">
                                     <i class="fa fa-pencil"></i>@lang('view_pages.edit')
                                 </a>
-                                <a class="dropdown-item" href="{{url('vehicle_fare/rental_package/index', $result->zoneType->id)}}">
+                                <a style="display:none;" class="dropdown-item" href="{{url('vehicle_fare/rental_package/index', $result->zoneType->id)}}">
                                     <i class="fa fa-plus"></i>@lang('view_pages.assign_rental_package')
                                 </a>
                         @if ($result->active == 1 && $result->zoneType->zone->default_vehicle_type != $result->zoneType->vehicleType->id)

@@ -5,6 +5,7 @@
             <th> @lang('view_pages.name')</th>
             <th> @lang('view_pages.currency_code')</th>
             <th> @lang('view_pages.currency_symbol')</th>
+            <th> @lang('view_pages.status')</th>
             <th> @lang('view_pages.flag')</th>
             <th> @lang('view_pages.action')</th>
         </tr>
@@ -20,6 +21,13 @@
             <td>{{$result->name }}</td>
             <td>{{$result->currency_code }}</td>
             <td>{{$result->currency_symbol }}</td>
+            <td>
+                <?php if(!empty($result->active)) {?>
+                    Active
+                <?php }else{ ?>
+                    Inactive
+                <?php } ?>        
+            </td>
             <td><img class="img-circle" src="{{asset($result->flag)}}" alt=""></td>
 
             <!-- @if($result->active)
@@ -37,11 +45,11 @@
                     <a class="dropdown-item" href="{{url('country',$result->id)}}"><i class="fa fa-pencil"></i>@lang('view_pages.edit')</a>
                 @endif
 
-                {{--   @if($result->active)
+                @if($result->active)
                     <a class="dropdown-item" href="{{url('country/toggle_status',$result->id)}}"><i class="fa fa-dot-circle-o"></i>@lang('view_pages.inactive')</a>
                     @else
                     <a class="dropdown-item" href="{{url('country/toggle_status',$result->id)}}"><i class="fa fa-dot-circle-o"></i>@lang('view_pages.active')</a>
-                    @endif     --}} 
+                    @endif
 
                     {{-- <a class="dropdown-item sweet-delete" href="{{url('country/delete',$result->id)}}"><i class="fa fa-trash-o"></i>@lang('view_pages.delete')</a> --}}
                 </div>
