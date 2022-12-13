@@ -22,39 +22,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDqr5DtRX73j768ipXbCQF-7Qqix4rn_Vo',
-    appId: '1:427832602406:android:2728cf1201827e022ddbe7',
-    messagingSenderId: '599030350718',
-    projectId: 'routes-user-app',
-    authDomain: 'routes-user-app.firebaseapp.com',
-    storageBucket: 'routes-user-app.appspot.com',
+    apiKey: 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc',
+    appId: '1:722270159807:web:ec89dc1c5563d89df1570a',
+    messagingSenderId: '722270159807',
+    projectId: 'taxi-app-371012',
+    authDomain: 'taxi-app-371012.firebaseapp.com',
+    storageBucket: 'taxi-app-371012.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDqr5DtRX73j768ipXbCQF-7Qqix4rn_Vo',
-    appId: '1:427832602406:android:2728cf1201827e022ddbe7',
-    messagingSenderId: '427832602406',
-    projectId: 'routes-user-app',
-    storageBucket: 'routes-user-app.appspot.com',
+    apiKey: 'AIzaSyAXRmV8566HjiPsfliXoZUafmxcWzpBit0',
+    appId: '1:722270159807:android:2cd10ab2b1546061f1570a',
+    messagingSenderId: '722270159807',
+    projectId: 'taxi-app-371012',
+    storageBucket: 'taxi-app-371012.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDAwdwt_QPocr2axk3nj63_gvrTtq_9lPY',
-    appId: '1:427832602406:ios:57f31674e34cb85b2ddbe7',
-    messagingSenderId: '427832602406',
-    projectId: 'routes-user-app',
-    storageBucket: 'routes-user-app.appspot.com',
-    iosClientId: '427832602406-r06ij4l617glot697f9p4oota8b42ibi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBWRRnSmXrhnZOtC5gmta32t_vzvTGPQUg',
+    appId: '1:722270159807:ios:0397550bf804002ff1570a',
+    messagingSenderId: '722270159807',
+    projectId: 'taxi-app-371012',
+    storageBucket: 'taxi-app-371012.appspot.com',
+    iosClientId: '722270159807-2p4l41okamaisnoi7vha5chjg0bgmmpb.apps.googleusercontent.com',
     iosBundleId: 'com.routestaxi.userapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDAwdwt_QPocr2axk3nj63_gvrTtq_9lPY',
-    appId: '1:427832602406:ios:57f31674e34cb85b2ddbe7',
-    messagingSenderId: '427832602406',
-    projectId: 'routes-user-app',
-    storageBucket: 'routes-user-app.appspot.com',
-    iosClientId: '427832602406-r06ij4l617glot697f9p4oota8b42ibi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBWRRnSmXrhnZOtC5gmta32t_vzvTGPQUg',
+    appId: '1:722270159807:ios:0397550bf804002ff1570a',
+    messagingSenderId: '722270159807',
+    projectId: 'taxi-app-371012',
+    storageBucket: 'taxi-app-371012.appspot.com',
+    iosClientId: '722270159807-2p4l41okamaisnoi7vha5chjg0bgmmpb.apps.googleusercontent.com',
     iosBundleId: 'com.routestaxi.userapp',
   );
 }

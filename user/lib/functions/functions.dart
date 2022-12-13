@@ -40,7 +40,7 @@ bool internet = true;
 
 //base url
 String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
+String mapkey = 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc';
 int drawerSelectedIndex = 0;
 
 //check internet connection
