@@ -67,7 +67,7 @@ class Myfatoorahv2
                 }
                 return $payment_methods;
             } else {
-                return $basURL;
+                return false;
             }
         }
     }

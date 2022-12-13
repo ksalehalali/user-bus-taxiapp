@@ -121,7 +121,7 @@ $sub_menu = 'translations';
                     </li>
                     @endif
                     @if(auth()->user()->can('package-type'))
-                    <li class="{{ 'package_type' == $sub_menu ? 'active' : '' }}">
+                    <li class="{{ 'package_type' == $sub_menu ? 'active' : '' }}" style="display:none;">
                         <a href="{{url('/package_type')}}"><i class="fa fa-circle-thin"></i>@lang('pages_names.package_type')</a>
                     </li>
                     @endif

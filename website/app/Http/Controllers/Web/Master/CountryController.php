@@ -39,7 +39,7 @@ class CountryController extends BaseController
 
     public function fetch(QueryFilterContract $queryFilter)
     {
-        $query = $this->country->query();//->active()
+        $query = $this->country->query()->orderBy('active','desc');//->active()
         $results = $queryFilter->builder($query)->customFilter(new CommonMasterFilter)->paginate();
 
         return view('admin.master.country._country', compact('results'));

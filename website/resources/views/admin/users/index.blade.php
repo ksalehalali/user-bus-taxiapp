@@ -30,7 +30,7 @@
                             </div>
 
 
-                            <div class="col-md-7 text-center text-md-right">
+                            <div class="col-md-7 text-center text-md-right" style="display:none;">
                             @if(auth()->user()->can('add-user'))         
                                 <a href="{{ url('users/create') }}" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-plus-circle mr-2"></i>@lang('view_pages.add_user')</a>

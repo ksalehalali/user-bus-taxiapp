@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'Routes-Taxi',
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => 'production',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,10 +39,10 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
-
-    'debug_sendmail_open' => env('DEBUG_SEND_MAIL_OPEN', true),
-    'debug_sendmail_email' => env('DEBUG_SEND_MAIL_EMAIL', 'dhilipkumar.kgcas@gmail.com'),
+    'debug' => false,
+    
+    'debug_sendmail_open' => true,
+    'debug_sendmail_email' => 'routes.taxi.app@gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,7 +128,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => 'base64:bCTy93yM9pS69SNJF4mCNUQSkCL0+QaJ6m6ESOgqH2Q=',
 
     'cipher' => 'AES-256-CBC',
 
