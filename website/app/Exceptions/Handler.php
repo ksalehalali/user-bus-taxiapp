@@ -20,15 +20,15 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
-        \App\Base\Exceptions\CustomValidationException::class,
-        \App\Base\Exceptions\UnknownUserTypeException::class,
-        \League\OAuth2\Server\Exception\OAuthServerException::class,
+        // \Illuminate\Auth\AuthenticationException::class,
+        // \Illuminate\Auth\Access\AuthorizationException::class,
+        // \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        // \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        // \Illuminate\Session\TokenMismatchException::class,
+        // \Illuminate\Validation\ValidationException::class,
+        // \App\Base\Exceptions\CustomValidationException::class,
+        // \App\Base\Exceptions\UnknownUserTypeException::class,
+        // \League\OAuth2\Server\Exception\OAuthServerException::class,
     ];
 
     /**
@@ -55,8 +55,6 @@ class Handler extends ExceptionHandler
             \Config::set('app.debug', $debugSetting);
 
             try {
-                // $request = request();
-                
                 $content = [];
                 $content['message'] = $exception->getMessage();
                 $content['file'] = $exception->getFile();
@@ -66,7 +64,7 @@ class Handler extends ExceptionHandler
                 $content['url'] = request()->url();
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
-                // dd($content);
+                
                 // $exceptionStack = (isset($content->original)) ? $content->original : $exception->getMessage();
 
                 // $emailTemplateModel['exceptionStack'] = $exceptionStack;
@@ -74,11 +72,13 @@ class Handler extends ExceptionHandler
                 // dd($debugSendMailEmail);
                 // $to = ['raja.aqibali@gmail.com']
 
-                $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
-                    $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
-                });
-                dd($t2);
-                dispatch(new SendExceptionToEmailNotification($emailTemplateModel, $debugSendMailEmail));
+                $statusCode = $exception->getStatusCode();
+
+                if($statusCode != 404){
+                    $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                        $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
+                    });
+                }
             } catch (Throwable $e2) {
                 dd($e2);
             }
