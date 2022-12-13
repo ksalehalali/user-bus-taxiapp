@@ -540,7 +540,7 @@ class _UploadDocsState extends State<UploadDocs> {
                       width: media.width * 0.5,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: buttonColor, width: 1.2)),
+                          border: Border.all(color: primaryColor, width: 1.2)),
                       child: (fleetimageFile == null)
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -893,7 +893,7 @@ class _UploadDocsState extends State<UploadDocs> {
                                             ['text_open_settings'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
-                                            color: buttonColor,
+                                            color: primaryColor,
                                             fontWeight: FontWeight.w600),
                                       )),
                                   InkWell(
@@ -909,7 +909,7 @@ class _UploadDocsState extends State<UploadDocs> {
                                         languages[choosenLanguage]['text_done'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
-                                            color: buttonColor,
+                                            color: primaryColor,
                                             fontWeight: FontWeight.w600),
                                       ))
                                 ],

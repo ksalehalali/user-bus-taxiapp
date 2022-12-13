@@ -117,7 +117,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
             hintText: hintText,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(28.0),
-                borderSide: BorderSide(color: buttonColor)
+                borderSide: BorderSide(color: primaryColor)
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(28.0),
@@ -139,7 +139,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
             borderRadius: BorderRadius.circular(28.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: buttonColor, width: 2),
+            borderSide: BorderSide(color: primaryColor, width: 2),
             borderRadius: BorderRadius.circular(28.0),
           ),
         ),

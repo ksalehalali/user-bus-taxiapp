@@ -31,17 +31,17 @@ class _NavDrawerState extends State<NavDrawer> {
 
   @override
   void initState() {
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/images/history.png', History()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/images/walletImage.png', WalletPage()));
     if(  userDetails['owner_id'] != null) {
       drawerList.add(DrawerModel( languages[choosenLanguage]['text_earnings'].toString(), 'assets/images/Earnings.png', DriverEarnings()));
     }
     if(userDetails['role'] == 'owner') {
       drawerList.add(DrawerModel( languages[choosenLanguage]['text_updateVehicle'].toString(), 'assets/images/updateVehicleInfo.png', VehicleInfo()));
     }
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/images/history.png', History()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/images/walletImage.png', WalletPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_referal'].toString(), 'assets/images/referral.png', ReferralPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages(true)));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_make_complaints'].toString(), 'assets/images/makecomplaint.png', MakeComplaint(fromPage: 0,)));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_delete_account'].toString(), Icons.delete_forever, WelcomeScreen()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_logout'].toString(), 'assets/images/logout.png', WelcomeScreen()));
@@ -167,7 +167,7 @@ class _NavDrawerState extends State<NavDrawer> {
                             padding: EdgeInsets.zero,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return index == 0 ? ValueListenableBuilder(
+                              return index == 1 ? ValueListenableBuilder(
                                   valueListenable: valueNotifierNotification.value,
                                   builder: (context, value, child) {
                                     return Padding(
@@ -189,7 +189,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: drawerSelectedIndex == index ? loaderColor : white,
+                                            color: drawerSelectedIndex == index ? primaryColor : white,
                                             // border: Border(
                                             //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
                                             //
@@ -258,7 +258,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                       drawerSelectedIndex = index;
                                     });
 
-                                    if(index == 0){
+                                    if(index == 1){
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -285,7 +285,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: drawerSelectedIndex == index ? loaderColor : white,
+                                      color: drawerSelectedIndex == index ? primaryColor : white,
                                       // border: Border(
                                       //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
                                       //

@@ -198,7 +198,8 @@ class _OtpState extends State<Otp> {
                                         )),
                                   ],
                                 )),
-                            Image.asset('assets/animated_images/verify_number.png', width: 300,),
+                            SizedBox(height: 50,),
+                            // Image.asset('assets/animated_images/verify_number.png', width: 300,),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +232,7 @@ class _OtpState extends State<Otp> {
                                     countries[phcode]['dial_code'] + phnumber,
                                     style: GoogleFonts.roboto(
                                         fontSize: media.width * sixteen,
-                                        color: buttonColor,
+                                        color: primaryColor,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1),
                                   ),
@@ -239,10 +240,10 @@ class _OtpState extends State<Otp> {
                                   OtpTextField(
                                     numberOfFields: numberOfFields,
                                     borderColor: Color(0xFF512DA8),
-                                    focusedBorderColor: buttonColor,
+                                    focusedBorderColor: primaryColor,
                                     borderRadius: BorderRadius.circular(16.0),
-                                    enabledBorderColor: buttonColor,
-                                    disabledBorderColor: buttonColor,
+                                    enabledBorderColor: primaryColor,
+                                    disabledBorderColor: primaryColor,
                                     // clearText: clearText,
                                     showFieldAsBox: true,
                                     // textStyle: theme.textTheme.subtitle1,
@@ -269,7 +270,7 @@ class _OtpState extends State<Otp> {
                                   //   decoration: BoxDecoration(
                                   //       borderRadius: BorderRadius.circular(12),
                                   //       color: page,
-                                  //       border: Border.all(color: buttonColor, width: 1.2)
+                                  //       border: Border.all(color: primaryColor, width: 1.2)
                                   //   ),
                                   //   child: TextField(
                                   //     controller: otpController,
@@ -390,8 +391,8 @@ class _OtpState extends State<Otp> {
                                                   resendTime.toString(),
                                       color:
                                           (resendTime != 0 && otpNumber.length != 6)
-                                              ? primaryColor
-                                              : null,
+                                              ? hideButtonColor
+                                              : primaryColor,
                                     ),
                                   ),
                                 ],

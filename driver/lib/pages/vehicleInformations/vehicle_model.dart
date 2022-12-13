@@ -122,7 +122,7 @@ class _VehicleModelState extends State<VehicleModel> {
                                                     vehicleModel[i]['id'])
                                                 ? Icon(
                                                     Icons.done,
-                                                    color: buttonColor,
+                                                    color: primaryColor,
                                                   )
                                                 : Container()
                                           ],

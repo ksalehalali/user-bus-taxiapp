@@ -371,7 +371,7 @@ class _AddDriverState extends State<AddDriver> {
                                     Container(
                                       width: 1,
                                       height: media.width * 0.0693,
-                                      color: buttonColor,
+                                      color: primaryColor,
                                     ),
                                     SizedBox(
                                       width: media.width * 0.01,

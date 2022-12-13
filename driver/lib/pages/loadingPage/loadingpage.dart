@@ -140,7 +140,7 @@ class _LoadingPageState extends State<LoadingPage> {
           //user installing first time and didnt yet choosen language
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Languages()));
+                MaterialPageRoute(builder: (context) => Languages(false)));
           });
         }
       } else {
@@ -174,7 +174,7 @@ class _LoadingPageState extends State<LoadingPage> {
                     //     image: DecorationImage(
                     //         image: AssetImage('assets/images/logo.png'),
                     //         fit: BoxFit.contain)),
-                    child: Image.asset('assets/images/taxi_logo.png', fit: BoxFit.cover,),
+                    child: Image.asset('assets/images/splash.gif', fit: BoxFit.cover,),
                   ),
                 ],
               ),

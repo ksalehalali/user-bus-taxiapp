@@ -19,8 +19,7 @@ Route::namespace('Web')->group(function () {
 
     // All the folder based web routes
     include_route_files('web');
-    
-
+    Route::get('/myfatoorah', 'MyFatoorahController@index')->name('myfatoorah');
     Route::get('/', 'FrontPageController@index')->name('index');
     Route::get('/driverpage', 'FrontPageController@driverp')->name('driverpage');
     Route::get('/howdriving', 'FrontPageController@howdrive')->name('howdriving');

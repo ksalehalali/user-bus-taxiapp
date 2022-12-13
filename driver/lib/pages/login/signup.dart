@@ -75,9 +75,9 @@ class _SignupState extends State<Signup> {
                 centerTitle: true,
                 backgroundColor: white,
                 bottom: TabBar(
-                  labelColor: buttonColor,
+                  labelColor: primaryColor,
                   unselectedLabelColor: light_grey,
-                  indicatorColor: buttonColor,
+                  indicatorColor: primaryColor,
                   indicatorWeight: 4.0,
                   tabs: [
                     Tab(text: "Personal Detail"),
@@ -120,7 +120,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               icon: Icon(Icons.person_outline, color: light_grey,),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(32.0),
-                  borderSide: BorderSide(color: buttonColor)
+                  borderSide: BorderSide(color: primaryColor)
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(32.0),

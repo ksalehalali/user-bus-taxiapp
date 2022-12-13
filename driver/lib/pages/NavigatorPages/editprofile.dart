@@ -165,7 +165,7 @@ class _EditProfileState extends State<EditProfile> {
                               languages[choosenLanguage]['text_editimage'],
                               style: GoogleFonts.roboto(
                                   fontSize: media.width * sixteen,
-                                  color: buttonColor)),
+                                  color: primaryColor)),
                         ),
                         SizedBox(
                           height: media.width * 0.1,
@@ -446,7 +446,7 @@ class _EditProfileState extends State<EditProfile> {
                                             ['text_open_settings'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
-                                            color: buttonColor,
+                                            color: primaryColor,
                                             fontWeight: FontWeight.w600),
                                       )),
                                   InkWell(
@@ -462,7 +462,7 @@ class _EditProfileState extends State<EditProfile> {
                                         languages[choosenLanguage]['text_done'],
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
-                                            color: buttonColor,
+                                            color: primaryColor,
                                             fontWeight: FontWeight.w600),
                                       ))
                                 ],
