@@ -30,6 +30,7 @@ use App\Models\Payment\DriverWallet;
 use App\Models\Payment\OwnerWallet;
 use App\Jobs\Notifications\AndroidPushNotification;
 use App\Jobs\Notifications\SendPushNotification;
+use Illuminate\Support\Facades\URL;
 
 /**
  * @group Payment
@@ -713,5 +714,17 @@ class PaymentController extends BaseController
         $receiver_remarks = $receiver_wallet_history_model->update(['remarks']);
 //        return $this->respondSuccess($remarks, 'transferred');
         return response()->json(['success' => true, 'transfer_remarks' => $transfer_remarks, 'receiver_remarks' => $receiver_remarks]);
+    }
+
+    public function WalletTopUpMyFatoorahLink(Request $request){
+
+        $return_url = URL::to('/myfatoorah-wallet-payment-success');
+        $error_return_url = URL::to('/myfatoorah-wallet-payment-error');
+        $payment_method_id = $request->payment_method_id;
+        $price = $request->price;
+        $myfatoorah_instance = new Myfatoorahv2();
+        $customer_details = ['email'=> auth()->user()->email,'phone' => auth()->user()->mobile ,'name' => auth()->user()->name,'civil_id'=>''];
+        $myfatoorah_response = $myfatoorah_instance->getPaymentLink($customer_details,$price,0,$payment_method_id,auth()->user()->id,$return_url,$error_return_url);
+        return response()->json(['success' => true,'response'=> $myfatoorah_response]);
     }
 }

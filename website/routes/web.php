@@ -19,7 +19,6 @@ Route::namespace('Web')->group(function () {
 
     // All the folder based web routes
     include_route_files('web');
-    Route::get('/myfatoorah', 'MyFatoorahController@index')->name('myfatoorah');
     Route::get('/', 'FrontPageController@index')->name('index');
     Route::get('/driverpage', 'FrontPageController@driverp')->name('driverpage');
     Route::get('/howdriving', 'FrontPageController@howdrive')->name('howdriving');
@@ -32,6 +31,11 @@ Route::namespace('Web')->group(function () {
     Route::get('/dmv', 'FrontPageController@dmvpage')->name('dmv');
     Route::get('/contactus', 'FrontPageController@contactuspage')->name('contactus');
     Route::post('/contactussendmail','FrontPageController@contactussendmailadd')->name('contactussendmail');
+
+
+    Route::get('/myfatoorah-wallet-payment-success', 'MyFatoorahController@MyfatoorahWalletPaymentSuccess');
+    Route::get('/myfatoorah-wallet-payment-error', 'MyFatoorahController@MyfatoorahWalletPaymentError');
+
 
 
     // Website home route

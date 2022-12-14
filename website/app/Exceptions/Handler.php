@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
 
             \Config::set('app.debug', true);
 
-            $content = ExceptionHandler::isHttpException($exception) ? ExceptionHandler::toIlluminateResponse(ExceptionHandler::renderHttpException($exception), $exception) : ExceptionHandler::toIlluminateResponse(ExceptionHandler::convertExceptionToResponse($exception), $exception);
+//            $content = ExceptionHandler::isHttpException($exception) ? ExceptionHandler::toIlluminateResponse(ExceptionHandler::renderHttpException($exception), $exception) : ExceptionHandler::toIlluminateResponse(ExceptionHandler::convertExceptionToResponse($exception), $exception);
 
             \Config::set('app.debug', $debugSetting);
 
@@ -72,18 +72,15 @@ class Handler extends ExceptionHandler
                 // dd($debugSendMailEmail);
                 // $to = ['raja.aqibali@gmail.com']
 
+                $allowed_exceptions = [500,0];
                 if(!empty($exception)){
-                    if(!empty($exception->getStatusCode())){
-                        $statusCode = $exception->getStatusCode();
-
-                        if($statusCode != 404){
-                            $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
-                                $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
-                            });
-                        }
+                    $statusCode = $exception->getCode();
+                    if(in_array((int)$statusCode,$allowed_exceptions)){
+                        \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                            $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
+                        });
                     }
                 }
-                
             } catch (Throwable $e2) {
                 dd($e2);
             }
