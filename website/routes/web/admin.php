@@ -302,6 +302,12 @@ Route::middleware('auth:web')->group(function () {
             Route::get('profile/{user}', 'AdminController@viewProfile');
             Route::post('profile/update/{user}', 'AdminController@updateProfile');
         });
+
+        Route::group(['prefix' => 'myfatoorah',  'middleware' => 'permission:admin'], function () {
+            // prefix('admins')->group(function () {
+            Route::get('/', 'MyfatoorahadminController@index');
+        });
+
         // Zone CRUD
         Route::group(['prefix' => 'zone',  'middleware' => 'permission:view-zone'], function () {
             // prefix('zone')->group(function () {

@@ -2,34 +2,32 @@
 
 namespace App\Http\Controllers\Api\V1\Payment;
 
-use App\Libraries\Myfatoorahv2;
-use App\Models\Setting;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\Payment\CardInfo;
 use App\Base\Constants\Auth\Role;
-use App\Http\Controllers\ApiController;
-use App\Models\Payment\UserWalletHistory;
-use App\Models\Payment\DriverWalletHistory;
-use App\Transformers\Payment\WalletTransformer;
-use App\Base\Payment\BrainTreeTasks\BraintreeTask;
-use App\Transformers\Payment\DriverWalletTransformer;
-use App\Http\Requests\Payment\AddMoneyToWalletRequest;
-use App\Transformers\Payment\UserWalletHistoryTransformer;
-use App\Transformers\Payment\DriverWalletHistoryTransformer;
-use App\Transformers\Payment\WalletWithdrawalRequestsTransformer;
-use App\Models\Payment\WalletWithdrawalRequest;
-use App\Http\Controllers\Api\V1\BaseController;
 use App\Base\Constants\Masters\WithdrawalRequestStatus;
 use App\Base\Constants\Setting\Settings;
-use App\Models\Payment\OwnerWalletHistory;
-use App\Transformers\Payment\OwnerWalletHistoryTransformer;
-use App\Models\Payment\UserWallet;
-use App\Models\Payment\DriverWallet;
-use App\Models\Payment\OwnerWallet;
-use App\Jobs\Notifications\AndroidPushNotification;
+use App\Base\Payment\BrainTreeTasks\BraintreeTask;
+use App\Http\Controllers\Api\V1\BaseController;
+use App\Http\Requests\Payment\AddMoneyToWalletRequest;
 use App\Jobs\Notifications\SendPushNotification;
+use App\Libraries\Myfatoorahv2;
+use App\Models\Country;
+use App\Models\Payment\CardInfo;
+use App\Models\Payment\DriverWallet;
+use App\Models\Payment\DriverWalletHistory;
+use App\Models\Payment\OwnerWallet;
+use App\Models\Payment\OwnerWalletHistory;
+use App\Models\Payment\UserWallet;
+use App\Models\Payment\UserWalletHistory;
+use App\Models\Payment\WalletWithdrawalRequest;
+use App\Models\Setting;
+use App\Models\User;
+use App\Transformers\Payment\DriverWalletHistoryTransformer;
+use App\Transformers\Payment\DriverWalletTransformer;
+use App\Transformers\Payment\OwnerWalletHistoryTransformer;
+use App\Transformers\Payment\UserWalletHistoryTransformer;
+use App\Transformers\Payment\WalletTransformer;
+use App\Transformers\Payment\WalletWithdrawalRequestsTransformer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -209,7 +207,7 @@ class PaymentController extends BaseController
 
             $user_wallet = auth()->user()->userWallet;
 
-            $wallet_balance = number_format($user_wallet->amount_balance,2);
+            $wallet_balance = number_format($user_wallet->amount_balance, 2);
 
             $currency_code = auth()->user()->countryDetail->currency_code;
             $currency_symbol = auth()->user()->countryDetail->currency_symbol;
@@ -361,9 +359,21 @@ class PaymentController extends BaseController
         $myfatoorah_status = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'enable-myfatoorah')->first()->value;
         $myfatoorah_payment_methods = [];
 
-        if ($myfatoorah_status){
+        $myfatoorah_apple_pay = false;
+        $myfatoorah_visa_master = false;
+        $myfatoorah_knet = false;
+
+        if ($myfatoorah_status) {
             $myfatoorah_payment_model = new Myfatoorahv2();
             $myfatoorah_payment_methods = $myfatoorah_payment_model->Init(1);
+            foreach ($myfatoorah_payment_methods as $myfatoorah_payment_method) {
+                if ($myfatoorah_payment_method['PaymentMethodEn'] == 'KNET'){
+                    $myfatoorah_knet = true;
+                }
+                if ($myfatoorah_payment_method['PaymentMethodEn'] == 'VISA/MASTER'){
+                    $myfatoorah_visa_master = true;
+                }
+            }
         }
 
         return response()->json(['success' => true,
@@ -376,7 +386,7 @@ class PaymentController extends BaseController
             'braintree_tree' => $enable_brain_tree,
             'stripe' => $enable_stripe,
             'razor_pay' => $enable_razor_pay,
-            'khalti_pay'=>$enable_khalti_pay,
+            'khalti_pay' => $enable_khalti_pay,
             'paystack' => $enable_paystack,
             'cash_free' => $enable_cashfree,
             'flutter_wave' => $enable_flutter_wave,
@@ -400,7 +410,10 @@ class PaymentController extends BaseController
             'cashfree_environment' => get_settings(Settings::CASH_FREE_ENVIRONMENT),
             'cashfree_test_app_id' => get_settings(Settings::CASH_FREE_TEST_APP_ID),
             'cashfree_live_app_id' => get_settings(Settings::CASH_FREE_PRODUCTION_APP_ID),
-            'myfatoorah' => $myfatoorah_status,
+            'myfatoorah' => !empty($myfatoorah_status) ? true : false,
+            'myfatoorah_knet' => $myfatoorah_knet,
+            'myfatoorah_apple_pay' => $myfatoorah_apple_pay,
+            'myfatoorah_visa_master' => $myfatoorah_visa_master,
             'myfatoorah_payment_methods' => $myfatoorah_payment_methods,
         ]);
 
@@ -620,7 +633,6 @@ class PaymentController extends BaseController
         $minimum_wallet_amount = get_settings(Settings::MINIMUM_WALLET_AMOUNT_FOR_TRANSFER);
 
         if ($user_wallet && $user_wallet->amount_balance < $minimum_wallet_amount) {
-
             //Throw exception
             $this->throwCustomException('Insufficient balance to transfer money to wallet');
 
@@ -648,7 +660,6 @@ class PaymentController extends BaseController
         $transaction_id = str_random(6);
 
         if ($role == 'user') {
-
             $receiver_wallet = $receiver_user->userWallet;
             $receiver_wallet_history_model = new UserWalletHistory();
             $receiver_wallet->amount_added += $amount_to_transfer;
@@ -698,7 +709,7 @@ class PaymentController extends BaseController
 
         $body = trans('push_notifications.you_have_received_a_money_from_body', [], $user->lang);
 
-        dispatch(new SendPushNotification($receiver_user,$title,$body));
+        dispatch(new SendPushNotification($receiver_user, $title, $body));
 
         $user_wallet->amount_spent -= $amount_to_transfer;
         $user_wallet->amount_balance -= $amount_to_transfer;
@@ -716,15 +727,23 @@ class PaymentController extends BaseController
         return response()->json(['success' => true, 'transfer_remarks' => $transfer_remarks, 'receiver_remarks' => $receiver_remarks]);
     }
 
-    public function WalletTopUpMyFatoorahLink(Request $request){
+    public function WalletTopUpMyFatoorahLink(Request $request)
+    {
 
         $return_url = URL::to('/myfatoorah-wallet-payment-success');
         $error_return_url = URL::to('/myfatoorah-wallet-payment-error');
+
         $payment_method_id = $request->payment_method_id;
         $price = $request->price;
+        if (empty($payment_method_id) || empty($price)) {
+            return response()->json(['success' => false, 'response' => 'Missing parameters']);
+        }
+        $currency_code = auth()->user()->countryDetail->currency_code;
+        $country_code = auth()->user()->countryDetail->dial_code;
+
         $myfatoorah_instance = new Myfatoorahv2();
-        $customer_details = ['email'=> auth()->user()->email,'phone' => auth()->user()->mobile ,'name' => auth()->user()->name,'civil_id'=>''];
-        $myfatoorah_response = $myfatoorah_instance->getPaymentLink($customer_details,$price,0,$payment_method_id,auth()->user()->id,$return_url,$error_return_url);
-        return response()->json(['success' => true,'response'=> $myfatoorah_response]);
+        $customer_details = ['email' => auth()->user()->email, 'phone' => auth()->user()->mobile, 'name' => auth()->user()->name, 'civil_id' => ''];
+        $myfatoorah_response = $myfatoorah_instance->getPaymentLink($customer_details, $price, 0, auth()->user()->id, $payment_method_id, $return_url, $error_return_url,$currency_code,$country_code);
+        return response()->json(['success' => true, 'response' => $myfatoorah_response]);
     }
 }
