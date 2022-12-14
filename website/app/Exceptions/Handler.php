@@ -65,22 +65,13 @@ class Handler extends ExceptionHandler
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
                 
-                // $exceptionStack = (isset($content->original)) ? $content->original : $exception->getMessage();
-
-                // $emailTemplateModel['exceptionStack'] = $exceptionStack;
-                // $emailTemplateModel['request'] = $request;
-                // dd($debugSendMailEmail);
-                // $to = ['raja.aqibali@gmail.com']
-
+                $allowed_exceptions = [404,401];
                 if(!empty($exception)){
-                    if(!empty($exception->getStatusCode())){
-                        $statusCode = $exception->getStatusCode();
-
-                        if($statusCode != 404){
-                            $t2 = \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                    $statusCode = $exception->getCode();
+                        if(!in_array((int)$statusCode,$allowed_exceptions)){
+                             \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
                                 $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
                             });
-                        }
                     }
                 }
                 
