@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Models\Myfatoorah;
 use App\Models\Setting;
 
 class Myfatoorahv2
@@ -16,7 +17,7 @@ class Myfatoorahv2
 
     public function __construct()
     {
-        $this->allowed_payment_methods = [1,2,11];
+        $this->allowed_payment_methods = [1,2];
         $myfatoorah_mode = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'myfatoorah_mode')->first()->value;
         $myfatoorah_status = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'enable-myfatoorah')->first()->value;
         $token = Setting::Where('group_name', "myfatoorah_setttings")->Where('name', 'my_fatoorah_api_key')->first()->value;
@@ -72,7 +73,7 @@ class Myfatoorahv2
         }
     }
 
-    public function getPaymentLink($cust_details, $price, $order_id, $PaymentMethodId = 1,$user_id, $return_url = '', $error_ret_url = '')
+    public function getPaymentLink($cust_details, $price, $order_id, $user_id,$PaymentMethodId = 1, $return_url = '', $error_ret_url = '',$currency_code = "KWD",$country_code="+965")
     {
 
         if (!in_array($PaymentMethodId,$this->allowed_payment_methods)){
@@ -81,7 +82,6 @@ class Myfatoorahv2
 
         $token = $this->token;
         $basURL = $this->basURL;
-        $SupplierCode = $this->merchantCode;
 
         if (!empty($return_url)) {
             $this->return_url = $return_url;
@@ -104,15 +104,15 @@ class Myfatoorahv2
         $post_string_array = [
             'PaymentMethodId' => $PaymentMethodId,
             'CustomerName' => (string)$cust_details['name'],
-            'DisplayCurrencyIso' => "KWD",
-            'MobileCountryCode' => "+965",
+            'DisplayCurrencyIso' => $currency_code,
+            'MobileCountryCode' => $country_code,
             'CustomerMobile' => $cust_details['phone'],
             'CustomerEmail' => $cust_details['email'],
             'InvoiceValue' => $price,
             'CallBackUrl' => $this->return_url,
             'ErrorUrl' => $this->error_ret_url,
             'Language' => "en",
-            'CustomerReference' => $SupplierCode,
+            'CustomerReference' => $user_id,
             'CustomerCivilId' => (string)$cust_details['civil_id'],
             'UserDefinedField' => (string)$order_id,
             'ExpireDate' => $expirydate,
@@ -128,19 +128,30 @@ class Myfatoorahv2
 
         $post_string = json_encode($post_string_array);
 
+        $model_myfatorah = new Myfatoorah();
+        $model_myfatorah->InvoiceId = '';
+        $model_myfatorah->InvoiceStatus = 'Pending';
+        $model_myfatorah->InvoiceReference= '';
+        $model_myfatorah->CustomerReference= '';
+        $model_myfatorah->CreatedDate= date("Y-m-d H:i:s");
+        $model_myfatorah->ExpiryTime= '';
+        $model_myfatorah->Comments= '';
+        $model_myfatorah->customer_name= $cust_details['name'];
+        $model_myfatorah->customer_mobile= $cust_details['phone'];
+        $model_myfatorah->customer_email= $cust_details['email'];
+        $model_myfatorah->user_id= $user_id;
+        $model_myfatorah->UserDefinedField= $order_id;
+        $model_myfatorah->invoice_items= json_encode($items);
+        $model_myfatorah->invoice_value= $price;
+        $model_myfatorah->order_id= $order_id;
+        $model_myfatorah->payment_method_id= $PaymentMethodId;
+        $model_myfatorah->payment_status= 'Pending';
+        $model_myfatorah->myfatoorah_transactions_response = '';
+        $model_myfatorah->myfatoorah_initial_response = '';
+        $model_myfatorah->payment_url = '';
+        $model_myfatorah->save();
 
-        $insert_myfatoorah = [
-            "InvoiceItems" => json_encode($items),
-            "CustomerName" => $cust_details['name'],
-            "CustomerMobile" => $cust_details['phone'],
-            "CustomerEmail" => $cust_details['email'],
-            "InvoiceValue" => $price,
-            "OrderId" => $order_id,
-            "PaymentMethodId" => $PaymentMethodId,
-            "created_on" => date("Y-m-d H:i:s"),
-        ];
-        // Todo Create model for myfatoorah_transactions and insert transaction.
-//        $CI->db->insert("myfatoorah_transactions", $insert_myfatoorah);
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "$basURL/v2/ExecutePayment",
@@ -152,9 +163,9 @@ class Myfatoorahv2
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
 
-//        $CI->db->where("OrderId", $order_id);
-//        $CI->db->set("myfatoorah_inital_responce", $response);
-//        $CI->db->update("myfatoorah_transactions");
+        $model_myfatorah->myfatoorah_initial_response = $response;
+        $model_myfatorah->save();
+
         $err = curl_error($curl);
         curl_close($curl);
         if ($err) {
@@ -162,6 +173,10 @@ class Myfatoorahv2
         } else {
             $response = json_decode($response, true);
             if ($response['IsSuccess']) {
+
+                $model_myfatorah->InvoiceId = $response['Data']['InvoiceId'];
+                $model_myfatorah->save();
+
                 return ["status" => true, "PaymentURL" => $response['Data']['PaymentURL']];
             } else {
                 $message = "";

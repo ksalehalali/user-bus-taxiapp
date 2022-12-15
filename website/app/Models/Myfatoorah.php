@@ -49,18 +49,26 @@ class Myfatoorah extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_items',
+        'InvoiceId',
+        'InvoiceStatus',
+        'InvoiceReference',
+        'CustomerReference',
+        'CreatedDate',
+        'ExpiryTime',
+        'Comments',
         'customer_name',
         'customer_mobile',
         'customer_email',
+        'UserDefinedField',
+        'invoice_items',
         'invoice_value',
         'order_id',
+        'user_id',
         'payment_method_id',
         'payment_status',
         'myfatoorah_transactions_response',
-        'myfatoorah_initial_responce',
+        'myfatoorah_initial_response',
         'payment_url',
-        'created_on',
     ];
 
     /**
