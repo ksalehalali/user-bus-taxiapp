@@ -37,13 +37,11 @@ Route::prefix('payment')->namespace('Payment')->middleware('auth')->group(functi
         Route::prefix('wallet')->group(function () {
             Route::post('add/money', 'PaymentController@addMoneyToWallet');
             Route::get('history', 'PaymentController@walletHistory');
+            Route::post('wallet-top-up-my-fatoorah-link', 'PaymentController@WalletTopUpMyFatoorahLink');
             Route::get('withdrawal-requests', 'PaymentController@withDrawalRequests');
             Route::post('request-for-withdrawal', 'PaymentController@requestForWithdrawal');
             Route::post('transfer-money-from-wallet', 'PaymentController@transferMoneyFromWallet');
-
         });
-
-
         /**
          * Braintree Payment Gateway
          *

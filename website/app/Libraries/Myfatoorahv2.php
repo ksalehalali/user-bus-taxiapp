@@ -72,7 +72,7 @@ class Myfatoorahv2
         }
     }
 
-    public function getPaymentLink($cust_details, $price, $order_id, $PaymentMethodId = 1, $InvoiceItems = [], $return_url = '', $error_ret_url = '')
+    public function getPaymentLink($cust_details, $price, $order_id, $PaymentMethodId = 1,$user_id, $return_url = '', $error_ret_url = '')
     {
 
         if (!in_array($PaymentMethodId,$this->allowed_payment_methods)){
@@ -82,85 +82,6 @@ class Myfatoorahv2
         $token = $this->token;
         $basURL = $this->basURL;
         $SupplierCode = $this->merchantCode;
-
-        $userPrice = array();
-        $total_shipping_cost = 0;
-        if ($payment_Setting->multi_vendor_supplier_code == 1) {
-            foreach ($InvoiceItems as $invoiceItem) {
-                $total_shipping_cost += $invoiceItem->shipping_cost / 100;
-                $product_data = $ci->product_model->get_product_by_id($invoiceItem->product_id);
-                $ci->db->where('id', $product_data->user_id);
-                $user_data = $ci->db->get('users')->row();
-                if (!empty($userPrice[$product_data->user_id])) {
-                    $new_price = $invoiceItem->unit_price * $invoiceItem->quantity;
-                    if ($invoiceItem->gift_wrap) {
-                        $giftwrap_price_new = $invoiceItem->gift_wrap_price;
-                        $new_price = $price + $giftwrap_price_new;
-                    }
-                    $new_price = $new_price / 100;
-                    $userPrice[$product_data->user_id]['price'] = $userPrice[$product_data->user_id]['price'] + $new_price;
-                } else {
-                    $product_price = $invoiceItem->unit_price * $invoiceItem->quantity;
-                    if ($invoiceItem->gift_wrap) {
-                        $giftwrap_price = $invoiceItem->gift_wrap_price;
-                        $product_price = $product_price + $giftwrap_price;
-                    }
-
-                    $userPrice[$product_data->user_id]['price'] = $product_price / 100;
-                    $userPrice[$product_data->user_id]['supplier_code'] = $user_data->myfathorah_supplier_id;
-                }
-            }
-            $all_suppliers = $this->Getsupplier();
-            if (!empty($userPrice)) {
-                foreach ($userPrice as $userp) {
-                    if (!empty($userp['supplier_code'])) {
-                        $key = array_search($userp['supplier_code'], array_column($all_suppliers, 'SupplierCode'));
-                        if (!empty($key)) {
-                            $Suppliers[] = [
-                                "SupplierCode" => $userp['supplier_code'],
-                                "ProposedShare" => null,
-                                "InvoiceShare" => $userp['price'],
-                            ];
-                        } else {
-                            return ["status" => false, "error" => "Sorry! Supplier code not found in Myfatoorah.Please contact admin"];
-                        }
-                    } else {
-                        return ["status" => false, "error" => "Sorry! Supplier code not found.Please contact admin"];
-                    }
-                }
-                if (!empty($payment_Setting->menu_house_supplier_id)) {
-                    $key = array_search($payment_Setting->menu_house_supplier_id, array_column($all_suppliers, 'SupplierCode'));
-                    if (!empty($key)) {
-                        $a = [
-                            "SupplierCode" => $payment_Setting->menu_house_supplier_id,
-                            "ProposedShare" => null,
-                            "InvoiceShare" => $total_shipping_cost,
-                        ];
-                    } else {
-                        return ["status" => false, "error" => "Sorry! Default Supplier code not found in Myfatoorah.Please contact admin"];
-
-                    }
-                    array_push($Suppliers, $a);
-                } else {
-                    return ["status" => false, "error" => "Default Supplier code not found.Please contact admin"];
-                }
-            } else {
-                return ["status" => false, "error" => "Sorry! Something went wrong Please try again later"];
-            }
-        } else {
-            $Suppliers = $this->merchantCode;
-        }
-        // check if the default currency of store isn't KWD then convert price
-        if (!empty($ci->payment_settings->default_currency) && $ci->payment_settings->default_currency != 'KWD') {
-            $price = convert_to_kwd($price, $ci->payment_settings->default_currency);
-
-        }
-
-        // check if the default currency of store isn't KWD then convert price
-        if (!empty($ci->payment_settings->default_currency) && $ci->payment_settings->default_currency != 'KWD') {
-            $price = convert_to_kwd($price, $ci->payment_settings->default_currency);
-
-        }
 
         if (!empty($return_url)) {
             $this->return_url = $return_url;
@@ -179,41 +100,13 @@ class Myfatoorahv2
         $expirydate = date("Y-m-d", strtotime($expirydate_init)) . "T" . date("H:i:s", strtotime($expirydate_init)) . ".00";
 
         $items = [];
-        $total = 0;
-        $price = $price / 100;
-
-        if (!empty($InvoiceItems)) {
-            foreach ($InvoiceItems as $invoiceItem) {
-                $item_price = $invoiceItem->unit_price / 100;
-                $items[] = [
-                    "ItemName" => $invoiceItem->product_title,
-                    "Quantity" => $invoiceItem->quantity,
-                    "UnitPrice" => $item_price,
-                ];
-                $total = $total + ($item_price * $invoiceItem->quantity);
-            }
-        }
-
-        if ($total != $price) {
-            $shipping_price = $price - $total;
-            $items[] = [
-                "ItemName" => "Shipping Price",
-                "Quantity" => 1,
-                "UnitPrice" => $shipping_price,
-            ];
-            $total = $total + $shipping_price;
-        }
-
-        $this->contact_phone = str_replace("+965", "", $this->contact_phone);
-        $this->contact_phone = str_replace(" ", "", $this->contact_phone);
-
 
         $post_string_array = [
             'PaymentMethodId' => $PaymentMethodId,
             'CustomerName' => (string)$cust_details['name'],
             'DisplayCurrencyIso' => "KWD",
             'MobileCountryCode' => "+965",
-            'CustomerMobile' => $this->contact_phone,
+            'CustomerMobile' => $cust_details['phone'],
             'CustomerEmail' => $cust_details['email'],
             'InvoiceValue' => $price,
             'CallBackUrl' => $this->return_url,
@@ -232,18 +125,14 @@ class Myfatoorahv2
             ],
             'InvoiceItems' => [],
         ];
-        if ($payment_Setting->multi_vendor_supplier_code == 1) {
-            $post_string_array['Suppliers'] = $Suppliers;
-        } else {
-            $post_string_array['SupplierCode'] = $Suppliers;
-        }
+
         $post_string = json_encode($post_string_array);
 
 
         $insert_myfatoorah = [
             "InvoiceItems" => json_encode($items),
             "CustomerName" => $cust_details['name'],
-            "CustomerMobile" => $cust_details['mobile'],
+            "CustomerMobile" => $cust_details['phone'],
             "CustomerEmail" => $cust_details['email'],
             "InvoiceValue" => $price,
             "OrderId" => $order_id,

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c8a9aa7-71e0-48ae-b89e-8a77fce45d64" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/documentation/LICENSE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/documentation/README.md" beforeDir="false" />
@@ -522,8 +524,12 @@
       <change beforePath="$PROJECT_DIR$/documentation/index-3.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/documentation/index-4.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/documentation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/app/Exceptions/Handler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/app/Http/Controllers/Api/V1/Payment/PaymentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/app/Http/Controllers/Api/V1/Payment/PaymentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/app/Http/Controllers/Web/Admin/MyFatoorahController.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/app/Http/Controllers/Web/MyFatoorahController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/app/Libraries/Myfatoorahv2.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/app/Libraries/Myfatoorahv2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/routes/api/v1/payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/routes/api/v1/payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/website/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -759,9 +765,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -774,6 +782,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/website/app/Models" />
       <recent name="$PROJECT_DIR$/website/app/Libraries" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/website/app/Http/Controllers/Web" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -805,7 +816,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/website/routes/web.php</url>
-          <line>24</line>
+          <line>23</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

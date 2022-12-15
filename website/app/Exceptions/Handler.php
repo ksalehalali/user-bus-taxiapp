@@ -55,6 +55,8 @@ class Handler extends ExceptionHandler
             \Config::set('app.debug', $debugSetting);
 
             try {
+                // $request = request();
+                
                 $content = [];
                 $content['message'] = $exception->getMessage();
                 $content['file'] = $exception->getFile();
@@ -64,7 +66,7 @@ class Handler extends ExceptionHandler
                 $content['url'] = request()->url();
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
-                
+
                 $allowed_exceptions = [404,401];
                 if(!empty($exception)){
                     $statusCode = $exception->getCode();
@@ -74,7 +76,6 @@ class Handler extends ExceptionHandler
                             });
                     }
                 }
-                
             } catch (Throwable $e2) {
                 dd($e2);
             }
