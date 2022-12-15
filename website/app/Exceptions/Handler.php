@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
 
-                $allowed_exceptions = [404,401];
+                $allowed_exceptions = [404,401,0];
                 if(!empty($exception)){
                     $statusCode = $exception->getCode();
                         if(!in_array((int)$statusCode,$allowed_exceptions)){
