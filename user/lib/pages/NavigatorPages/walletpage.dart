@@ -12,6 +12,8 @@ import 'package:tagyourtaxi_driver/pages/NavigatorPages/paystackpayment.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/razorpaypage.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/cashfreepage.dart';
 
+import 'KNETPage.dart';
+
 class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
 
@@ -25,6 +27,8 @@ class _WalletPageState extends State<WalletPage> {
   TextEditingController addMoneyController = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
   TextEditingController amount = TextEditingController();
+  String? payment_gateway = '';
+  var current_payment_method_id;//no radio button will be selected on initial
 
   bool _isLoading = true;
   bool _addPayment = false;
@@ -646,8 +650,7 @@ class _WalletPageState extends State<WalletPage> {
                                               // print(addMoney);
                                               FocusManager.instance.primaryFocus
                                                   ?.unfocus();
-                                              if (addMoney != 0 &&
-                                                  addMoney != null) {
+                                              if (addMoney != 0 && addMoney != null) {
                                                 setState(() {
                                                   _choosePayment = true;
                                                   _addPayment = false;
@@ -687,6 +690,7 @@ class _WalletPageState extends State<WalletPage> {
                                           setState(() {
                                             _choosePayment = false;
                                             _addPayment = true;
+                                            payment_gateway == "";
                                           });
                                         },
                                         child: Container(
@@ -728,233 +732,493 @@ class _WalletPageState extends State<WalletPage> {
                                       ),
                                       Expanded(
                                         child: SingleChildScrollView(
-                                          physics:
-                                              const BouncingScrollPhysics(),
+                                          physics: const BouncingScrollPhysics(),
                                           child: Column(
+                                            mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              (walletBalance['stripe'] == true)
-                                                  ? Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: media.width *
-                                                              0.025),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: media.width * 0.7,
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          var val = await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                           SelectWallet()));
-                                                          if (val) {
+                                              (walletBalance['stripe'] == false)
+                                                  ? Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        // height: 40, width: 50,
+                                                        child: RadioListTile(
+                                                          contentPadding: EdgeInsets.all(0),
+                                                          value: "stripe",
+                                                          groupValue: payment_gateway,
+                                                          onChanged: (value){
                                                             setState(() {
-                                                              _choosePayment =
-                                                                  false;
-                                                              _addPayment =
-                                                                  false;
-                                                              addMoney = null;
-                                                              addMoneyController
-                                                                  .clear();
+                                                              payment_gateway = value.toString();
                                                             });
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: media.width *
-                                                              0.25,
-                                                          height: media.width *
-                                                              0.125,
-                                                          decoration: const BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/images/stripe-icon.png'),
-                                                                  fit: BoxFit
-                                                                      .contain)),
+                                                          },
                                                         ),
-                                                      ))
+                                                      ),
+                                                      Expanded(
+                                                          // margin: EdgeInsets.only(
+                                                          //     bottom: media.width *
+                                                          //         0.025),
+                                                          // alignment:
+                                                          //     Alignment.center,
+                                                          // width: media.width * 0.7,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              var val = await Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                               SelectWallet()));
+                                                              if (val) {
+                                                                setState(() {
+                                                                  _choosePayment =
+                                                                      false;
+                                                                  _addPayment =
+                                                                      false;
+                                                                  addMoney = null;
+                                                                  addMoneyController
+                                                                      .clear();
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: media.width *
+                                                                  0.25,
+                                                              height: media.width *
+                                                                  0.125,
+                                                              decoration: const BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/images/stripe-icon.png'),
+                                                                      fit: BoxFit
+                                                                          .contain)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
                                                   : Container(),
-                                              (walletBalance['paystack'] ==
-                                                      true)
-                                                  ? Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      margin: EdgeInsets.only(
-                                                          bottom: media.width *
-                                                              0.025),
-                                                      width: media.width * 0.7,
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          var val = await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                           PayStackPage()));
-                                                          if (val) {
+                                              (walletBalance['paystack'] == true)
+                                                  ? Row(
+                                                    children: [
+                                                      Expanded(
+                                                        // height: 40, width: 50,
+                                                        child: RadioListTile(
+                                                          value: "paystack",
+                                                          groupValue: payment_gateway,
+                                                          onChanged: (value){
                                                             setState(() {
-                                                              _choosePayment =
-                                                                  false;
-                                                              _addPayment =
-                                                                  false;
-                                                              addMoney = null;
-                                                              addMoneyController
-                                                                  .clear();
-                                                                  _isLoading = true;
+                                                              payment_gateway = value.toString();
                                                             });
-                                                             getWallet();
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: media.width *
-                                                              0.25,
-                                                          height: media.width *
-                                                              0.125,
-                                                          decoration: const BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/images/paystack-icon.png'),
-                                                                  fit: BoxFit
-                                                                      .contain)),
+                                                          },
                                                         ),
-                                                      ))
+                                                      ),
+                                                      Expanded(
+                                                          // alignment:
+                                                          //     Alignment.center,
+                                                          // margin: EdgeInsets.only(
+                                                          //     bottom: media.width *
+                                                          //         0.025),
+                                                          // width: media.width * 0.7,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              var val = await Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                               PayStackPage()));
+                                                              if (val) {
+                                                                setState(() {
+                                                                  _choosePayment =
+                                                                      false;
+                                                                  _addPayment =
+                                                                      false;
+                                                                  addMoney = null;
+                                                                  addMoneyController
+                                                                      .clear();
+                                                                      _isLoading = true;
+                                                                });
+                                                                 getWallet();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: media.width *
+                                                                  0.25,
+                                                              height: media.width *
+                                                                  0.125,
+                                                              decoration: const BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/images/paystack-icon.png'),
+                                                                      fit: BoxFit
+                                                                          .contain)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
                                                   : Container(),
-                                              (walletBalance['flutter_wave'] ==
-                                                      true)
-                                                  ? Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: media.width *
-                                                              0.025),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: media.width * 0.7,
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          var val = await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                           FlutterWavePage()));
-                                                          if (val) {
+                                              (walletBalance['flutter_wave'] == true)
+                                                  ? Row(
+                                                    children: [
+                                                      Expanded(
+                                                        // height: 40, width: 50,
+                                                        child: RadioListTile(
+                                                          value: "flutter_wave",
+                                                          groupValue: payment_gateway,
+                                                          onChanged: (value){
                                                             setState(() {
-                                                              _choosePayment =
-                                                                  false;
-                                                              _addPayment =
-                                                                  false;
-                                                              addMoney = null;
-                                                              addMoneyController
-                                                                  .clear();
+                                                              payment_gateway = value.toString();
                                                             });
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: media.width *
-                                                              0.25,
-                                                          height: media.width *
-                                                              0.125,
-                                                          decoration: const BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/images/flutterwave-icon.png'),
-                                                                  fit: BoxFit
-                                                                      .contain)),
+                                                          },
                                                         ),
-                                                      ))
+                                                      ),
+                                                      Expanded(
+                                                          // margin: EdgeInsets.only(
+                                                          //     bottom: media.width *
+                                                          //         0.025),
+                                                          // alignment:
+                                                          //     Alignment.center,
+                                                          // width: media.width * 0.7,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              var val = await Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                               FlutterWavePage()));
+                                                              if (val) {
+                                                                setState(() {
+                                                                  _choosePayment =
+                                                                      false;
+                                                                  _addPayment =
+                                                                      false;
+                                                                  addMoney = null;
+                                                                  addMoneyController
+                                                                      .clear();
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: media.width *
+                                                                  0.25,
+                                                              height: media.width *
+                                                                  0.125,
+                                                              decoration: const BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/images/flutterwave-icon.png'),
+                                                                      fit: BoxFit
+                                                                          .contain)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
                                                   : Container(),
-                                              (walletBalance['razor_pay'] ==
-                                                      true)
-                                                  ? Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: media.width *
-                                                              0.025),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: media.width * 0.7,
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          var val = await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                           RazorPayPage()));
-                                                          if (val) {
+                                              (walletBalance['razor_pay'] == true)
+                                                  ? Row(
+                                                    children: [
+                                                      Expanded(
+                                                        // height: 40, width: 50,
+                                                        child: RadioListTile(
+                                                          value: "razor_pay",
+                                                          groupValue: payment_gateway,
+                                                          onChanged: (value){
                                                             setState(() {
-                                                              _choosePayment =
-                                                                  false;
-                                                              _addPayment =
-                                                                  false;
-                                                              addMoney = null;
-                                                              addMoneyController
-                                                                  .clear();
+                                                              payment_gateway = value.toString();
                                                             });
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: media.width *
-                                                              0.25,
-                                                          height: media.width *
-                                                              0.125,
-                                                          decoration: const BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/images/razorpay-icon.jpeg'),
-                                                                  fit: BoxFit
-                                                                      .contain)),
+                                                          },
                                                         ),
-                                                      ))
+                                                      ),
+                                                      Expanded(
+                                                          // margin: EdgeInsets.only(
+                                                          //     bottom: media.width *
+                                                          //         0.025),
+                                                          // alignment:
+                                                          //     Alignment.center,
+                                                          // width: media.width * 0.7,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              var val = await Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                               RazorPayPage()));
+                                                              if (val) {
+                                                                setState(() {
+                                                                  _choosePayment =
+                                                                      false;
+                                                                  _addPayment =
+                                                                      false;
+                                                                  addMoney = null;
+                                                                  addMoneyController
+                                                                      .clear();
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: media.width *
+                                                                  0.25,
+                                                              height: media.width *
+                                                                  0.125,
+                                                              decoration: const BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/images/razorpay-icon.jpeg'),
+                                                                      fit: BoxFit
+                                                                          .contain)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
                                                   : Container(),
-                                              (walletBalance['cash_free'] ==
-                                                      true)
-                                                  ? Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: media.width *
-                                                              0.025),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: media.width * 0.7,
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          var val = await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                           CashFreePage()));
-                                                          if (val) {
+                                              (walletBalance['cash_free'] == true)
+                                                  ? Row(
+                                                    children: [
+                                                      Expanded(
+                                                        // height: 40, width: 50,
+                                                        child: RadioListTile(
+                                                          value: "cash_free",
+                                                          groupValue: payment_gateway,
+                                                          onChanged: (value){
                                                             setState(() {
-                                                              _choosePayment =
-                                                                  false;
-                                                              _addPayment =
-                                                                  false;
-                                                              addMoney = null;
-                                                              addMoneyController
-                                                                  .clear();
+                                                              payment_gateway = value.toString();
                                                             });
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          width: media.width *
-                                                              0.25,
-                                                          height: media.width *
-                                                              0.125,
-                                                          decoration: const BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/images/cashfree-icon.jpeg'),
-                                                                  fit: BoxFit
-                                                                      .contain)),
+                                                          },
                                                         ),
-                                                      ))
+                                                      ),
+                                                      Expanded(
+                                                          // margin: EdgeInsets.only(
+                                                          //     bottom: media.width *
+                                                          //         0.025),
+                                                          // alignment:
+                                                          //     Alignment.center,
+                                                          // width: media.width * 0.7,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              var val = await Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                               CashFreePage()));
+                                                              if (val) {
+                                                                setState(() {
+                                                                  _choosePayment =
+                                                                      false;
+                                                                  _addPayment =
+                                                                      false;
+                                                                  addMoney = null;
+                                                                  addMoneyController
+                                                                      .clear();
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: media.width *
+                                                                  0.25,
+                                                              height: media.width *
+                                                                  0.125,
+                                                              decoration: const BoxDecoration(
+                                                                  image: DecorationImage(
+                                                                      image: AssetImage(
+                                                                          'assets/images/cashfree-icon.jpeg'),
+                                                                      fit: BoxFit
+                                                                          .contain)),
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
                                                   : Container(),
+                                              (walletBalance['myfatoorah'])
+                                                  ? Container(
+                                                  // margin: EdgeInsets.only(bottom: media.width * 0.025),
+                                                  margin: EdgeInsets.zero,
+                                                  padding: EdgeInsets.zero,
+                                                  alignment: Alignment.center,
+                                                  // width: media.width * 0.7,
+                                                  child: ListView.builder(
+                                                      shrinkWrap: true,
+                                                      physics: NeverScrollableScrollPhysics(),
+                                                      itemCount: walletBalance['myfatoorah_payment_methods'].length,
+                                                      itemBuilder: (context, index) {
+                                                        return Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 1,
+                                                                  child: RadioListTile(
+                                                                    contentPadding: EdgeInsets.all(0),
+                                                                    value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
+                                                                    groupValue: payment_gateway,
+                                                                    onChanged: (value){
+                                                                      setState(() {
+                                                                        payment_gateway = value.toString();
+                                                                      });
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                    flex: 1,
+                                                                    // width: 50, height: 30,
+                                                                    child: Container(
+                                                                        width: media.width *
+                                                                            0.25,
+                                                                        height: media.width *
+                                                                            0.125,
+                                                                        child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 10,)
+                                                          ],
+                                                        );
+                                                      }
+                                                  ))
+                                                  : Container()
                                             ],
                                           ),
                                         ),
                                       ),
+                                      payment_gateway!.isEmpty || payment_gateway == null
+                                          ? SizedBox()
+                                          : Container(
+                                        padding: EdgeInsets.only(
+                                            top: media.width * 0.05,
+                                            bottom: media.width * 0.05),
+                                        child: Button(
+                                            onTap: () async {
+                                              if(payment_gateway == 'stripe') {
+                                                var val = await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                            SelectWallet()));
+                                                if (val) {
+                                                  setState(() {
+                                                    _choosePayment =
+                                                    false;
+                                                    _addPayment =
+                                                    false;
+                                                    addMoney = null;
+                                                    addMoneyController
+                                                        .clear();
+                                                  });
+                                                }
+                                              }
+                                              if(payment_gateway == 'paystack') {
+                                                var val = await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                            PayStackPage()));
+                                                if (val) {
+                                                  setState(() {
+                                                    _choosePayment =
+                                                    false;
+                                                    _addPayment =
+                                                    false;
+                                                    addMoney = null;
+                                                    addMoneyController
+                                                        .clear();
+                                                    _isLoading = true;
+                                                  });
+                                                  getWallet();
+                                                }
+                                              }
+                                              if(payment_gateway == 'flutter_wave') {
+                                                var val = await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                            FlutterWavePage()));
+                                                if (val) {
+                                                  setState(() {
+                                                    _choosePayment =
+                                                    false;
+                                                    _addPayment =
+                                                    false;
+                                                    addMoney = null;
+                                                    addMoneyController
+                                                        .clear();
+                                                  });
+                                                }
+                                              }
+                                              if(payment_gateway == 'razor_pay') {
+                                                var val = await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                            RazorPayPage()));
+                                                if (val) {
+                                                  setState(() {
+                                                    _choosePayment =
+                                                    false;
+                                                    _addPayment =
+                                                    false;
+                                                    addMoney = null;
+                                                    addMoneyController
+                                                        .clear();
+                                                  });
+                                                }
+                                              }
+                                              if(payment_gateway == 'cash_free') {
+                                                var val = await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                            CashFreePage()));
+                                                if (val) {
+                                                  setState(() {
+                                                    _choosePayment =
+                                                    false;
+                                                    _addPayment =
+                                                    false;
+                                                    addMoney = null;
+                                                    addMoneyController
+                                                        .clear();
+                                                  });
+                                                }
+                                              }
+                                              if(payment_gateway == 'KNET' ) {
+                                                getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], addMoney).then((value) {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                });
+                                                // setState(() {
+                                                //   payment_gateway!.isEmpty;
+                                                // });
+                                              }
+                                              // if(payment_gateway == 'Apple Pay') {
+                                              //   getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][11]['PaymentMethodId'], addMoney).then((value) {
+                                              //     Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                              //   });
+                                              //   setState(() {
+                                              //     payment_gateway!.isEmpty;
+                                              //   });
+                                              // }
+                                              if(payment_gateway == 'VISA/MASTER') {
+                                                getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], addMoney).then((value) {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                });
+                                                // setState(() {
+                                                //   payment_gateway!.isEmpty;
+                                                // });
+                                              }
+                                            },
+                                            text: languages[choosenLanguage]
+                                            ['text_pay']),
+                                      )
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ))

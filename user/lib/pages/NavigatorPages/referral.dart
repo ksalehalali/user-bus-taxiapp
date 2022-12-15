@@ -103,14 +103,14 @@ class _ReferralPageState extends State<ReferralPage> {
                                     SizedBox(
                                       height: media.width * 0.05,
                                     ),
-                                    SizedBox(
-                                      width: media.width * 0.9,
-                                      height: media.height * 0.16,
-                                      child: Image.asset(
-                                        'assets/images/referralpage.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
+                                    // SizedBox(
+                                    //   width: media.width * 0.9,
+                                    //   height: media.height * 0.16,
+                                    //   child: Image.asset(
+                                    //     'assets/images/referralpage.png',
+                                    //     fit: BoxFit.contain,
+                                    //   ),
+                                    // ),
                                     SizedBox(
                                       height: media.width * 0.1,
                                     ),

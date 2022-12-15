@@ -2509,6 +2509,35 @@ getWalletHistoryPage(page) async {
   return result;
 }
 
+Future getMyFatoorahLink(payment_method_id, price) async {
+  dynamic result;
+  try {
+
+    var response = await http.post(
+        Uri.parse('${url}api/v1/payment/wallet/wallet-top-up-my-fatoorah-link'),
+        headers: {
+          'Authorization': 'Bearer ${bearerToken[0].token}',
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode({'payment_method_id': payment_method_id,'price': price})
+    );
+    print('Dattaa : ${response}');
+    if (response.statusCode == 200) {
+      result = jsonDecode(response.body)['response']['PaymentURL'];
+      // result = 'success';
+    } else {
+      debugPrint(response.body);
+      result = 'failure';
+    }
+  } catch (e) {
+    if (e is SocketException) {
+      internet = false;
+      result = 'no internet';
+    }
+  }
+  return result;
+}
+
 //get client token for braintree
 
 getClientToken() async {
@@ -2516,7 +2545,9 @@ getClientToken() async {
   try {
     var response = await http.get(
         Uri.parse('${url}api/v1/payment/client/token'),
-        headers: {'Authorization': 'Bearer ${bearerToken[0].token}'});
+        headers: {
+          'Authorization': 'Bearer ${bearerToken[0].token}'
+        });
     if (response.statusCode == 200) {
       result = 'success';
     } else {
