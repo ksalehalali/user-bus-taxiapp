@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
+import '../model/fav_address.dart';
 
 class PersonalInformationController extends GetxController {
 
@@ -25,8 +26,8 @@ class PersonalInformationController extends GetxController {
   var emailHint = "example@example.com".obs;
   var token = "".obs;
   var username = "".obs;
-
   var isSaveLoading = false.obs;
+  var myFavAddresses =[].obs;
 
   @override
   void onInit() {
@@ -221,4 +222,18 @@ class PersonalInformationController extends GetxController {
     fetchPersonalInformation(token);
   }
 
+  //my addresses
+  Future addMyFavAddresses(FavoriteAddress address) async {
+
+  }
+
+  Future getMyAddresses() async {
+
+
+    return myFavAddresses;
+  }
+
+  Future deleteMyFavAddress(FavoriteAddress address) async {
+
+  }
 }

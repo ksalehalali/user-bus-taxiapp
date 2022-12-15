@@ -25,13 +25,56 @@ class _DirectPayState extends State<DirectPay> {
   final PaymentController paymentController = Get.find();
   final LocationController locationController = Get.find();
   final PackagesController packagesController = Get.find();
-
+  bool askForQRCode = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
 
+  Future showQRCodeToPay(bool payByWallet)async{
+    askForQRCode =true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+
+    String balance = await checkWallet();
+    double balanceNum = double.parse(balance);
+    String? code;
+    if (balanceNum > 0.200) {
+      code = await paymentController.getEncryptedCode(0);
+      Get.dialog(Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              15.0,
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 380.h,
+            color: Colors.white,
+            child: Center(
+              child: QrImage(
+                data:
+                "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                version: QrVersions.auto,
+                size: 322.0.sp,
+              ),
+            ),
+          )));
+      askForQRCode = false;
+    } else {
+      showFlutterToast(
+          message: "msg_0_balance",
+          backgroundColor: Colors.redAccent,
+          isLong: true,
+          textColor: Colors.white);
+      askForQRCode = false;
+
+    }
+
+    //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -117,6 +160,7 @@ class _DirectPayState extends State<DirectPay> {
                                     } else {
                                       showFlutterToast(
                                           message: "msg_0_balance",
+                                          isLong: true,
                                           backgroundColor: Colors.redAccent,
                                           textColor: Colors.white);
                                     }
@@ -191,7 +235,8 @@ class _DirectPayState extends State<DirectPay> {
 
                             } else {
 
-                              showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white);
+                              showFlutterToast(message:"msg_0_balance",backgroundColor: Colors.redAccent,textColor: Colors.white,isLong: true,
+                              );
                             }
                           }, label: Text(
                             "Pay via scan QR code_txt".tr,
@@ -218,45 +263,17 @@ class _DirectPayState extends State<DirectPay> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: () async {
-                                        SharedPreferences prefs =
-                                            await SharedPreferences.getInstance();
-                                        String codeDate =
-                                            DateFormat('yyyy-MM-dd-HH:mm-ss')
-                                                .format(DateTime.now());
+                                   if (!askForQRCode){
+                                     showQRCodeToPay(true);
+                                   }else{
+                                     showFlutterToast(
+                                         message: "Please wait!",
+                                         backgroundColor: Colors.redAccent,
+                                         isLong: false,
 
-                                        String balance = await checkWallet();
-                                        double balanceNum = double.parse(balance);
-                                        String? code;
-                                        if (balanceNum > 0.200) {
-                                          code = await paymentController.getEncryptedCode(0);
-                                          Get.dialog(Dialog(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                  15.0,
-                                                ),
-                                              ),
-                                              elevation: 0,
-                                              backgroundColor: Colors.transparent,
-                                              child: Container(
-                                                height: 380.h,
-                                                color: Colors.white,
-                                                child: Center(
-                                                  child: QrImage(
-                                                    data:
-                                                        "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
-                                                    version: QrVersions.auto,
-                                                    size: 322.0.sp,
-                                                  ),
-                                                ),
-                                              )));
-                                        } else {
-                                          showFlutterToast(
-                                              message: "msg_0_balance",
-                                              backgroundColor: Colors.redAccent,
-                                              textColor: Colors.white);
-                                        }
+                                         textColor: Colors.white);
+                                   }
 
-                                        //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
                                   },
                                 ),
                                 CupertinoContextMenuAction(
@@ -268,46 +285,16 @@ class _DirectPayState extends State<DirectPay> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: () async{
-                                        SharedPreferences prefs =
-                                            await SharedPreferences.getInstance();
-                                        String codeDate =
-                                            DateFormat('yyyy-MM-dd-HH:mm-ss')
-                                                .format(DateTime.now());
+                                    if (!askForQRCode){
+                                      showQRCodeToPay(false);
+                                    }else{
+                                      showFlutterToast(
+                                          message: "Please wait!",
+                                          backgroundColor: Colors.redAccent,
+                                          isLong: false,
 
-                                        String balance = await checkWallet();
-                                        double balanceNum = double.parse(balance);
-                                        String? code;
-                                        if (balanceNum > 0.200) {
-                                          code =
-                                              await paymentController.getEncryptedCode(0);
-                                          Get.dialog(Dialog(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                  15.0,
-                                                ),
-                                              ),
-                                              elevation: 0,
-                                              backgroundColor: Colors.transparent,
-                                              child: Container(
-                                                height: 380.h,
-                                                color: Colors.white,
-                                                child: Center(
-                                                  child: QrImage(
-                                                    data:
-                                                        "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
-                                                    version: QrVersions.auto,
-                                                    size: 322.0.sp,
-                                                  ),
-                                                ),
-                                              )));
-                                        } else {
-                                          showFlutterToast(
-                                              message: "msg_0_balance",
-                                              backgroundColor: Colors.redAccent,
-                                              textColor: Colors.white);
-                                        }
-
-                                        //print("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
+                                          textColor: Colors.white);
+                                    }
                                   },
                                 )
                               ],
@@ -398,6 +385,7 @@ class _DirectPayState extends State<DirectPay> {
                               } else {
                                 showFlutterToast(
                                     message: "msg_0_balance",
+                                    isLong: true,
                                     backgroundColor: Colors.redAccent,
                                     textColor: Colors.white);
                               }

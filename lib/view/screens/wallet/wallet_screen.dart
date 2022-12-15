@@ -359,6 +359,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           showFlutterToast(
                               message: "msg_0_balance",
                               backgroundColor: Colors.redAccent,
+                              isLong: true,
                               textColor: Colors.white);
                         }
 

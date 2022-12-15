@@ -692,6 +692,7 @@ class _MapState extends State<Map> {
                 showFlutterToast(
                     message: "msg_0_balance",
                     backgroundColor: Colors.redAccent,
+                    isLong: true,
                     textColor: Colors.white);
               }}, icon: Icon(Icons.qr_code),
             label:Text(

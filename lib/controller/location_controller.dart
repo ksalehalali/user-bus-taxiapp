@@ -136,12 +136,12 @@ class LocationController extends GetxController {
     //   print('location ........ listening.......  ${location.longitude}');
     //
     // });
-    BackgroundLocation.startLocationService(distanceFilter : 1);
+    BackgroundLocation.startLocationService(distanceFilter : 11);
 
     BackgroundLocation.getLocationUpdates((location) async {
       updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
       print("location ....... background update ${location.longitude} - ${location.latitude}");
-      audioPlayerService.audio1Play();
+      //audioPlayerService.audio1Play();
     });
 
     if (loca.latitude != null) {
