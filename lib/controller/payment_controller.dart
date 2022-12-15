@@ -55,6 +55,7 @@ class PaymentController extends GetxController {
       print(response.reasonPhrase);
     }
     return data['description'];
+    //..........
   }
 
   Future getEncryptedCode(int paymentKind)async{
