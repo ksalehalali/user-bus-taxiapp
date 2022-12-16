@@ -79,7 +79,7 @@ class OwnerController extends BaseController
         $results = $queryFilter->builder($query)->customFilter(new OwnerFilter)->paginate();
 
         if (request()->has('report')) {
-            $format = request()->format;
+            $format = request()->format();
             $view = 'admin.owners.reports.owners';
             $filename = "Owner Report-".date('ymdis').'.'.$format;
 

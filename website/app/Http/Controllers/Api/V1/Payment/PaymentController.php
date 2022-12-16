@@ -746,4 +746,27 @@ class PaymentController extends BaseController
         $myfatoorah_response = $myfatoorah_instance->getPaymentLink($customer_details, $price, 0, auth()->user()->id, $payment_method_id, $return_url, $error_return_url,$currency_code,$country_code);
         return response()->json(['success' => true, 'response' => $myfatoorah_response]);
     }
+
+    public function CompleteRidMyFatoorahLink(Request $request)
+    {
+
+        $return_url = URL::to('/myfatoorah-ride-payment-success');
+        $error_return_url = URL::to('/myfatoorah-ride-payment-error');
+
+        $payment_method_id = $request->payment_method_id;
+        $price = $request->price;
+        $request_id = $request->request_id;
+
+        if (empty($payment_method_id) || empty($price) || empty($request_id)) {
+            return response()->json(['success' => false, 'response' => 'Missing parameters']);
+        }
+
+        $currency_code = auth()->user()->countryDetail->currency_code;
+        $country_code = auth()->user()->countryDetail->dial_code;
+
+        $myfatoorah_instance = new Myfatoorahv2();
+        $customer_details = ['email' => auth()->user()->email, 'phone' => auth()->user()->mobile, 'name' => auth()->user()->name, 'civil_id' => ''];
+        $myfatoorah_response = $myfatoorah_instance->getPaymentLink($customer_details, $price, $request_id, auth()->user()->id, $payment_method_id, $return_url, $error_return_url,$currency_code,$country_code);
+        return response()->json(['success' => true, 'response' => $myfatoorah_response]);
+    }
 }

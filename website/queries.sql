@@ -38,3 +38,6 @@ TRUNCATE `cancellation_reasons`;
 TRUNCATE `vehicle_types`;
 TRUNCATE `driver_needed_documents`;
 TRUNCATE `driver_availabilities`;
+
+
+ALTER TABLE `users` ADD `refferal_code_counter` INT(11) NOT NULL DEFAULT '0' AFTER `refferal_code`;

@@ -48,34 +48,39 @@ class ReferralController extends BaseController
         if (!$reffered_user) {
             $this->throwCustomException('Provided Referral code is not valid', 'refferal_code');
         }
+        if (($reffered_user->refferal_code_counter + 1) == 15){
+            // Update referred user's id to the users table
+            auth()->user()->update(['referred_by'=>$reffered_user->id]);
 
-        // Update referred user's id to the users table
-        auth()->user()->update(['referred_by'=>$reffered_user->id]);
+            $user_wallet = $reffered_user->userWallet;
+            $referral_commision = get_settings('referral_commision_for_user')?:0;
 
-        $user_wallet = $reffered_user->userWallet;
-        $referral_commision = get_settings('referral_commision_for_user')?:0;
+            $user_wallet->amount_added += $referral_commision;
+            $user_wallet->amount_balance += $referral_commision;
+            $user_wallet->save();
 
-        $user_wallet->amount_added += $referral_commision;
-        $user_wallet->amount_balance += $referral_commision;
-        $user_wallet->save();
+            // Add the history
+            $reffered_user->userWalletHistory()->create([
+                'amount'=>$referral_commision,
+                'transaction_id'=>str_random(6),
+                'remarks'=>WalletRemarks::REFERRAL_COMMISION,
+                'refferal_code'=> $request->refferal_code,
+                'is_credit'=>true]);
 
-        // Add the history
-        $reffered_user->userWalletHistory()->create([
-            'amount'=>$referral_commision,
-            'transaction_id'=>str_random(6),
-            'remarks'=>WalletRemarks::REFERRAL_COMMISION,
-            'refferal_code'=>$reffered_user->refferal_code,
-            'is_credit'=>true]);
+            // Notify user
+            $title = trans('push_notifications.referral_earnings_notify_title',[],$reffered_user->lang);
+            $body = trans('push_notifications.referral_earnings_notify_body',[],$reffered_user->lang);
 
-        // Notify user
-        $title = trans('push_notifications.referral_earnings_notify_title',[],$reffered_user->lang);
-        $body = trans('push_notifications.referral_earnings_notify_body',[],$reffered_user->lang);
-
-        dispatch(new SendPushNotification($reffered_user,$title,$body));
-
-        return $this->respondSuccess();
+            dispatch(new SendPushNotification($reffered_user,$title,$body));
+            $reffered_user->refferal_code_counter = 0;
+            $reffered_user->save();
+            return $this->respondSuccess();
+        } else {
+            $reffered_user->refferal_code_counter += 1;
+            $reffered_user->save();
+            return $this->respondSuccess();
+        }
     }
-
     /**
     * Update Driver Referral code
     * @bodyParam refferal_code string required refferal_code of the another user

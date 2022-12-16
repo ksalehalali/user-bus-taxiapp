@@ -34,6 +34,11 @@ Route::prefix('payment')->namespace('Payment')->middleware('auth')->group(functi
         Route::get('client/token', 'PaymentController@getClientToken');
         // Add money to wallet
 
+        // Myfatoorah Routes
+
+        Route::post('complete-ride-myfatoorah-link', 'PaymentController@CompleteRidMyFatoorahLink');
+
+
         Route::prefix('wallet')->group(function () {
             Route::post('add/money', 'PaymentController@addMoneyToWallet');
             Route::get('history', 'PaymentController@walletHistory');
