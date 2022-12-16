@@ -85,14 +85,14 @@ class _LanguagesState extends State<Languages> {
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-                SizedBox(
-                  width: media.width * 0.9,
-                  height: media.height * 0.16,
-                  child: Image.asset(
-                    'assets/images/selectLanguage.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
+                // SizedBox(
+                //   width: media.width * 0.9,
+                //   height: media.height * 0.16,
+                //   child: Image.asset(
+                //     'assets/images/selectLanguage.png',
+                //     fit: BoxFit.contain,
+                //   ),
+                // ),
                 SizedBox(
                   height: media.width * 0.1,
                 ),

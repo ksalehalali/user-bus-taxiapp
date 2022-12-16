@@ -15,6 +15,8 @@ import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 
+import '../NavigatorPages/KNETPage.dart';
+
 class Invoice extends StatefulWidget {
   const Invoice({Key? key}) : super(key: key);
 
@@ -26,6 +28,7 @@ class _InvoiceState extends State<Invoice> {
 
   bool _choosePayment = false;
   bool _isLoading = false;
+  String payment_gateway = '';
 
   @override
   void initState() {
@@ -579,12 +582,7 @@ class _InvoiceState extends State<Invoice> {
                                     color: buttonColor),
                               ),
                               Text(
-                                userRequestData['requestBill']['data']
-                                        ['requested_currency_symbol'] +
-                                    ' ' +
-                                    userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toString(),
+                                userRequestData['requestBill']['data']['requested_currency_symbol'] + ' ' + userRequestData['requestBill']['data']['total_amount'].toString(),
                                 style: GoogleFonts.roboto(
                                     fontSize: media.width * twentysix,
                                     color: textColor,
@@ -639,6 +637,7 @@ class _InvoiceState extends State<Invoice> {
                                             onTap: () {
                                               setState(() {
                                                 _choosePayment = false;
+                                                payment_gateway == "";
                                               });
                                             },
                                             child: Container(
@@ -685,245 +684,396 @@ class _InvoiceState extends State<Invoice> {
                                               child: Column(
                                                 children: [
                                                   (walletBalance['stripe'] == true)
-                                                      ? Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom: media.width *
-                                                                  0.025),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: media.width * 0.7,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                             addMoney = double.parse(userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toStringAsFixed(2));
-                                                           var val = await  Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                               SelectWallet(from: '1',)));
-                                                            if(val != null){
-                                                              if(val){
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                  _choosePayment = false;
-                                                                });
-                                                                await getUserDetails();
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-                                                            }
-                                                              
-                                                            },
-                                                            child: Container(
-                                                              width: media.width *
-                                                                  0.25,
-                                                              height: media.width *
-                                                                  0.125,
-                                                              decoration: const BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'assets/images/stripe-icon.png'),
-                                                                      fit: BoxFit
-                                                                          .contain)),
+                                                      ? InkWell(
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        payment_gateway = 'stripe';
+                                                      });
+                                                    },
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: RadioListTile(
+                                                                contentPadding: EdgeInsets.all(0),
+                                                                value: "stripe",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ))
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.25,
+                                                                  height: media.width *
+                                                                      0.125,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/stripe-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      )
                                                       : Container(),
-                                                  (walletBalance['paystack'] ==
-                                                          true)
-                                                      ? Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          margin: EdgeInsets.only(
-                                                              bottom: media.width *
-                                                                  0.025),
-                                                          width: media.width * 0.7,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                             addMoney = int.parse(userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toStringAsFixed(0));
-                                                           var val = await  Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                               PayStackPage(from: '1',)));
-                                                            if(val != null){
-                                                              if(val){
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                  _choosePayment = false;
-                                                                });
-                                                                await getUserDetails();
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-                                                            }
-                                                            },
-                                                            child: Container(
-                                                              width: media.width *
-                                                                  0.25,
-                                                              height: media.width *
-                                                                  0.125,
-                                                              decoration: const BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'assets/images/paystack-icon.png'),
-                                                                      fit: BoxFit
-                                                                          .contain)),
+                                                  (walletBalance['paystack'] == true)
+                                                      ? InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            payment_gateway = 'paystack';
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "paystack",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ))
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.25,
+                                                                  height: media.width *
+                                                                      0.125,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/paystack-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      )
                                                       : Container(),
-                                                  (walletBalance['flutter_wave'] ==
-                                                          true)
-                                                      ? Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom: media.width *
-                                                                  0.025),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: media.width * 0.7,
-                                                          child: InkWell(
-                                                            onTap: ()  async{
-                                                            addMoney = double.parse(userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toStringAsFixed(2));
-                                                           var val = await  Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                               FlutterWavePage(from: '1',)));
-                                                            if(val != null){
-                                                              if(val){
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                  _choosePayment = false;
-                                                                });
-                                                                await getUserDetails();
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-                                                            }
-                                                            },
-                                                            child: Container(
-                                                              width: media.width *
-                                                                  0.25,
-                                                              height: media.width *
-                                                                  0.125,
-                                                              decoration: const BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'assets/images/flutterwave-icon.png'),
-                                                                      fit: BoxFit
-                                                                          .contain)),
+                                                  (walletBalance['flutter_wave'] == true)
+                                                      ? InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            payment_gateway = 'flutter_wave';
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "flutter_wave",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ))
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.25,
+                                                                  height: media.width *
+                                                                      0.125,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/flutterwave-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      )
                                                       : Container(),
-                                                  (walletBalance['razor_pay'] ==
-                                                          true)
-                                                      ? Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom: media.width *
-                                                                  0.025),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: media.width * 0.7,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                            addMoney = int.parse(userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toStringAsFixed(0));
-                                                           var val = await  Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                               RazorPayPage(from: '1',)));
-                                                            if(val != null){
-                                                              if(val){
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                  _choosePayment = false;
-                                                                });
-                                                                await getUserDetails();
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-                                                            }
-                                                              
-                                                            },
-                                                            child: Container(
-                                                              width: media.width *
-                                                                  0.25,
-                                                              height: media.width *
-                                                                  0.125,
-                                                              decoration: const BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'assets/images/razorpay-icon.jpeg'),
-                                                                      fit: BoxFit
-                                                                          .contain)),
+                                                  (walletBalance['razor_pay'] == true)
+                                                      ? InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            payment_gateway = 'razor_pay';
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "razor_pay",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ))
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.25,
+                                                                  height: media.width *
+                                                                      0.125,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/razorpay-icon.jpeg'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      )
                                                       : Container(),
-                                                  (walletBalance['cash_free'] ==
-                                                          true)
-                                                      ? Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom: media.width *
-                                                                  0.025),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: media.width * 0.7,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              addMoney = double.parse(userRequestData['requestBill']['data']
-                                            ['total_amount']
-                                        .toStringAsFixed(2));
-                                                            var val = await Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                             CashFreePage(from: '1',)));
-                                                              if(val != null){
-                                                              if(val){
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                  _choosePayment = false;
-                                                                });
-                                                                await getUserDetails();
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-                                                            }
-                                                            },
-                                                            child: Container(
-                                                              width: media.width *
-                                                                  0.25,
-                                                              height: media.width *
-                                                                  0.125,
-                                                              decoration: const BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'assets/images/cashfree-icon.jpeg'),
-                                                                      fit: BoxFit
-                                                                          .contain)),
+                                                  (walletBalance['cash_free'] == true)
+                                                      ? InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            payment_gateway = 'cash_free';
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "cash_free",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ))
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.25,
+                                                                  height: media.width *
+                                                                      0.125,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/cashfree-icon.jpeg'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      )
                                                       : Container(),
+                                                  (walletBalance['myfatoorah'] == true)
+                                                      ? Container(
+                                                    // margin: EdgeInsets.only(bottom: media.width * 0.025),
+                                                      margin: EdgeInsets.zero,
+                                                      padding: EdgeInsets.zero,
+                                                      alignment: Alignment.center,
+                                                      // width: media.width * 0.7,
+                                                      child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          physics: NeverScrollableScrollPhysics(),
+                                                          itemCount: walletBalance['myfatoorah_payment_methods'].length,
+                                                          itemBuilder: (context, index) {
+                                                            return Column(
+                                                              mainAxisSize: MainAxisSize.min,
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                      payment_gateway = walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'];
+                                                                    });
+                                                                  },
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child: RadioListTile(
+                                                                          contentPadding: EdgeInsets.all(0),
+                                                                          value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
+                                                                          groupValue: payment_gateway,
+                                                                          onChanged: (value){
+                                                                            setState(() {
+                                                                              payment_gateway = value.toString();
+                                                                            });
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                          flex: 1,
+                                                                          // width: 50, height: 30,
+                                                                          child: Container(
+                                                                              width: media.width *
+                                                                                  0.25,
+                                                                              height: media.width *
+                                                                                  0.125,
+                                                                              child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 10,)
+                                                              ],
+                                                            );
+                                                          }
+                                                      ))
+                                                      : Container()
                                                 ],
                                               ),
                                             ),
                                           ),
+                                          payment_gateway.isEmpty || payment_gateway == null
+                                              ? SizedBox()
+                                              : Container(
+                                            padding: EdgeInsets.only(
+                                                top: media.width * 0.05,
+                                                bottom: media.width * 0.05),
+                                            child: Button(
+                                                onTap: () async {
+                                                  if(payment_gateway == 'stripe') {
+                                                    addMoney = double.parse(userRequestData['requestBill']['data']
+                                                    ['total_amount']
+                                                        .toStringAsFixed(2));
+                                                    var val = await  Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                SelectWallet(from: '1',)));
+                                                    if(val != null){
+                                                      if(val){
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                          _choosePayment = false;
+                                                        });
+                                                        await getUserDetails();
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+                                                  if(payment_gateway == 'paystack') {
+                                                    addMoney = int.parse(userRequestData['requestBill']['data']
+                                                    ['total_amount']
+                                                        .toStringAsFixed(0));
+                                                    var val = await  Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                PayStackPage(from: '1',)));
+                                                    if(val != null){
+                                                      if(val){
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                          _choosePayment = false;
+                                                        });
+                                                        await getUserDetails();
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+                                                  if(payment_gateway == 'flutter_wave') {
+                                                    addMoney = double.parse(userRequestData['requestBill']['data']
+                                                    ['total_amount']
+                                                        .toStringAsFixed(2));
+                                                    var val = await  Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                FlutterWavePage(from: '1',)));
+                                                    if(val != null){
+                                                      if(val){
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                          _choosePayment = false;
+                                                        });
+                                                        await getUserDetails();
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+                                                  if(payment_gateway == 'razor_pay') {
+                                                    addMoney = int.parse(userRequestData['requestBill']['data']
+                                                    ['total_amount']
+                                                        .toStringAsFixed(0));
+                                                    var val = await  Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                RazorPayPage(from: '1',)));
+                                                    if(val != null){
+                                                      if(val){
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                          _choosePayment = false;
+                                                        });
+                                                        await getUserDetails();
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+                                                  if(payment_gateway == 'cash_free') {
+                                                    addMoney = double.parse(userRequestData['requestBill']['data']['total_amount'].toStringAsFixed(2));
+                                                    var val = await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                CashFreePage(from: '1',)));
+                                                    if(val != null){
+                                                      if(val){
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                          _choosePayment = false;
+                                                        });
+                                                        await getUserDetails();
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    }
+                                                  }
+                                                  if(payment_gateway == 'KNET' ) {
+                                                    getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], userRequestData['requestBill']['data']['total_amount'].toString()).then((value) {
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                    });
+                                                    // setState(() {
+                                                    //   payment_gateway!.isEmpty;
+                                                    // });
+                                                  }
+                                                  if(payment_gateway == 'VISA/MASTER') {
+                                                    getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], addMoney).then((value) {
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                    });
+                                                    // setState(() {
+                                                    //   payment_gateway!.isEmpty;
+                                                    // });
+                                                  }
+                                                },
+                                                text: languages[choosenLanguage]
+                                                ['text_pay']),
+                                          )
                                         ],
                                       ),
                                     )

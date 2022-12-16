@@ -50,11 +50,13 @@ class Handler extends ExceptionHandler
 
             \Config::set('app.debug', true);
 
-//            $content = ExceptionHandler::isHttpException($exception) ? ExceptionHandler::toIlluminateResponse(ExceptionHandler::renderHttpException($exception), $exception) : ExceptionHandler::toIlluminateResponse(ExceptionHandler::convertExceptionToResponse($exception), $exception);
+            $content = ExceptionHandler::isHttpException($exception) ? ExceptionHandler::toIlluminateResponse(ExceptionHandler::renderHttpException($exception), $exception) : ExceptionHandler::toIlluminateResponse(ExceptionHandler::convertExceptionToResponse($exception), $exception);
 
             \Config::set('app.debug', $debugSetting);
 
             try {
+                // $request = request();
+                
                 $content = [];
                 $content['message'] = $exception->getMessage();
                 $content['file'] = $exception->getFile();
@@ -64,21 +66,14 @@ class Handler extends ExceptionHandler
                 $content['url'] = request()->url();
                 $content['body'] = request()->all();
                 $content['ip'] = request()->ip();
-                
-                // $exceptionStack = (isset($content->original)) ? $content->original : $exception->getMessage();
 
-                // $emailTemplateModel['exceptionStack'] = $exceptionStack;
-                // $emailTemplateModel['request'] = $request;
-                // dd($debugSendMailEmail);
-                // $to = ['raja.aqibali@gmail.com']
-
-                $allowed_exceptions = [500,0];
+                $allowed_exceptions = [404,401,0];
                 if(!empty($exception)){
                     $statusCode = $exception->getCode();
-                    if(in_array((int)$statusCode,$allowed_exceptions)){
-                        \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
-                            $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
-                        });
+                        if(!in_array((int)$statusCode,$allowed_exceptions)){
+                             \Mail::send('email.errors.exception', ['content' => $content], function ($m) use ($debugSendMailEmail, $appName) {
+                                $m->to(['raja.aqibali@gmail.com','mfaizan.javaid786@gmail.com'])->subject($appName . 'Error');
+                            });
                     }
                 }
             } catch (Throwable $e2) {

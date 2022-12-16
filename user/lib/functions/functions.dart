@@ -1048,28 +1048,16 @@ etaRequest() async {
             ? jsonEncode({
                 'pick_lat': (userRequestData.isNotEmpty)
                     ? userRequestData['pick_lat']
-                    : addressList
-                        .firstWhere((e) => e.id == 'pickup')
-                        .latlng
-                        .latitude,
+                    : addressList.firstWhere((e) => e.id == 'pickup').latlng.latitude,
                 'pick_lng': (userRequestData.isNotEmpty)
                     ? userRequestData['pick_lng']
-                    : addressList
-                        .firstWhere((e) => e.id == 'pickup')
-                        .latlng
-                        .longitude,
+                    : addressList.firstWhere((e) => e.id == 'pickup').latlng.longitude,
                 'drop_lat': (userRequestData.isNotEmpty)
                     ? userRequestData['drop_lat']
-                    : addressList
-                        .firstWhere((e) => e.id == 'drop')
-                        .latlng
-                        .latitude,
+                    : addressList.firstWhere((e) => e.id == 'drop').latlng.latitude,
                 'drop_lng': (userRequestData.isNotEmpty)
                     ? userRequestData['drop_lng']
-                    : addressList
-                        .firstWhere((e) => e.id == 'drop')
-                        .latlng
-                        .longitude,
+                    : addressList.firstWhere((e) => e.id == 'drop').latlng.longitude,
                 'ride_type': 1
               })
             : jsonEncode({
@@ -1260,41 +1248,19 @@ createRequest() async {
         },
         body: (addressList.where((element) => element.id == 'drop').isNotEmpty)
             ? jsonEncode({
-                'pick_lat': addressList
-                    .firstWhere((e) => e.id == 'pickup')
-                    .latlng
-                    .latitude,
-                'pick_lng': addressList
-                    .firstWhere((e) => e.id == 'pickup')
-                    .latlng
-                    .longitude,
-                'drop_lat': addressList
-                    .firstWhere((e) => e.id == 'drop')
-                    .latlng
-                    .latitude,
-                'drop_lng': addressList
-                    .firstWhere((e) => e.id == 'drop')
-                    .latlng
-                    .longitude,
+                'pick_lat': addressList.firstWhere((e) => e.id == 'pickup').latlng.latitude,
+                'pick_lng': addressList.firstWhere((e) => e.id == 'pickup').latlng.longitude,
+                'drop_lat': addressList.firstWhere((e) => e.id == 'drop').latlng.latitude,
+                'drop_lng': addressList.firstWhere((e) => e.id == 'drop').latlng.longitude,
                 'vehicle_type': etaDetails[choosenVehicle]['zone_type_id'],
                 'ride_type': 1,
-                'payment_opt': (etaDetails[choosenVehicle]['payment_type']
-                            .toString()
-                            .split(',')
-                            .toList()[payingVia] ==
-                        'card')
+                'payment_opt': (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] == 'card')
                     ? 0
-                    : (etaDetails[choosenVehicle]['payment_type']
-                                .toString()
-                                .split(',')
-                                .toList()[payingVia] ==
-                            'cash')
+                    : (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] == 'cash')
                         ? 1
                         : 2,
-                'pick_address':
-                    addressList.firstWhere((e) => e.id == 'pickup').address,
-                'drop_address':
-                    addressList.firstWhere((e) => e.id == 'drop').address,
+                'pick_address': addressList.firstWhere((e) => e.id == 'pickup').address,
+                'drop_address': addressList.firstWhere((e) => e.id == 'drop').address,
                 'request_eta_amount': etaDetails[choosenVehicle]['total']
               })
             : jsonEncode({
@@ -2509,6 +2475,35 @@ getWalletHistoryPage(page) async {
   return result;
 }
 
+Future getMyFatoorahLink(payment_method_id, price) async {
+  dynamic result;
+  try {
+
+    var response = await http.post(
+        Uri.parse('${url}api/v1/payment/wallet/wallet-top-up-my-fatoorah-link'),
+        headers: {
+          'Authorization': 'Bearer ${bearerToken[0].token}',
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode({'payment_method_id': payment_method_id,'price': price})
+    );
+    print('Dattaa : ${response}');
+    if (response.statusCode == 200) {
+      result = jsonDecode(response.body)['response']['PaymentURL'];
+      // result = 'success';
+    } else {
+      debugPrint(response.body);
+      result = 'failure';
+    }
+  } catch (e) {
+    if (e is SocketException) {
+      internet = false;
+      result = 'no internet';
+    }
+  }
+  return result;
+}
+
 //get client token for braintree
 
 getClientToken() async {
@@ -2516,7 +2511,9 @@ getClientToken() async {
   try {
     var response = await http.get(
         Uri.parse('${url}api/v1/payment/client/token'),
-        headers: {'Authorization': 'Bearer ${bearerToken[0].token}'});
+        headers: {
+          'Authorization': 'Bearer ${bearerToken[0].token}'
+        });
     if (response.statusCode == 200) {
       result = 'success';
     } else {

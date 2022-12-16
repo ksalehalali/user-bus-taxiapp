@@ -94,7 +94,7 @@ class ReportController extends Controller
 
         $filename = $this->$method($request, $queryFilter);
 
-        $file = url('storage/'.$filename);
+        $file = url('public/storage/'.$filename);
 
         return $file;
     }

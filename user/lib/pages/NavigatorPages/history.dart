@@ -953,32 +953,32 @@ class _HistoryState extends State<History> {
                                               SizedBox(
                                                 height: media.width * 0.05,
                                               ),
-                                              Container(
-                                                height: media.width * 0.7,
-                                                width: media.width * 0.7,
-                                                decoration: const BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            'assets/images/nodatafound.gif'),
-                                                        fit: BoxFit.contain)),
-                                              ),
+                                              // Container(
+                                              //   height: media.width * 0.7,
+                                              //   width: media.width * 0.7,
+                                              //   decoration: const BoxDecoration(
+                                              //       image: DecorationImage(
+                                              //           image: AssetImage(
+                                              //               'assets/images/nodatafound.gif'),
+                                              //           fit: BoxFit.contain)),
+                                              // ),
                                               SizedBox(
                                                 height: media.width * 0.02,
                                               ),
-                                              SizedBox(
-                                                width: media.width * 0.9,
-                                                child: Text(
-                                                  languages[choosenLanguage]
-                                                      ['text_noDataFound'],
-                                                  style: GoogleFonts.roboto(
-                                                      fontSize:
-                                                          media.width * sixteen,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: textColor),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )
+                                              // SizedBox(
+                                              //   width: media.width * 0.9,
+                                              //   child: Text(
+                                              //     languages[choosenLanguage]
+                                              //         ['text_noDataFound'],
+                                              //     style: GoogleFonts.roboto(
+                                              //         fontSize:
+                                              //             media.width * sixteen,
+                                              //         fontWeight:
+                                              //             FontWeight.bold,
+                                              //         color: textColor),
+                                              //     textAlign: TextAlign.center,
+                                              //   ),
+                                              // )
                                             ],
                                           )
                                         : Container(),

@@ -2089,8 +2089,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      (userDetails[
-                                                                  'show_ride_later_feature'] ==
+                                                      (userDetails['show_ride_later_feature'] ==
                                                               true)
                                                           ? Button(
                                                               color: page,
@@ -2132,37 +2131,23 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                               _isLoading = true;
                                                             });
                                                             dynamic result;
-                                                            if (choosenVehicle !=
-                                                                null) {
-                                                              if (widget.type !=
-                                                                  1) {
-                                                                if (etaDetails[
-                                                                            choosenVehicle]
-                                                                        [
-                                                                        'has_discount'] ==
-                                                                    false) {
-                                                                  result =
-                                                                      await createRequest();
+                                                            if (choosenVehicle != null) {
+                                                              if (widget.type != 1) {
+                                                                if (etaDetails[choosenVehicle]['has_discount'] == false) {
+                                                                  result = await createRequest();
                                                                 } else {
-                                                                  result =
-                                                                      await createRequestWithPromo();
+                                                                  result = await createRequestWithPromo();
                                                                 }
                                                               } else {
-                                                                if (rentalOption[
-                                                                            choosenVehicle]
-                                                                        [
-                                                                        'has_discount'] ==
-                                                                    false) {
-                                                                  result =
-                                                                      await createRentalRequest();
+                                                                if (rentalOption[choosenVehicle]['has_discount'] == false) {
+                                                                  result = await createRentalRequest();
                                                                 } else {
                                                                   result =
                                                                       await createRentalRequestWithPromo();
                                                                 }
                                                               }
                                                             }
-                                                            if (result ==
-                                                                'success') {
+                                                            if (result == 'success') {
                                                               timer();
                                                             }
                                                             setState(() {

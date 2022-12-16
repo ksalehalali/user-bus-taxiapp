@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 var scrheight = 813.0;
 var scrwidth = 375.0;
 
+var version = "Powered by Routes v 1.10";
+
 double eight = 0.0213;
 double ten = 0.0267;
 double twelve = 0.032;
