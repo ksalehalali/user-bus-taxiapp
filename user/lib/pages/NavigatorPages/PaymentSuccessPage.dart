@@ -5,6 +5,7 @@ import '../../functions/functions.dart';
 import '../../styles/styles.dart';
 import '../../translations/translation.dart';
 import '../navDrawer/nav_drawer.dart';
+import '../onTripPage/invoice.dart';
 import '../onTripPage/map_page.dart';
 
 class PaymentSuccessPage extends StatefulWidget {
@@ -57,10 +58,12 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
-                backgroundColor: paymentStatus?loaderColor: verifyDeclined,
+                backgroundColor: paymentStatus == "wallet-payment-success" || paymentStatus == "ride-payment-success"
+                    ? loaderColor : verifyDeclined,
                 radius: 30,
                 child: Icon(
-                  paymentStatus?  Icons.check: Icons.clear,
+                  paymentStatus == "wallet-payment-success" || paymentStatus == "ride-payment-success"
+                      ?  Icons.check: Icons.clear,
                   color: white,
                   size: 50,
                 ),
@@ -68,7 +71,8 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: Text(
-                  paymentStatus? "${languages[choosenLanguage]['text_congratulation']}!" : "${languages[choosenLanguage]['text_payment_error']}",
+                  paymentStatus == "wallet-payment-success" || paymentStatus == "ride-payment-success"
+                      ? "${languages[choosenLanguage]['text_congratulation']}!" : "${languages[choosenLanguage]['text_payment_error']}",
                   textAlign: TextAlign.center ,style: TextStyle(color: black, fontSize: 18),
                 ),
               ),
@@ -89,12 +93,17 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
                       Navigator.pushAndRemoveUntil<dynamic>(
                         context,
                         MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) => WalletPage(),
+                          builder: (BuildContext context) => paymentStatus == "wallet-payment-success" || paymentStatus == "wallet-payment-error"
+                              ? WalletPage() : Invoice(payment: "paid",),
                         ),
                             (route) => false,//if you want to disable back feature set to false
                       );
                     },
-                    child: Text(languages[choosenLanguage]['text_wallet'],style: TextStyle(color: white),),
+                    child: Text(
+                      paymentStatus == "wallet-payment-success" || paymentStatus == "wallet-payment-error"
+                          ? languages[choosenLanguage]['text_wallet']
+                          : languages[choosenLanguage]["text_invoice"],
+                      style: TextStyle(color: white),),
                   )),
 
               // paymentStatus?Container(

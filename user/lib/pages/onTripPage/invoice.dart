@@ -18,7 +18,8 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import '../NavigatorPages/KNETPage.dart';
 
 class Invoice extends StatefulWidget {
-  const Invoice({Key? key}) : super(key: key);
+  var payment;
+  Invoice({this.payment});
 
   @override
   State<Invoice> createState() => _InvoiceState();
@@ -941,138 +942,142 @@ class _InvoiceState extends State<Invoice> {
                                                 bottom: media.width * 0.05),
                                             child: Button(
                                                 onTap: () async {
-                                                  if(payment_gateway == 'stripe') {
-                                                    addMoney = double.parse(userRequestData['requestBill']['data']
-                                                    ['total_amount']
-                                                        .toStringAsFixed(2));
-                                                    var val = await  Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                SelectWallet(from: '1',)));
-                                                    if(val != null){
-                                                      if(val){
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                          _choosePayment = false;
-                                                        });
-                                                        await getUserDetails();
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
+                                                  if(widget.payment == "paid") {
+                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Maps()));
+                                                  } else {
+                                                    if(payment_gateway == 'stripe') {
+                                                      addMoney = double.parse(userRequestData['requestBill']['data']
+                                                      ['total_amount']
+                                                          .toStringAsFixed(2));
+                                                      var val = await  Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                  SelectWallet(from: '1',)));
+                                                      if(val != null){
+                                                        if(val){
+                                                          setState(() {
+                                                            _isLoading = true;
+                                                            _choosePayment = false;
+                                                          });
+                                                          await getUserDetails();
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       }
                                                     }
-                                                  }
-                                                  if(payment_gateway == 'paystack') {
-                                                    addMoney = int.parse(userRequestData['requestBill']['data']
-                                                    ['total_amount']
-                                                        .toStringAsFixed(0));
-                                                    var val = await  Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                PayStackPage(from: '1',)));
-                                                    if(val != null){
-                                                      if(val){
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                          _choosePayment = false;
-                                                        });
-                                                        await getUserDetails();
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
+                                                    if(payment_gateway == 'paystack') {
+                                                      addMoney = int.parse(userRequestData['requestBill']['data']
+                                                      ['total_amount']
+                                                          .toStringAsFixed(0));
+                                                      var val = await  Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                  PayStackPage(from: '1',)));
+                                                      if(val != null){
+                                                        if(val){
+                                                          setState(() {
+                                                            _isLoading = true;
+                                                            _choosePayment = false;
+                                                          });
+                                                          await getUserDetails();
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       }
                                                     }
-                                                  }
-                                                  if(payment_gateway == 'flutter_wave') {
-                                                    addMoney = double.parse(userRequestData['requestBill']['data']
-                                                    ['total_amount']
-                                                        .toStringAsFixed(2));
-                                                    var val = await  Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                FlutterWavePage(from: '1',)));
-                                                    if(val != null){
-                                                      if(val){
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                          _choosePayment = false;
-                                                        });
-                                                        await getUserDetails();
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
+                                                    if(payment_gateway == 'flutter_wave') {
+                                                      addMoney = double.parse(userRequestData['requestBill']['data']
+                                                      ['total_amount']
+                                                          .toStringAsFixed(2));
+                                                      var val = await  Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                  FlutterWavePage(from: '1',)));
+                                                      if(val != null){
+                                                        if(val){
+                                                          setState(() {
+                                                            _isLoading = true;
+                                                            _choosePayment = false;
+                                                          });
+                                                          await getUserDetails();
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       }
                                                     }
-                                                  }
-                                                  if(payment_gateway == 'razor_pay') {
-                                                    addMoney = int.parse(userRequestData['requestBill']['data']
-                                                    ['total_amount']
-                                                        .toStringAsFixed(0));
-                                                    var val = await  Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                RazorPayPage(from: '1',)));
-                                                    if(val != null){
-                                                      if(val){
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                          _choosePayment = false;
-                                                        });
-                                                        await getUserDetails();
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
+                                                    if(payment_gateway == 'razor_pay') {
+                                                      addMoney = int.parse(userRequestData['requestBill']['data']
+                                                      ['total_amount']
+                                                          .toStringAsFixed(0));
+                                                      var val = await  Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                  RazorPayPage(from: '1',)));
+                                                      if(val != null){
+                                                        if(val){
+                                                          setState(() {
+                                                            _isLoading = true;
+                                                            _choosePayment = false;
+                                                          });
+                                                          await getUserDetails();
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       }
                                                     }
-                                                  }
-                                                  if(payment_gateway == 'cash_free') {
-                                                    addMoney = double.parse(userRequestData['requestBill']['data']['total_amount'].toStringAsFixed(2));
-                                                    var val = await Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                CashFreePage(from: '1',)));
-                                                    if(val != null){
-                                                      if(val){
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                          _choosePayment = false;
-                                                        });
-                                                        await getUserDetails();
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
+                                                    if(payment_gateway == 'cash_free') {
+                                                      addMoney = double.parse(userRequestData['requestBill']['data']['total_amount'].toStringAsFixed(2));
+                                                      var val = await Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                  CashFreePage(from: '1',)));
+                                                      if(val != null){
+                                                        if(val){
+                                                          setState(() {
+                                                            _isLoading = true;
+                                                            _choosePayment = false;
+                                                          });
+                                                          await getUserDetails();
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       }
                                                     }
-                                                  }
-                                                  if(payment_gateway == 'KNET' ) {
-                                                    getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], userRequestData['requestBill']['data']['total_amount'].toString()).then((value) {
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
-                                                    });
-                                                    // setState(() {
-                                                    //   payment_gateway!.isEmpty;
-                                                    // });
-                                                  }
-                                                  if(payment_gateway == 'VISA/MASTER') {
-                                                    getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], addMoney).then((value) {
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
-                                                    });
-                                                    // setState(() {
-                                                    //   payment_gateway!.isEmpty;
-                                                    // });
+                                                    if(payment_gateway == 'KNET' ) {
+                                                      getGetCompleteMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], userRequestData['requestBill']['data']['total_amount'].toString()).then((value) {
+                                                        Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                      });
+                                                      // setState(() {
+                                                      //   payment_gateway!.isEmpty;
+                                                      // });
+                                                    }
+                                                    if(payment_gateway == 'VISA/MASTER') {
+                                                      getGetCompleteMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], userRequestData['requestBill']['data']['total_amount'].toString()).then((value) {
+                                                        Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                                      });
+                                                      // setState(() {
+                                                      //   payment_gateway!.isEmpty;
+                                                      // });
+                                                    }
                                                   }
                                                 },
-                                                text: languages[choosenLanguage]
-                                                ['text_pay']),
+                                                text: widget.payment == "paid" ? languages[choosenLanguage]["text_confirm"] : languages[choosenLanguage]['text_pay']
+                                            ),
                                           )
                                         ],
                                       ),

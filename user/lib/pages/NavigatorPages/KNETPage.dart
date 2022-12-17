@@ -59,10 +59,16 @@ class _WebViewContainerState extends State<KNETPage> {
                 //   orderId = getOrderId(url);
                 // }
                 deleteSharedPrf();
-                goToPaymentStatusPage(context, true);
+                goToPaymentStatusPage(context, "wallet-payment-success");
                 // goToPaymentStatusPage(context, true, myOrdersItem, true, true);
               } else if (url.contains("myfatoorah-wallet-payment-error")) {
-                goToPaymentStatusPage(context, false,);
+                goToPaymentStatusPage(context, "wallet-payment-error",);
+                // goToPaymentStatusPage(context, false, myOrdersItem, false, false);
+              } else if (url.contains("myfatoorah-ride-payment-success")) {
+                goToPaymentStatusPage(context, "ride-payment-success",);
+                // goToPaymentStatusPage(context, false, myOrdersItem, false, false);
+              } else if (url.contains("myfatoorah-ride-payment-error")) {
+                goToPaymentStatusPage(context, "ride-payment-error",);
                 // goToPaymentStatusPage(context, false, myOrdersItem, false, false);
               }
               setState(() {
@@ -82,7 +88,7 @@ class _WebViewContainerState extends State<KNETPage> {
     sharedPreferences.remove('promo_code_data');
   }
 
-  void goToPaymentStatusPage(BuildContext context, bool paymentStatus) {
+  void goToPaymentStatusPage(BuildContext context,  paymentStatus) {
   // void goToPaymentStatusPage(BuildContext context, bool paymentStatus, Orders myOrdersItem, bool myOrderPage, bool myOrderPageKnet) {
     Navigator.pushAndRemoveUntil<dynamic>(
       context,

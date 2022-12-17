@@ -37,6 +37,7 @@ String isActive = '';
 double duration = 30.0;
 var audio = 'audio/notification_sound.mp3';
 bool internet = true;
+var request_number;
 
 //base url
 String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
@@ -2475,6 +2476,25 @@ getWalletHistoryPage(page) async {
   return result;
 }
 
+Future getMyRefferes() async {
+  List refferes = [];
+  try{
+    var response = await http.get(Uri.parse('${url}api/v1/user/myreferrers'),
+        headers: {'Authorization': 'Bearer ${bearerToken[0].token}'},);
+    if (response.statusCode == 200) {
+      refferes = jsonDecode(response.body)['data']['referrers'];
+    } else {
+      debugPrint(response.body);
+      refferes = [];
+    }
+  } catch (e) {
+    if (e is SocketException) {
+      internet = false;
+    }
+  }
+  return refferes;
+}
+
 Future getMyFatoorahLink(payment_method_id, price) async {
   dynamic result;
   try {
@@ -2486,6 +2506,34 @@ Future getMyFatoorahLink(payment_method_id, price) async {
           'Content-Type': 'application/json'
         },
         body: jsonEncode({'payment_method_id': payment_method_id,'price': price})
+    );
+    print('Dattaa : ${response}');
+    if (response.statusCode == 200) {
+      result = jsonDecode(response.body)['response']['PaymentURL'];
+      // result = 'success';
+    } else {
+      debugPrint(response.body);
+      result = 'failure';
+    }
+  } catch (e) {
+    if (e is SocketException) {
+      internet = false;
+      result = 'no internet';
+    }
+  }
+  return result;
+}
+Future getGetCompleteMyFatoorahLink(payment_method_id, price, ) async {
+  dynamic result;
+  try {
+    https://taxi.crescenttechnologies.com.pk/
+    var response = await http.post(
+        Uri.parse('${url}api/v1/payment/complete-ride-myfatoorah-link'),
+        headers: {
+          'Authorization': 'Bearer ${bearerToken[0].token}',
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode({'payment_method_id': payment_method_id,'price': price, 'request_id': userRequestData['id']})
     );
     print('Dattaa : ${response}');
     if (response.statusCode == 200) {

@@ -20,10 +20,16 @@ class ReferralPage extends StatefulWidget {
 class _ReferralPageState extends State<ReferralPage> {
   bool _isLoading = true;
   bool _showToast = false;
+  List myReferrers = [];
 
   @override
   void initState() {
     _getReferral();
+    getMyRefferes().then((value) {
+      setState(() {
+        myReferrers = value;
+      });
+    });
     super.initState();
   }
 
@@ -185,6 +191,102 @@ class _ReferralPageState extends State<ReferralPage> {
                           )
                         : Container(),
                   ),
+
+                  Positioned(
+                      top: MediaQuery.of(context).size.height/2,
+                      child: Text('My Refferers', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500),)),
+
+                  (myReferrers.isNotEmpty)
+                      ? Positioned(
+                        top: MediaQuery.of(context).size.height/1.8,
+                        child: SingleChildScrollView(
+                          child: Column(
+                    children: myReferrers
+                            .asMap()
+                            .map((i, value) {
+                          return MapEntry(
+                              i,
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: media.width * 0.02,
+                                    bottom:
+                                    media.width * 0.02),
+                                width: media.width * 0.9,
+                                padding: EdgeInsets.all(
+                                    media.width * 0.025),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: borderLines,
+                                        width: 1.2),
+                                    borderRadius:
+                                    BorderRadius
+                                        .circular(12),
+                                    color: page),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: media.width *
+                                          0.1067,
+                                      width: media.width *
+                                          0.1067,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius
+                                              .circular(
+                                              10),
+                                          color: const Color(
+                                              0xff000000)
+                                              .withOpacity(
+                                              0.05)),
+                                      alignment:
+                                      Alignment.center,
+                                      child: Image.network((myReferrers[i]['profile_picture'])),
+                                    ),
+                                    SizedBox(
+                                      width: media.width *
+                                          0.025,
+                                    ),
+                                    Text(
+                                      myReferrers[i]['name'].toString(),
+                                      style: GoogleFonts.roboto(
+                                          fontSize: media
+                                              .width *
+                                              fourteen,
+                                          color:
+                                          textColor,
+                                          fontWeight:
+                                          FontWeight
+                                              .w600),
+                                    ),
+                                    Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .end,
+                                          children: [
+                                            Text(
+                                              "${myReferrers[i]['mobile'].toString()}",
+                                              style: GoogleFonts
+                                                  .roboto(
+                                                fontSize: media
+                                                    .width *
+                                                    twelve,
+                                                color: black,
+                                              ),
+                                            )
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ));
+                    })
+                            .values
+                            .toList(),
+                  ),
+                        ),
+                      )
+                      : Container(),
+
                   (internet == false)
                       ? Positioned(
                           top: 0,

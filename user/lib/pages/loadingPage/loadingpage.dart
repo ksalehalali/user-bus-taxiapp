@@ -48,7 +48,7 @@ class _LoadingPageState extends State<LoadingPage> {
       //invoice page of ride
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const Invoice()),
+          MaterialPageRoute(builder: (context) => Invoice()),
           (route) => false);
     } else if (userRequestData.isNotEmpty &&
         userRequestData['is_completed'] != 1) {

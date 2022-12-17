@@ -564,7 +564,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Invoice()),
+                              builder: (context) => Invoice()),
                           (route) => false);
                     });
                   }
@@ -3516,11 +3516,8 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                       Alignment.centerLeft,
                                                   child: Container(
                                                     height: media.width * 0.02,
-                                                    width: (media.width *
-                                                        0.9 *
-                                                        (timing /
-                                                            userDetails[
-                                                                'maximum_time_for_find_drivers_for_regular_ride'])),
+                                                    width: (media.width * 0.9 * (timing /
+                                                            userDetails['maximum_time_for_find_drivers_for_regular_ride'])),
                                                     decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
@@ -3815,9 +3812,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                         height:
                                                             media.width * 0.05,
                                                       ),
-                                                      (userRequestData[
-                                                                  'is_trip_start'] !=
-                                                              1)
+                                                      (userRequestData['is_trip_start'] != 1)
                                                           ? Row(
                                                               children: [
                                                                 InkWell(
@@ -4155,9 +4150,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       ],
                                                                     ),
                                                                   ),
-                                                            (userRequestData[
-                                                                        'is_trip_start'] !=
-                                                                    1)
+                                                            (userRequestData['is_trip_start'] != 1)
                                                                 ? Container(
                                                                     margin: EdgeInsets.only(
                                                                         bottom: media.width *
@@ -4170,9 +4163,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                         borderLines,
                                                                   )
                                                                 : Container(),
-                                                            (userRequestData[
-                                                                        'is_trip_start'] !=
-                                                                    1)
+                                                            (userRequestData['is_trip_start'] != 1)
                                                                 ? Row(
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
@@ -4390,18 +4381,13 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                     ),
                                                   ),
                                                   Column(
-                                                    children: cancelReasonsList
-                                                        .asMap()
-                                                        .map((i, value) {
+                                                    children: cancelReasonsList.asMap().map((i, value) {
                                                           return MapEntry(
                                                               i,
                                                               InkWell(
                                                                 onTap: () {
                                                                   setState(() {
-                                                                    _cancelReason =
-                                                                        cancelReasonsList[i]
-                                                                            [
-                                                                            'reason'];
+                                                                    _cancelReason = cancelReasonsList[i]['reason'];
                                                                   });
                                                                 },
                                                                 child:
@@ -4592,18 +4578,11 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                             setState(() {
                                                               _isLoading = true;
                                                             });
-                                                            if (_cancelReason !=
-                                                                '') {
-                                                              if (_cancelReason ==
-                                                                  'others') {
-                                                                if (_cancelCustomReason !=
-                                                                        '' &&
-                                                                    _cancelCustomReason
-                                                                        .isNotEmpty) {
-                                                                  _cancellingError =
-                                                                      '';
-                                                                  await cancelRequestWithReason(
-                                                                      _cancelCustomReason);
+                                                            if (_cancelReason != '') {
+                                                              if (_cancelReason == 'others') {
+                                                                if (_cancelCustomReason != '' && _cancelCustomReason.isNotEmpty) {
+                                                                  _cancellingError = '';
+                                                                  await cancelRequestWithReason(_cancelCustomReason);
                                                                   setState(() {
                                                                     _cancelling =
                                                                         false;
@@ -4617,8 +4596,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                   });
                                                                 }
                                                               } else {
-                                                                await cancelRequestWithReason(
-                                                                    _cancelReason);
+                                                                await cancelRequestWithReason(_cancelReason);
                                                                 setState(() {
                                                                   _cancelling =
                                                                       false;
@@ -4638,8 +4616,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                               0.39,
                                                           onTap: () {
                                                             setState(() {
-                                                              _cancelling =
-                                                                  false;
+                                                              _cancelling = false;
                                                             });
                                                           },
                                                           text: languages[
