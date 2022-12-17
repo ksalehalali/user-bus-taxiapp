@@ -19,6 +19,7 @@ use App\Base\Constants\Auth\Role;
 Route::prefix('user')->namespace('User')->middleware('auth')->group(function () {
     // Get the logged in user.
     Route::get('/', 'AccountController@me');
+    Route::get('/myreferrers', 'AccountController@myreferrers');
     /**
      * These routes use the middleware group 'role'.
      * These routes are accessible only by a user with the 'user' role.
