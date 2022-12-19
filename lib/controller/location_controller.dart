@@ -43,6 +43,8 @@ class LocationController extends GetxController {
   Address? dropOffLocation ;
   Rx<Position> positionFromPin =Position(latitude: 29.37631633045168, accuracy: 0.0, altitude: 0.0, speed: 0.0, speedAccuracy: 0.0, longitude: 47.98637351560368, heading: 0.0, timestamp: null).obs;
   AudioPlayerService audioPlayerService = AudioPlayerService();
+  bool isLocationUpdated = false;
+  var myFavAddresses =[].obs;
 
   @override
   void onInit() {
@@ -136,10 +138,18 @@ class LocationController extends GetxController {
     //   print('location ........ listening.......  ${location.longitude}');
     //
     // });
-    BackgroundLocation.startLocationService(distanceFilter : 11);
+    BackgroundLocation.startLocationService(distanceFilter : 1);
 
     BackgroundLocation.getLocationUpdates((location) async {
-      updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+
+      if (!isLocationUpdated){
+        isLocationUpdated =true;
+      Timer(Duration(seconds:5), () {
+          updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+          isLocationUpdated =false;
+      });
+
+      }
       print("location ....... background update ${location.longitude} - ${location.latitude}");
       //audioPlayerService.audio1Play();
     });
@@ -214,6 +224,7 @@ class LocationController extends GetxController {
             mainText: 'set_location_on_map_txt'.tr,
             secondText: 'choose_txt'.tr,
     ));
+    //getMyAddresses();
   }
   void updatePickUpLocationAddress( Address pickUpAddress){
     pickUpLocation = pickUpAddress;
@@ -284,7 +295,18 @@ updatePinPos(double lat , double lng){
     currentLocationG.value=google_maps.LatLng(lat,lng);
     update();
 }
+//address
+  Future getMyAddresses() async {
 
+    placePredictionList.add(
+        PlaceShort(
+          placeId: '1',
+          mainText: 'Kuwait Salm'.tr,
+          secondText: 'Kuwait Salm2'.tr,
+          lat:29.297260 ,
+          lng:48.023180
+        ));
+  }
 }
 
 class PlaceShort {

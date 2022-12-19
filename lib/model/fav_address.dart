@@ -7,6 +7,7 @@ class FavoriteAddress{
   final LocationModel location;
   final String createdDate;
 
-  FavoriteAddress(this.name, this.address, this.location, this.createdDate,this.id);
+  FavoriteAddress(
+      {required this.name, required this.address, required this.location, required this.createdDate,  required this.id});
 
 }

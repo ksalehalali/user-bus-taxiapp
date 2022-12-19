@@ -136,7 +136,22 @@ Map<String,String> ar ={
   "Cancel_btn":"إلغاء",
   "My Packages_txt":"باقاتي",
   "Activation Date: _txt":"تاريخ التفعيل:",
-  "Remaining : _txt":"تبقى:"
+  "Remaining : _txt":"تبقى:",
+  //-
+
+  "Save_txt":"احفظ",
+  "Enter name (Home,Work...)_txt":"ادخل الاسم (المنزل,العمل...)",
+  "yourFavoriteAddresses_txt":"الاماكن المفضلة",
+  "Addresses_txt":"العناوين",
+  "Address_txt":"العنوان",
+
+  //-
+  "Account delete_txt":"حذف الحساب",
+  "Your account will be deleted_txt":"سوف يتم حذف حسابك",
+
+
+
+
 
 
 
@@ -282,7 +297,20 @@ Map<String,String> en ={
   "Cancel_btn":"Cancel",
   "My Packages_txt":"My packages",
   "Activation Date: _txt":"Activation Date: ",
-  "Remaining : _txt":"Remaining"
+  "Remaining : _txt":"Remaining",
+  //-
+
+  "Save_txt":"Save",
+  "Enter name (Home,Work...)_txt":"Enter name (Home,Work...)",
+  "yourFavoriteAddresses_txt":"Your favorite addresses",
+  "Addresses_txt":"Addresses",
+  "Address_txt":"Address",
+  //-
+
+
+"Account delete_txt":"Account delete_txt",
+"Your account will be deleted_txt":"Your account will be deleted_txt",
+
 
 
 

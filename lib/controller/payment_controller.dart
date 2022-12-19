@@ -148,6 +148,7 @@ class PaymentController extends GetxController {
               createdDate: DateTime.now().toString(),
               value: paymentSaved.value),
         ));
+
         update();
         return true;
       }

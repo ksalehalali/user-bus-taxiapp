@@ -223,8 +223,10 @@ class PersonalInformationController extends GetxController {
   }
 
   //my addresses
-  Future addMyFavAddresses(FavoriteAddress address) async {
+  Future<bool> addMyFavAddresses(FavoriteAddress address) async {
 
+
+    return true;
   }
 
   Future getMyAddresses() async {

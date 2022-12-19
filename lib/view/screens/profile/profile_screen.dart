@@ -17,6 +17,7 @@ import '../../widgets/headerDesgin.dart';
 import '../Auth/login.dart';
 import '../packages/my_packages_screen.dart';
 import '../packages/packages_screen.dart';
+import 'favorite_addresses_screen.dart';
 import 'help_screen.dart';
 import 'your_activities_screen.dart';
 import 'package:share_plus/share_plus.dart';
@@ -40,16 +41,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   showDialogBox() => showCupertinoDialog<String>(
     context: context,
     builder: (BuildContext context) => CupertinoAlertDialog(
-      title: const Text('Account delete'),
-      content: const Text('Your account will be deleted'),
+      title:  Text('Account delete_txt'.tr),
+      content:  Text('Your account will be deleted_txt'.tr),
       actions: <Widget>[
+
         TextButton(
           onPressed: () async {
-            Navigator.pop(context, 'Confirm');
-             personalInfoController.deleteMyAccount('id');
-             loginController.logout();
+            Navigator.pop(context, 'Confirm_txt'.tr);
+          },
+          child:  Text('Close_txt'.tr),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Confirm_txt'.tr);
+            personalInfoController.deleteMyAccount('id');
+            loginController.logout();
 
-             //notify the user account deleted
+            //notify the user account deleted
             CupertinoAlertDialog(
               title: const Text('Account deleted'),
               content: const Text('Your account deleted'),
@@ -65,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
           },
-          child: const Text('Confirm'),
+          child:  Text('Confirm_txt'.tr),
         ),
       ],
     ),
@@ -171,6 +179,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         Text(
                                           'personal_info'.tr,
+                                          style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
+
+                                        ),
+                                        const Spacer(),
+                                        Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          size: 22.sp,
+                                          color: Colors.grey,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                //my fav addresses
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(()=> FavoriteAddressesScreen());
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.person_pin,
+                                          size: 32.sp,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(
+                                          width: 8.0.w,
+                                        ),
+                                        Text(
+                                          'yourFavoriteAddresses_txt'.tr,
                                           style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                         ),

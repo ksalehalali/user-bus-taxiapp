@@ -41,7 +41,7 @@ import FirebaseCore
            }
        })
 
-    GMSServices.provideAPIKey("AIzaSyBZCipU5Ocjy9Abhqa_9gPe39JjTqTVOCE")
+    GMSServices.provideAPIKey("AIzaSyDJ-2jJpL6Ast3hT88lvUx9S2F5COO0nSM")
     GeneratedPluginRegistrant.register(with: self)
       getCurrent()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
