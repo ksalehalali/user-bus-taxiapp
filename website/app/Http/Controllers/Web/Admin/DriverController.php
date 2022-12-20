@@ -224,6 +224,7 @@ class DriverController extends BaseController
             'country'=>$country_id,
         ]);
 
+        // $user->driverWallet()->create(['amount_added'=>0]);
 
         if ($uploadedFile = $this->getValidatedUpload('profile_pic', $request)) {
             $created_params['profile_pic'] = $this->imageUploader->file($uploadedFile)

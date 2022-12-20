@@ -36,6 +36,9 @@ Route::namespace('Web')->group(function () {
     Route::get('/myfatoorah-wallet-payment-success', 'MyFatoorahController@MyfatoorahWalletPaymentSuccess');
     Route::get('/myfatoorah-wallet-payment-error', 'MyFatoorahController@MyfatoorahWalletPaymentError');
 
+    Route::get('/myfatoorah-driver-wallet-payment-success', 'MyFatoorahController@MyfatoorahDriverWalletPaymentSuccess');
+    Route::get('/myfatoorah-driver-wallet-payment-error', 'MyFatoorahController@MyfatoorahDriverWalletPaymentError');
+
     Route::get('/myfatoorah-ride-payment-success', 'MyFatoorahController@MyfatoorahRidePaymentSuccess');
     Route::get('/myfatoorah-ride-payment-error', 'MyFatoorahController@MyfatoorahRidePaymentError');
 

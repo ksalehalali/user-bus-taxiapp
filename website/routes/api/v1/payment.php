@@ -43,6 +43,7 @@ Route::prefix('payment')->namespace('Payment')->middleware('auth')->group(functi
             Route::post('add/money', 'PaymentController@addMoneyToWallet');
             Route::get('history', 'PaymentController@walletHistory');
             Route::post('wallet-top-up-my-fatoorah-link', 'PaymentController@WalletTopUpMyFatoorahLink');
+            Route::post('wallet-driver-top-up-my-fatoorah-link', 'PaymentController@WalletDriverTopUpMyFatoorahLink');
             Route::get('withdrawal-requests', 'PaymentController@withDrawalRequests');
             Route::post('request-for-withdrawal', 'PaymentController@requestForWithdrawal');
             Route::post('transfer-money-from-wallet', 'PaymentController@transferMoneyFromWallet');

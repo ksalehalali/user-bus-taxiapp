@@ -12,6 +12,7 @@ use App\Models\Payment\DriverWalletHistory;
 use App\Models\Payment\UserWalletHistory;
 use App\Models\Request\Request as RequestModel;
 use App\Models\User;
+use App\Models\Admin\Driver;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 
@@ -50,6 +51,39 @@ class MyFatoorahController extends Controller
     }
 
     public function MyFatoorahWalletPaymentError(Request $request){
+        $model = new Myfatoorahv2();
+        $data =$model->paymentdetails($request->paymentId);
+        $this->updata_transaction_status($data);
+        return $this->respondFailed('payment_failed');
+    }
+    
+    public function MyFatoorahDriverWalletPaymentSuccess(Request $request){
+        $model = new Myfatoorahv2();
+        $data =$model->paymentdetails($request->paymentId);
+        $InvoiceId = $data['InvoiceId'];
+        $myfatoorah_model = $this->updata_transaction_status($data);
+        $user_wallet_check = DriverWalletHistory::Where('transaction_id',$InvoiceId)->Where('merchant','Myfatoorah')->first();
+        if (empty($user_wallet_check)){
+            $amount_to_transfer = $data['InvoiceValue'];
+            $receiver_user = Driver::Where('user_id',$myfatoorah_model->user_id)->first();
+            $receiver_wallet = $receiver_user->driverWallet;
+            $receiver_wallet->amount_added += $amount_to_transfer;
+            $receiver_wallet->amount_balance += $amount_to_transfer;
+            $receiver_wallet->save();
+            $receiver_user->DriverWalletHistory()->create([
+                'transaction_id' => $InvoiceId,
+                'amount' => $amount_to_transfer,
+                'merchant' => 'Myfatoorah',
+                'is_credit' => true,
+                'remarks' => 'Wallet Top Up from MyFatoorh'
+            ]);
+            return $this->respondSuccess(null,'payment_completed_successfully');
+        } else {
+            return $this->respondFailed('duplicate_entry');
+        }
+    }
+
+    public function MyFatoorahDriverWalletPaymentError(Request $request){
         $model = new Myfatoorahv2();
         $data =$model->paymentdetails($request->paymentId);
         $this->updata_transaction_status($data);
