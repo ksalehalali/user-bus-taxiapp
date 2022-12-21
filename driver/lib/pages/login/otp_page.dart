@@ -42,6 +42,7 @@ class _OtpState extends State<Otp> {
   late List<TextEditingController?> controls;
 
   int numberOfFields = 6;
+  bool buttonLoading = false;
   var otpCode = "";
   bool _loading = false;
   //loading screen showing
@@ -321,12 +322,12 @@ class _OtpState extends State<Otp> {
                                   ),
                                   Container(
                                     alignment: Alignment.center,
-                                    child: Button(
+                                    child: buttonLoading ? LoadingButton(onTap: null) : Button(
                                       onTap: () async {
                                         if (otpNumber.length == 6) {
                                           timer.cancel();
                                           setState(() {
-                                            _loading = true;
+                                            buttonLoading = true;
                                             _error = '';
                                           });
                                           //firebase code send false
@@ -357,7 +358,7 @@ class _OtpState extends State<Otp> {
                                                   _error =
                                                       languages[choosenLanguage]
                                                           ['text_otp_error'];
-                                                  _loading = false;
+                                                  buttonLoading = false;
                                                 });
                                               }
                                             }
@@ -375,22 +376,15 @@ class _OtpState extends State<Otp> {
                                               phnumber);
                                         }
                                       },
-                                      borcolor:
-                                          (resendTime != 0 && otpNumber.length != 6)
+                                      borcolor: (resendTime != 0 && otpNumber.length != 6)
                                               ? secondaryColor
                                               : null,
                                       text: (otpNumber.length == 6)
-                                          ? languages[choosenLanguage]
-                                              ['text_verify']
+                                          ? languages[choosenLanguage]['text_verify']
                                           : (resendTime == 0)
-                                              ? languages[choosenLanguage]
-                                                  ['text_resend_code']
-                                              : languages[choosenLanguage]
-                                                      ['text_resend_code'] +
-                                                  ' ' +
-                                                  resendTime.toString(),
-                                      color:
-                                          (resendTime != 0 && otpNumber.length != 6)
+                                              ? languages[choosenLanguage]['text_resend_code']
+                                              : languages[choosenLanguage]['text_resend_code'] + ' ' + resendTime.toString(),
+                                      color: (resendTime != 0 && otpNumber.length != 6)
                                               ? hideButtonColor
                                               : primaryColor,
                                     ),

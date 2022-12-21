@@ -69,10 +69,12 @@ class _LoadingPageState extends State<LoadingPage> {
       }
     } else {
       //home page
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const Maps()),
-          (route) => false);
+     // Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const Maps()),
+                (route) => false);
+    //  });
     }
   }
 
@@ -95,8 +97,7 @@ class _LoadingPageState extends State<LoadingPage> {
           .child('user_android_version')
           .get();
     } else {
-      _version =
-          await FirebaseDatabase.instance.ref().child('user_ios_version').get();
+      _version = await FirebaseDatabase.instance.ref().child('user_ios_version').get();
     }
     if (_version.value != null) {
       var version = _version.value.toString().split('.');
@@ -133,7 +134,6 @@ class _LoadingPageState extends State<LoadingPage> {
       await getDetailsOfDevice();
       if (internet == true) {
         var val = await getLocalData();
-
         if (val == '3') {
           navigate();
         } else if (val == '2') {

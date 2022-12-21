@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 var scrheight = 813.0;
 var scrwidth = 375.0;
 
+var version = "Powered by Routes v 1.4";
+
 double eight = 0.0213;
 double ten = 0.0267;
 double twelve = 0.032;
@@ -47,3 +49,4 @@ Color secondaryColor = const Color.fromRGBO(88, 188, 255, 1);
 Color drawerTextColor = const Color.fromRGBO(2, 2, 2, 1.0);
 Color primaryColor = Color.fromRGBO(31, 85, 159, 1.0);
 Color hideButtonColor = const Color.fromRGBO(141, 180, 212, 1.0);
+Color paymentMethodsColor = const Color.fromRGBO(226, 226, 226, 1.0);

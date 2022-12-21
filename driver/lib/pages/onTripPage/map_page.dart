@@ -609,7 +609,7 @@ class _MapsState extends State<Maps>
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Invoice()),
+                        MaterialPageRoute(builder: (context) => Invoice()),
                         (route) => false);
                   });
                   _pickAnimateDone = false;
@@ -1695,9 +1695,7 @@ class _MapsState extends State<Maps>
                                                                     onMapCreated:
                                                                         _onMapCreated,
                                                                     initialCameraPosition:
-                                                                        CameraPosition(
-                                                                      target: (center ==
-                                                                              null)
+                                                                        CameraPosition(target: (center == null)
                                                                           ? _center
                                                                           : center,
                                                                       zoom: 11.0,

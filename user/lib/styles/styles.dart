@@ -46,3 +46,4 @@ Color starColor = const Color(0xff038cc8);
 Color white = Colors.white;
 Color black = Colors.black;
 Color light_grey = const Color.fromRGBO(171, 171, 171, 1);
+Color paymentMethodsColor = const Color.fromRGBO(226, 226, 226, 1.0);

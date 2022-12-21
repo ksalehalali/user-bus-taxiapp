@@ -606,8 +606,7 @@ getUserDetails() async {
       },
     );
     if (response.statusCode == 200) {
-      userDetails =
-          Map<String, dynamic>.from(jsonDecode(response.body)['data']);
+      userDetails = Map<String, dynamic>.from(jsonDecode(response.body)['data']);
           if(userDetails['notifications_count'] != 0 && userDetails['notifications_count'] != null){
         valueNotifierNotification.incrementNotifier();
       }

@@ -7,7 +7,8 @@ import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 
 class Invoice extends StatefulWidget {
-  const Invoice({Key? key}) : super(key: key);
+  var payment;
+  Invoice({this.payment});
 
   @override
   State<Invoice> createState() => _InvoiceState();

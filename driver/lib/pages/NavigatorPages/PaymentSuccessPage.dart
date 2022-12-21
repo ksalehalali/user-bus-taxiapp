@@ -3,7 +3,7 @@ import 'package:tagyourtaxi_driver/pages/NavigatorPages/walletpage.dart';
 
 import '../../functions/functions.dart';
 import '../../styles/styles.dart';
-import '../../translations/translation.dart';
+import '../../translation/translation.dart';
 import '../navDrawer/nav_drawer.dart';
 import '../onTripPage/invoice.dart';
 import '../onTripPage/map_page.dart';
@@ -59,7 +59,7 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
             children: <Widget>[
               CircleAvatar(
                 backgroundColor: paymentStatus == "wallet-payment-success" || paymentStatus == "ride-payment-success"
-                    ? loaderColor : verifyDeclined,
+                    ? primaryColor : verifyDeclined,
                 radius: 30,
                 child: Icon(
                   paymentStatus == "wallet-payment-success" || paymentStatus == "ride-payment-success"
@@ -84,7 +84,7 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
                   EdgeInsets.fromLTRB(10, 15.0, 10, 0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: loaderColor,
+                      primary: primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

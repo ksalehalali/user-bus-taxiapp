@@ -33,6 +33,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
 
 
   bool _isLoading = true;
+  bool buttonLoading = false;
 
   bool terms = true; //terms and conditions true or false
 
@@ -439,12 +440,12 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                             ? Container(
                           width: media.width * 1 - media.width * 0.08,
                           alignment: Alignment.center,
-                          child: Button(
+                          child: buttonLoading ? LoadingButton(onTap: null) : Button(
                             onTap: () async {
                               FocusManager.instance.primaryFocus?.unfocus();
-                              // setState(() {
-                              //   _isLoading = true;
-                              // });
+                              setState(() {
+                                buttonLoading = true;
+                              });
                               var verify = await verifyUser(phnumber);
                               if(verify) {
                                 //check if otp is true or false
@@ -453,7 +454,6 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                 if (val.value == true) {
                                   phoneAuthCheck = true;
                                   await phoneAuth(countries[phcode]['dial_code'] + phnumber);
-
                                   navigate();
                                 }
                                 //otp is false
@@ -461,18 +461,19 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                   phoneAuthCheck = false;
                                   navigate();
                                 }
-                                setState(() {
-                                  _isLoading = false;
-                                });
+                                // setState(() {
+                                //   _isLoading = false;
+                                // });
                               } else {
                                 showAlertDialog(context);
                               }
+                              setState(() {
+                                buttonLoading = false;
+                              });
                             },
-                            text: languages[choosenLanguage]
-                            ['text_login'],
+                            text: languages[choosenLanguage]['text_login'],
                           ),
-                        )
-                            : Container(),
+                        ) : Container(),
                       ],
                     )
                     : Container(

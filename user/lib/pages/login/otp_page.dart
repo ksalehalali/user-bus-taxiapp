@@ -41,7 +41,9 @@ class _OtpState extends State<Otp> {
   TextEditingController fifth = TextEditingController();
   TextEditingController sixth = TextEditingController();
   late List<TextEditingController?> controller;
-  bool _loading = false; //loading screen showing
+  bool _loading = false;
+  bool buttonLoading = false;
+//loading screen showing
   @override
   void initState() {
     _loading = false;
@@ -331,11 +333,11 @@ class _OtpState extends State<Otp> {
                                   ),
                                   Container(
                                     alignment: Alignment.center,
-                                    child: Button(
+                                    child: buttonLoading ? LoadingButton(onTap: null) : Button(
                                       onTap: () async {
                                         if (otpNumber.length == 6) {
                                           setState(() {
-                                            _loading = true;
+                                            buttonLoading = true;
                                             _error = '';
                                           });
                                           //firebase code send false
@@ -371,7 +373,7 @@ class _OtpState extends State<Otp> {
                                             }
                                           }
                                           setState(() {
-                                            _loading = false;
+                                            buttonLoading = false;
                                           });
                                         } else if (phoneAuthCheck == true &&
                                             resendTime == 0 &&
