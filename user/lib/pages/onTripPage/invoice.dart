@@ -597,7 +597,8 @@ class _InvoiceState extends State<Invoice> {
                   ),
                   Button(
                           onTap: ()async {
-                            if(userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0){
+                            if(widget.payment != "paid"){
+                            // if(userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0){
                               setState(() {
                                 _isLoading = true;
                               });
@@ -606,14 +607,15 @@ class _InvoiceState extends State<Invoice> {
                                 _isLoading = false;
                                 _choosePayment = true;
                               });
-                            }else{
+                            } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const Review()));
                             }
                           },
-                          text: (userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0 ) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                          text: widget.payment != "paid" ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                          // text: (userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
                 ],
               ),
             ),
@@ -675,9 +677,7 @@ class _InvoiceState extends State<Invoice> {
                                                         media.width * eighteen,
                                                     fontWeight: FontWeight.w600),
                                               )),
-                                          SizedBox(
-                                            height: media.width * 0.05,
-                                          ),
+                                          SizedBox(height: media.width * 0.05),
                                           Expanded(
                                             child: SingleChildScrollView(
                                               physics:
@@ -897,31 +897,38 @@ class _InvoiceState extends State<Invoice> {
                                                                       payment_gateway = walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'];
                                                                     });
                                                                   },
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 1,
-                                                                        child: RadioListTile(
-                                                                          contentPadding: EdgeInsets.all(0),
-                                                                          value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
-                                                                          groupValue: payment_gateway,
-                                                                          onChanged: (value){
-                                                                            setState(() {
-                                                                              payment_gateway = value.toString();
-                                                                            });
-                                                                          },
+                                                                  child: Container(
+                                                                    padding: EdgeInsets.all(3.0),
+                                                                    decoration: BoxDecoration(
+                                                                      color: payment_gateway == walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'] ? paymentMethodsColor : null,
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Container(
+                                                                          height: 50, width: 50,
+                                                                          child: RadioListTile(
+                                                                            contentPadding: EdgeInsets.all(0),
+                                                                            value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
+                                                                            groupValue: payment_gateway,
+                                                                            onChanged: (value){
+                                                                              setState(() {
+                                                                                payment_gateway = value.toString();
+                                                                              });
+                                                                            },
+                                                                          ),
                                                                         ),
-                                                                      ),
-                                                                      Expanded(
-                                                                          flex: 1,
-                                                                          // width: 50, height: 30,
-                                                                          child: Container(
-                                                                              width: media.width *
-                                                                                  0.25,
-                                                                              height: media.width *
-                                                                                  0.125,
-                                                                              child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
-                                                                    ],
+                                                                        Container(
+                                                                            height: 50, width: 50,
+                                                                            // width: 50, height: 30,
+                                                                            child: Container(
+                                                                                width: media.width *
+                                                                                    0.25,
+                                                                                height: media.width *
+                                                                                    0.125,
+                                                                                child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                                 SizedBox(height: 10,)
@@ -1015,9 +1022,7 @@ class _InvoiceState extends State<Invoice> {
                                                       }
                                                     }
                                                     if(payment_gateway == 'razor_pay') {
-                                                      addMoney = int.parse(userRequestData['requestBill']['data']
-                                                      ['total_amount']
-                                                          .toStringAsFixed(0));
+                                                      addMoney = int.parse(userRequestData['requestBill']['data']['total_amount'].toStringAsFixed(0));
                                                       var val = await  Navigator.push(
                                                           context,
                                                           MaterialPageRoute(

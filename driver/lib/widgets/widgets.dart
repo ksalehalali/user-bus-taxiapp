@@ -65,6 +65,52 @@ class _ButtonState extends State<Button> {
   }
 }
 
+class LoadingButton extends StatelessWidget {
+  dynamic onTap;
+  dynamic color;
+  dynamic borcolor;
+  dynamic textcolor;
+  dynamic width;
+  dynamic height;
+
+  LoadingButton({
+    required this.onTap,
+    this.color,
+    this.borcolor,
+    this.textcolor,
+    this.width,
+    this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
+
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: height ?? media.width * 0.12,
+        width: (width != null) ? width : null,
+        padding: EdgeInsets.only(
+            left: media.width * twenty, right: media.width * twenty),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: (color != null) ? color : primaryColor,
+            border: Border.all(
+              color: (borcolor != null) ? borcolor : primaryColor,
+              width: 1,
+            )),
+        alignment: Alignment.center,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Image.asset("assets/images/button_loading.gif"),
+        ),
+      ),
+    );
+  }
+}
+
+
 //input field style
 
 // ignore: must_be_immutable

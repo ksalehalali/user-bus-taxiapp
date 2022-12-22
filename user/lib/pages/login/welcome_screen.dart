@@ -20,39 +20,45 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset('assets/animated_images/welcome.png'),
-          Column(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Welcome', style: TextStyle(color: black, fontSize: 24.0, fontWeight: FontWeight.w600),),
-              SizedBox(height: 20,),
-              Text('Please Login to enter the exciting \n world of ride', textAlign: TextAlign.center,
-                style: TextStyle(color: light_grey, fontSize: 16.0, ), ),
-              SizedBox(height: 5,),
+              Image.asset('assets/animated_images/welcome.png'),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Welcome', style: TextStyle(color: black, fontSize: 24.0, fontWeight: FontWeight.w600),),
+                  SizedBox(height: 20,),
+                  Text('Please Login to enter the exciting \n world of ride', textAlign: TextAlign.center,
+                    style: TextStyle(color: light_grey, fontSize: 16.0, ), ),
+                  SizedBox(height: 5,),
 
+                ],
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width/2.5,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: notUploadedColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36.0)
+                        )
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> EnterPhoneNumber()));
+                    },
+                    child: Text(languages[choosenLanguage]['text_login'], style: TextStyle(fontSize: 18.0),)
+                ),
+              ),
             ],
           ),
-          Container(
-            height: 55,
-            width: MediaQuery.of(context).size.width/2.5,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: notUploadedColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0)
-                    )
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> EnterPhoneNumber()));
-                },
-                child: Text(languages[choosenLanguage]['text_login'], style: TextStyle(fontSize: 18.0),)
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

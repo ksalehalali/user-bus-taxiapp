@@ -319,7 +319,8 @@ class _NavDrawerState extends State<NavDrawer> {
                               );
                             }),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
-                        Text(version)
+                        Text(version),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
                       ]),
                 ),
               )),

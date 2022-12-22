@@ -30,7 +30,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
 
 
   bool _isLoading = true;
-
+  bool buttonLoading = false;
   bool terms = true; //terms and conditions true or false
 
   @override
@@ -451,11 +451,11 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                         ? Container(
                       width: media.width * 1 - media.width * 0.08,
                       alignment: Alignment.center,
-                      child: Button(
+                      child: buttonLoading ? LoadingButton(onTap: null) : Button(
                         onTap: () async {
                           FocusManager.instance.primaryFocus?.unfocus();
                           setState(() {
-                            _isLoading = true;
+                            buttonLoading = true;
                           });
                           //check if otp is true or false
                           var val = await otpCall();
@@ -472,7 +472,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                             navigate();
                           }
                           setState(() {
-                            _isLoading = false;
+                            buttonLoading = false;
                           });
                         },
                         text: languages[choosenLanguage]

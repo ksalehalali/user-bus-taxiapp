@@ -1297,7 +1297,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                                         children: [
                                                                                                           Text(
                                                                                                             etaDetails[i]['currency'] + ' ' + etaDetails[i]['total'].toStringAsFixed(2),
-                                                                                                            style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor, fontWeight: FontWeight.w600),
+                                                                                                            style: GoogleFonts.roboto(fontSize: media.width * twelve, color: textColor, fontWeight: FontWeight.w600),
                                                                                                           ),
                                                                                                         ],
                                                                                                       )
@@ -2694,7 +2694,6 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                             ),
                                           ))
                                       : Container(),
-
                                   //service not available
                                   (serviceNotAvailable == true)
                                       ? Positioned(
