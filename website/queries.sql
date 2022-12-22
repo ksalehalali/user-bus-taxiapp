@@ -43,3 +43,7 @@ TRUNCATE `user_wallet_history`;
 
 
 ALTER TABLE `users` ADD `refferal_code_counter` INT(11) NOT NULL DEFAULT '0' AFTER `refferal_code`;
+
+
+
+ALTER TABLE `zone_type_price` CHANGE `base_price` `base_price` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `price_per_distance` `price_per_distance` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `waiting_charge` `waiting_charge` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `price_per_time` `price_per_time` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `cancellation_fee` `cancellation_fee` DOUBLE(10,3) NOT NULL DEFAULT '0.000'; 
