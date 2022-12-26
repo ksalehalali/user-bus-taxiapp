@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:routes/controller/trip_controller.dart';
+import 'package:signalr_core/signalr_core.dart';
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
@@ -240,7 +241,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
+         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -295,7 +296,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -339,7 +340,7 @@ class RouteMapController extends GetxController {
         locationController.tripCreatedStatus(true);
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
       } else {
@@ -1043,8 +1044,11 @@ class RouteMapController extends GetxController {
 
     print(' full duration :: ${fullDurationTrip.value}');
   }
+
+
+  //    save trip
   callSaveTrip() async {
-    //    save trip
+
     print('intIndex = $intIndex');
     if(isMultiMode ==false){
       trip.startStationId = tripRouteData['description']['startStation']['id'];
@@ -1074,4 +1078,5 @@ class RouteMapController extends GetxController {
   void onInit() {
     super.onInit();
   }
+
 }

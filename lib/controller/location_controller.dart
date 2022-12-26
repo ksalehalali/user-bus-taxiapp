@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart' as loc;
+import 'package:signalr_core/signalr_core.dart';
 import '../Assistants/assistantMethods.dart';
 import '../Assistants/globals.dart';
 import '../Assistants/request-assistant.dart';
@@ -44,7 +45,9 @@ class LocationController extends GetxController {
   Rx<Position> positionFromPin =Position(latitude: 29.37631633045168, accuracy: 0.0, altitude: 0.0, speed: 0.0, speedAccuracy: 0.0, longitude: 47.98637351560368, heading: 0.0, timestamp: null).obs;
   AudioPlayerService audioPlayerService = AudioPlayerService();
   bool isLocationUpdated = false;
-  var myFavAddresses =[].obs;
+
+  var myCorrectBuses =[].obs;
+  var myCorrectBusesGot = false.obs;
 
   @override
   void onInit() {
@@ -52,7 +55,7 @@ class LocationController extends GetxController {
     super.onInit();
     Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
-
+      signalRInit();
     });
     getLocation();
   }
@@ -116,6 +119,59 @@ class LocationController extends GetxController {
 
   }
 
+ // send location signal
+
+  HubConnection? connection;
+  final liveTransactionServerUrl = "https://route.click68.com/ChatHub";
+  Future<void> signalRInit() async {
+      connection = HubConnectionBuilder().withUrl(liveTransactionServerUrl,
+          HttpConnectionOptions(
+            // accessTokenFactory: () async => await liveTransactionAccessToken,
+              transport: HttpTransportType.webSockets,
+              logging: (level, message){
+                if(message.contains('HubConnection connected successfully')){
+                 print('connected successfully');
+                }
+                print("SignalR Level: $level, Message: ${message.toString()}");
+              }
+          )).build();
+
+      connection?.serverTimeoutInMilliseconds = Duration(minutes: 6).inMilliseconds;
+      connection?.onclose((exception) {
+
+        print("onclose.. Exception: $exception");
+      });
+      connection?.onreconnected((connectionId){
+
+        print("------- ConnectionId: $connectionId");
+      });
+
+      connection?.on('ListBusMap', (message) async {
+        print("-------- ListBusMap ..... Message: ${message!.first}");
+        myCorrectBuses.value = message.first;
+        myCorrectBusesGot.value = true;
+        update();
+      });
+
+      await connection?.start();
+
+      Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
+    }
+
+  Future detectingCorrectBus() async{
+    print("-------------trip created------------------- $tripCreatedDone");
+     if(tripCreatedDone.value ==true){
+       var invoke = await connection?.invoke("GetListBusMap");
+       // print("result receive:: ${send}");
+     }
+  }
+
+  // send user location signalr
+  sendUserLocationSignalR(LocationModel location)async {
+    print({"UserID":"${user.id}","Longitude":location.longitude,"Latitude":location.latitude});
+    await connection?.invoke('SendUserLocation', args: [{"UserID":"${user.id}","Longitude":location.longitude,"Latitude":location.latitude}]);
+
+  }
   var location = loc.Location();
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
@@ -134,19 +190,17 @@ class LocationController extends GetxController {
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
-    // loc.Location.instance.onLocationChanged.listen((location) {
-    //   print('location ........ listening.......  ${location.longitude}');
-    //
-    // });
     BackgroundLocation.startLocationService(distanceFilter : 1);
 
     BackgroundLocation.getLocationUpdates((location) async {
 
       if (!isLocationUpdated){
         isLocationUpdated =true;
-      Timer(Duration(seconds:5), () {
-          updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+      Timer(Duration(seconds:3), () {
+          //updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+          //sendLocationSignalR(LocationModel(location.latitude!, location.longitude!));
           isLocationUpdated =false;
+
       });
 
       }

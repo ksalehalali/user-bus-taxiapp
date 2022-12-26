@@ -88,6 +88,7 @@ dependencies:
   #flutter_background_service_android: ^3.0.2
   device_info_plus: ^3.2.2
   audioplayers:
+  signalr_core:
 
 
 dev_dependencies:

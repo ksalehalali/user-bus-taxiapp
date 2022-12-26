@@ -158,6 +158,7 @@ class _DetailsOneRouteState extends State<DetailsOneRoute> {
                     child: InkWell(
                       onTap: () {
                         if (panelController.isPanelOpen) {
+                          locationController.detectingCorrectBus();
                           panelController.close();
                         } else {
                           panelController.open();

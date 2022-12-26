@@ -199,7 +199,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: ()async {
+                                     await  personalInfoController.myFavAddresses();
                                       Get.to(()=> FavoriteAddressesScreen());
                                     },
                                     child: Row(

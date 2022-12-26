@@ -224,15 +224,57 @@ class PersonalInformationController extends GetxController {
 
   //my addresses
   Future<bool> addMyFavAddresses(FavoriteAddress address) async {
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('Post', Uri.parse(baseURL +'/api/AddUserLocation'));
+    request.body = json.encode({
+      "Name": address.name,
+      "Desc": address.address,
+      "Latitude": address.location.latitude,
+      "Longitude": address.location.longitude,
+
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
 
 
-    return true;
   }
 
   Future getMyAddresses() async {
 
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('Get', Uri.parse(baseURL +'/api/ListLocationByUser'));
 
-    return myFavAddresses;
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    var json = jsonDecode(await response.stream.bytesToString());
+
+    if (response.statusCode == 200 &&json['status'] ==true) {
+      print("res ====----==== ${json}");
+      myFavAddresses.value = json["description"];
+      return myFavAddresses;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+
   }
 
   Future deleteMyFavAddress(FavoriteAddress address) async {

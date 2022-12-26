@@ -355,7 +355,29 @@ class _MapState extends State<Map> {
                             })
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("dropOffId")),
+
+                        //correct bus 1
+                        locationController.myCorrectBusesGot == true
+                            ? google_maps.Marker(
+                            icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                                google_maps.BitmapDescriptor.hueCyan),
+                            infoWindow: google_maps.InfoWindow(
+                                title:
+                                '${locationController.myCorrectBuses[2]['busID']}',
+                                snippet: locationController.myCorrectBuses[2]['busID']),
+                            position: google_maps.LatLng(
+                                locationController.myCorrectBuses[2]['latitude1'],
+                                locationController.myCorrectBuses[2]['longitude2']),
+                            markerId: google_maps.MarkerId("dropOffId"),
+                            onTap: () {
+                              print(routeMapController.endStation['station']
+                                  .toString());
+                            })
+                            : google_maps.Marker(
+                            markerId: google_maps.MarkerId("dropOffId")),
                       },
+
+
                       polylines: {
                         google_maps.Polyline(
                           color: Colors.blue.withOpacity(0.7),
