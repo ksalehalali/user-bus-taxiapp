@@ -259,7 +259,7 @@ return [
                      * The paths are relative to the public folder 'public'.
         */
         'user' => [
-            'profile_picture' => '/assets/images/default-profile-picture.jpeg',
+            'profile_picture' => '/public/assets/images/default-profile-picture.jpeg',
         ],
 
     ],
