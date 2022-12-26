@@ -7,7 +7,7 @@ import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+// import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class RazorPayPage extends StatefulWidget {
   const RazorPayPage({Key? key}) : super(key: key);
@@ -24,37 +24,37 @@ class _RazorPayPageState extends State<RazorPayPage> {
 
   @override
   void initState() {
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    // _razorpay = Razorpay();
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     payMoney();
     super.initState();
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    var val = await addMoneyRazorpay(addMoney, response.paymentId);
-    if (val == 'success') {
-      setState(() {
-        _success = true;
-        _isLoading = false;
-      });
-    } else {
-      setState(() {
-        _failed = true;
-        _isLoading = false;
-      });
-    }
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    setState(() {
-      _failed = true;
-      _isLoading = false;
-    });
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {}
+  // void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+  //   var val = await addMoneyRazorpay(addMoney, response.paymentId);
+  //   if (val == 'success') {
+  //     setState(() {
+  //       _success = true;
+  //       _isLoading = false;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _failed = true;
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+  //
+  // void _handlePaymentError(PaymentFailureResponse response) {
+  //   setState(() {
+  //     _failed = true;
+  //     _isLoading = false;
+  //   });
+  // }
+  //
+  // void _handleExternalWallet(ExternalWalletResponse response) {}
 
 //payment gateway code
   payMoney() async {

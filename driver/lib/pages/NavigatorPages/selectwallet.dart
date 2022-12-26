@@ -5,7 +5,7 @@ import 'package:tagyourtaxi_driver/pages/NavigatorPages/walletpage.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 
@@ -16,7 +16,7 @@ class SelectWallet extends StatefulWidget {
   State<SelectWallet> createState() => _SelectWalletState();
 }
 
-CardEditController cardController = CardEditController();
+// CardEditController cardController = CardEditController();
 
 class _SelectWalletState extends State<SelectWallet> {
   bool _isLoading = false;
@@ -25,11 +25,11 @@ class _SelectWalletState extends State<SelectWallet> {
 
   @override
   void initState() {
-    if (walletBalance['stripe_environment'] == 'test') {
-      Stripe.publishableKey = walletBalance['stripe_test_publishable_key'];
-    } else {
-      Stripe.publishableKey = walletBalance['stripe_live_publishable_key'];
-    }
+    // if (walletBalance['stripe_environment'] == 'test') {
+    //   Stripe.publishableKey = walletBalance['stripe_test_publishable_key'];
+    // } else {
+    //   Stripe.publishableKey = walletBalance['stripe_live_publishable_key'];
+    // }
     super.initState();
   }
 
@@ -81,88 +81,88 @@ class _SelectWalletState extends State<SelectWallet> {
                                       child: const Icon(Icons.arrow_back)))
                             ],
                           ),
-                          SizedBox(
-                            height: media.width * 0.05,
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                //card design
-                                CardField(
-                                  onCardChanged: (card) {
-                                    setState(() {});
-                                  },
-                                ),
-                                SizedBox(
-                                  height: media.width * 0.1,
-                                ),
-
-                                //pay amount button
-                                Button(
-                                    width: media.width * 0.5,
-                                    onTap: () async {
-                                      FocusManager.instance.primaryFocus
-                                          ?.unfocus();
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      var val =
-                                          await getStripePayment(addMoney);
-                                      if (val == 'success') {
-                                        dynamic val2;
-                                        try {
-                                          val2 = await Stripe.instance
-                                              .confirmPayment(
-                                            stripeToken['client_token'],
-                                            PaymentMethodParams.card(
-                                              paymentMethodData:
-                                                  PaymentMethodData(
-                                                billingDetails: BillingDetails(
-                                                    name: userDetails['name'],
-                                                    phone:
-                                                        userDetails['mobile']),
-                                              ),
-                                            ),
-                                          );
-                                        } catch (e) {
-                                          setState(() {
-                                            _failed = true;
-                                            _isLoading = false;
-                                          });
-                                        }
-                                        if (val2.status ==
-                                            PaymentIntentsStatus.Succeeded) {
-                                          var val3 = await addMoneyStripe(
-                                              addMoney, val2.id);
-                                          if (val3 == 'success') {
-                                            setState(() {
-                                              _success = true;
-                                            });
-                                          } else {
-                                            setState(() {
-                                              _failed = true;
-                                            });
-                                          }
-                                        } else {
-                                          setState(() {
-                                            _failed = true;
-                                          });
-                                        }
-                                      } else {
-                                        setState(() {
-                                          _failed = true;
-                                        });
-                                      }
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    },
-                                    text: languages[choosenLanguage]
-                                        ['text_pay'])
-                              ],
-                            ),
-                          )
+                          // SizedBox(
+                          //   height: media.width * 0.05,
+                          // ),
+                          // Expanded(
+                          //   child: Column(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     children: [
+                          //       //card design
+                          //       CardField(
+                          //         onCardChanged: (card) {
+                          //           setState(() {});
+                          //         },
+                          //       ),
+                          //       SizedBox(
+                          //         height: media.width * 0.1,
+                          //       ),
+                          //
+                          //       //pay amount button
+                          //       Button(
+                          //           width: media.width * 0.5,
+                          //           onTap: () async {
+                          //             FocusManager.instance.primaryFocus
+                          //                 ?.unfocus();
+                          //             setState(() {
+                          //               _isLoading = true;
+                          //             });
+                          //             var val =
+                          //                 await getStripePayment(addMoney);
+                          //             if (val == 'success') {
+                          //               dynamic val2;
+                          //               try {
+                          //                 val2 = await Stripe.instance
+                          //                     .confirmPayment(
+                          //                   stripeToken['client_token'],
+                          //                   PaymentMethodParams.card(
+                          //                     paymentMethodData:
+                          //                         PaymentMethodData(
+                          //                       billingDetails: BillingDetails(
+                          //                           name: userDetails['name'],
+                          //                           phone:
+                          //                               userDetails['mobile']),
+                          //                     ),
+                          //                   ),
+                          //                 );
+                          //               } catch (e) {
+                          //                 setState(() {
+                          //                   _failed = true;
+                          //                   _isLoading = false;
+                          //                 });
+                          //               }
+                          //               if (val2.status ==
+                          //                   PaymentIntentsStatus.Succeeded) {
+                          //                 var val3 = await addMoneyStripe(
+                          //                     addMoney, val2.id);
+                          //                 if (val3 == 'success') {
+                          //                   setState(() {
+                          //                     _success = true;
+                          //                   });
+                          //                 } else {
+                          //                   setState(() {
+                          //                     _failed = true;
+                          //                   });
+                          //                 }
+                          //               } else {
+                          //                 setState(() {
+                          //                   _failed = true;
+                          //                 });
+                          //               }
+                          //             } else {
+                          //               setState(() {
+                          //                 _failed = true;
+                          //               });
+                          //             }
+                          //             setState(() {
+                          //               _isLoading = false;
+                          //             });
+                          //           },
+                          //           text: languages[choosenLanguage]
+                          //               ['text_pay'])
+                          //     ],
+                          //   ),
+                          // )
                         ],
                       ),
                     ),

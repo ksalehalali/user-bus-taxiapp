@@ -55,6 +55,7 @@ android {
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        ndk { debugSymbolLevel 'FULL' }
     }
 
 //    signingConfigs {
@@ -83,4 +84,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics'
+}
+configurations.all {
+    exclude group: 'com.google.android.gms', module: 'play-services-safetynet'
 }

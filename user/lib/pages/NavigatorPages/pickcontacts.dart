@@ -4,7 +4,7 @@ import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
-import 'package:contacts_service/contacts_service.dart';
+// import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
@@ -47,25 +47,25 @@ class _PickContactState extends State<PickContact> {
         setState(() {
           _isLoading = true;
         });
-        Iterable<Contact> contactsList = await ContactsService.getContacts();
-
-        setState(() {
-          // ignore: avoid_function_literals_in_foreach_calls
-          contactsList.forEach((contact) {
-            contact.phones!.toSet().forEach((phone) {
-              contacts.add({
-                'name': contact.displayName ?? contact.givenName,
-                'phone': phone.value
-              });
-            });
-          });
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _contactDenied = true;
-        });
-      }
+      //   Iterable<Contact> contactsList = await ContactsService.getContacts();
+      //
+      //   setState(() {
+      //     // ignore: avoid_function_literals_in_foreach_calls
+      //     contactsList.forEach((contact) {
+      //       contact.phones!.toSet().forEach((phone) {
+      //         contacts.add({
+      //           'name': contact.displayName ?? contact.givenName,
+      //           'phone': phone.value
+      //         });
+      //       });
+      //     });
+      //     _isLoading = false;
+      //   });
+      // } else {
+      //   setState(() {
+      //     _contactDenied = true;
+      //   });
+       }
     }
   }
 

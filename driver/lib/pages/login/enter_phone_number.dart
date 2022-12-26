@@ -332,8 +332,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                           ?.unfocus();
                                     }
                                   },
-                                  maxLength: countries[phcode]
-                                  ['dial_max_length'],
+                                  maxLength: int.parse(countries[phcode]['dial_max_length']),
                                   style: GoogleFonts.roboto(
                                       fontSize: media.width * sixteen,
                                       color: textColor,
@@ -435,7 +434,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                           height: media.height * 0.06,
                         ),
                         (controller.text.length >=
-                            countries[phcode]['dial_min_length'] &&
+                            int.parse(countries[phcode]['dial_min_length']) &&
                             terms == true)
                             ? Container(
                           width: media.width * 1 - media.width * 0.08,

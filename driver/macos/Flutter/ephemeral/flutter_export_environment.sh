@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=D:\Software\Flutter\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\Software\GithubRepositry\taxi\driver"
+export "FLUTTER_ROOT=/Users/macbookpro/Documents/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/macbookpro/Documents/GitHub/taxi/driver"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

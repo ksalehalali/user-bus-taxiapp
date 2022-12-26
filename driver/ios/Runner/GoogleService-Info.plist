@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>893435407802-osd0dvllobqjaf7flb5b91o8n4h80l4v.apps.googleusercontent.com</string>
+	<string>722270159807-ic5raccegjol505m70utnn6j7apn903c.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.893435407802-osd0dvllobqjaf7flb5b91o8n4h80l4v</string>
+	<string>com.googleusercontent.apps.722270159807-ic5raccegjol505m70utnn6j7apn903c</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>893435407802-56g8h7m0qq7ui9aho3mnihg9kdtupdt7.apps.googleusercontent.com</string>
+	<string>722270159807-0dmqkbu4rg7i0vrb23hb75968j9ceh6g.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAza3BUl9dpUCCCZKLCdKUCjLN2WwTlCiw</string>
+	<string>AIzaSyBWRRnSmXrhnZOtC5gmta32t_vzvTGPQUg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>893435407802</string>
+	<string>722270159807</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.routestaxi.driverapp</string>
 	<key>PROJECT_ID</key>
-	<string>routes-6b43b</string>
+	<string>taxi-app-371012</string>
 	<key>STORAGE_BUCKET</key>
-	<string>routes-6b43b.appspot.com</string>
+	<string>taxi-app-371012.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:893435407802:ios:3122ebb18c119495dd4183</string>
+	<string>1:722270159807:ios:c45c73bb7122ac04f1570a</string>
 	<key>DATABASE_URL</key>
-	<string>https://routes-6b43b-default-rtdb.firebaseio.com</string>
+	<string>https://taxi-app-371012-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
