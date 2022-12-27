@@ -210,7 +210,7 @@ trait ResponseHelpers
      */
     protected function jsonResponse($data = [], $status = Response::HTTP_OK, array $headers = [], $options = 0)
     {
-        return response()->json($data, $status, $headers, $options);
+        return response()->json($data, $status, $headers, JSON_NUMERIC_CHECK);
     }
 
     /**
