@@ -56,7 +56,6 @@ class _MapState extends State<Map> {
   late final MapController mapController;
   Completer<google_maps.GoogleMapController> _controllerMaps = Completer();
   double bottomPaddingOfMap = 0;
-  final screenSize = Get.size;
   double heightLineStops = 100.0;
   late final StreamSubscription<MapEvent> mapEventSubscription;
   int _eventKey = 0;
@@ -68,11 +67,12 @@ class _MapState extends State<Map> {
   late google_maps.BitmapDescriptor mapMarker2;
 
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    setCustomMarker();
+    setCustomIconMarker();
     mapController = MapController();
     mapEventSubscription = mapController.mapEventStream.listen(onMapEvent);
     routeMapController.startPointLatLng.value =
@@ -96,9 +96,10 @@ class _MapState extends State<Map> {
 
   }
 
-  void setCustomMarker()async{
-    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(111,111)),'assets/images/dot_icon.png',) ;
-    mapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(),'assets/icons/pin_loc.png') ;
+  //custom icon
+  void setCustomIconMarker()async{
+    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(20,20)),'assets/icons/icons8-bus-96.png',) ;
+    mapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),'assets/icons/icons8-get-on-bus-100.png') ;
 
   }
   void onMapEvent(MapEvent mapEvent) {
@@ -229,6 +230,7 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     final String timeC = DateTime.now().hour > 11 ? 'PM' : 'AM';
+    final screenSize = MediaQuery.of(context).size;
 
     return Container(
       color: routes_color,
@@ -254,7 +256,7 @@ class _MapState extends State<Map> {
                     Obx(()=>google_maps.GoogleMap(
                       initialCameraPosition: cameraPosition,
                       mapToolbarEnabled: true,
-                      trafficEnabled: true,
+                     // trafficEnabled: true,
                       indoorViewEnabled: true,
                       padding: EdgeInsets.only(top: 10,bottom: 140),
                       myLocationEnabled: true,
@@ -266,17 +268,23 @@ class _MapState extends State<Map> {
                         // }),
                         ( locationController.tripCreatedDone.value == false && locationController.showPinOnMap.value == true)
                             ? google_maps.Marker(
+                          flat:true,
+                          draggable: false,
                           markerId: google_maps.MarkerId('center'),
+                          anchor :  Offset(0.5, 1.0),
+                          rotation: 6.0,
+                          alpha : 0.8,
                           position: google_maps.LatLng(locationController.currentLocationG.value.latitude,locationController.currentLocationG.value.longitude),
                           onTap: () {
                             print('object');
                           },
                           icon:google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                              google_maps.BitmapDescriptor.hueRed),
+                              google_maps.BitmapDescriptor.hueRose),
                         )
                             :locationController.tripCreatedDone.value == false? google_maps.Marker(
                           markerId: google_maps.MarkerId('center2'),
                           position: locationController.currentLocationG.value,
+
                           onTap: () {
                             print('object');
                           },
@@ -284,11 +292,15 @@ class _MapState extends State<Map> {
                               google_maps.BitmapDescriptor.hueYellow),
                         ):google_maps.Marker(markerId: google_maps.MarkerId('center')),
 
-
+                        //picking marker
                         locationController.tripCreatedDone.value == true
                             ? google_maps.Marker(
-                            icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                                google_maps.BitmapDescriptor.hueYellow),
+                            icon: mapMarker2,
+                            flat:true,
+                            draggable: false,
+                            anchor :  Offset(0.5, 1.0),
+                            rotation: 6.0,
+                            alpha : 0.8,
                             infoWindow: google_maps.InfoWindow(
                                 title:
                                 '${routeMapController.startStation['title'].toString()}',
@@ -301,6 +313,7 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("pickUpId")),
 
+                        //multi route marker shared station
                         locationController.tripCreatedDone.value == true &&
                             routeMapController.isMultiMode.value == true
                             ? google_maps.Marker(
@@ -318,6 +331,7 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("sharedId")),
 
+                        //multi route marker2 shared station2
                         locationController.tripCreatedDone.value == true &&
                             routeMapController.isMultiMode.value == true
                             ? google_maps.Marker(
@@ -336,7 +350,27 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("shared2Id")),
 
-                        //
+                        //correct bus 1
+                        locationController.myCorrectBusesGot == true
+                            ? google_maps.Marker(
+                            icon: mapMarker,
+
+                            infoWindow: google_maps.InfoWindow(
+                                title:
+                                '${locationController.myCorrectBuses[2]['busID']}',
+                                snippet: locationController.myCorrectBuses[2]['busID']),
+                            position: google_maps.LatLng(
+                                locationController.myCorrectBuses[2]['latitude1'],
+                                locationController.myCorrectBuses[2]['longitude2']),
+                            markerId: google_maps.MarkerId("dropOffId"),
+                            onTap: () {
+                              print(routeMapController.endStation['station']
+                                  .toString());
+                            })
+                            : google_maps.Marker(
+                            markerId: google_maps.MarkerId("dropOffId")),
+
+                        //drop off marker
                         locationController.tripCreatedDone.value == true
                             ? google_maps.Marker(
                             icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
@@ -356,25 +390,7 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("dropOffId")),
 
-                        //correct bus 1
-                        locationController.myCorrectBusesGot == true
-                            ? google_maps.Marker(
-                            icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                                google_maps.BitmapDescriptor.hueCyan),
-                            infoWindow: google_maps.InfoWindow(
-                                title:
-                                '${locationController.myCorrectBuses[2]['busID']}',
-                                snippet: locationController.myCorrectBuses[2]['busID']),
-                            position: google_maps.LatLng(
-                                locationController.myCorrectBuses[2]['latitude1'],
-                                locationController.myCorrectBuses[2]['longitude2']),
-                            markerId: google_maps.MarkerId("dropOffId"),
-                            onTap: () {
-                              print(routeMapController.endStation['station']
-                                  .toString());
-                            })
-                            : google_maps.Marker(
-                            markerId: google_maps.MarkerId("dropOffId")),
+
                       },
 
 
@@ -594,7 +610,7 @@ class _MapState extends State<Map> {
                     ?Positioned(
                     bottom: 26.0,
                     // right: screenSize.width  ,
-                    child: buildActionButton() ): Container(),
+                    child: buildActionButton(screenSize) ): Container(),
               ],
             ),
             // floatingActionButton: locationController.tripCreatedDone.value == true
@@ -609,29 +625,29 @@ class _MapState extends State<Map> {
 
   int index = 0;
 
-  Widget buildActionButton() {
+  Widget buildActionButton(screenSize) {
     switch (index) {
       case 0:
-        return buildStartTheTripButton();
+        return buildStartTheTripButton(screenSize);
       case 1:
-        return buildPayButton();
+        return buildPayButton(screenSize);
       default:
-        return buildStartTheTripButton();
+        return buildStartTheTripButton(screenSize);
     }
   }
 
-  Widget buildStartTheTripButton() => Center(
+  Widget buildStartTheTripButton(screenSize) => Center(
     child: Container(
       width: screenSize.width ,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 55.0),
+        padding:  EdgeInsets.symmetric(horizontal: screenSize.width*0.3),
         child: FloatingActionButton.extended(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
           foregroundColor: Colors.white,
           backgroundColor: routes_color.withOpacity(0.9),
-          extendedPadding: EdgeInsets.symmetric(horizontal: 9,vertical: 0.0),
+          extendedPadding: EdgeInsets.symmetric(horizontal: 0,vertical: 0.0),
           icon: Icon(Icons.not_started_outlined),
           label: Text(
             'start_trip_txt'.tr,
@@ -656,7 +672,7 @@ class _MapState extends State<Map> {
     ),
   );
 
-  Widget buildPayButton() =>  Container(
+  Widget buildPayButton(screenSize) =>  Container(
     width: screenSize.width,
     child: Center(
       child: Row(
@@ -668,7 +684,7 @@ class _MapState extends State<Map> {
             style: ButtonStyle(
               backgroundColor:MaterialStateProperty.all(routes_color),
               foregroundColor: MaterialStateProperty.all(Colors.white),
-              padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10,horizontal: 3)),
 
             ) ,
             onPressed: ()async{
@@ -702,7 +718,7 @@ class _MapState extends State<Map> {
             style: ButtonStyle(
               backgroundColor:MaterialStateProperty.all(routes_color),
               foregroundColor: MaterialStateProperty.all(Colors.white),
-              padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10,horizontal: 3)),
             ) ,
             onPressed: ()async{
               SharedPreferences prefs =

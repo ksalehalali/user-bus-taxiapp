@@ -241,7 +241,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
+         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -296,7 +296,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -340,7 +340,7 @@ class RouteMapController extends GetxController {
         locationController.tripCreatedStatus(true);
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 11.5);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
       } else {
@@ -407,7 +407,7 @@ class RouteMapController extends GetxController {
 
         // dir 2
         if (jsonResponse.length > 74) {
-          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[36]["latitude"],jsonResponse[36]["longitude"]);
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[3]["latitude"],jsonResponse[3]["longitude"]);
 
           isLongTrip.value = true;
           print('get long route -----------');
@@ -485,7 +485,7 @@ class RouteMapController extends GetxController {
           return;
 
         } else if(jsonResponse.length <= 74 && jsonResponse.length > 50 ) {
-          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[29]["latitude"],jsonResponse[29]["longitude"]);
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[3]["latitude"],jsonResponse[3]["longitude"]);
 
           isLongTrip.value = false;
           for (int i = 0; i < 24; i++) {
@@ -548,7 +548,7 @@ class RouteMapController extends GetxController {
 
 
         }else if(jsonResponse.length <= 50 && jsonResponse.length > 25){
-          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[19]["latitude"],jsonResponse[19]["longitude"]);
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[3]["latitude"],jsonResponse[3]["longitude"]);
 
           print('length <= 50 > 25');
           isLongTrip.value = false;
@@ -699,19 +699,19 @@ class RouteMapController extends GetxController {
        route1.value = jsonResponse['rout1'];
        route2.value = jsonResponse['rout2'];
 
-
+       // centerOfDirRoute
       index.value = route1.length;
-      var i = index.value / 2;
-      intIndex = index.value;
-      int b = i.round();
-      centerOfDirRoute.value =
-          google_maps.LatLng(route1[b]["latitude"], route1[b]["longitude"]);
+      // var i = index.value / 2;
+      // intIndex = index.value;
+      // int b = i.round();
+      // centerOfDirRoute.value =
+      //     google_maps.LatLng(route1[b]["latitude"], route1[b]["longitude"]);
 
       print('route 2 = ${jsonResponse['rout2']} ====================');
 
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
 
-      print("center :: $b");
+      //print("center :: $b");
       print("length :::1 ${route1.length}");
       print("length :::2 ${route2.length}");
 

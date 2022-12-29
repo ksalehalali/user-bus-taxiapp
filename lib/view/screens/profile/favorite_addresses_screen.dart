@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -74,50 +75,15 @@ class _FavoriteAddressesScreenState extends State<FavoriteAddressesScreen> {
                             padding: const EdgeInsets.only(top:8.0),
                             child: Text( " ${personalInfoController.myFavAddresses[index]['desc']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
                           ) ,
+                          trailing: InkWell(
+                            onTap: (){
+                             showDialogBoxDeleteFavAddress(index);
+                            },
+                            child:Icon(Icons.delete_forever)
+                          ),
 
                         ),
 
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.end,
-                        //   children: [
-                        //     Container(
-                        //       height: 2,
-                        //       width: screenSize.width ,
-                        //       decoration: BoxDecoration(
-                        //         color: Colors.grey[400],
-                        //
-                        //       ),
-                        //     ),
-                        //     Container(
-                        //       child: Row(
-                        //         children: [
-                        //           Column(
-                        //             crossAxisAlignment: CrossAxisAlignment.start,
-                        //             children: [
-                        //               SizedBox(height: 10.0,),
-                        //               RichText(text: TextSpan(
-                        //                   children: [
-                        //                     TextSpan(text: 'name_txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                        //                     TextSpan(text: " ${personalInfoController.myFavAddresses[index]['name']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black)),
-                        //
-                        //                   ]
-                        //               )),
-                        //
-                        //               SizedBox(height: 5.0,),
-                        //               Text('Address_txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                        //               SizedBox(
-                        //                 width: screenSize.width -20,
-                        //                   child: Text(" ${personalInfoController.myFavAddresses[index]['desc']}",maxLines: 1,overflow:TextOverflow.ellipsis,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: Colors.black)))
-                        //             ],
-                        //           ),
-                        //
-                        //           //Text('Route : ${trips.trips[index]['rout']}'),
-                        //
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ))),
               ),
@@ -127,4 +93,44 @@ class _FavoriteAddressesScreenState extends State<FavoriteAddressesScreen> {
       ),
     );
   }
+
+  showDialogBoxDeleteFavAddress(int index) => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title:  Text('Address delete_txt'.tr),
+      content: langController.appLocal =="en"? Text('Your Address ${personalInfoController.myFavAddresses[index]['name']} will be deleted_txt'.tr):Text(' سوف يتم حذف  ${personalInfoController.myFavAddresses[index]['name']}  '),
+      actions: <Widget>[
+
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Confirm_txt'.tr);
+          },
+          child:  Text('Close_txt'.tr),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Confirm_txt'.tr);
+           var delete = await personalInfoController.deleteMyFavAddress(personalInfoController.myFavAddresses[index]['id']);
+           if(delete) {
+
+             //notify the user address deleted
+             CupertinoAlertDialog(
+               title: const Text('Address deleted'),
+               content: const Text('Your address deleted'),
+               actions: <Widget>[
+                 TextButton(
+                   onPressed: () async {
+                     Navigator.pop(context, 'Ok');
+                   },
+                   child: const Text('Ok'),
+                 ),
+               ],
+             );
+           }
+          },
+          child:  Text('Confirm_txt'.tr),
+        ),
+      ],
+    ),
+  );
 }

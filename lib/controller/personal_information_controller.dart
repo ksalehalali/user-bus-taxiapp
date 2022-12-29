@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../model/fav_address.dart';
@@ -277,7 +276,46 @@ class PersonalInformationController extends GetxController {
 
   }
 
-  Future deleteMyFavAddress(FavoriteAddress address) async {
+  Future deleteMyFavAddress(String addressId) async {
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse(baseURL +'/api/DeletUserLocation'));
+    request.body = json.encode({
+      "id":addressId,
 
+    });
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    var jsonResponse = jsonDecode(await response.stream.bytesToString());
+
+    if (response.statusCode == 200 &&jsonResponse['status'] ==true) {
+      print("res ====-delete---==== ${jsonResponse}");
+      Fluttertoast.showToast(
+          msg: "delete successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white70,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
+      getMyAddresses();
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      Fluttertoast.showToast(
+          msg: "Delete failed",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white70,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
+      return false;
+    }
   }
 }

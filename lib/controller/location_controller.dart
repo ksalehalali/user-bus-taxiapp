@@ -48,6 +48,7 @@ class LocationController extends GetxController {
 
   var myCorrectBuses =[].obs;
   var myCorrectBusesGot = false.obs;
+  var myFavAddresses =[].obs;
 
   @override
   void onInit() {
@@ -100,7 +101,6 @@ class LocationController extends GetxController {
     };
     var request = http.Request('POST', Uri.parse('$baseURL/api/UserTracking'));
     request.body = json.encode({
-      "BusID": "55be4b8f-abf6-48f3-52c8-08da1620ad87",
       "Longitude": location.longitude,
       "Latitude": location.latitude
     });
@@ -110,6 +110,7 @@ class LocationController extends GetxController {
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
+      print("......... send location update in system done  .......");
 
 
     }
@@ -172,6 +173,7 @@ class LocationController extends GetxController {
     await connection?.invoke('SendUserLocation', args: [{"UserID":"${user.id}","Longitude":location.longitude,"Latitude":location.latitude}]);
 
   }
+
   var location = loc.Location();
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
@@ -190,15 +192,18 @@ class LocationController extends GetxController {
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
+    print(" ##@@@@@@## current  location ##@@@@@@@## ${loca.heading} ,, ${loca.headingAccuracy}");
+
     BackgroundLocation.startLocationService(distanceFilter : 1);
 
     BackgroundLocation.getLocationUpdates((location) async {
-
+      print(" #### get Location Updates #### $location");
       if (!isLocationUpdated){
         isLocationUpdated =true;
       Timer(Duration(seconds:3), () {
-          //updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
-          //sendLocationSignalR(LocationModel(location.latitude!, location.longitude!));
+        print("......... send location update counter .......");
+          updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+        sendUserLocationSignalR(LocationModel(location.latitude!, location.longitude!));
           isLocationUpdated =false;
 
       });
@@ -278,7 +283,7 @@ class LocationController extends GetxController {
             mainText: 'set_location_on_map_txt'.tr,
             secondText: 'choose_txt'.tr,
     ));
-    //getMyAddresses();
+    getMyFavAddresses();
   }
   void updatePickUpLocationAddress( Address pickUpAddress){
     pickUpLocation = pickUpAddress;
@@ -350,16 +355,38 @@ updatePinPos(double lat , double lng){
     update();
 }
 //address
-  Future getMyAddresses() async {
+  Future getMyFavAddresses() async {
 
-    placePredictionList.add(
-        PlaceShort(
-          placeId: '1',
-          mainText: 'Kuwait Salm'.tr,
-          secondText: 'Kuwait Salm2'.tr,
-          lat:29.297260 ,
-          lng:48.023180
-        ));
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('Get', Uri.parse(baseURL +'/api/ListLocationByUser'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    var json = jsonDecode(await response.stream.bytesToString());
+
+    if (response.statusCode == 200 &&json['status'] ==true) {
+      print("res ====----==== ${json}");
+      myFavAddresses.value = json["description"];
+
+      placePredictionList.add(
+          PlaceShort(
+              placeId: '1',
+              mainText: "${myFavAddresses[1]['name']}",
+              secondText: '${myFavAddresses[1]['desc']}',
+              lat:myFavAddresses[1]['latitude'],
+              lng:myFavAddresses[1]['longitude'],
+          ));
+      return myFavAddresses;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+
   }
 }
 

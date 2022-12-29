@@ -144,6 +144,8 @@ Map<String,String> ar ={
   "yourFavoriteAddresses_txt":"الاماكن المفضلة",
   "Addresses_txt":"العناوين",
   "Address_txt":"العنوان",
+  "Address delete_txt":"حذف العنوان",
+
 
   //-
   "Account delete_txt":"حذف الحساب",
@@ -305,6 +307,8 @@ Map<String,String> en ={
   "yourFavoriteAddresses_txt":"Your favorite addresses",
   "Addresses_txt":"Addresses",
   "Address_txt":"Address",
+  "Address delete_txt":"Address delete",
+
   //-
 
 
