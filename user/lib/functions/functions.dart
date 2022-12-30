@@ -40,8 +40,8 @@ bool internet = true;
 var request_number;
 
 //base url
-String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-// String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+// String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
 String mapkey = 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc';
 int drawerSelectedIndex = 0;
 
@@ -948,8 +948,7 @@ getPolylineshistory({pickLat, pickLng, dropLat, dropLng}) async {
     var response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key=$mapkey'));
     if (response.statusCode == 200) {
-      var steps =
-          jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
+      var steps = jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
       decodeEncodedPolyline(steps);
     } else {
       debugPrint(response.body);
@@ -1908,7 +1907,7 @@ cancelRequestWithReason(reason) async {
 //making call to user
 
 makingPhoneCall(phnumber) async {
-  var mobileCall = 'tel:$phnumber';
+  var mobileCall = 'tel:${phnumber}';
   if (await canLaunch(mobileCall)) {
     await launch(mobileCall);
   } else {

@@ -224,7 +224,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                                                               ],
                                                                             ),
                                                                             Text(
-                                                                              countries[i]['dial_code'],
+                                                                              "+${countries[i]['dial_code']}",
                                                                               style: GoogleFonts.roboto(fontSize: media.width * sixteen),
                                                                             )
                                                                           ],
@@ -343,8 +343,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                       ?.unfocus();
                                 }
                               },
-                              maxLength: countries[phcode]
-                              ['dial_max_length'],
+                              maxLength: countries[phcode]['dial_max_length'],
                               style: GoogleFonts.roboto(
                                   fontSize: media.width * sixteen,
                                   color: textColor,
@@ -462,7 +461,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                           //otp is true
                           if (val.value == true) {
                             phoneAuthCheck = true;
-                            await phoneAuth(countries[phcode]['dial_code'] + phnumber);
+                            await phoneAuth("+${countries[phcode]['dial_code']}" + phnumber);
 
                             navigate();
                           }

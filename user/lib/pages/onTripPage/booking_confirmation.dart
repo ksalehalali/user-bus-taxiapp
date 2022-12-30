@@ -744,7 +744,8 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                               userRequestData['pick_lat'],
                                               userRequestData['pick_lng'],
                                               driverData['l'][0],
-                                              driverData['l'][1]);
+                                              driverData['l'][1],
+                                            );
                                           _dist = double.parse(
                                               (distCalc / 1000).toString());
                                         }
@@ -1253,7 +1254,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                                 Row(
                                                                                                   children: [
                                                                                                     SizedBox(
-                                                                                                      width: media.width * 0.3,
+                                                                                                      width: media.width * 0.22,
                                                                                                       child: Text(
                                                                                                         etaDetails[i]['short_description'],
                                                                                                         style: GoogleFonts.roboto(
@@ -1309,7 +1310,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                                             style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor, fontWeight: FontWeight.w600),
                                                                                                           ),
                                                                                                           Text(
-                                                                                                            etaDetails[i]['total'].toStringAsFixed(2),
+                                                                                                           etaDetails[i]['total'].toStringAsFixed(2),
                                                                                                             style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor, fontWeight: FontWeight.w600, decoration: TextDecoration.lineThrough),
                                                                                                           ),
                                                                                                           Text(
@@ -3771,8 +3772,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       child:
                                                                           Text(
                                                                         userRequestData['driverDetail']['data']
-                                                                            [
-                                                                            'car_number'],
+                                                                            ['car_number'].toString(),
                                                                         style: GoogleFonts.roboto(
                                                                             fontSize: media.width *
                                                                                 fourteen,
@@ -3816,11 +3816,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                               children: [
                                                                 InkWell(
                                                                   onTap: () {
-                                                                    makingPhoneCall(userRequestData['driverDetail']
-                                                                            [
-                                                                            'data']
-                                                                        [
-                                                                        'mobile']);
+                                                                    makingPhoneCall(userRequestData['driverDetail']['data']['mobile']);
                                                                   },
                                                                   child:
                                                                       Container(
@@ -4270,17 +4266,17 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                         width: media.width *
                                                                             0.06,
                                                                         child: (userRequestData['payment_opt'] ==
-                                                                                '1')
+                                                                                1)
                                                                             ? Image.asset(
                                                                                 'assets/images/cash.png',
                                                                                 fit: BoxFit.contain,
                                                                               )
-                                                                            : (userRequestData['payment_opt'] == '2')
+                                                                            : (userRequestData['payment_opt'] == 2)
                                                                                 ? Image.asset(
                                                                                     'assets/images/wallet.png',
                                                                                     fit: BoxFit.contain,
                                                                                   )
-                                                                                : (userRequestData['payment_opt'] == '0')
+                                                                                : (userRequestData['payment_opt'] == 0)
                                                                                     ? Image.asset(
                                                                                         'assets/images/card.png',
                                                                                         fit: BoxFit.contain,
@@ -4288,8 +4284,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                     : Container(),
                                                                       ),
                                                                       SizedBox(
-                                                                        width: media.width *
-                                                                            0.05,
+                                                                        width: media.width * 0.05,
                                                                       ),
                                                                       Column(
                                                                         crossAxisAlignment:
@@ -4303,11 +4298,11 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                                 GoogleFonts.roboto(fontSize: media.width * fourteen, fontWeight: FontWeight.w600),
                                                                           ),
                                                                           Text(
-                                                                            (userRequestData['payment_opt'] == '1')
+                                                                            (userRequestData['payment_opt'] == 1)
                                                                                 ? languages[choosenLanguage]['text_paycash']
-                                                                                : (userRequestData['payment_opt'] == '2')
+                                                                                : (userRequestData['payment_opt'] == 2)
                                                                                     ? languages[choosenLanguage]['text_paywallet']
-                                                                                    : (userRequestData['payment_opt'] == '0')
+                                                                                    : (userRequestData['payment_opt'] == 0)
                                                                                         ? languages[choosenLanguage]['text_paycard']
                                                                                         : '',
                                                                             style:

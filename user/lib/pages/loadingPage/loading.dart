@@ -58,7 +58,7 @@ class _LoadingState extends State<Loading> {
       // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // SizedBox(
           //   height: 20,
@@ -93,9 +93,10 @@ class _LoadingState extends State<Loading> {
           //   ),
           // )
           // SizedBox(height: 20,),
-          Image.asset('assets/images/logo.png'),
-          SizedBox(height: 0),
-          Image.asset('assets/images/loading.gif')
+          // Image.asset('assets/images/logo.png'),
+          // SizedBox(height: 0),
+          // Image.asset('assets/images/loading.gif')
+          Image.asset('assets/images/loading_screen.gif')
         ],
       ),
     );

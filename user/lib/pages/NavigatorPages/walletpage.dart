@@ -521,7 +521,7 @@ class _WalletPageState extends State<WalletPage> {
                                       SizedBox(height: 8,),
                                       amountError ? Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Text('Please enter amount', style: TextStyle(color: Colors.red),)) : SizedBox(),
+                                          child: Text('Please enter valid amount', style: TextStyle(color: Colors.red),)) : SizedBox(),
                                       SizedBox(
                                         height: media.width * 0.05,
                                       ),

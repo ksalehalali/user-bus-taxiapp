@@ -14,7 +14,6 @@ import 'package:tagyourtaxi_driver/pages/onTripPage/review_page.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
-
 import '../NavigatorPages/KNETPage.dart';
 
 class Invoice extends StatefulWidget {
@@ -185,7 +184,7 @@ class _InvoiceState extends State<Invoice> {
                                           height: media.width * 0.02,
                                         ),
                                         Text(
-                                          userRequestData['total_distance'] +
+                                          userRequestData['total_distance'].toString() +
                                               ' ' +
                                               userRequestData['unit'],
                                           style: GoogleFonts.roboto(
@@ -573,9 +572,9 @@ class _InvoiceState extends State<Invoice> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                (userRequestData['payment_opt'] == '1')
+                                (userRequestData['payment_opt'] == 1)
                                     ? languages[choosenLanguage]['text_cash']
-                                    : (userRequestData['payment_opt'] == '2')
+                                    : (userRequestData['payment_opt'] == 2)
                                         ? languages[choosenLanguage]['text_wallet']
                                         : languages[choosenLanguage]['text_card'],
                                 style: GoogleFonts.roboto(
@@ -597,8 +596,8 @@ class _InvoiceState extends State<Invoice> {
                   ),
                   Button(
                           onTap: ()async {
-                            if(widget.payment != "paid"){
-                            // if(userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0){
+                            // if(widget.payment != "paid"){
+                            if(userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0){
                               setState(() {
                                 _isLoading = true;
                               });
@@ -614,8 +613,8 @@ class _InvoiceState extends State<Invoice> {
                                     builder: (context) => const Review()));
                             }
                           },
-                          text: widget.payment != "paid" ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
-                          // text: (userRequestData['payment_opt'] == '0' && userRequestData['is_paid'] == 0) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                          // text: widget.payment != "paid" ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                          text: (userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
                 ],
               ),
             ),

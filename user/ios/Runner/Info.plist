@@ -46,12 +46,14 @@
 		<string>phonepe</string>
 		<string>tez</string>
 		<string>paytm</string>
+        <string>sms</string>
+         <string>tel</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow access to camera to capture photos for updating profile picture</string>
-	<key>NSContactsUsageDescription</key>
+	<key>NSContactsUsageDescription</key>4
 	<string>Allow contact access to select your contacts for adding in SOS</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Program requires GPS to track cars and book ride</string>

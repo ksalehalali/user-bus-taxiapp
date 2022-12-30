@@ -28,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/animated_images/welcome.png'),
+              Image.asset('assets/animated_images/welcome.png', width: MediaQuery.of(context).size.width/2.5,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

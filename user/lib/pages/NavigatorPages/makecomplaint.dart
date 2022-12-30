@@ -25,6 +25,7 @@ class _MakeComplaintState extends State<MakeComplaint> {
   bool _showOptions = false;
   TextEditingController complaintText = TextEditingController();
   bool _success = false;
+  var error = "";
 
   @override
   void initState() {
@@ -104,7 +105,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                     ),
                     (generalComplaintList.isNotEmpty)
                         ? Expanded(
-                            child: Column(children: [
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
                             InkWell(
                               onTap: () {
                                 setState(() {
@@ -175,6 +179,8 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                 ),
                               ),
                             ),
+                              SizedBox(height: 10,),
+                              Text(error, style: TextStyle(color: Colors.red),)
                           ]))
                         : (_isLoading == false)
                         ? Column(
@@ -235,6 +241,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                       }
 
                                       _isLoading = false;
+                                    });
+                                  }else{
+                                    setState(() {
+                                      error = "Minimum length should be 10";
                                     });
                                   }
                                 },

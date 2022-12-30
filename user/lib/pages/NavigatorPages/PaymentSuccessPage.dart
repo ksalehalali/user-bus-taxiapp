@@ -26,6 +26,9 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    bool buttonLoading = false;
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -89,7 +92,14 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      setState(() {
+                        buttonLoading = true;
+                      });
+                      await getUserDetails();
+                      setState(() {
+                        buttonLoading = false;
+                      });
                       Navigator.pushAndRemoveUntil<dynamic>(
                         context,
                         MaterialPageRoute<dynamic>(
@@ -100,7 +110,10 @@ class PaymentSuccessState extends State<PaymentSuccessPage> {
                             (route) => false,//if you want to disable back feature set to false
                       );
                     },
-                    child: Text(
+                    child: buttonLoading ? FittedBox(
+                      fit: BoxFit.contain,
+                      child: Image.asset("assets/images/button_loading.gif"),
+                    ) : Text(
                       paymentStatus == "wallet-payment-success" || paymentStatus == "wallet-payment-error"
                           ? languages[choosenLanguage]['text_go_to_wallet']
                           : languages[choosenLanguage]["text_go_to_invoice"],

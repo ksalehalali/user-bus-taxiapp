@@ -263,14 +263,12 @@ class _GetStartedState extends State<GetStarted> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        countries[phcode]['dial_code'],
+                                        countries[phcode]['dial_code'].toString(),
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
                                             color: textColor),
                                       ),
-                                      const SizedBox(
-                                        width: 2,
-                                      ),
+                                      const SizedBox(width: 2),
                                       const Icon(Icons.keyboard_arrow_down)
                                     ],
                                   ),

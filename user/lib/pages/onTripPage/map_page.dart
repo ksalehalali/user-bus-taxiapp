@@ -989,7 +989,7 @@ class _MapsState extends State<Maps>
                                                   ),
                                                   maxLines: 1,
                                                   onChanged: (val) {
-                                                    if (val.length >= 4) {
+                                                    if (val.length >= 3) {
                                                       getAutoAddress(val, _sessionToken, center.latitude, center.longitude);
                                                     } else {
                                                       setState(() {
@@ -1505,7 +1505,7 @@ class _MapsState extends State<Maps>
                                                       decoration: InputDecoration(contentPadding: (languageDirection == 'rtl') ? EdgeInsets.only(bottom: media.width * 0.035) : EdgeInsets.only(bottom: media.width * 0.047), border: InputBorder.none, hintText: languages[choosenLanguage]['text_4lettersforautofill'], hintStyle: GoogleFonts.roboto(fontSize: media.width * twelve, color: hintColor)),
                                                       maxLines: 1,
                                                       onChanged: (val) {
-                                                        if (val.length >= 4) {
+                                                        if (val.length >= 3) {
                                                           getAutoAddress(val, _sessionToken, center.latitude, center.longitude);
                                                         } else {
                                                           setState(() {

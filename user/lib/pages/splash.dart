@@ -36,7 +36,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: SizedBox.expand(
           child: Image.asset(
-            "assets/images/splash.gif",
+            "assets/routes_splash.gif",
             fit: BoxFit.cover,
           )
       ),);
