@@ -93,7 +93,6 @@ class _LoadingState extends State<Loading> {
           //   ),
           // )
           // SizedBox(height: 20,),
-          Image.asset('assets/images/logo.png'),
           Image.asset('assets/images/loading.gif')
         ],
       ),

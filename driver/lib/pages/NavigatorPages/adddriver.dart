@@ -351,7 +351,7 @@ class _AddDriverState extends State<AddDriver> {
                                               width: media.width * 0.02,
                                             ),
                                             Text(
-                                              countries[phcode]['dial_code']
+                                              "+"+countries[phcode]['dial_code']
                                                   .toString(),
                                               style: GoogleFonts.roboto(
                                                   fontSize:

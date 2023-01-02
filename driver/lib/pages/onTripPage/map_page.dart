@@ -183,6 +183,20 @@ class _MapsState extends State<Maps>
         .asUint8List();
   }
 
+  addPickupPolyline() async{
+    if (driverReq['is_trip_start'] != 1) {
+      var locs = await geolocator.Geolocator.getLastKnownPosition();
+      if(locs!=null && driverReq['pick_address'] != null){
+        if (polyline.where((element) => element.polylineId == const PolylineId('2')).isEmpty) {
+          getPolylines(pickLat: locs.latitude, pickLng: locs.longitude, dropLat: driverReq['pick_lat'].toString(), dropLng: driverReq['pick_lng'].toString());
+        }
+        getLatLngBounds(locs.latitude, locs.longitude, driverReq['pick_lat'],  driverReq['pick_lng']);
+
+      }
+    }
+
+  }
+
 //getting permission and current location
   getLocs() async {
     permission = await geolocator.GeolocatorPlatform.instance.checkPermission();
@@ -243,20 +257,22 @@ class _MapsState extends State<Maps>
             heading = locs.heading;
           } else {
             loc = await geolocator.Geolocator.getCurrentPosition(
-                desiredAccuracy: geolocator.LocationAccuracy.low);
+                desiredAccuracy: geolocator.LocationAccuracy.high);
             center = LatLng(double.parse(loc.latitude.toString()),
                 double.parse(loc.longitude.toString()));
             heading = loc.heading;
           }
+          addPickupPolyline();
           _controller?.animateCamera(CameraUpdate.newLatLngZoom(center, 14.0));
         }
+        addPickupPolyline();
         if (mounted) {
           setState(() {
             pinLocationIcon = BitmapDescriptor.fromBytes(markerIcon);
             pinLocationIcon2 = BitmapDescriptor.fromBytes(markerIcon2);
-            
-            
-            
+
+
+
 
             if (myMarkers.isEmpty && userDetails['role'] != 'owner') {
               myMarkers = [
@@ -318,25 +334,25 @@ class _MapsState extends State<Maps>
     getLocs();
   }
 
-  getLatLngBounds() {
+  getLatLngBounds(pickLat, pickLong, dropLat, dropLong) {
     LatLngBounds bound;
-    if (driverReq['pick_lat'] > driverReq['drop_lat'] &&
-        driverReq['pick_lng'] > driverReq['drop_lng']) {
+    if (pickLat > dropLat &&
+        pickLong > dropLong) {
       bound = LatLngBounds(
-          southwest: LatLng(driverReq['drop_lat'], driverReq['drop_lng']),
-          northeast: LatLng(driverReq['pick_lat'], driverReq['pick_lng']));
-    } else if (driverReq['pick_lng'] > driverReq['drop_lng']) {
+          southwest: LatLng(dropLat, dropLong),
+          northeast: LatLng(pickLat, pickLong));
+    } else if (pickLong > dropLong) {
       bound = LatLngBounds(
-          southwest: LatLng(driverReq['pick_lat'], driverReq['drop_lng']),
-          northeast: LatLng(driverReq['drop_lat'], driverReq['pick_lng']));
-    } else if (driverReq['pick_lat'] > driverReq['drop_lat']) {
+          southwest: LatLng(pickLat, dropLong),
+          northeast: LatLng(dropLat, pickLong));
+    } else if (pickLat > dropLat) {
       bound = LatLngBounds(
-          southwest: LatLng(driverReq['drop_lat'], driverReq['pick_lng']),
-          northeast: LatLng(driverReq['pick_lat'], driverReq['drop_lng']));
+          southwest: LatLng(dropLat, pickLong),
+          northeast: LatLng(pickLat, dropLong));
     } else {
       bound = LatLngBounds(
-          southwest: LatLng(driverReq['pick_lat'], driverReq['pick_lng']),
-          northeast: LatLng(driverReq['drop_lat'], driverReq['drop_lng']));
+          southwest: LatLng(pickLat, pickLong),
+          northeast: LatLng(dropLat, dropLong));
     }
 
     CameraUpdate cameraUpdate = CameraUpdate.newLatLngBounds(bound, 50);
@@ -464,14 +480,25 @@ class _MapsState extends State<Maps>
               icon: testIcon,
               position: LatLng(driverReq['drop_lat'], driverReq['drop_lng'])));
         });
-        if (polyline
-            .where((element) => element.polylineId == const PolylineId('1'))
-            .isEmpty) {
-          getPolylines();
+        if (driverReq['is_trip_start'] == 1 &&
+            driverReq['is_completed'] == 0) {
+          if (polyline
+              .where((element) => element.polylineId == const PolylineId('1'))
+              .isEmpty) {
+            getPolylines(
+                pickLat: driverReq['pick_lat'].toString(),
+                pickLng: driverReq['pick_lng'].toString(),
+                dropLat: driverReq['drop_lat'].toString(),
+                dropLng: driverReq['drop_lng'].toString());
+          }
+          getLatLngBounds(driverReq['pick_lat'],
+              driverReq['pick_lng'],
+              driverReq['drop_lat'],
+              driverReq['drop_lng']);
         }
-        getLatLngBounds();
       }
     }
+
 
     addMarker() async {
       if (driverReq.isNotEmpty) {
@@ -481,9 +508,9 @@ class _MapsState extends State<Maps>
             myMarkers.add(Marker(
                 markerId: const MarkerId('2'),
                 icon: testIcon,
-                position:
-                    LatLng(driverReq['pick_lat'], driverReq['pick_lng'])));
+                position: LatLng(driverReq['pick_lat'], driverReq['pick_lng'])));
           });
+          getLocs();
         }
       }
     }
@@ -504,24 +531,18 @@ class _MapsState extends State<Maps>
                         myMarkers.removeWhere((element) => element.markerId == const MarkerId('1'));
                       }else if(userDetails['vehicle_type_icon_for'] != 'taxi' && myMarkers
                       .firstWhere((element) => element.markerId == const MarkerId('1')).icon == pinLocationIcon){
-    myMarkers.removeWhere((element) => element.markerId == const MarkerId('1'));
+                         myMarkers.removeWhere((element) => element.markerId == const MarkerId('1'));
+                       }
                       }
-                      }
-              if (myMarkers
-                      .where((element) => element.markerId == const MarkerId('1'))
-                      .isNotEmpty &&
+              if (myMarkers.where((element) => element.markerId == const MarkerId('1')).isNotEmpty &&
                   pinLocationIcon != null &&
                   _controller != null &&
                   center != null) {
                 var dist = calculateDistance(
-                    myMarkers
-                        .firstWhere(
-                            (element) => element.markerId == const MarkerId('1'))
+                    myMarkers.firstWhere((element) => element.markerId == const MarkerId('1'))
                         .position
                         .latitude,
-                    myMarkers
-                        .firstWhere(
-                            (element) => element.markerId == const MarkerId('1'))
+                    myMarkers.firstWhere((element) => element.markerId == const MarkerId('1'))
                         .position
                         .longitude,
                     center.latitude,
@@ -530,7 +551,7 @@ class _MapsState extends State<Maps>
                   animationController = AnimationController(
                     duration: const Duration(
                         milliseconds: 1500), //Animation duration of marker
-    
+
                     vsync: this, //From the widget
                   );
                   animateCar(
@@ -554,9 +575,7 @@ class _MapsState extends State<Maps>
                       '',
                       '');
                 }
-              } else if (myMarkers
-                      .where((element) => element.markerId == const MarkerId('1'))
-                      .isEmpty &&
+              } else if (myMarkers.where((element) => element.markerId == const MarkerId('1')).isEmpty &&
                   pinLocationIcon != null &&
                   center != null &&
                   userDetails['role'] != 'owner') {
@@ -571,16 +590,18 @@ class _MapsState extends State<Maps>
                 if (_controller != null) {
                   mapPadding = media.width * 1;
                 }
-    
+
                 if (driverReq['is_trip_start'] != 1) {
                   if (myMarkers
                       .where((element) => element.markerId == const MarkerId('2'))
                       .isEmpty) {
                     Future.delayed(const Duration(seconds: 2), () {
                       addMarker();
+
+                 //     addPickupMarker();
                     });
                   }
-    
+
                   if (_pickAnimateDone != true) {
                     _pickAnimateDone = true;
                     Future.delayed(const Duration(seconds: 2), () {
@@ -591,17 +612,22 @@ class _MapsState extends State<Maps>
                   }
                 } else if (driverReq['is_trip_start'] == 1 &&
                     driverReq['is_completed'] == 0) {
-                  if (myMarkers
-                          .where((element) =>
-                              element.markerId == const MarkerId('3'))
-                          .isEmpty &&
+                  if (myMarkers.where((element) => element.markerId == const MarkerId('3')).isEmpty &&
                       driverReq['is_rental'] != true &&
                       _controller != null) {
+
+                      polyList.clear();
+                      polyline = {};
+
                     addDropMarker();
                   }
                   if (myMarkers
                       .where((element) => element.markerId == const MarkerId('2'))
                       .isEmpty) {
+                    if (driverReq['is_trip_start'] != 1) {
+                      polyList.clear();
+                      polyline = {};
+                    }
                     addMarker();
                   }
                 } else if (driverReq['is_completed'] == 1 &&
@@ -619,6 +645,8 @@ class _MapsState extends State<Maps>
                       (element) => element.markerId == const MarkerId('3'));
                   polyline.removeWhere(
                       (element) => element.polylineId == const PolylineId('1'));
+                  polyline.removeWhere(
+                      (element) => element.polylineId == const PolylineId('2'));
                 }
               } else {
                 mapPadding = 0;
@@ -627,14 +655,19 @@ class _MapsState extends State<Maps>
                     .isNotEmpty) {
                   myMarkers.removeWhere(
                       (element) => element.markerId == const MarkerId('2'));
+                    if (driverReq['is_trip_start'] != 1) {
+                      polyList.clear();
+                      polyline = {};
+                    }
+
                   if (userReject == true) {
                     reqCancel();
                   }
-    
+
                   _pickAnimateDone = false;
                 }
               }
-    
+
               if (userDetails['approve'] == false && driverReq.isEmpty) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushAndRemoveUntil(
@@ -876,10 +909,10 @@ class _MapsState extends State<Maps>
                                           duration: const Duration(
                                               milliseconds:
                                                   1500), //Animation duration of marker
-    
+
                                           vsync: this, //From the widget
                                         );
-    
+
                                         animateCar(
                                             myMarkers
                                                 .lastWhere((e) => e.markerId
@@ -974,10 +1007,10 @@ class _MapsState extends State<Maps>
                                               duration: const Duration(
                                                   milliseconds:
                                                       1500), //Animation duration of marker
-    
+
                                               vsync: this, //From the widget
                                             );
-    
+
                                             animateCar(
                                                 myMarkers
                                                     .lastWhere((e) => e.markerId
@@ -1076,10 +1109,10 @@ class _MapsState extends State<Maps>
                                             duration: const Duration(
                                                 milliseconds:
                                                     1500), //Animation duration of marker
-    
+
                                             vsync: this, //From the widget
                                           );
-    
+
                                           animateCar(
                                               myMarkers
                                                   .lastWhere((e) => e.markerId
@@ -1177,10 +1210,10 @@ class _MapsState extends State<Maps>
                                             duration: const Duration(
                                                 milliseconds:
                                                     1500), //Animation duration of marker
-    
+
                                             vsync: this, //From the widget
                                           );
-    
+
                                           animateCar(
                                               myMarkers
                                                   .lastWhere((e) => e.markerId
@@ -1264,11 +1297,11 @@ class _MapsState extends State<Maps>
                               //                                                   AnimationController(
                               //                                                 duration:
                               //                                                     const Duration(milliseconds: 1500), //Animation duration of marker
-    
+
                               //                                                 vsync:
                               //                                                     this, //From the widget
                               //                                               );
-    
+
                               //                                               animateCar(
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.latitude,
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.longitude,
@@ -1328,11 +1361,11 @@ class _MapsState extends State<Maps>
                               //                                                   AnimationController(
                               //                                                 duration:
                               //                                                     const Duration(milliseconds: 1500), //Animation duration of marker
-    
+
                               //                                                 vsync:
                               //                                                     this, //From the widget
                               //                                               );
-    
+
                               //                                               animateCar(
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.latitude,
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.longitude,
@@ -1390,11 +1423,11 @@ class _MapsState extends State<Maps>
                               //                                                   AnimationController(
                               //                                                 duration:
                               //                                                     const Duration(milliseconds: 1500), //Animation duration of marker
-    
+
                               //                                                 vsync:
                               //                                                     this, //From the widget
                               //                                               );
-    
+
                               //                                               animateCar(
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.latitude,
                               //                                                   myMarkers.lastWhere((e) => e.markerId.toString().contains('car' + element['id'].toString())).position.longitude,
@@ -1657,7 +1690,7 @@ class _MapsState extends State<Maps>
                                                                   shape: RoundedRectangleBorder(
                                                                       borderRadius: BorderRadius.circular(36.0)
                                                                   )
-                                                              ), 
+                                                              ),
                                                                       onPressed: () async {
                                                                 getLocationPermission();
                                                               },
@@ -1719,7 +1752,7 @@ class _MapsState extends State<Maps>
                                                                         false,
                                                                   );
                                                                 })),
-    
+
                                                         //driver status
                                                         (userDetails['role'] ==
                                                                 'owner')
@@ -2129,7 +2162,7 @@ class _MapsState extends State<Maps>
                                                                     ),
                                                                   )
                                                             : Container(),
-    
+
                                                         (userDetails['low_balance'] ==
                                                                     false) &&
                                                                 (userDetails[
@@ -2159,7 +2192,7 @@ class _MapsState extends State<Maps>
                                                                           _isLoading =
                                                                               true;
                                                                         });
-    
+
                                                                         await driverStatus();
                                                                         setState(
                                                                             () {
@@ -2183,7 +2216,7 @@ class _MapsState extends State<Maps>
                                                                             _isLoading =
                                                                                 true;
                                                                           });
-    
+
                                                                           await driverStatus();
                                                                           setState(
                                                                               () {
@@ -2363,7 +2396,7 @@ class _MapsState extends State<Maps>
                                                                         ),
                                                                       )
                                                                     : Container(),
-    
+
                                                         //request popup accept or reject
                                                         Positioned(
                                                             bottom: 20,
@@ -2780,6 +2813,7 @@ class _MapsState extends State<Maps>
                                                                                                     setState(() {
                                                                                                       _isLoading = true;
                                                                                                     });
+                                                                                                    getLocs();
                                                                                                     await requestAccept();
                                                                                                     setState(() {
                                                                                                       _isLoading = false;
@@ -2893,7 +2927,7 @@ class _MapsState extends State<Maps>
                                                                                   SizedBox(width: media.width * 0.05),
                                                                                   SizedBox(
                                                                                     width: media.width * 0.3,
-                                                                                    height: media.width * 0.2,
+                                                                                    height: media.width * 0.3,
                                                                                     child: Column(
                                                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -3246,6 +3280,8 @@ class _MapsState extends State<Maps>
                                                                                     getStartOtp = true;
                                                                                   });
                                                                                 } else {
+                                                                                  polyList.clear();
+                                                                                  polyline = {};
                                                                                   await tripStartDispatcher();
                                                                                 }
                                                                               } else {
@@ -3368,7 +3404,7 @@ class _MapsState extends State<Maps>
                                                                                     Expanded(
                                                                                         flex: 80,
                                                                                         child: Text(
-                                                                                          userDetails['contact_us_mobile1'],
+                                                                                          userDetails['contact_us_mobile1'].toString(),
                                                                                           style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
                                                                                         ))
                                                                                   ],
@@ -3384,7 +3420,7 @@ class _MapsState extends State<Maps>
                                                                                     Expanded(
                                                                                         flex: 80,
                                                                                         child: Text(
-                                                                                          userDetails['contact_us_mobile2'],
+                                                                                          userDetails['contact_us_mobile2'].toString(),
                                                                                           style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
                                                                                         ))
                                                                                   ],
@@ -5027,6 +5063,7 @@ class _MapsState extends State<Maps>
         if (value.contains(myMarkers
             .firstWhere((element) => element.markerId == MarkerId(markerid))
             .position)) {
+            print("d");
         } else {
           controller.animateCamera(CameraUpdate.newLatLng(center));
         }

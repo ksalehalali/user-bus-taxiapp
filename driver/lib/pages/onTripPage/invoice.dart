@@ -170,9 +170,9 @@ class _InvoiceState extends State<Invoice> {
                                           height: media.width * 0.02,
                                         ),
                                         Text(
-                                          driverReq['total_distance'] +
+                                          driverReq['total_distance'].toString() +
                                               ' ' +
-                                              driverReq['unit'],
+                                              driverReq['unit'].toString(),
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * fourteen,
                                               color: textColor),
@@ -545,9 +545,9 @@ class _InvoiceState extends State<Invoice> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                (driverReq['payment_opt'] == '1')
+                                (driverReq['payment_opt'] == 1)
                                     ? languages[choosenLanguage]['text_cash']
-                                    : (driverReq['payment_opt'] == '2')
+                                    : (driverReq['payment_opt'] == 2)
                                         ? languages[choosenLanguage]['text_wallet']
                                         : languages[choosenLanguage]['text_card'],
                                 style: GoogleFonts.roboto(
@@ -571,7 +571,7 @@ class _InvoiceState extends State<Invoice> {
                       ),
                     ),
                   ),
-                  (driverReq['payment_opt'] == '0' && driverReq['is_paid'] == 0) ?
+                  (driverReq['payment_opt'] == 0 && driverReq['is_paid'] == 0) ?
                       Container(
                         height: media.width * 0.12,
                         width: media.width*0.9,

@@ -428,7 +428,7 @@ class _HistoryState extends State<History> {
                                                                         Row(
                                                                           children: [
                                                                             Text(
-                                                                              (myHistory[i]['total_time'] < 50) ? myHistory[i]['total_distance'] + myHistory[i]['unit'] + ' - ' + myHistory[i]['total_time'].toString() + ' mins' : myHistory[i]['total_distance'] + myHistory[i]['unit'] + ' - ' + (myHistory[i]['total_time'] / 60).round().toString() + ' hr',
+                                                                              (myHistory[i]['total_time'] < 50) ? myHistory[i]['total_distance'].toString() + myHistory[i]['unit'] + ' - ' + myHistory[i]['total_time'].toString() + ' mins' : myHistory[i]['total_distance'] + myHistory[i]['unit'] + ' - ' + (myHistory[i]['total_time'] / 60).round().toString() + ' hr',
                                                                               style: GoogleFonts.roboto(fontSize: media.width * twelve),
                                                                             ),
                                                                           ],

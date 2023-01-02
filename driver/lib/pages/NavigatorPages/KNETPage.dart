@@ -40,6 +40,7 @@ class _WebViewContainerState extends State<KNETPage> {
           style: TextStyle(color: black),
         ),
         backgroundColor: white,
+        iconTheme: IconThemeData(color: black),
         // leading: InkWell(
         //     onTap: () {
         //       Navigator.pop(context);

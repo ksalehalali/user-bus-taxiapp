@@ -24,6 +24,7 @@ class _MakeComplaintState extends State<MakeComplaint> {
   bool _showOptions = false;
   TextEditingController complaintText = TextEditingController();
   bool _success = false;
+  var error = "";
 
   @override
   void initState() {
@@ -104,7 +105,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                     ),
                     (generalComplaintList.isNotEmpty)
                         ? Expanded(
-                            child: Column(children: [
+                            child: Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                             InkWell(
                               onTap: () {
                                 setState(() {
@@ -129,8 +133,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(generalComplaintList[complaintType]
-                                        ['title']),
+                                    Expanded(
+                                      child: Text(generalComplaintList[complaintType]
+                                          ['title']),
+                                    ),
                                     RotatedBox(
                                       quarterTurns:
                                           (_showOptions == true) ? 2 : 0,
@@ -148,11 +154,9 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: media.width * 0.08,
-                            ),
                             Container(
                               padding: EdgeInsets.all(media.width * 0.025),
+                              margin: EdgeInsets.only(top: media.width * 0.08),
                               width: media.width * 0.8,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
@@ -175,6 +179,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                 ),
                               ),
                             ),
+
+                              Container(
+                                  margin: EdgeInsets.only(top: media.width * 0.03),
+                                  child: Text(error, style: TextStyle(color: Colors.red),))
                           ]))
                         : Container(
                       height: media.width * 0.7,
@@ -207,6 +215,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
                                       }
 
                                       _isLoading = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      error = "Minimum length should be 10";
                                     });
                                   }
                                 },

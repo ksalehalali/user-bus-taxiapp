@@ -218,7 +218,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                                                                       ],
                                                                                     ),
                                                                                     Text(
-                                                                                      countries[i]['dial_code'],
+                                                                                      countries[i]['dial_code'].toString(),
                                                                                       style: GoogleFonts.roboto(fontSize: media.width * sixteen),
                                                                                     )
                                                                                   ],
@@ -295,7 +295,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                         width: media.width * 0.02,
                                       ),
                                       Text(
-                                        countries[phcode]['dial_code']
+                                        "+"+countries[phcode]['dial_code']
                                             .toString(),
                                         style: GoogleFonts.roboto(
                                             fontSize: media.width * sixteen,
@@ -332,7 +332,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                           ?.unfocus();
                                     }
                                   },
-                                  maxLength: int.parse(countries[phcode]['dial_max_length']),
+                                  maxLength: countries[phcode]['dial_max_length'],
                                   style: GoogleFonts.roboto(
                                       fontSize: media.width * sixteen,
                                       color: textColor,
@@ -434,7 +434,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                           height: media.height * 0.06,
                         ),
                         (controller.text.length >=
-                            int.parse(countries[phcode]['dial_min_length']) &&
+                            countries[phcode]['dial_min_length'] &&
                             terms == true)
                             ? Container(
                           width: media.width * 1 - media.width * 0.08,
@@ -452,7 +452,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                 //otp is true
                                 if (val.value == true) {
                                   phoneAuthCheck = true;
-                                  await phoneAuth(countries[phcode]['dial_code'] + phnumber);
+                                  await phoneAuth("+"+countries[phcode]['dial_code'].toString() + phnumber);
                                   navigate();
                                 }
                                 //otp is false

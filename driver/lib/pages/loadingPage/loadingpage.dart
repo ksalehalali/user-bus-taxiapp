@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tagyourtaxi_driver/pages/language/languages.dart';
@@ -16,7 +17,7 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import '../../styles/styles.dart';
 import '../../functions/functions.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:video_player/video_player.dart';
 import '../login/driver_or_owner.dart';
 import '../login/login.dart';
 import '../login/welcome_screen.dart';
@@ -38,7 +39,8 @@ class _LoadingPageState extends State<LoadingPage> {
   bool _isLoading = false;
 
   var demopage = TextEditingController();
-
+  late VideoPlayerController controller;
+  bool _visible = false;
   //navigate
   navigate() {
     if (userDetails['uploaded_document'] == false) {
@@ -63,9 +65,15 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   void initState() {
-    getLanguageDone();
+
+    Timer(Duration(seconds: 6), () {
+      getLanguageDone();
+    });
+
     super.initState();
   }
+
+
 
 //get language json and data saved in local (bearer token , choosen language) and find users current status
   getLanguageDone() async {
@@ -122,29 +130,32 @@ class _LoadingPageState extends State<LoadingPage> {
     }
 
     if (updateAvailable == false) {
-      await getDetailsOfDevice();
-      if (internet == true) {
-        var val = await getLocalData();
+      var getDeviceData = await getDetailsOfDevice();
+      if (getDeviceData == true) {
+        if (internet == true) {
+          var val = await getLocalData();
 
-        //if user is login and check waiting for approval status and send accordingly
-        if (val == '3') {
-          navigate();
-        }
-        //if user is not login in this device
-        else if (val == '2') {
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const WelcomeScreen()));
-          });
+          //if user is login and check waiting for approval status and send accordingly
+          if (val == '3') {
+            navigate();
+          }
+          //if user is not login in this device
+          else if (val == '2') {
+            Future.delayed(const Duration(seconds: 3), () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen()));
+            });
+          } else {
+            //user installing first time and didnt yet choosen language
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Languages(false)));
+            });
+          }
         } else {
-          //user installing first time and didnt yet choosen language
-          Future.delayed(const Duration(seconds: 2), () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => Languages(false)));
-          });
+          setState(() {});
         }
-      } else {
-        setState(() {});
       }
     }
   }
@@ -155,114 +166,104 @@ class _LoadingPageState extends State<LoadingPage> {
 
     return Material(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: media.height * 1,
-              width: media.width * 1,
-              decoration: BoxDecoration(
-                color: page,
-              ),
-              child: Column(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   Container(
-                    // padding: EdgeInsets.all(media.width * 0.01),
-                    width: media.width,
-                    height: media.height,
-                    // decoration: const BoxDecoration(
-                    //     image: DecorationImage(
-                    //         image: AssetImage('assets/images/logo.png'),
-                    //         fit: BoxFit.contain)),
-                    child: Image.asset('assets/images/splash.gif', fit: BoxFit.cover,),
+                   // padding: const EdgeInsets.all(20),
+                    child: Image.asset("assets/routes_intro.gif"),
                   ),
                 ],
               ),
-            ),
 
-            //update available
+              //update available
 
-            (updateAvailable == true)
-                ? Positioned(
-                    top: 0,
-                    child: Container(
-                      height: media.height * 1,
-                      width: media.width * 1,
-                      color: Colors.transparent.withOpacity(0.6),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              width: media.width * 0.9,
-                              padding: EdgeInsets.all(media.width * 0.05),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: page,
-                              ),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      width: media.width * 0.8,
-                                      child: Text(
-                                        'New version of this app is available in store, please update the app for continue using',
-                                        style: GoogleFonts.roboto(
-                                            fontSize: media.width * sixteen,
-                                            fontWeight: FontWeight.w600),
-                                      )),
-                                  SizedBox(
-                                    height: media.width * 0.05,
-                                  ),
-                                  Button(
-                                      onTap: () async {
-                                        if (platform ==
-                                            TargetPlatform.android) {
-                                          openBrowser(
-                                              'https://play.google.com/store/apps/details?id=${package.packageName}');
-                                        } else {
-                                          setState(() {
-                                            _isLoading = true;
-                                          });
-                                          var response = await http.get(Uri.parse(
-                                              'http://itunes.apple.com/lookup?bundleId=${package.packageName}'));
-                                          if (response.statusCode == 200) {
-                                            openBrowser(jsonDecode(
-                                                    response.body)['results'][0]
-                                                ['trackViewUrl']);
+              (updateAvailable == true)
+                  ? Positioned(
+                      top: 0,
+                      child: Container(
+                        height: media.height * 1,
+                        width: media.width * 1,
+                        color: Colors.transparent.withOpacity(0.6),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: media.width * 0.9,
+                                padding: EdgeInsets.all(media.width * 0.05),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: page,
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                        width: media.width * 0.8,
+                                        child: Text(
+                                          'New version of this app is available in store, please update the app for continue using',
+                                          style: GoogleFonts.roboto(
+                                              fontSize: media.width * sixteen,
+                                              fontWeight: FontWeight.w600),
+                                        )),
+                                    SizedBox(
+                                      height: media.width * 0.05,
+                                    ),
+                                    Button(
+                                        onTap: () async {
+                                          if (platform ==
+                                              TargetPlatform.android) {
+                                            openBrowser(
+                                                'https://play.google.com/store/apps/details?id=${package.packageName}');
+                                          } else {
+                                            setState(() {
+                                              _isLoading = true;
+                                            });
+                                            var response = await http.get(Uri.parse(
+                                                'http://itunes.apple.com/lookup?bundleId=${package.packageName}'));
+                                            if (response.statusCode == 200) {
+                                              openBrowser(jsonDecode(
+                                                      response.body)['results'][0]
+                                                  ['trackViewUrl']);
+                                            }
+
+                                            setState(() {
+                                              _isLoading = false;
+                                            });
                                           }
+                                        },
+                                        text: 'Update')
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ))
+                  : Container(),
 
-                                          setState(() {
-                                            _isLoading = false;
-                                          });
-                                        }
-                                      },
-                                      text: 'Update')
-                                ],
-                              ))
-                        ],
-                      ),
-                    ))
-                : Container(),
+              //loader
+              (_isLoading == true && internet == true)
+                  ? const Positioned(top: 0, child: Loading())
+                  : Container(),
 
-            //loader
-            (_isLoading == true && internet == true)
-                ? const Positioned(top: 0, child: Loading())
-                : Container(),
-
-            //internet is not connected
-            (internet == false)
-                ? Positioned(
-                    top: 0,
-                    child: NoInternet(
-                      onTap: () {
-                        //try again
-                        setState(() {
-                          internetTrue();
-                          getLanguageDone();
-                        });
-                      },
-                    ))
-                : Container(),
-          ],
+              //internet is not connected
+              (internet == false)
+                  ? Positioned(
+                      top: 0,
+                      child: NoInternet(
+                        onTap: () {
+                          //try again
+                          setState(() {
+                            internetTrue();
+                            getLanguageDone();
+                          });
+                        },
+                      ))
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );

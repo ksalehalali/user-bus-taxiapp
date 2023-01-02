@@ -9,11 +9,12 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  initMessaging();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   checkInternetConnection();
-  initMessaging();
+
   currentPositionUpdate();
   runApp(const MyApp());
 }

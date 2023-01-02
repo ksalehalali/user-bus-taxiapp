@@ -564,7 +564,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Invoice()),
+                              builder: (context) => Invoice(payingVia: payingVia,  etaDetails: etaDetails)),
                           (route) => false);
                     });
                   }
@@ -1858,8 +1858,7 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       width: media
                                                                               .width *
                                                                           0.06,
-                                                                      child: (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] ==
-                                                                              'cash')
+                                                                      child: (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] == 'cash')
                                                                           ? Image
                                                                               .asset(
                                                                               'assets/images/cash.png',
@@ -3772,7 +3771,8 @@ class _BookingConfirmationState extends State<BookingConfirmation>
                                                                       child:
                                                                           Text(
                                                                         userRequestData['driverDetail']['data']
-                                                                            ['car_number'].toString(),
+                                                                            [
+                                                                            'car_number'].toString(),
                                                                         style: GoogleFonts.roboto(
                                                                             fontSize: media.width *
                                                                                 fourteen,

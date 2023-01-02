@@ -814,10 +814,7 @@ class _HistoryDetailsState extends State<HistoryDetails> {
                                       height: media.width * 0.02,
                                     ),
                                     Text(
-                                      myHistory[selectedHistory]
-                                              ['total_distance'] +
-                                          ' ' +
-                                          myHistory[selectedHistory]['unit'],
+                                      '${myHistory[selectedHistory]['total_distance']} ' + myHistory[selectedHistory]['unit'],
                                       style: GoogleFonts.roboto(
                                           fontSize: media.width * fourteen,
                                           color: textColor),

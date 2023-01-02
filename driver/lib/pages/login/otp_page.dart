@@ -230,7 +230,7 @@ class _OtpState extends State<Otp> {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    countries[phcode]['dial_code'] + phnumber,
+                                    "+"+countries[phcode]['dial_code'].toString() + phnumber,
                                     style: GoogleFonts.roboto(
                                         fontSize: media.width * sixteen,
                                         color: primaryColor,
@@ -372,8 +372,7 @@ class _OtpState extends State<Otp> {
                                             });
                                             timers();
                                           });
-                                          phoneAuth(countries[phcode]['dial_code'] +
-                                              phnumber);
+                                          phoneAuth("+${countries[phcode]['dial_code']}$phnumber");
                                         }
                                       },
                                       borcolor: (resendTime != 0 && otpNumber.length != 6)

@@ -57,9 +57,9 @@ dynamic centerCheck;
 String ischeckownerordriver = '';
 
 //base url
-String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-// String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String mapkey = 'AIzaSyClqlqaLijNqiCRSIYuSRl5DayRhSdXGyE';
+// String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String mapkey = 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc';
 String mapStyle = '';
 int drawerSelectedIndex = 0;
 
@@ -77,6 +77,7 @@ getDetailsOfDevice() async {
     var token = await FirebaseMessaging.instance.getToken();
     fcm = token;
     pref = await SharedPreferences.getInstance();
+    return true;
   } catch (e) {
     if (e is SocketException) {
       internet = false;
@@ -1025,7 +1026,7 @@ verifyUser(String number) async {
   try {
     var response = await http.post(
         Uri.parse('${url}api/v1/driver/validate-mobile-for-login'),
-        body: {"mobile": number, "role": "driver"});
+        body: {"mobile":  number, "role": "driver"});
 
     if (response.statusCode == 200) {
       val = jsonDecode(response.body)['success'];
@@ -1944,12 +1945,9 @@ dynamic heading = 0.0;
 
 List<LatLng> polyList = [];
 
-getPolylines() async {
+getPolylines({pickLat, pickLng, dropLat, dropLng}) async {
   polyList.clear();
-  String pickLat = driverReq['pick_lat'].toString();
-  String pickLng = driverReq['pick_lng'].toString();
-  String dropLat = driverReq['drop_lat'].toString();
-  String dropLng = driverReq['drop_lng'].toString();
+
   try {
     var response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key=$mapkey'));
@@ -3645,6 +3643,7 @@ streamRide() {
       getUserDetails();
       if (driverReq.isEmpty) {
         userReject = true;
+        polyList.clear();
       }
     } else if (event.snapshot.key.toString() == 'message_by_user') {
       getCurrentMessages();

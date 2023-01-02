@@ -18,7 +18,9 @@ import '../NavigatorPages/KNETPage.dart';
 
 class Invoice extends StatefulWidget {
   var payment;
-  Invoice({this.payment});
+  var payingVia;
+  var etaDetails;
+  Invoice({this.payment, this.payingVia, this.etaDetails});
 
   @override
   State<Invoice> createState() => _InvoiceState();
@@ -34,7 +36,7 @@ class _InvoiceState extends State<Invoice> {
   void initState() {
     myMarkers.clear();
     promoCode = '';
-    payingVia = 0;
+   // payingVia = 0;
     timing = 0.0;
     promoStatus = null;
     super.initState();
@@ -596,25 +598,32 @@ class _InvoiceState extends State<Invoice> {
                   ),
                   Button(
                           onTap: ()async {
-                            // if(widget.payment != "paid"){
-                            if(userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0){
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              await getWalletHistory();
-                              setState(() {
-                                _isLoading = false;
-                                _choosePayment = true;
-                              });
-                            } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Review()));
-                            }
+                            //if(widget.etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[widget.payingVia] == 'cash') {
+                            //  if (widget.payment != "paid") {
+                                 if(userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0){
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                await getWalletHistory();
+                                setState(() {
+                                  _isLoading = false;
+                                  _choosePayment = true;
+                                });
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Review()));
+                              }
+                            // }else {
+                            //   Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) => const Review()));
+                            // }
                           },
-                          // text: widget.payment != "paid" ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
-                          text: (userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                          //text: widget.payment != "paid" ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
+                           text: (userRequestData['payment_opt'] == 0 && userRequestData['is_paid'] == 0) ? languages[choosenLanguage]['text_pay'] : languages[choosenLanguage]['text_confirm'])
                 ],
               ),
             ),

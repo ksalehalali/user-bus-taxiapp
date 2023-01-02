@@ -36,6 +36,7 @@ class _WalletPageState extends State<WalletPage> {
   bool _completed = false;
   bool showtoast = false;
   String? payment_gateway = '';
+  bool amountError = false;
 
   @override
   void initState() {
@@ -423,26 +424,28 @@ class _WalletPageState extends State<WalletPage> {
 
                           //withdraw money
                           (_addPayment == false)
-                              ? Container(
+                              ?
+                          Container(
                                   padding: EdgeInsets.only(
                                       top: media.width * 0.05,
                                       bottom: media.width * 0.05),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Button(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Withdraw()));
-                                        },
-                                        text: languages[choosenLanguage]
-                                            ['text_withdraw'],
-                                        width: media.width * 0.4,
-                                      ),
+                                      // Button(
+                                      //   onTap: () {
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 const Withdraw()));
+                                      //   },
+                                      //   text: languages[choosenLanguage]
+                                      //       ['text_withdraw'],
+                                      //   width: media.width * 0.4,
+                                      // ),
                                       Button(
                                         onTap: () {
                                           if (_addPayment == false) {
@@ -568,6 +571,9 @@ class _WalletPageState extends State<WalletPage> {
                                           ],
                                         ),
                                       ),
+                                      amountError ? Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text('Please enter valid amount', style: TextStyle(color: Colors.red),)) : SizedBox(),
                                       SizedBox(
                                         height: media.width * 0.05,
                                       ),
@@ -708,6 +714,11 @@ class _WalletPageState extends State<WalletPage> {
                                                 setState(() {
                                                   _choosePayment = true;
                                                   _addPayment = false;
+                                                  amountError = false;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  amountError = true;
                                                 });
                                               }
                                             },

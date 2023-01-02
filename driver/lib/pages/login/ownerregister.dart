@@ -435,7 +435,7 @@ class _OwnersRegisterState extends State<OwnersRegister> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          countries[phcode]['dial_code'],
+                                          "+"+countries[phcode]['dial_code'],
                                           style: GoogleFonts.roboto(
                                               fontSize: media.width * sixteen,
                                               color: textColor),
