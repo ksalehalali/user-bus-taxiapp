@@ -350,6 +350,7 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("shared2Id")),
 
+
                         //correct bus 1
                         locationController.myCorrectBusesGot == true
                             ? google_maps.Marker(
@@ -357,12 +358,32 @@ class _MapState extends State<Map> {
 
                             infoWindow: google_maps.InfoWindow(
                                 title:
-                                '${locationController.myCorrectBuses[2]['busID']}',
-                                snippet: locationController.myCorrectBuses[2]['busID']),
+                                '${locationController.bussesList[0].name}',
+                                snippet: locationController.bussesList[0].name),
                             position: google_maps.LatLng(
-                                locationController.myCorrectBuses[2]['latitude1'],
-                                locationController.myCorrectBuses[2]['longitude2']),
-                            markerId: google_maps.MarkerId("dropOffId"),
+                                locationController.bussesList[0].lat,
+                                locationController.bussesList[0].lng),
+                            markerId: google_maps.MarkerId(locationController.bussesList[0].name),
+                            onTap: () {
+                              print(routeMapController.endStation['station']
+                                  .toString());
+                            })
+                            : google_maps.Marker(
+                            markerId: google_maps.MarkerId("dropOffId")),
+
+                        //correct bus 2
+                        locationController.myCorrectBusesGot == true
+                            ? google_maps.Marker(
+                            icon: mapMarker,
+
+                            infoWindow: google_maps.InfoWindow(
+                                title:
+                                '${locationController.bussesList[1].name}',
+                                snippet: locationController.bussesList[1].name),
+                            position: google_maps.LatLng(
+                                locationController.bussesList[1].lat,
+                                locationController.bussesList[1].lng),
+                            markerId: google_maps.MarkerId(locationController.bussesList[1].name),
                             onTap: () {
                               print(routeMapController.endStation['station']
                                   .toString());
@@ -593,6 +614,35 @@ class _MapState extends State<Map> {
                                 backgroundColor: Colors.white.withOpacity(.9),
                                 child:Icon(
                                   Icons.favorite_border,
+                                  color: Colors.black,
+                                ),
+                                radius: 20.0,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height:12.w),
+                          InkWell(
+                            onTap: ()async {
+                              await locationController.getRouteBusses(trip.routeId);
+                              },
+                            child: Container(
+                              //height: 300.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      blurRadius: 6.0,
+                                      spreadRadius: 0.5,
+                                      offset: Offset(0.7, 0.7),
+                                    ),
+                                  ]),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white.withOpacity(.9),
+                                child:Icon(
+                                  Icons.account_tree_outlined,
                                   color: Colors.black,
                                 ),
                                 radius: 20.0,

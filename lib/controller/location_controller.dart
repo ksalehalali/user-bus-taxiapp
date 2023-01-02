@@ -12,14 +12,17 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart' as loc;
 import 'package:signalr_core/signalr_core.dart';
 import '../Assistants/assistantMethods.dart';
+import '../Assistants/distance_calculator.dart';
 import '../Assistants/globals.dart';
 import '../Assistants/request-assistant.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
+import '../model/Destination.dart';
 import '../model/address.dart';
 import '../model/location.dart';
 import '../model/placePredictions.dart';
 import '../services/audio_player.dart';
+import 'dart:math' show cos, sqrt, asin;
 
 class LocationController extends GetxController {
   var pickUpAddress = ''.obs;
@@ -47,7 +50,10 @@ class LocationController extends GetxController {
   bool isLocationUpdated = false;
 
   var myCorrectBuses =[].obs;
+  var myRouteBuses =[].obs;
   var myCorrectBusesGot = false.obs;
+  var bussesList = [].obs;
+  var points = [];
   var myFavAddresses =[].obs;
 
   @override
@@ -56,7 +62,7 @@ class LocationController extends GetxController {
     super.onInit();
     Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
-      signalRInit();
+      //signalRInit();
     });
     getLocation();
   }
@@ -121,7 +127,6 @@ class LocationController extends GetxController {
   }
 
  // send location signal
-
   HubConnection? connection;
   final liveTransactionServerUrl = "https://route.click68.com/ChatHub";
   Future<void> signalRInit() async {
@@ -150,7 +155,6 @@ class LocationController extends GetxController {
       connection?.on('ListBusMap', (message) async {
         print("-------- ListBusMap ..... Message: ${message!.first}");
         myCorrectBuses.value = message.first;
-        myCorrectBusesGot.value = true;
         update();
       });
 
@@ -202,8 +206,8 @@ class LocationController extends GetxController {
         isLocationUpdated =true;
       Timer(Duration(seconds:3), () {
         print("......... send location update counter .......");
-          updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
-        sendUserLocationSignalR(LocationModel(location.latitude!, location.longitude!));
+        //  updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
+         // sendUserLocationSignalR(LocationModel(location.latitude!, location.longitude!));
           isLocationUpdated =false;
 
       });
@@ -265,6 +269,7 @@ class LocationController extends GetxController {
     startAddingPickUp.value = status;
     update();
   }
+
   void startAddingDropOffStatus(bool status){
     startAddingDropOff.value = status;
     update();
@@ -285,6 +290,7 @@ class LocationController extends GetxController {
     ));
     getMyFavAddresses();
   }
+
   void updatePickUpLocationAddress( Address pickUpAddress){
     pickUpLocation = pickUpAddress;
     update();
@@ -294,9 +300,11 @@ class LocationController extends GetxController {
     dropOffLocation = dropOffAddress;
     update();
   }
+
   updateLiveLoc(LatLng latLng){
     liveLocation.value = latLng;
   }
+
   void findPlace(String placeName) async {
     if (placeName.length > 1) {
 
@@ -354,6 +362,7 @@ updatePinPos(double lat , double lng){
     currentLocationG.value=google_maps.LatLng(lat,lng);
     update();
 }
+
 //address
   Future getMyFavAddresses() async {
 
@@ -387,6 +396,101 @@ updatePinPos(double lat , double lng){
       return false;
     }
 
+  }
+
+  //get route's busses
+Future getRouteBusses(String routeId)async{
+  myCorrectBusesGot.value =false;
+
+  points.clear();
+  var headers = {
+    'Authorization': 'bearer ${user.accessToken}',
+    'Content-Type': 'application/json'
+  };
+  var request = http.Request('POST', Uri.parse(baseURL +'/api/divice/BusInRoute'));
+  request.body = json.encode({
+    "RouteID": "34addb01-2b86-49f2-13a8-08d9d82ee213"
+  });
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+  var jsonResponse = jsonDecode(await response.stream.bytesToString());
+
+  if (response.statusCode == 200 &&jsonResponse['status'] ==true) {
+    print("res ====--.......................length : ${jsonResponse["description"].length} ..................................--==== ${jsonResponse}");
+
+    for(var p in jsonResponse["description"]){
+      var l1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
+      var l2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
+      if(l1>l2){
+        points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: l2),);
+        bussesList.clear();
+        await distanceCalculation();
+
+        for(var i = 0; i < bussesList.length; i++){
+          print("busses =bus: $i==.= ${bussesList[i].name}");
+          print("busses =bus: $i==.= ${bussesList[i].distance}");
+
+          print("busses =bus: $i==.= ${bussesList[i].lat}");
+        }
+
+      }
+
+    }
+    myCorrectBuses.value = points;
+    print("points length =====--== ${points.length}");
+    if(points.length>0){
+      myCorrectBusesGot.value =true;
+    }
+    update();
+  }else {
+    print("routeId ${trip.routeId}");
+    print("Error getRouteBusses $jsonResponse");
+  }
+  }
+
+  //calculate the distance between tow points and
+ double calculateDistance(LocationModel point1 ,LocationModel point2){
+   double calculateDistance(lat1, lon1, lat2, lon2){
+     var p = 0.017453292519943295;
+     var c = cos;
+     var a = 0.5 - c((lat2 - lat1) * p)/2 +
+         c(lat1 * p) * c(lat2 * p) *
+             (1 - c((lon2 - lon1) * p))/2;
+     return 12742 * asin(sqrt(a));
+   }
+
+   List<dynamic> data = [
+     {
+       "lat": point1.latitude,
+       "lng": point1.longitude
+     },{
+       "lat": point2.latitude,
+       "lng": point2.longitude
+     }
+   ];
+   double totalDistance = 0;
+   for(var i = 0; i < data.length-1; i++){
+     totalDistance += calculateDistance(data[i]["lat"], data[i]["lng"], data[i+1]["lat"], data[i+1]["lng"]);
+   }
+   print(totalDistance);
+   return totalDistance;
+ }
+
+ //2
+  distanceCalculation() {
+    for(var d in points){
+      var km = getDistanceFromLatLonInKm(trip.startPoint.longitude,trip.startPoint.longitude, d.lat,d.lng);
+      // var m = Geolocator.distanceBetween(position.latitude,position.longitude, d.lat,d.lng);
+      // d.distance = m/1000;
+      d.distance = km;
+      bussesList.add(d);
+      // print(getDistanceFromLatLonInKm(position.latitude,position.longitude, d.lat,d.lng));
+    }
+
+      bussesList.sort((a, b) {
+        return a.distance.compareTo(b.distance);
+      });
   }
 }
 

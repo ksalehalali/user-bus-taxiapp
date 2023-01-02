@@ -969,6 +969,7 @@ class RouteMapController extends GetxController {
     }
 
   }
+
   updatePinPos(double lat, double lng) {
     latPinLoc.value = lat;
     lngPinLoc.value = lng;
@@ -1053,12 +1054,13 @@ class RouteMapController extends GetxController {
     if(isMultiMode ==false){
       trip.startStationId = tripRouteData['description']['startStation']['id'];
       trip.endStationId = tripRouteData['description']['endStation']['id'];
-      trip.routeId = tripRouteData['description']['res'][0]['routeID'];
-      trip.routeName = tripRouteData['description']['res'][0]['route'];
+      trip.routeId = tripRouteData['description'][0]['routeID'];
+      trip.routeName = tripRouteData['description'][0]['route'];
       trip.startPoint.latitude =
       tripRouteData['description']['startPoint']['latitude'];
       trip.startPoint.latitude =
       tripRouteData['description']['startPoint']['longitude'];
+
       await tripController.saveTrip();
     }else{
       trip.startStationId = multiRouteTripData['startStation']['id'];

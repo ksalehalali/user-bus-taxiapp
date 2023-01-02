@@ -17,5 +17,16 @@ class Trip {
 
 
 
-  Trip(this.endPointAddress,this.startPointAddress,this.startPoint, this.endPoint, this.routeId, this.startStationId, this.endStationId, this.userId, this.createDate,this.fromToOfRoute,this.routeName);
+  Trip(
+      {required this.endPointAddress,
+      required this.startPointAddress,
+      required this.startPoint,
+      required this.endPoint,
+      required this.routeId,
+      required this.startStationId,
+      required this.endStationId,
+      required this.userId,
+      required this.createDate,
+      required this.fromToOfRoute,
+      required this.routeName});
 }
