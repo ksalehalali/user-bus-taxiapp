@@ -170,7 +170,6 @@ class _LoadingPageState extends State<LoadingPage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   Container(
                     // padding: const EdgeInsets.all(20),
                     child: Image.asset("assets/routes_splash.gif"),

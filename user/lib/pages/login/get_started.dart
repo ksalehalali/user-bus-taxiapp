@@ -320,8 +320,7 @@ class _GetStartedState extends State<GetStarted> {
                                             r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])*$";
                                         RegExp regex = RegExp(pattern);
                                         if (regex.hasMatch(emailText.text)) {
-                                          FocusManager.instance.primaryFocus
-                                              ?.unfocus();
+                                          FocusManager.instance.primaryFocus?.unfocus();
 
                                           setState(() {
                                             verifyEmailError = '';
