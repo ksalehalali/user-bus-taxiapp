@@ -62,7 +62,8 @@ class LocationController extends GetxController {
     super.onInit();
     Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
-      //signalRInit();
+      signalRInit();
+      signalRTRacking();
     });
     getLocation();
   }
@@ -128,9 +129,59 @@ class LocationController extends GetxController {
 
  // send location signal
   HubConnection? connection;
-  final liveTransactionServerUrl = "https://route.click68.com/ChatHub";
+  HubConnection? connectionTracking;
+
+  final liveServerUrl = "https://route.click68.com/ChatHub";
+  final liveServerTrackingUrl = "https://route.click68.com/trackinghub";
+
+  //tracking hub
+  Future<void> signalRTRacking()async{
+    //tracking hub
+    connectionTracking = HubConnectionBuilder().withUrl(liveServerTrackingUrl,
+        HttpConnectionOptions(
+          // accessTokenFactory: () async => await liveTransactionAccessToken,
+            transport: HttpTransportType.webSockets,
+            logging: (level, message){
+              if(message.contains('HubTransaction tracking connected successfully')){
+                print('connected tracking successfully');
+              }
+              print("SignalR tracking Level: $level, Message: ${message.toString()}");
+            }
+        )).build();
+
+    connectionTracking?.serverTimeoutInMilliseconds = Duration(minutes: 6).inMilliseconds;
+    connectionTracking?.onclose((exception) {
+
+      print("onclose.tracking. Exception: $exception");
+    });
+    connectionTracking?.onreconnected((connectionId){
+
+      print("-----tracking-- ConnectionId: $connectionId");
+    });
+
+    connectionTracking?.on('NearestLocation', (message) async {
+      print("---------- NearestLocation ..---------... Message: ${message!.first}");
+      myCorrectBuses.value = message.first;
+      update();
+    });
+
+    await connectionTracking?.start();
+
+
+  }
+
+  Future detectingCorrectBus() async{
+    print("-------------trip created------------------- $tripCreatedDone");
+    if(tripCreatedDone.value ==true){
+      var invoke = await connectionTracking?.invoke("NearestBusLocation",args:
+      [
+          {"BusID":[bussesList[0].name]},
+      ]);
+    }
+  }
+
   Future<void> signalRInit() async {
-      connection = HubConnectionBuilder().withUrl(liveTransactionServerUrl,
+      connection = HubConnectionBuilder().withUrl(liveServerUrl,
           HttpConnectionOptions(
             // accessTokenFactory: () async => await liveTransactionAccessToken,
               transport: HttpTransportType.webSockets,
@@ -142,6 +193,8 @@ class LocationController extends GetxController {
               }
           )).build();
 
+
+
       connection?.serverTimeoutInMilliseconds = Duration(minutes: 6).inMilliseconds;
       connection?.onclose((exception) {
 
@@ -152,24 +205,11 @@ class LocationController extends GetxController {
         print("------- ConnectionId: $connectionId");
       });
 
-      connection?.on('ListBusMap', (message) async {
-        print("-------- ListBusMap ..... Message: ${message!.first}");
-        myCorrectBuses.value = message.first;
-        update();
-      });
-
       await connection?.start();
 
-      Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
     }
 
-  Future detectingCorrectBus() async{
-    print("-------------trip created------------------- $tripCreatedDone");
-     if(tripCreatedDone.value ==true){
-       var invoke = await connection?.invoke("GetListBusMap");
-       // print("result receive:: ${send}");
-     }
-  }
+
 
   // send user location signalr
   sendUserLocationSignalR(LocationModel location)async {
@@ -201,7 +241,7 @@ class LocationController extends GetxController {
     BackgroundLocation.startLocationService(distanceFilter : 1);
 
     BackgroundLocation.getLocationUpdates((location) async {
-      print(" #### get Location Updates #### $location");
+      //print(" #### get Location Updates #### $location");
       if (!isLocationUpdated){
         isLocationUpdated =true;
       Timer(Duration(seconds:3), () {
@@ -213,7 +253,7 @@ class LocationController extends GetxController {
       });
 
       }
-      print("location ....... background update ${location.longitude} - ${location.latitude}");
+     // print("location ....... background update ${location.longitude} - ${location.latitude}");
       //audioPlayerService.audio1Play();
     });
 
@@ -422,7 +462,10 @@ Future getRouteBusses(String routeId)async{
     for(var p in jsonResponse["description"]){
       var l1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
       var l2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
-      if(l1>l2){
+     print("l1 = ${l1} ................................");
+     print("l2 = ${l2}");
+
+      if(l1<l2){
         points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: l2),);
         bussesList.clear();
         await distanceCalculation();
@@ -441,6 +484,7 @@ Future getRouteBusses(String routeId)async{
     print("points length =====--== ${points.length}");
     if(points.length>0){
       myCorrectBusesGot.value =true;
+      Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
     }
     update();
   }else {
@@ -485,6 +529,7 @@ Future getRouteBusses(String routeId)async{
       // d.distance = m/1000;
       d.distance = km;
       bussesList.add(d);
+      print("*********#########************ ${d.name}");
       // print(getDistanceFromLatLonInKm(position.latitude,position.longitude, d.lat,d.lng));
     }
 

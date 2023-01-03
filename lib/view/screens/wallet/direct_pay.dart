@@ -55,8 +55,8 @@ class _DirectPayState extends State<DirectPay> {
             color: Colors.white,
             child: Center(
               child: QrImage(
-                data:
-                "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                data:code!,
+                //"{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
                 version: QrVersions.auto,
                 size: 322.0.sp,
               ),
@@ -354,8 +354,6 @@ class _DirectPayState extends State<DirectPay> {
                                   DateFormat('yyyy-MM-dd-HH:mm-ss')
                                       .format(DateTime.now());
                               //String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
-                              //EncryptionData encrypt = EncryptionData();
-                              //encrypt.encryptAES("{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}");
                               String balance = await checkWallet();
                               double balanceNum = double.parse(balance);
                               String? code;
@@ -375,8 +373,8 @@ class _DirectPayState extends State<DirectPay> {
                                       color: Colors.white,
                                       child: Center(
                                         child: QrImage(
-                                          data:
-                                              "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                                          data:code!,
+                                         // data: "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
                                           version: QrVersions.auto,
                                           size: 322.0.sp,
                                         ),

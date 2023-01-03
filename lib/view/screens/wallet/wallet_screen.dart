@@ -237,7 +237,7 @@ class _WalletScreenState extends State<WalletScreen> {
       ),
     ));
   }
-
+  bool askForQRCode = false;
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -325,43 +325,17 @@ class _WalletScreenState extends State<WalletScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                        String codeDate =
-                        DateFormat('yyyy-MM-dd-HH:mm-ss')
-                            .format(DateTime.now());
 
-                        double balanceNum = double.parse(walletController.myBalance.value);
-                        String? code;
-                        if (balanceNum > 0.200) {
-                          code = await walletController.getEncryptedCode(0);
-                          Get.dialog(Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  15.0,
-                                ),
-                              ),
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              child: Container(
-                                height: 380.h,
-                                color: Colors.white,
-                                child: Center(
-                                  child: QrImage(
-                                    data:
-                                    "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
-                                    version: QrVersions.auto,
-                                    size: 322.0.sp,
-                                  ),
-                                ),
-                              )));
-                        } else {
+                        if (!askForQRCode){
+                          showQRCodeToPay(true);
+                        }else{
                           showFlutterToast(
-                              message: "msg_0_balance",
+                              message: "Please wait!",
                               backgroundColor: Colors.redAccent,
-                              isLong: true,
+                              isLong: false,
                               textColor: Colors.white);
                         }
+
 
 
                       },
@@ -953,6 +927,46 @@ class _WalletScreenState extends State<WalletScreen> {
             ],
           ),
         ));
+  }
+
+  void showQRCodeToPay(bool bool)async {
+    String codeDate = DateFormat('yyyy-MM-dd-HH:mm-ss').format(DateTime.now());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    askForQRCode =true;
+    double balanceNum = double.parse(walletController.myBalance.value);
+    String? code;
+    if (balanceNum > 0.200) {
+      code = await walletController.getEncryptedCode(0);
+      Get.dialog(Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              15.0,
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 380.h,
+            color: Colors.white,
+            child: Center(
+              child: QrImage(
+                data:code!,
+                // "{\"lastToken\":\"${prefs.getString('lastToken')}\",\"paymentCode\":\"$codeDate${prefs.getString('lastPhone')!}\",\"userName\":\"${prefs.getString('userName')!}\"}",
+                version: QrVersions.auto,
+                size: 322.0.sp,
+              ),
+            ),
+          )));
+      askForQRCode =false;
+    } else {
+      showFlutterToast(
+          message: "msg_0_balance",
+          backgroundColor: Colors.redAccent,
+          isLong: true,
+          textColor: Colors.white);
+      askForQRCode =false;
+
+    }
   }
 }
 

@@ -371,25 +371,25 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("dropOffId")),
 
-                        //correct bus 2
-                        locationController.myCorrectBusesGot == true
-                            ? google_maps.Marker(
-                            icon: mapMarker,
-
-                            infoWindow: google_maps.InfoWindow(
-                                title:
-                                '${locationController.bussesList[1].name}',
-                                snippet: locationController.bussesList[1].name),
-                            position: google_maps.LatLng(
-                                locationController.bussesList[1].lat,
-                                locationController.bussesList[1].lng),
-                            markerId: google_maps.MarkerId(locationController.bussesList[1].name),
-                            onTap: () {
-                              print(routeMapController.endStation['station']
-                                  .toString());
-                            })
-                            : google_maps.Marker(
-                            markerId: google_maps.MarkerId("dropOffId")),
+                        // //correct bus 2
+                        // locationController.myCorrectBusesGot == true
+                        //     ? google_maps.Marker(
+                        //     icon: mapMarker,
+                        //
+                        //     infoWindow: google_maps.InfoWindow(
+                        //         title:
+                        //         '${locationController.bussesList[1].name}',
+                        //         snippet: locationController.bussesList[1].name),
+                        //     position: google_maps.LatLng(
+                        //         locationController.bussesList[1].lat,
+                        //         locationController.bussesList[1].lng),
+                        //     markerId: google_maps.MarkerId(locationController.bussesList[1].name),
+                        //     onTap: () {
+                        //       print(routeMapController.endStation['station']
+                        //           .toString());
+                        //     })
+                        //     : google_maps.Marker(
+                        //     markerId: google_maps.MarkerId("dropOffId")),
 
                         //drop off marker
                         locationController.tripCreatedDone.value == true
