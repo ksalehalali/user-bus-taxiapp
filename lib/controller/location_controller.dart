@@ -78,6 +78,8 @@ class LocationController extends GetxController {
       var lat = value['lat'];
       var lng = value['lng'];
       if (lng > 0.0) {
+        user.currentLocation = LocationModel(value['lat'], value['lng']);
+
         print("value  , main :: ${value.toString()}");
        changePickUpAddress('Current Location');
         currentPosition = geo.Position(
@@ -149,7 +151,7 @@ class LocationController extends GetxController {
             }
         )).build();
 
-    connectionTracking?.serverTimeoutInMilliseconds = Duration(minutes: 6).inMilliseconds;
+    connectionTracking?.serverTimeoutInMilliseconds = Duration(minutes: 122).inMilliseconds;
     connectionTracking?.onclose((exception) {
 
       print("onclose.tracking. Exception: $exception");
@@ -162,6 +164,7 @@ class LocationController extends GetxController {
     connectionTracking?.on('NearestLocation', (message) async {
       print("---------- NearestLocation ..---------... Message: ${message!.first}");
       myCorrectBuses.value = message.first;
+      myCorrectBusesGot.value = true;
       update();
     });
 
@@ -175,7 +178,7 @@ class LocationController extends GetxController {
     if(tripCreatedDone.value ==true){
       var invoke = await connectionTracking?.invoke("NearestBusLocation",args:
       [
-          {"BusID":[bussesList[0].name]},
+          {"BusID":[bussesList[0].name,bussesList[1].name]},
       ]);
     }
   }
@@ -195,7 +198,7 @@ class LocationController extends GetxController {
 
 
 
-      connection?.serverTimeoutInMilliseconds = Duration(minutes: 6).inMilliseconds;
+      connection?.serverTimeoutInMilliseconds = Duration(minutes: 122).inMilliseconds;
       connection?.onclose((exception) {
 
         print("onclose.. Exception: $exception");
@@ -236,6 +239,8 @@ class LocationController extends GetxController {
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
+    user.currentLocation = LocationModel(loca.latitude!, loca.longitude!);
+
     print(" ##@@@@@@## current  location ##@@@@@@@## ${loca.heading} ,, ${loca.headingAccuracy}");
 
     BackgroundLocation.startLocationService(distanceFilter : 1);
@@ -245,6 +250,8 @@ class LocationController extends GetxController {
       if (!isLocationUpdated){
         isLocationUpdated =true;
       Timer(Duration(seconds:3), () {
+        user.currentLocation = LocationModel(location.latitude!, location.longitude!);
+
         print("......... send location update counter .......");
         //  updateMyLocationInSystem(LocationModel(location.latitude!, location.longitude!));
          // sendUserLocationSignalR(LocationModel(location.latitude!, location.longitude!));
@@ -289,8 +296,7 @@ class LocationController extends GetxController {
     AssistantMethods assistantMethods = AssistantMethods();
     String address = await assistantMethods.searchCoordinateAddress(currentPosition!, true);
     trip.startPointAddress = address;
-    trip.startPoint =
-        LocationModel(location.latitude, location.longitude);
+    trip.startPoint = LocationModel(location.latitude, location.longitude);
     gotMyLocation(true);
     changePickUpAddress(address);
   }
@@ -449,7 +455,7 @@ Future getRouteBusses(String routeId)async{
   };
   var request = http.Request('POST', Uri.parse(baseURL +'/api/divice/BusInRoute'));
   request.body = json.encode({
-    "RouteID": "34addb01-2b86-49f2-13a8-08d9d82ee213"
+    "RouteID": routeId
   });
   request.headers.addAll(headers);
 
@@ -460,13 +466,16 @@ Future getRouteBusses(String routeId)async{
     print("res ====--.......................length : ${jsonResponse["description"].length} ..................................--==== ${jsonResponse}");
 
     for(var p in jsonResponse["description"]){
-      var l1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
-      var l2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.startPoint.latitude,trip.startPoint.longitude));
-     print("l1 = ${l1} ................................");
-     print("l2 = ${l2}");
+      var busToEndP1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
+      var busToEndP2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
 
-      if(l1<l2){
-        points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: l2),);
+      var userToEndP2 = calculateDistance(LocationModel(double.parse(trip.endPoint.latitude.toString()), double.parse(trip.endPoint.longitude.toString())), LocationModel(user.currentLocation!.latitude,user.currentLocation!.longitude));
+
+      print("l1 = ${busToEndP1} ............. ..........");
+     print("l2 = ${busToEndP2}");
+
+      if(busToEndP1<busToEndP2){
+        points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2),);
         bussesList.clear();
         await distanceCalculation();
 
@@ -480,10 +489,8 @@ Future getRouteBusses(String routeId)async{
       }
 
     }
-    myCorrectBuses.value = points;
     print("points length =====--== ${points.length}");
     if(points.length>0){
-      myCorrectBusesGot.value =true;
       Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
     }
     update();
@@ -529,6 +536,9 @@ Future getRouteBusses(String routeId)async{
       // d.distance = m/1000;
       d.distance = km;
       bussesList.add(d);
+
+      print("*********busses list length************ ${bussesList.length}");
+
       print("*********#########************ ${d.name}");
       // print(getDistanceFromLatLonInKm(position.latitude,position.longitude, d.lat,d.lng));
     }

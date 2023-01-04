@@ -95,7 +95,10 @@ class RouteMapController extends GetxController {
   var stationMarkers = <Marker>[].obs;
 
   // handle reset
+  var  resetNo = 0.obs;
+
   void resetAll() {
+    resetNo.value++;
     fullDistanceTrip.value=0.0;
     fullDurationTrip.value = 0.0;
     stationMarkers.value = [];
@@ -395,7 +398,9 @@ class RouteMapController extends GetxController {
         String stationQuery2 = "";
         String stationQuery3 = "";
         String stationQuery4 = "";
-        print("find route res ::$jsonResponse");
+        print("find route res --=== ::$jsonResponse");
+        print("find route ID --=== ::${jsonResponse["description"]["res"][0]["routeID"]}");
+
         stationMarkers.value = [];
         tripRouteData.value = jsonResponse;
 
@@ -480,6 +485,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -542,6 +548,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -592,6 +599,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -626,6 +634,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -977,9 +986,7 @@ class RouteMapController extends GetxController {
   }
 
   //
-  calculateFullDurationDistanceMulti(bool isLong ,bool isRoute2){
-
-
+  calculateFullDurationDistanceMulti(bool isLong ,bool isRoute2)async{
     if(isRoute2){
       if(isLong){
 
@@ -1016,7 +1023,7 @@ class RouteMapController extends GetxController {
     update();
   }
 
-  calculateFullDurationDistance(bool isLong ,bool isRoute2){
+  calculateFullDurationDistance(bool isLong ,bool isRoute2)async{
     //جمع كمل المدة الزمنية للرحلة
     print('m w duration ${startWalkDurationTrip}');
     print('m w2 duration ${secondWalkDurationTrip}');
@@ -1054,8 +1061,8 @@ class RouteMapController extends GetxController {
     if(isMultiMode ==false){
       trip.startStationId = tripRouteData['description']['startStation']['id'];
       trip.endStationId = tripRouteData['description']['endStation']['id'];
-      trip.routeId = tripRouteData['description'][0]['routeID'];
-      trip.routeName = tripRouteData['description'][0]['route'];
+      trip.routeId = jsonResponse[0]["routeID"];
+      trip.routeName =jsonResponse[0]["route"];
       trip.startPoint.latitude =
       tripRouteData['description']['startPoint']['latitude'];
       trip.startPoint.latitude =

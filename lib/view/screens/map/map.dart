@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:routes/view/screens/home/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../../../Assistants/assistantMethods.dart';
@@ -23,6 +24,7 @@ import '../../../model/location.dart';
 import '../../widgets/QRCodeScanner.dart';
 import '../../widgets/add_address_to_favorite.dart';
 import '../../widgets/flutter_toast.dart';
+import '../home/Home.dart';
 import '../routes/destination_selection_screen.dart';
 import 'multi-route-details.dart';
 import 'one-route-details.dart';
@@ -65,7 +67,6 @@ class _MapState extends State<Map> {
 
   late google_maps.BitmapDescriptor mapMarker;
   late google_maps.BitmapDescriptor mapMarker2;
-
 
 
   @override
@@ -358,38 +359,39 @@ class _MapState extends State<Map> {
 
                             infoWindow: google_maps.InfoWindow(
                                 title:
-                                '${locationController.bussesList[0].name}',
-                                snippet: locationController.bussesList[0].name),
+                                '${locationController.myCorrectBuses[0]["busID"]}',
+                                snippet: locationController.myCorrectBuses[0]["busID"]),
                             position: google_maps.LatLng(
-                                locationController.bussesList[0].lat,
-                                locationController.bussesList[0].lng),
-                            markerId: google_maps.MarkerId(locationController.bussesList[0].name),
+                                locationController.myCorrectBuses[0]["latitude2"],
+                                locationController.myCorrectBuses[0]["longitude2"]),
+                            markerId: google_maps.MarkerId(locationController.myCorrectBuses[0]["busID"]),
                             onTap: () {
-                              print(routeMapController.endStation['station']
+                              print(locationController.myCorrectBuses[0]["busID"]
                                   .toString());
                             })
                             : google_maps.Marker(
-                            markerId: google_maps.MarkerId("dropOffId")),
+                            markerId: google_maps.MarkerId("error")),
 
-                        // //correct bus 2
-                        // locationController.myCorrectBusesGot == true
-                        //     ? google_maps.Marker(
-                        //     icon: mapMarker,
-                        //
-                        //     infoWindow: google_maps.InfoWindow(
-                        //         title:
-                        //         '${locationController.bussesList[1].name}',
-                        //         snippet: locationController.bussesList[1].name),
-                        //     position: google_maps.LatLng(
-                        //         locationController.bussesList[1].lat,
-                        //         locationController.bussesList[1].lng),
-                        //     markerId: google_maps.MarkerId(locationController.bussesList[1].name),
-                        //     onTap: () {
-                        //       print(routeMapController.endStation['station']
-                        //           .toString());
-                        //     })
-                        //     : google_maps.Marker(
-                        //     markerId: google_maps.MarkerId("dropOffId")),
+                        //correct bus 2
+                        locationController.myCorrectBusesGot == true && locationController.myCorrectBuses.length>1
+                            ? google_maps.Marker(
+                            icon: mapMarker,
+
+                            infoWindow: google_maps.InfoWindow(
+                                title:
+                                '${locationController.myCorrectBuses[1]["busID"]}',
+                                snippet: locationController.myCorrectBuses[1]["busID"]),
+                            position: google_maps.LatLng(
+                                locationController.myCorrectBuses[1]["latitude2"],
+                                locationController.myCorrectBuses[1]["longitude2"]),
+                            markerId: google_maps.MarkerId(locationController.myCorrectBuses[1]["busID"]),
+                            onTap: () {
+                              print(locationController.myCorrectBuses[1]["busID"]
+                                  .toString());
+                            })
+                            : google_maps.Marker(
+                            markerId: google_maps.MarkerId("error2")),
+
 
                         //drop off marker
                         locationController.tripCreatedDone.value == true
@@ -563,10 +565,19 @@ class _MapState extends State<Map> {
                               locationController.startAddingPickUpStatus(false);
                               routeMapController.isMultiMode.value = false;
                               locationController.showPinOnMap.value =false;
+
+                              if(routeMapController.resetNo==2 || routeMapController.resetNo==4){
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MainScreen(indexOfScreen: 0)),
+                                        (route) => false);
+                                return;
+                              }
                               //locationController.changePickUpAddress('set pick up');
                               //trip = Trip('', '', LocationModel(0.0,0.0), LocationModel(0.0,0.0), '', '', '', '', '');
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => SearchScreen()));
+
                             },
                             child: Container(
                               //height: 300.0,
