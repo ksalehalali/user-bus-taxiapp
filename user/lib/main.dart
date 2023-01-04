@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Routes User',
+            title: 'Go Routes',
             theme: ThemeData(),
             home: const LoadingPage()));
   }

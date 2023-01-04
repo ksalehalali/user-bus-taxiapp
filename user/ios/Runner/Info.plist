@@ -9,7 +9,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Routes User</string>
+	<string>Go Routes</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>com.routestaxi.user</string>
+	<string>com.routesme.userapp</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -31,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>url from googleservice-info.plist</string>
+				<string>com.googleusercontent.apps.722270159807-k8kqjo63ifd56qkn9u1s7vi953ek5i7o</string>
 			</array>
 		</dict>
 	</array>
@@ -46,14 +46,14 @@
 		<string>phonepe</string>
 		<string>tez</string>
 		<string>paytm</string>
-        <string>sms</string>
-         <string>tel</string>
+		<string>sms</string>
+		<string>tel</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow access to camera to capture photos for updating profile picture</string>
-	<key>NSContactsUsageDescription</key>4
+	<key>NSContactsUsageDescription</key>
 	<string>Allow contact access to select your contacts for adding in SOS</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Program requires GPS to track cars and book ride</string>
@@ -87,5 +87,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+
 </dict>
 </plist>
