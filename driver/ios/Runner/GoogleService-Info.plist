@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>722270159807-ic5raccegjol505m70utnn6j7apn903c.apps.googleusercontent.com</string>
+	<string>722270159807-p93earm12vm7i03u0k2bmi11jjma3k7e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.722270159807-ic5raccegjol505m70utnn6j7apn903c</string>
+	<string>com.googleusercontent.apps.722270159807-p93earm12vm7i03u0k2bmi11jjma3k7e</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>722270159807-0dmqkbu4rg7i0vrb23hb75968j9ceh6g.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.routestaxi.driverapp</string>
+	<string>com.routesme.driverapp</string>
 	<key>PROJECT_ID</key>
 	<string>taxi-app-371012</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:722270159807:ios:c45c73bb7122ac04f1570a</string>
+	<string>1:722270159807:ios:446412c6d4c8bd12f1570a</string>
 	<key>DATABASE_URL</key>
 	<string>https://taxi-app-371012-default-rtdb.firebaseio.com</string>
 </dict>

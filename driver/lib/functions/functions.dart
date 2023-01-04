@@ -57,8 +57,8 @@ dynamic centerCheck;
 String ischeckownerordriver = '';
 
 //base url
-// String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+// String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
 String mapkey = 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc';
 String mapStyle = '';
 int drawerSelectedIndex = 0;

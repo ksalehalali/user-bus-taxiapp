@@ -44,8 +44,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '722270159807',
     projectId: 'taxi-app-371012',
     storageBucket: 'taxi-app-371012.appspot.com',
-    iosClientId: '722270159807-ic5raccegjol505m70utnn6j7apn903c.apps.googleusercontent.com',
-    iosBundleId: 'com.routestaxi.driverapp',
+    iosClientId: '722270159807-p93earm12vm7i03u0k2bmi11jjma3k7e.apps.googleusercontent.com',
+    iosBundleId: 'com.routesme.driverapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '722270159807',
     projectId: 'taxi-app-371012',
     storageBucket: 'taxi-app-371012.appspot.com',
-    iosClientId: '722270159807-ic5raccegjol505m70utnn6j7apn903c.apps.googleusercontent.com',
-    iosBundleId: 'com.routestaxi.driverapp',
+    iosClientId: '722270159807-p93earm12vm7i03u0k2bmi11jjma3k7e.apps.googleusercontent.com',
+    iosBundleId: 'com.routesme.driverapp',
   );
 }
