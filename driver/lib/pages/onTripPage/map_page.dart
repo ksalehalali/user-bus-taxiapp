@@ -2696,8 +2696,11 @@ class _MapsState extends State<Maps>
                                                                                                                   width: media.width * 0.2,
                                                                                                                   child: FittedBox(
                                                                                                                     child: Text(
+
                                                                                                                       userDetails['currency_symbol'] + driverReq['request_eta_amount'].toStringAsFixed(2),
                                                                                                                       style: GoogleFonts.roboto(fontSize: media.width * fourteen, color: textColor),
+
+
                                                                                                                     ),
                                                                                                                   ),
                                                                                                                 )

@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>url from googleservice-info.plist</string>
+				<string>com.googleusercontent.apps.722270159807-p93earm12vm7i03u0k2bmi11jjma3k7e</string>
 			</array>
 		</dict>
 	</array>
