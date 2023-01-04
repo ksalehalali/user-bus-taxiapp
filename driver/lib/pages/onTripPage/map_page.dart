@@ -1,31 +1,30 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart' as geolocator;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart' as perm;
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/functions/geohash.dart';
 import 'package:tagyourtaxi_driver/pages/chatPage/chat_page.dart';
-import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
-import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
-import 'package:tagyourtaxi_driver/pages/login/login.dart';
+import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
 import 'package:tagyourtaxi_driver/pages/noInternet/nointernet.dart';
+import 'package:tagyourtaxi_driver/pages/onTripPage/invoice.dart';
 import 'package:tagyourtaxi_driver/pages/vehicleInformations/docs_onprocess.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:async';
 import 'package:tagyourtaxi_driver/translation/translation.dart';
 import 'package:tagyourtaxi_driver/widgets/widgets.dart';
-import 'package:permission_handler/permission_handler.dart' as perm;
 import 'package:vector_math/vector_math.dart' as vector;
 
-import '../login/driver_or_owner.dart';
 import '../login/enter_phone_number.dart';
 import '../navDrawer/nav_drawer.dart';
 
@@ -1529,6 +1528,7 @@ class _MapsState extends State<Maps>
                                             )
                                           : (state == '2')
                                               ? Container(
+                                color:blueColor,
                                                   height: media.height * 1,
                                                   width: media.width * 1,
                                                   alignment: Alignment.center,
@@ -1536,6 +1536,7 @@ class _MapsState extends State<Maps>
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.center,
                                                     children: [
+                                                      Container(color: primaryColor,),
                                                       SizedBox(
                                                         height:
                                                             media.height * 0.31,
