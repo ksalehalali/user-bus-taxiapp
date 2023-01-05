@@ -444,6 +444,7 @@ updatePinPos(double lat , double lng){
 
   }
 
+
   //get route's busses
 Future getRouteBusses(String routeId)async{
   myCorrectBusesGot.value =false;
@@ -469,12 +470,12 @@ Future getRouteBusses(String routeId)async{
       var busToEndP1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
       var busToEndP2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
 
-      var userToEndP2 = calculateDistance(LocationModel(double.parse(trip.endPoint.latitude.toString()), double.parse(trip.endPoint.longitude.toString())), LocationModel(user.currentLocation!.latitude,user.currentLocation!.longitude));
+      var userToEnd = calculateDistance(LocationModel(double.parse(trip.endPoint.latitude.toString()), double.parse(trip.endPoint.longitude.toString())), LocationModel(user.currentLocation!.latitude,user.currentLocation!.longitude));
 
       print("l1 = ${busToEndP1} ............. ..........");
      print("l2 = ${busToEndP2}");
 
-      if(busToEndP1<busToEndP2){
+      if(busToEndP1>busToEndP2 && busToEndP2 >= userToEnd){
         points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2),);
         bussesList.clear();
         await distanceCalculation();
@@ -499,6 +500,7 @@ Future getRouteBusses(String routeId)async{
     print("Error getRouteBusses $jsonResponse");
   }
   }
+
 
   //calculate the distance between tow points and
  double calculateDistance(LocationModel point1 ,LocationModel point2){

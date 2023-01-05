@@ -393,6 +393,7 @@ class RouteMapController extends GetxController {
       return;
     }else{
 
+      trip.routeId =jsonResponse["description"]["res"][0]["routeID"];
         isMultiMode.value =false ;
         String stationQuery = "";
         String stationQuery2 = "";
@@ -485,7 +486,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -548,7 +549,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+          //await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -599,7 +600,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -634,7 +635,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -705,6 +706,7 @@ class RouteMapController extends GetxController {
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
 
+      trip.routeId =jsonResponse['rout1'][0]['routeID'];
        route1.value = jsonResponse['rout1'];
        route2.value = jsonResponse['rout2'];
 
