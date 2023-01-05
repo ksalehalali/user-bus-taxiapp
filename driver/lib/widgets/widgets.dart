@@ -41,12 +41,13 @@ class _ButtonState extends State<Button> {
         padding: EdgeInsets.only(
             left: media.width * twenty, right: media.width * twenty),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(50),
             color: (widget.color != null) ? widget.color : primaryColor,
-            border: Border.all(
-              color: (widget.borcolor != null) ? widget.borcolor : primaryColor,
-              width: 1,
-            )),
+            // border: Border.all(
+            //   color: (widget.borcolor != null) ? widget.borcolor : primaryColor,
+            //   width: 1,
+            // ),
+        ),
         alignment: Alignment.center,
         child: FittedBox(
           fit: BoxFit.contain,

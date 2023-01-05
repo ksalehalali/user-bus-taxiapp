@@ -17,35 +17,68 @@ import 'package:tagyourtaxi_driver/translation/translation.dart';
 
 import '../../model/drawer_model.dart';
 
-
-
 class NavDrawer extends StatefulWidget {
   const NavDrawer({Key? key}) : super(key: key);
+
   @override
   State<NavDrawer> createState() => _NavDrawerState();
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-
   List<DrawerModel> drawerList = [];
 
   @override
   void initState() {
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/images/history.png', History()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/images/walletImage.png', WalletPage()));
-    if(  userDetails['owner_id'] != null) {
-      drawerList.add(DrawerModel( languages[choosenLanguage]['text_earnings'].toString(), 'assets/images/Earnings.png', DriverEarnings()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_enable_history'].toString(),
+        'assets/images/my_rides_drawer_icon.png',
+        History()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_notification'].toString(),
+        'assets/images/notifications_drawer_icon.png',
+        NotificationPage()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_enable_wallet'].toString(),
+        'assets/images/wallet_drawer_icon.png',
+        WalletPage()));
+    if (userDetails['owner_id'] != null) {
+      drawerList.add(DrawerModel(
+          languages[choosenLanguage]['text_earnings'].toString(),
+          'assets/images/Earnings.png',
+          DriverEarnings()));
     }
-    if(userDetails['role'] == 'owner') {
-      drawerList.add(DrawerModel( languages[choosenLanguage]['text_updateVehicle'].toString(), 'assets/images/updateVehicleInfo.png', VehicleInfo()));
+    if (userDetails['role'] == 'owner') {
+      drawerList.add(DrawerModel(
+          languages[choosenLanguage]['text_updateVehicle'].toString(),
+          'assets/images/updateVehicleInfo.png',
+          VehicleInfo()));
     }
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_referal'].toString(), 'assets/images/referral.png', ReferralPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages(true)));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_make_complaints'].toString(), 'assets/images/makecomplaint.png', MakeComplaint(fromPage: 0,)));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_delete_account'].toString(), Icons.delete_forever, WelcomeScreen()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_logout'].toString(), 'assets/images/logout.png', WelcomeScreen()));
-
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_enable_referal'].toString(),
+        'assets/images/refrels_drawer_icon.png',
+        ReferralPage()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_change_language'].toString(),
+        'assets/images/change_language_drawer_icon.png',
+        Languages(true)));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_make_complaints'].toString(),
+        'assets/images/make_complaints_drawer_icon.png',
+        MakeComplaint(
+          fromPage: 0,
+        )));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_my_profile'].toString(),
+        'assets/images/profile_drawer_icon.png',
+        EditProfile()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_delete_account'].toString(),
+        'assets/images/delete_account_drawer_icon.png',
+        WelcomeScreen()));
+    drawerList.add(DrawerModel(
+        languages[choosenLanguage]['text_logout'].toString(),
+        'assets/images/logout_drawer_icon.png',
+        WelcomeScreen()));
 
     super.initState();
   }
@@ -55,7 +88,7 @@ class _NavDrawerState extends State<NavDrawer> {
     var media = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
-        width: media.width * 0.8,
+        width: media.width * 0.95,
         margin: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -67,27 +100,47 @@ class _NavDrawerState extends State<NavDrawer> {
               : TextDirection.ltr,
           child: Drawer(
               backgroundColor: white,
-              shape:  RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: white,
-                ),
-                width: media.width * 0.7,
+                    borderRadius: BorderRadius.circular(12), color: white),
+                width: media.width * 0.95,
                 child: SingleChildScrollView(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 10,
+                        Container(
+                          width: media.width,
+                          decoration: BoxDecoration(
+                            color: very_light_grey,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                          ),
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: media.width * 0.05,
+                                      top: media.height * 0.01),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      color: black,
+                                    ),
+                                  ))),
                         ),
-                        SizedBox(
-                          width: media.width * 0.7,
+                        Container(
+                          color: very_light_grey,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              SizedBox(width: media.width*0.09,),
                               Container(
                                 height: media.width * 0.2,
                                 width: media.width * 0.2,
@@ -109,36 +162,37 @@ class _NavDrawerState extends State<NavDrawer> {
                                     width: media.width * 0.45,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(
                                           width: media.width * 0.3,
                                           child: Text(
                                             userDetails['name'],
                                             style: GoogleFonts.roboto(
-                                                fontSize: media.width * eighteen,
+                                                fontSize:
+                                                    media.width * eighteen,
                                                 color: drawerTextColor,
                                                 fontWeight: FontWeight.w600),
                                             maxLines: 1,
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            var val = await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    const EditProfile()));
-                                            if (val) {
-                                              setState(() {});
-                                            }
-                                          },
-                                          child: Icon(
-                                            Icons.edit,
-                                            size: media.width * eighteen,
-                                            color: drawerTextColor,
-                                          ),
-                                        )
+                                        // InkWell(
+                                        //   onTap: () async {
+                                        //     var val = await Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //             builder: (context) =>
+                                        //             const EditProfile()));
+                                        //     if (val) {
+                                        //       setState(() {});
+                                        //     }
+                                        //   },
+                                        //   child: Icon(
+                                        //     Icons.edit,
+                                        //     size: media.width * eighteen,
+                                        //     color: drawerTextColor,
+                                        //   ),
+                                        // )
                                       ],
                                     ),
                                   ),
@@ -154,181 +208,257 @@ class _NavDrawerState extends State<NavDrawer> {
                                           color: drawerTextColor),
                                       maxLines: 1,
                                     ),
-                                  )
+                                  ),
                                 ],
                               )
                             ],
                           ),
                         ),
                         ListView.builder(
-                            itemCount:drawerList.length,
+                            itemCount: drawerList.length,
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return index == 1 ? ValueListenableBuilder(
-                                  valueListenable: valueNotifierNotification.value,
-                                  builder: (context, value, child) {
-                                    return Padding(
-                                      padding:  EdgeInsets.only(left: 8.0, right: 8, top: 10),
+                              return index == 1
+                                  ? ValueListenableBuilder(
+                                      valueListenable:
+                                          valueNotifierNotification.value,
+                                      builder: (context, value, child) {
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 8.0, right: 8, top: 10),
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                drawerSelectedIndex = index;
+                                              });
+
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const NotificationPage()));
+                                              setState(() {
+                                                userDetails[
+                                                    'notifications_count'] = 0;
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    drawerSelectedIndex == index
+                                                        ? primaryColor
+                                                        : white,
+                                                // border: Border(
+                                                //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
+                                                //
+                                                // ),
+
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.all(
+                                                        media.width * 0.035),
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(
+                                                          drawerList[index].icon,
+                                                          fit: BoxFit.contain,
+                                                          width: media.width *
+                                                              0.075,
+                                                          color: drawerSelectedIndex != index
+                                                              ? blueColor
+                                                              : white
+                                                        ),
+                                                        SizedBox(
+                                                          width: media.width *
+                                                              0.025,
+                                                        ),
+                                                        SizedBox(
+                                                          width: media.width *
+                                                              0.49,
+                                                          child: Text(
+                                                            drawerList[index]
+                                                                .name,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts.roboto(
+                                                                fontSize: media
+                                                                        .width *
+                                                                    sixteen,
+                                                                color: drawerSelectedIndex !=
+                                                                        index
+                                                                    ? drawerTextColor
+                                                                    : white),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  (userDetails[
+                                                              'notifications_count'] ==
+                                                          0)
+                                                      ? Container()
+                                                      : Container(
+                                                          height: 20,
+                                                          width: 20,
+                                                          alignment:
+                                                              Alignment.center,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: drawerSelectedIndex !=
+                                                                    index
+                                                                ? blueColor
+                                                                : white,
+                                                          ),
+                                                          child: Text(
+                                                            userDetails[
+                                                                    'notifications_count']
+                                                                .toString(),
+                                                            style: GoogleFonts.roboto(
+                                                                fontSize: media
+                                                                        .width *
+                                                                    fourteen,
+                                                                color: drawerSelectedIndex !=
+                                                                        index
+                                                                    ? blueColor
+                                                                    : white),
+                                                          ),
+                                                        )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      })
+                                  : Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 8.0, right: 8, top: 10),
                                       child: InkWell(
                                         onTap: () {
                                           setState(() {
                                             drawerSelectedIndex = index;
                                           });
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                  const NotificationPage()));
-                                          setState(() {
-                                            userDetails['notifications_count'] = 0;
-                                          });
+                                          if (index == 1) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const NotificationPage()));
+                                            setState(() {
+                                              userDetails[
+                                                  'notifications_count'] = 0;
+                                            });
+                                          } else if (index ==
+                                              drawerList.length - 2) {
+                                            setState(() {
+                                              deleteAccount = true;
+                                            });
+                                            valueNotifierHome
+                                                .incrementNotifier();
+                                            Navigator.pop(context);
+                                          } else if (index ==
+                                              drawerList.length - 1) {
+                                            setState(() {
+                                              logout = true;
+                                            });
+                                            valueNotifierHome
+                                                .incrementNotifier();
+                                            Navigator.pop(context);
+                                          } else {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        drawerList[index]
+                                                            .pageName));
+                                          }
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: drawerSelectedIndex == index ? primaryColor : white,
+                                            color: drawerSelectedIndex == index
+                                                ? primaryColor
+                                                : white,
                                             // border: Border(
                                             //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
                                             //
                                             // ),
-
-                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.all(media.width * 0.035),
-                                                child: Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      drawerList[index].icon,
-                                                      fit: BoxFit.contain,
-                                                      width: media.width * 0.075,
-                                                      color: drawerSelectedIndex != index ? drawerTextColor : white,
-                                                    ),
-                                                    SizedBox(
-                                                      width: media.width * 0.025,
-                                                    ),
-                                                    SizedBox(
-                                                      width: media.width * 0.49,
-                                                      child: Text(
-                                                        drawerList[index].name,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: GoogleFonts.roboto(
-                                                            fontSize: media.width * sixteen,
-                                                            color: drawerSelectedIndex != index ? drawerTextColor : white),
+                                          child: Container(
+                                            padding: EdgeInsets.all(
+                                                media.width * 0.025),
+                                            child: Row(
+                                              children: [
+                                                drawerList[index]
+                                                            .icon
+                                                            .runtimeType !=
+                                                        IconData
+                                                    ? Image.asset(
+                                                        drawerList[index].icon,
+                                                        fit: BoxFit.contain,
+                                                        width:
+                                                            media.width * 0.075,
+                                                        color:
+                                                            drawerSelectedIndex != index
+                                                                ? drawerList[index].name == "Logout" ? Colors.red : blueColor
+                                                                : white,
+                                                      )
+                                                    : Icon(
+                                                        drawerList[index].icon,
+                                                        color:
+                                                            drawerSelectedIndex !=
+                                                                    index
+                                                                ? drawerTextColor
+                                                                : white,
                                                       ),
-                                                    )
-                                                  ],
+                                                SizedBox(
+                                                  width: media.width * 0.025,
                                                 ),
-                                              ),
-                                              (userDetails['notifications_count'] == 0)
-                                                  ? Container()
-                                                  : Container(
-                                                height: 20,
-                                                width: 20,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: drawerSelectedIndex != index ? drawerTextColor : white,
-                                                ),
-                                                child: Text(
-                                                  userDetails['notifications_count']
-                                                      .toString(),
-                                                  style: GoogleFonts.roboto(
-                                                      fontSize: media.width * fourteen,
-                                                      color: drawerSelectedIndex != index ? drawerTextColor : white),
-                                                ),
-                                              )
-                                            ],
+                                                SizedBox(
+                                                  width: media.width * 0.55,
+                                                  child: Text(
+                                                    drawerList[index].name,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: GoogleFonts.roboto(
+                                                        fontSize: media.width *
+                                                            sixteen,
+                                                        color:
+                                                            drawerSelectedIndex != index
+                                                                ? drawerList[index].name == "Logout" ? Colors.red : drawerTextColor
+                                                                : white
+
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     );
-                                  }
-                              ) :  Padding(
-                                padding:  EdgeInsets.only(left: 8.0, right: 8, top: 10),
-                                child: InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      drawerSelectedIndex = index;
-                                    });
-
-                                    if(index == 1){
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                              const NotificationPage()));
-                                      setState(() {
-                                        userDetails['notifications_count'] = 0;
-                                      });
-                                    }else if(index == drawerList.length - 2){
-                                      setState(() {
-                                        deleteAccount = true;
-                                      });
-                                      valueNotifierHome.incrementNotifier();
-                                      Navigator.pop(context);
-                                    }else if(index == drawerList.length - 1){
-                                      setState(() {
-                                        logout = true;
-                                      });
-                                      valueNotifierHome.incrementNotifier();
-                                      Navigator.pop(context);
-                                    }else {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => drawerList[index].pageName));
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: drawerSelectedIndex == index ? primaryColor : white,
-                                      // border: Border(
-                                      //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
-                                      //
-                                      // ),
-                                      borderRadius: BorderRadius.circular(12.0),
-
-
-                                    ),
-                                    child: Container(
-                                      padding: EdgeInsets.all(media.width * 0.025),
-                                      child: Row(
-                                        children: [
-                                          drawerList[index].icon.runtimeType != IconData ? Image.asset(
-                                            drawerList[index].icon,
-                                            fit: BoxFit.contain,
-                                            width: media.width * 0.075,
-                                            color: drawerSelectedIndex != index ? drawerTextColor : white,
-                                          ) : Icon( drawerList[index].icon,
-                                            color: drawerSelectedIndex != index ? drawerTextColor : white,
-                                          ),
-                                          SizedBox(
-                                            width: media.width * 0.025,
-                                          ),
-                                          SizedBox(
-                                            width: media.width * 0.55,
-                                            child: Text(
-                                              drawerList[index].name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: media.width * sixteen,
-                                                  color: drawerSelectedIndex != index ? drawerTextColor : white),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
                             }),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                        ),
                         Text(version),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.04,
+                        ),
                       ]),
                 ),
               )),

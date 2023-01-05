@@ -62,130 +62,173 @@ class _ReferralPageState extends State<ReferralPage> {
                 alignment: Alignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(media.width * 0.05),
-                    height: media.height * 1,
-                    width: media.width * 1,
-                    color: page,
-                    child: (myReferralCode.isNotEmpty)
-                        ? Column(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).padding.top),
-                                    Stack(
+                    color: blueColor,
+                    height: media.height,
+                    width: media.width,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(
+                                  20,
+                                ),
+                                topLeft: Radius.circular(20),
+                              ),
+                            ),
+                            height: media.height * 0.35,
+                            width: media.width,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: media.height * 0.05,
+                                ),
+                                myReferralCode['referral_comission_string']
+                                            .toString()
+                                            .length > 17
+                                    ? Text(
+                                  "${myReferralCode['referral_comission_string'].toString().substring(0, 18)}\n"
+                                      "${myReferralCode['referral_comission_string'].toString().substring(18, 26)}",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.roboto(
+                                            fontSize: 20,
+                                            color: black,
+                                            fontWeight: FontWeight.w600),
+                                      )
+                                    : Text('No Text'),
+                                SizedBox(
+                                  height: media.height * 0.02,
+                                ),
+                                Container(
+                                    width: media.width * 0.9,
+                                    padding: EdgeInsets.all(media.width * 0.05),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: borderLines, width: 1.2),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              bottom: media.width * 0.05),
-                                          width: media.width * 1,
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            languages[choosenLanguage]
-                                                ['text_enable_referal'],
-                                            style: GoogleFonts.roboto(
-                                                fontSize: media.width * twenty,
-                                                fontWeight: FontWeight.w600,
-                                                color: textColor),
-                                          ),
+                                        Text(
+                                          myReferralCode['refferal_code'],
+                                          style: GoogleFonts.roboto(
+                                              fontSize: media.width * sixteen,
+                                              color: textColor,
+                                              fontWeight: FontWeight.w600),
                                         ),
-                                        Positioned(
-                                            child: InkWell(
-                                                onTap: () {
-                                                  // print(myReferralCode);
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Icon(
-                                                    Icons.arrow_back)))
+                                        InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                Clipboard.setData(ClipboardData(
+                                                    text: myReferralCode[
+                                                        'refferal_code']));
+                                              });
+                                              //show toast for copy
+                                              showToast();
+                                            },
+                                            child: const Icon(Icons.copy))
                                       ],
-                                    ),
-                                    SizedBox(
-                                      height: media.width * 0.05,
-                                    ),
-                                    SizedBox(
-                                      width: media.width * 0.9,
-                                      height: media.height * 0.16,
-                                      child: Image.asset(
-                                        'assets/images/referralpage.png',
-                                        fit: BoxFit.contain,
+                                    )),
+                                SizedBox(
+                                  height: media.height * 0.03,
+                                ),
+                                SizedBox(
+                                 height: media.height*0.08,
+                                  width: media.width*0.9,
+                                  child: Button(
+                                      color: blueColor,
+                                      onTap: () async {
+                                        await Share.share(
+                                            // ignore: prefer_interpolation_to_compose_strings
+                                            languages[choosenLanguage]
+                                                        ['text_invitation_1']
+                                                    .toString()
+                                                    .replaceAll(
+                                                        '55', package.appName) +
+                                                ' ' +
+                                                myReferralCode[
+                                                    'refferal_code'] +
+                                                ' ' +
+                                                languages[choosenLanguage]
+                                                    ['text_invitation_2']);
+                                      },
+                                      text: languages[choosenLanguage]
+                                          ['text_invite']),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Image.asset(
+                            'assets/animated_images/arrow.png',
+                            height: media.height * 0.3,
+                            width: media.width * 0.7,
+                          ),
+                        ),
+                        Positioned(
+                          child: SizedBox(
+                            height: media.height * 0.15,
+                            width: media.width,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: media.width * 0.05,
+                                ),
+                                SizedBox(
+                                  width: media.width * 0.1,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: media.height * 0.04),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        color: white,
+                                        size: media.height * 0.04,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: media.width * 0.1,
-                                    ),
-                                    Text(
-                                      myReferralCode[
-                                          'referral_comission_string'],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * sixteen,
-                                          color: textColor,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: media.width * 0.05,
-                                    ),
-                                    Container(
-                                        width: media.width * 0.9,
-                                        padding:
-                                            EdgeInsets.all(media.width * 0.05),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: borderLines, width: 1.2),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              myReferralCode['refferal_code'],
-                                              style: GoogleFonts.roboto(
-                                                  fontSize:
-                                                      media.width * sixteen,
-                                                  color: textColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    Clipboard.setData(ClipboardData(
-                                                        text: myReferralCode[
-                                                            'refferal_code']));
-                                                  });
-                                                  //show toast for copy
-                                                  showToast();
-                                                },
-                                                child: const Icon(Icons.copy))
-                                          ],
-                                        ))
-                                  ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    top: media.width * 0.05,
-                                    bottom: media.width * 0.05),
-                                child: Button(
-                                    onTap: () async {
-                                      await Share.share(
-                                          // ignore: prefer_interpolation_to_compose_strings
-                                          languages[choosenLanguage]
-                                                  ['text_invitation_1'].toString().replaceAll('55', package.appName) +
-                                              ' ' +
-                                              myReferralCode['refferal_code'] +
-                                              ' ' +
-                                              languages[choosenLanguage]
-                                                  ['text_invitation_2']);
-                                    },
-                                    text: languages[choosenLanguage]
-                                        ['text_invite']),
-                              )
-                            ],
-                          )
-                        : Container(),
+                                SizedBox(
+                                  width: media.width * 0.2,
+                                ),
+                                SizedBox(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: media.height * 0.05),
+                                    child: Text(
+                                      languages[choosenLanguage]
+                                          ['text_enable_referal'],
+                                      style: GoogleFonts.roboto(
+                                          fontSize: media.width * twenty,
+                                          fontWeight: FontWeight.w600,
+                                          color: white),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                            top: media.height * 0.25,
+                            left: 0,
+                            right: 0,
+                            child: Image.asset('assets/images/ref_image.png')),
+                      ],
+                    ),
                   ),
                   (internet == false)
                       ? Positioned(
@@ -227,6 +270,130 @@ class _ReferralPageState extends State<ReferralPage> {
               ),
             );
           }),
+    );
+  }
+}
+
+class Mycontainer extends StatelessWidget {
+  const Mycontainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
+    return Container(
+      padding: EdgeInsets.all(media.width * 0.05),
+      height: media.height * 1,
+      width: media.width * 1,
+      child: (myReferralCode.isNotEmpty)
+          ? Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).padding.top),
+                      Stack(
+                        children: [
+                          Container(
+                            padding:
+                                EdgeInsets.only(bottom: media.width * 0.05),
+                            width: media.width * 1,
+                            alignment: Alignment.center,
+                            child: Text(
+                              languages[choosenLanguage]['text_enable_referal'],
+                              style: GoogleFonts.roboto(
+                                  fontSize: media.width * twenty,
+                                  fontWeight: FontWeight.w600,
+                                  color: textColor),
+                            ),
+                          ),
+                          Positioned(
+                              child: InkWell(
+                                  onTap: () {
+                                    // print(myReferralCode);
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Icon(Icons.arrow_back)))
+                        ],
+                      ),
+                      SizedBox(
+                        height: media.width * 0.05,
+                      ),
+                      SizedBox(
+                        width: media.width * 0.9,
+                        height: media.height * 0.16,
+                        child: Image.asset(
+                          'assets/images/referralpage.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(
+                        height: media.width * 0.1,
+                      ),
+                      Text(
+                        myReferralCode['referral_comission_string'],
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                            fontSize: media.width * sixteen,
+                            color: textColor,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: media.width * 0.05,
+                      ),
+                      Container(
+                          width: media.width * 0.9,
+                          padding: EdgeInsets.all(media.width * 0.05),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: borderLines, width: 1.2),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                myReferralCode['refferal_code'],
+                                style: GoogleFonts.roboto(
+                                    fontSize: media.width * sixteen,
+                                    color: textColor,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    // setState(() {
+                                    //   Clipboard.setData(ClipboardData(
+                                    //       text: myReferralCode[
+                                    //       'refferal_code']));
+                                    // });
+                                    //show toast for copy
+                                    //showToast();
+                                  },
+                                  child: const Icon(Icons.copy))
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                      top: media.width * 0.05, bottom: media.width * 0.05),
+                  child: Button(
+                      onTap: () async {
+                        await Share.share(
+                            // ignore: prefer_interpolation_to_compose_strings
+                            languages[choosenLanguage]['text_invitation_1']
+                                    .toString()
+                                    .replaceAll('55', package.appName) +
+                                ' ' +
+                                myReferralCode['refferal_code'] +
+                                ' ' +
+                                languages[choosenLanguage]
+                                    ['text_invitation_2']);
+                      },
+                      text: languages[choosenLanguage]['text_invite']),
+                )
+              ],
+            )
+          : Container(),
     );
   }
 }

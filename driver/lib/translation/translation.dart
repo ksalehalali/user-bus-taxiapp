@@ -1,5 +1,6 @@
 Map<String, dynamic> languages = {
         "en": {
+            "text_my_profile":"Profile",
             "text_enter_social": "or Enter Social Media",
             "text_sign_up": "Sign Up",
             "text_track_location": "Tracking Taxi Location",
@@ -371,6 +372,7 @@ Map<String, dynamic> languages = {
             "text_waitingforpayment": "Waiting For Payment"
         },
         "ar": {
+            "text_my_profile":"حساب تعريفي",
             "text_enter_social": "أو أدخل وسائل التواصل الاجتماعي",
             "text_sign_up": "اشتراك",
             "text_track_location": "تتبع موقع التاكسي",
