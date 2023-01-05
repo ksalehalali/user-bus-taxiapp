@@ -486,7 +486,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -549,7 +549,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-          //await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -600,7 +600,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;
@@ -635,7 +635,7 @@ class RouteMapController extends GetxController {
               LatLng(
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
-         // await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
+          await locationController.getRouteBusses(jsonResponse[0]["routeID"]);
 
           calculateFullDurationDistance(false,false);
           return;

@@ -54,6 +54,7 @@ class LocationController extends GetxController {
   var myCorrectBusesGot = false.obs;
   var bussesList = [].obs;
   var points = [];
+  var bussesIds = [].obs;
   var myFavAddresses =[].obs;
 
   @override
@@ -178,7 +179,7 @@ class LocationController extends GetxController {
     if(tripCreatedDone.value ==true){
       var invoke = await connectionTracking?.invoke("NearestBusLocation",args:
       [
-          {"BusID":[bussesList[0].name,bussesList[1].name]},
+          {"BusID":bussesIds},
       ]);
     }
   }
@@ -444,7 +445,6 @@ updatePinPos(double lat , double lng){
 
   }
 
-
   //get route's busses
 Future getRouteBusses(String routeId)async{
   myCorrectBusesGot.value =false;
@@ -477,6 +477,7 @@ Future getRouteBusses(String routeId)async{
 
       if(busToEndP1>busToEndP2 && busToEndP2 >= userToEnd){
         points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2),);
+        bussesIds.add(p["busID"]);
         bussesList.clear();
         await distanceCalculation();
 
@@ -500,7 +501,6 @@ Future getRouteBusses(String routeId)async{
     print("Error getRouteBusses $jsonResponse");
   }
   }
-
 
   //calculate the distance between tow points and
  double calculateDistance(LocationModel point1 ,LocationModel point2){
@@ -542,12 +542,14 @@ Future getRouteBusses(String routeId)async{
       print("*********busses list length************ ${bussesList.length}");
 
       print("*********#########************ ${d.name}");
+
       // print(getDistanceFromLatLonInKm(position.latitude,position.longitude, d.lat,d.lng));
     }
 
       bussesList.sort((a, b) {
         return a.distance.compareTo(b.distance);
       });
+
   }
 }
 
