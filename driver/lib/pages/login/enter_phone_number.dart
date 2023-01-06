@@ -672,6 +672,10 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                                     alignment: Alignment.center,
                                                     child: buttonLoading
                                                         ? LoadingButton(
+                                                        height:
+                                                        media.height *
+                                                            0.065,
+                                                        color: blueColor,
                                                             onTap: null)
                                                         : Button(
                                                             height:

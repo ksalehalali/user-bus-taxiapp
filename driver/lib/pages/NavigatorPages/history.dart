@@ -54,31 +54,49 @@ class _HistoryState extends State<History> {
             height: media.height * 1,
             width: media.width * 1,
             color: page,
-            padding: EdgeInsets.fromLTRB(
-                media.width * 0.05, media.width * 0.05, media.width * 0.05, 0),
+            // padding: EdgeInsets.fromLTRB(
+            //     media.width * 0.05, media.width * 0.05, media.width * 0.05, 0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).padding.top),
                 Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: media.width * 0.05),
+                      height: media.height * 0.1,
+                      color: blueColor,
                       width: media.width * 1,
                       alignment: Alignment.center,
                       child: Text(
-                        languages[choosenLanguage]['text_enable_history'],
+                        languages[choosenLanguage]
+                        ['text_enable_history'],
                         style: GoogleFonts.roboto(
                             fontSize: media.width * twenty,
                             fontWeight: FontWeight.w600,
-                            color: textColor),
+                            color: white),
                       ),
                     ),
                     Positioned(
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(Icons.arrow_back)))
+                      top: media.height * 0.03,
+                      left: media.width * 0.03,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: white,
+                          size: media.height * 0.04,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Image.asset(
+                          height: media.height * 0.1,
+                          'assets/images/app_bar_left_arrow.png',
+                          fit: BoxFit.cover,
+                        ))
                   ],
                 ),
                 SizedBox(
@@ -89,7 +107,7 @@ class _HistoryState extends State<History> {
                   width: media.width * 0.9,
                   decoration: BoxDecoration(
                       color: page,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(50),
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 2,
@@ -113,14 +131,12 @@ class _HistoryState extends State<History> {
                           });
                         },
                         child: Container(
-                            height: media.width * 0.13,
+                            height: media.width * 0.11,
                             alignment: Alignment.center,
                             width: media.width * 0.3,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: (_showHistory == 0)
-                                    ? primaryColor
-                                    : page),
+                                borderRadius: BorderRadius.circular(50),
+                                color: (_showHistory == 0) ? blueColor : page),
                             child: Text(
                               languages[choosenLanguage]['text_upcoming'],
                               style: GoogleFonts.roboto(
@@ -128,7 +144,7 @@ class _HistoryState extends State<History> {
                                   fontWeight: FontWeight.w600,
                                   color: (_showHistory == 0)
                                       ? Colors.white
-                                      : textColor),
+                                      : light_grey),
                             )),
                       ),
                       InkWell(
@@ -146,14 +162,12 @@ class _HistoryState extends State<History> {
                           });
                         },
                         child: Container(
-                            height: media.width * 0.13,
+                            height: media.width * 0.11,
                             alignment: Alignment.center,
                             width: media.width * 0.3,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: (_showHistory == 1)
-                                    ? primaryColor
-                                    : page),
+                                borderRadius: BorderRadius.circular(50),
+                                color: (_showHistory == 1) ? blueColor : page),
                             child: Text(
                               languages[choosenLanguage]['text_completed'],
                               style: GoogleFonts.roboto(
@@ -161,7 +175,7 @@ class _HistoryState extends State<History> {
                                   fontWeight: FontWeight.w600,
                                   color: (_showHistory == 1)
                                       ? Colors.white
-                                      : textColor),
+                                      : light_grey),
                             )),
                       ),
                       InkWell(
@@ -179,14 +193,12 @@ class _HistoryState extends State<History> {
                           });
                         },
                         child: Container(
-                            height: media.width * 0.13,
+                            height: media.width * 0.11,
                             alignment: Alignment.center,
                             width: media.width * 0.3,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: (_showHistory == 2)
-                                    ? primaryColor
-                                    : page),
+                                borderRadius: BorderRadius.circular(50),
+                                color: (_showHistory == 2) ? blueColor : page),
                             child: Text(
                               languages[choosenLanguage]['text_cancelled'],
                               style: GoogleFonts.roboto(
@@ -194,14 +206,14 @@ class _HistoryState extends State<History> {
                                   fontWeight: FontWeight.w600,
                                   color: (_showHistory == 2)
                                       ? Colors.white
-                                      : textColor),
+                                      : light_grey),
                             )),
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: media.width * 0.1,
+                  height: media.width * 0.07,
                 ),
                 Expanded(
                     child: SingleChildScrollView(
@@ -273,7 +285,18 @@ class _HistoryState extends State<History> {
                                                                 color: Colors
                                                                     .black
                                                                     .withOpacity(
-                                                                        0.2))
+                                                                        0.1),
+                                                                offset: Offset(
+                                                                    2, 2)),
+                                                            BoxShadow(
+                                                                blurRadius: 2,
+                                                                spreadRadius: 2,
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.1),
+                                                                offset: Offset(
+                                                                    -2, 0))
                                                           ]),
                                                       child: Column(
                                                         crossAxisAlignment:
@@ -289,137 +312,165 @@ class _HistoryState extends State<History> {
                                                                     sixteen,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w600),
+                                                                        .w600,
+                                                                color:
+                                                                    blueColor),
                                                           ),
                                                           SizedBox(
                                                             height:
                                                                 media.width *
                                                                     0.02,
                                                           ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Container(
-                                                                height: media
-                                                                        .width *
-                                                                    0.16,
-                                                                width: media
-                                                                        .width *
-                                                                    0.16,
-                                                                decoration: BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    image: DecorationImage(
-                                                                        image: NetworkImage(userDetails['role'] ==
-                                                                                'owner'
-                                                                            ? myHistory[i]['driverDetail']['data'][
-                                                                                'profile_picture']
-                                                                            : myHistory[i]['userDetail']['data'][
-                                                                                'profile_picture']),
-                                                                        fit: BoxFit
-                                                                            .cover)),
-                                                              ),
-                                                              SizedBox(
-                                                                width: media
-                                                                        .width *
-                                                                    0.02,
-                                                              ),
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    width: media
-                                                                            .width *
-                                                                        0.3,
-                                                                    child: Text(
-                                                                      userDetails['role'] ==
-                                                                              'owner'
-                                                                          ? myHistory[i]['driverDetail']['data']
-                                                                              [
-                                                                              'name']
-                                                                          : myHistory[i]['userDetail']['data']
-                                                                              [
-                                                                              'name'],
-                                                                      style: GoogleFonts.roboto(
-                                                                          fontSize: media.width *
-                                                                              eighteen,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
+                                                          Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        media.width *
+                                                                            0.02),
+                                                            width: media.width *
+                                                                0.9,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    color:
+                                                                        white,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                      10,
                                                                     ),
-                                                                  ),
-                                                                  SizedBox(
+                                                                    boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          2,
+                                                                      spreadRadius:
+                                                                          4,
+                                                                      offset:
+                                                                          Offset(
+                                                                              2,
+                                                                              2))
+                                                                ]),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Container(
                                                                     height: media
-                                                                            .width *
-                                                                        0.01,
+                                                                        .width *
+                                                                        0.16,
+                                                                    width: media
+                                                                        .width *
+                                                                        0.16,
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                            light_grey),
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        image: DecorationImage(
+                                                                            image: NetworkImage(userDetails['role'] == 'owner'
+                                                                                ? myHistory[i]['driverDetail']['data']['profile_picture']
+                                                                                : myHistory[i]['userDetail']['data']['profile_picture']),
+                                                                            fit: BoxFit.cover)),
                                                                   ),
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      SizedBox(
-                                                                        width: media.width *
-                                                                            0.06,
-                                                                        child: (myHistory[i]['payment_opt'] ==
-                                                                                '1')
-                                                                            ? Image.asset(
-                                                                                'assets/images/cash.png',
-                                                                                fit: BoxFit.contain,
-                                                                              )
-                                                                            : (myHistory[i]['payment_opt'] == '2')
-                                                                                ? Image.asset(
-                                                                                    'assets/images/wallet.png',
-                                                                                    fit: BoxFit.contain,
-                                                                                  )
-                                                                                : (myHistory[i]['payment_opt'] == '0')
-                                                                                    ? Image.asset(
-                                                                                        'assets/images/card.png',
-                                                                                        fit: BoxFit.contain,
-                                                                                      )
-                                                                                    : Container(),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: media.width *
-                                                                            0.01,
-                                                                      ),
-                                                                      Text(
-                                                                        (myHistory[i]['payment_opt'] ==
-                                                                                '1')
-                                                                            ? languages[choosenLanguage]['text_cash']
-                                                                            : (myHistory[i]['payment_opt'] == '2')
-                                                                                ? languages[choosenLanguage]['text_wallet']
-                                                                                : (myHistory[i]['payment_opt'] == '0')
-                                                                                    ? languages[choosenLanguage]['text_card']
-                                                                                    : '',
+                                                                ),
+                                                                SizedBox(
+                                                                  width: media
+                                                                          .width *
+                                                                      0.02,
+                                                                ),
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: media
+                                                                              .width *
+                                                                          0.23,
+                                                                      child:
+                                                                          Text(
+                                                                        userDetails['role'] ==
+                                                                                'owner'
+                                                                            ? myHistory[i]['driverDetail']['data']['name']
+                                                                            : myHistory[i]['userDetail']['data']['name'],
                                                                         style: GoogleFonts.roboto(
-                                                                            fontSize: media.width *
-                                                                                twelve,
+                                                                            fontSize: 14,
                                                                             fontWeight:
                                                                                 FontWeight.w600),
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Expanded(
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: media
+                                                                              .width *
+                                                                          0.01,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              media.width * 0.06,
+                                                                          child: (myHistory[i]['payment_opt'] == '1')
+                                                                              ? Image.asset(
+                                                                                  'assets/images/cash.png',
+                                                                                  fit: BoxFit.contain,
+                                                                                )
+                                                                              : (myHistory[i]['payment_opt'] == '2')
+                                                                                  ? Image.asset(
+                                                                                      'assets/images/wallet.png',
+                                                                                      fit: BoxFit.contain,
+                                                                                    )
+                                                                                  : (myHistory[i]['payment_opt'] == '0')
+                                                                                      ? Image.asset(
+                                                                                          'assets/images/card.png',
+                                                                                          fit: BoxFit.contain,
+                                                                                        )
+                                                                                      : Container(),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              media.width * 0.01,
+                                                                        ),
+                                                                        Text(
+                                                                          (myHistory[i]['payment_opt'] == '1')
+                                                                              ? languages[choosenLanguage]['text_cash']
+                                                                              : (myHistory[i]['payment_opt'] == '2')
+                                                                                  ? languages[choosenLanguage]['text_wallet']
+                                                                                  : (myHistory[i]['payment_opt'] == '0')
+                                                                                      ? languages[choosenLanguage]['text_card']
+                                                                                      : '',
+                                                                          style: GoogleFonts.roboto(
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Container(color: Colors.black.withOpacity(0.3),width: media.width*0.005,height: media.width/8,),
+                                                               SizedBox(width: 10,),
+                                                                Row(
                                                                   children: [
                                                                     Column(
                                                                       children: [
-                                                                        Text(
-                                                                          myHistory[i]['requestBill']['data']['requested_currency_symbol'] +
-                                                                              ' ' +
-                                                                              myHistory[i]['requestBill']['data']['total_amount'].toString(),
-                                                                          style: GoogleFonts.roboto(
-                                                                              fontSize: media.width * sixteen,
-                                                                              fontWeight: FontWeight.bold),
+                                                                        Padding(
+                                                                          padding:  EdgeInsets.only(right: media.width*0.1),
+                                                                          child: Text(
+                                                                            myHistory[i]['requestBill']['data']['requested_currency_symbol'] +
+                                                                                ' ' +
+                                                                                myHistory[i]['requestBill']['data']['total_amount'].toString(),
+                                                                            style:
+                                                                                GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500),
+                                                                          ),
                                                                         ),
                                                                         SizedBox(
                                                                           height:
@@ -437,8 +488,8 @@ class _HistoryState extends State<History> {
                                                                     ),
                                                                   ],
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                           SizedBox(
                                                             height:

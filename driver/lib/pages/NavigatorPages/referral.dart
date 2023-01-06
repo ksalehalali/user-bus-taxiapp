@@ -23,8 +23,10 @@ class _ReferralPageState extends State<ReferralPage> {
 
   @override
   void initState() {
-    _getReferral();
+    print('ll');
     super.initState();
+    _getReferral();
+
   }
 
 //get referral code
@@ -88,9 +90,7 @@ class _ReferralPageState extends State<ReferralPage> {
                                 SizedBox(
                                   height: media.height * 0.05,
                                 ),
-                                myReferralCode['referral_comission_string']
-                                            .toString()
-                                            .length > 17
+                                myReferralCode['referral_comission_string'].toString().length > 17
                                     ? Text(
                                   "${myReferralCode['referral_comission_string'].toString().substring(0, 18)}\n"
                                       "${myReferralCode['referral_comission_string'].toString().substring(18, 26)}",
