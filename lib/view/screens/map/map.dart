@@ -353,7 +353,7 @@ class _MapState extends State<Map> {
 
 
                         //correct bus 1
-                        locationController.myCorrectBusesGot == true
+                        locationController.myCorrectBusesGot == true && locationController.myCorrectBuses.length >0
                             ? google_maps.Marker(
                             icon: mapMarker,
 
@@ -636,35 +636,43 @@ class _MapState extends State<Map> {
                         ],
                       ),
                     ),
-                    
+
+
+                    //bus info
                     Positioned(
                         right: screenSize.width / 4,
                         top: 4,
-                        child: Container(
-                          width: screenSize.width / 2,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(22.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.9),
-                                    blurRadius: 6.0,
-                                    spreadRadius: 0.5,
-                                    offset: Offset(0.7, 0.7),
-                                  ),
-                                ]),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Bus arrive in:"),
+                        child: InkWell(
+                          onTap: ()async{
+                            await locationController.getRouteBusses(trip.routeId);
+
+                          },
+                          child: Container(
+                            width: screenSize.width / 2,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.9),
+                                      blurRadius: 6.0,
+                                      spreadRadius: 0.5,
+                                      offset: Offset(0.7, 0.7),
+                                    ),
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Bus arrive in:"),
 SizedBox(width: 5,),
-                                  Text("5.00 min",style: TextStyle(color: Colors.green),),
-                                ],
+                                    Text("5.00 min",style: TextStyle(color: Colors.green),),
+                                  ],
+                                )),
                               )),
-                            )))
+                        ))
                   ]),
                 ),
                 locationController.tripCreatedDone.value == true

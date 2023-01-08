@@ -55,6 +55,7 @@ class LocationController extends GetxController {
   var bussesList = [].obs;
   var points = [];
   var bussesIds = [].obs;
+
   var myFavAddresses =[].obs;
 
   @override
@@ -447,6 +448,7 @@ updatePinPos(double lat , double lng){
 
   //get route's busses
 Future getRouteBusses(String routeId)async{
+    print("route id: $routeId");
   myCorrectBusesGot.value =false;
 
   points.clear();
@@ -466,16 +468,33 @@ Future getRouteBusses(String routeId)async{
   if (response.statusCode == 200 &&jsonResponse['status'] ==true) {
     print("res ====--.......................length : ${jsonResponse["description"].length} ..................................--==== ${jsonResponse}");
 
+
     for(var p in jsonResponse["description"]){
-      var busToEndP1 = calculateDistance(LocationModel(double.parse(p["latitude1"].toString()), double.parse(p["longitude1"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
-      var busToEndP2 = calculateDistance(LocationModel(double.parse(p["latitude2"].toString()), double.parse(p["longitude2"].toString())), LocationModel(trip.endPoint.latitude,trip.endPoint.longitude));
+      var  query =
+          p["longitude1"].toString() +
+              "," +
+              p["latitude1"].toString() +
+              ";"+trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString();
 
-      var userToEnd = calculateDistance(LocationModel(double.parse(trip.endPoint.latitude.toString()), double.parse(trip.endPoint.longitude.toString())), LocationModel(user.currentLocation!.latitude,user.currentLocation!.longitude));
+      var  query2 =
+          p["longitude2"].toString() +
+              "," +
+              p["latitude2"].toString() +
+              ";"+trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString();
 
-      print("l1 = ${busToEndP1} ............. ..........");
-     print("l2 = ${busToEndP2}");
+      var  query3 =
+          trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString() ;
 
-      if(busToEndP1>busToEndP2 && busToEndP2 >= userToEnd){
+      var busToEndP1 = await getDistanceInformation(query);
+      var busToEndP2 = await getDistanceInformation(query2);
+      var startToEnd = await getDistanceInformation(query3);
+
+      print("busToEndP1 = ${busToEndP1["routes"][0]["distance"]} ............. ..........");
+     print("busToEndP2 = ${busToEndP2["routes"][0]["distance"]}");
+      print("startToEnd = ${startToEnd["routes"][0]["distance"]}");
+      print("bus id : ${p["busID"]}");
+
+      if(busToEndP1["routes"][0]["distance"]>busToEndP2["routes"][0]["distance"] && busToEndP2["routes"][0]["distance"] > startToEnd["routes"][0]["distance"] ){
         points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2),);
         bussesIds.add(p["busID"]);
         bussesList.clear();
@@ -484,7 +503,6 @@ Future getRouteBusses(String routeId)async{
         for(var i = 0; i < bussesList.length; i++){
           print("busses =bus: $i==.= ${bussesList[i].name}");
           print("busses =bus: $i==.= ${bussesList[i].distance}");
-
           print("busses =bus: $i==.= ${bussesList[i].lat}");
         }
 
@@ -503,7 +521,7 @@ Future getRouteBusses(String routeId)async{
   }
 
   //calculate the distance between tow points and
- double calculateDistance(LocationModel point1 ,LocationModel point2){
+  calculateDistance(LocationModel point1 ,LocationModel point2,stationQuery)async{
    double calculateDistance(lat1, lon1, lat2, lon2){
      var p = 0.017453292519943295;
      var c = cos;
@@ -526,9 +544,26 @@ Future getRouteBusses(String routeId)async{
    for(var i = 0; i < data.length-1; i++){
      totalDistance += calculateDistance(data[i]["lat"], data[i]["lng"], data[i+1]["lat"], data[i+1]["lng"]);
    }
-   print(totalDistance);
+
    return totalDistance;
  }
+
+ //distanceInformation
+  getDistanceInformation(query)async{
+    //way 2
+
+    final response = await http.get(Uri.parse(
+        "https://api.mapbox.com/directions/v5/mapbox/driving/$query?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
+    if (response.statusCode == 200) {
+      print('getDistanceInformation ${response.statusCode}');
+      var decoded = jsonDecode(response.body);
+
+      return decoded;
+    }else{
+      print(response);
+      return false;
+    }
+  }
 
  //2
   distanceCalculation() {
