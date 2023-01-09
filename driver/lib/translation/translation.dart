@@ -1,5 +1,9 @@
 Map<String, dynamic> languages = {
         "en": {
+            "text_goto_url":"Goto URL",
+            "text_welcome_line_one":"Please Login to enter the exciting",
+            "text_welcome_line_two":"world of ride.",
+            "text_welcome":"Welcome",
             "text_amount_500":"500",
             "text_with_draw":"WithDraw",
             "text_my_profile":"Profile",
@@ -11,7 +15,7 @@ Map<String, dynamic> languages = {
             "text_enter_phone": "Enter Your Phone Number",
             "text_next": "next",
             "text_your_ride": "Your ride, on demand",
-            "text_login": "Login",
+            "text_login": "Log in",
             "text_phone_number": "phone number",
             "text_get_started": "Let's Get Started!",
             "text_fill_form": "Fill the form to continue.",
@@ -240,6 +244,8 @@ Map<String, dynamic> languages = {
             "text_bankName": "Bank Name",
             "text_updateBank": "Update Bank Info",
             "text_confirmlogout": "Are you sure want to logout",
+            "text_confirmlogout_one": "Are you sure want to",
+            "text_confirmlogout_two": "Logout ?",
             "text_wallet": "Wallet",
             "text_startridewithotp": "Start Ride with OTP",
             "text_loadingLocalization": "Loading Localization",
@@ -376,6 +382,10 @@ Map<String, dynamic> languages = {
             "text_waitingforpayment": "Waiting For Payment"
         },
         "ar": {
+            "text_goto_url":"الانتقال إلى URL",
+            "text_welcome_line_one":"الرجاء تسجيل الدخول للدخول المثير",
+            "text_welcome_line_two":"عالم الركوب.",
+            "text_welcome":"أهلا بك",
             "text_amount_500":"500",
             "text_with_draw":"انسحب",
             "text_my_profile":"حساب تعريفي",
@@ -619,6 +629,8 @@ Map<String, dynamic> languages = {
             "text_bankName": "اسم البنك",
             "text_updateBank": "تحديث معلومات البنك",
             "text_confirmlogout": "هل أنت متأكد من رغبتك في تسجيل الدخول",
+            "text_confirmlogout_one": "هل أنت متأكد من أنك تريد",
+            "text_confirmlogout_two": "تسجيل خروج ؟",
             "text_wallet": "محفظة",
             "text_startridewithotp": "ابدأ بالركوب مع OTP",
             "text_loadingLocalization": "توطين التحميل",
