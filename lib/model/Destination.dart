@@ -3,7 +3,7 @@ class Point{
   double lng;
   String name;
   double? distance;
-
-  Point(this.lat, this.lng, this.name,{ this.distance});
+  double? duration;
+  Point(this.lat, this.lng, this.name,{ this.distance,this.duration});
 }
 

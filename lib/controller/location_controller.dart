@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:background_location/background_location.dart';
 import 'package:flutter/services.dart';
@@ -53,10 +54,15 @@ class LocationController extends GetxController {
   var myRouteBuses =[].obs;
   var myCorrectBusesGot = false.obs;
   var bussesList = [].obs;
+  var bussesOnMapList = [].obs;
+  var timeBusToR = 0.0.obs;
+  late google_maps.BitmapDescriptor mapMarker;
+
   var points = [];
   var bussesIds = [].obs;
-
   var myFavAddresses =[].obs;
+
+
 
   @override
   void onInit() {
@@ -167,6 +173,8 @@ class LocationController extends GetxController {
       print("---------- NearestLocation ..---------... Message: ${message!.first}");
       myCorrectBuses.value = message.first;
       myCorrectBusesGot.value = true;
+      setBussesMarkers();
+      print(bussesOnMapList.length);
       update();
     });
 
@@ -176,7 +184,6 @@ class LocationController extends GetxController {
   }
 
   Future detectingCorrectBus() async{
-    print("-------------trip created------------------- $tripCreatedDone");
     if(tripCreatedDone.value ==true){
       var invoke = await connectionTracking?.invoke("NearestBusLocation",args:
       [
@@ -229,6 +236,8 @@ class LocationController extends GetxController {
   late loc.PermissionStatus _permissionGranted;
 //get location for all
   Future getLocation() async {
+    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(20,20)),'assets/icons/icons8-bus-96.png',) ;
+
     loc.Location location = loc.Location.instance;
 
     geo.Position? currentPos;
@@ -468,43 +477,43 @@ Future getRouteBusses(String routeId)async{
   if (response.statusCode == 200 &&jsonResponse['status'] ==true) {
     print("res ====--.......................length : ${jsonResponse["description"].length} ..................................--==== ${jsonResponse}");
 
-
+    var  query3 =
+        trip.startPoint.longitude.toString()+","+trip.startPoint.latitude.toString()+";"+trip.endPoint.longitude.toString()+","+trip.endPoint.latitude.toString() ;
     for(var p in jsonResponse["description"]){
       var  query =
           p["longitude1"].toString() +
               "," +
               p["latitude1"].toString() +
-              ";"+trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString();
+              ";"+trip.startPoint.longitude.toString()+","+trip.startPoint.latitude.toString()+";"+trip.endPoint.longitude.toString()+","+trip.endPoint.latitude.toString();
 
       var  query2 =
           p["longitude2"].toString() +
               "," +
               p["latitude2"].toString() +
-              ";"+trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString();
+              ";"+trip.startPoint.longitude.toString()+","+trip.startPoint.latitude.toString()+";"+trip.endPoint.longitude.toString()+","+trip.endPoint.latitude.toString();
 
-      var  query3 =
-          trip.startPoint.latitude.toString()+","+trip.startPoint.longitude.toString()+";"+trip.endPoint.latitude.toString()+","+trip.endPoint.longitude.toString() ;
 
       var busToEndP1 = await getDistanceInformation(query);
       var busToEndP2 = await getDistanceInformation(query2);
       var startToEnd = await getDistanceInformation(query3);
 
-      print("busToEndP1 = ${busToEndP1["routes"][0]["distance"]} ............. ..........");
-     print("busToEndP2 = ${busToEndP2["routes"][0]["distance"]}");
-      print("startToEnd = ${startToEnd["routes"][0]["distance"]}");
+      print("busToEndP1 = ${busToEndP1["routes"][0]["distance"]/ 1000} ............. ..........");
+      print("busToEndP2 = ${busToEndP2["routes"][0]["distance"]/ 1000}");
+      print("startToEnd = ${startToEnd["routes"][0]["distance"]/ 1000}");
+
       print("bus id : ${p["busID"]}");
 
       if(busToEndP1["routes"][0]["distance"]>busToEndP2["routes"][0]["distance"] && busToEndP2["routes"][0]["distance"] > startToEnd["routes"][0]["distance"] ){
-        points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2),);
+        var  query4 = p["longitude2"].toString() +
+            "," +
+            p["latitude2"].toString() +
+            ";"+trip.startPoint.longitude.toString()+","+trip.startPoint.latitude.toString();
+
+        var busToEnd = await getDistanceInformation(query4);
+        print("bus to start duration =...........................= ${busToEnd["routes"][0]["duration"] /60}");
+        points.add( Point(p["latitude2"], p["longitude2"], p["busID"],distance: busToEndP2["routes"][0]["distance"],duration:busToEnd["routes"][0]["duration"] ),);
         bussesIds.add(p["busID"]);
         bussesList.clear();
-        await distanceCalculation();
-
-        for(var i = 0; i < bussesList.length; i++){
-          print("busses =bus: $i==.= ${bussesList[i].name}");
-          print("busses =bus: $i==.= ${bussesList[i].distance}");
-          print("busses =bus: $i==.= ${bussesList[i].lat}");
-        }
 
       }
 
@@ -513,6 +522,14 @@ Future getRouteBusses(String routeId)async{
     if(points.length>0){
       Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
     }
+
+    if(points.length>1){
+      points.sort((a, b) {
+        return a.distance.compareTo(b.distance);
+      });
+    }
+
+    timeBusToR.value = points[0].duration/60;
     update();
   }else {
     print("routeId ${trip.routeId}");
@@ -520,6 +537,27 @@ Future getRouteBusses(String routeId)async{
   }
   }
 
+  //set markers for correct busses
+  setBussesMarkers(){
+    bussesOnMapList.clear();
+    for(var i = 0; myCorrectBuses.length > i; i++){
+      bussesOnMapList.add( google_maps.Marker(
+              icon:mapMarker,
+              infoWindow: google_maps.InfoWindow(
+                  title:
+                  '${myCorrectBuses[i]["busID"]}',
+                  snippet: myCorrectBuses[i]["busID"]),
+              position: google_maps.LatLng(
+                 myCorrectBuses[i]["latitude2"],
+                 myCorrectBuses[i]["longitude2"]),
+              markerId: google_maps.MarkerId(myCorrectBuses[i]["busID"]),
+              onTap: () {
+                print(myCorrectBuses[i]["busID"]
+                    .toString());
+              }));
+    }
+    update();
+  }
   //calculate the distance between tow points and
   calculateDistance(LocationModel point1 ,LocationModel point2,stationQuery)async{
    double calculateDistance(lat1, lon1, lat2, lon2){
@@ -553,11 +591,11 @@ Future getRouteBusses(String routeId)async{
     //way 2
 
     final response = await http.get(Uri.parse(
-        "https://api.mapbox.com/directions/v5/mapbox/driving/$query?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
+        "https://api.mapbox.com/directions/v5/mapbox/driving-traffic/$query?alternatives=true&annotations=distance%2Cduration%2Cspeed&geometries=geojson&language=en&overview=full&steps=true&access_token=$mapbox_token"));
     if (response.statusCode == 200) {
       print('getDistanceInformation ${response.statusCode}');
       var decoded = jsonDecode(response.body);
-
+      print(decoded);
       return decoded;
     }else{
       print(response);

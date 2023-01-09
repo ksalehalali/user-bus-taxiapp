@@ -61,11 +61,10 @@ class _MapState extends State<Map> {
   double heightLineStops = 100.0;
   late final StreamSubscription<MapEvent> mapEventSubscription;
   int _eventKey = 0;
-
+  var busses = [];
   google_maps.CameraPosition cameraPosition =google_maps.CameraPosition(target: google_maps.LatLng(initialPoint.latitude, initialPoint.longitude),zoom: 14.0);
 
 
-  late google_maps.BitmapDescriptor mapMarker;
   late google_maps.BitmapDescriptor mapMarker2;
 
 
@@ -99,10 +98,10 @@ class _MapState extends State<Map> {
 
   //custom icon
   void setCustomIconMarker()async{
-    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(20,20)),'assets/icons/icons8-bus-96.png',) ;
     mapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),'assets/icons/icons8-get-on-bus-100.png') ;
 
   }
+
   void onMapEvent(MapEvent mapEvent) {
     if (mapEvent is MapEventMove && mapEvent.id == _eventKey.toString()) {}
   }
@@ -351,47 +350,8 @@ class _MapState extends State<Map> {
                             : google_maps.Marker(
                             markerId: google_maps.MarkerId("shared2Id")),
 
-
-                        //correct bus 1
-                        locationController.myCorrectBusesGot == true && locationController.myCorrectBuses.length >0
-                            ? google_maps.Marker(
-                            icon: mapMarker,
-
-                            infoWindow: google_maps.InfoWindow(
-                                title:
-                                '${locationController.myCorrectBuses[0]["busID"]}',
-                                snippet: locationController.myCorrectBuses[0]["busID"]),
-                            position: google_maps.LatLng(
-                                locationController.myCorrectBuses[0]["latitude2"],
-                                locationController.myCorrectBuses[0]["longitude2"]),
-                            markerId: google_maps.MarkerId(locationController.myCorrectBuses[0]["busID"]),
-                            onTap: () {
-                              print(locationController.myCorrectBuses[0]["busID"]
-                                  .toString());
-                            })
-                            : google_maps.Marker(
-                            markerId: google_maps.MarkerId("error")),
-
-                        //correct bus 2
-                        locationController.myCorrectBusesGot == true && locationController.myCorrectBuses.length>1
-                            ? google_maps.Marker(
-                            icon: mapMarker,
-
-                            infoWindow: google_maps.InfoWindow(
-                                title:
-                                '${locationController.myCorrectBuses[1]["busID"]}',
-                                snippet: locationController.myCorrectBuses[1]["busID"]),
-                            position: google_maps.LatLng(
-                                locationController.myCorrectBuses[1]["latitude2"],
-                                locationController.myCorrectBuses[1]["longitude2"]),
-                            markerId: google_maps.MarkerId(locationController.myCorrectBuses[1]["busID"]),
-                            onTap: () {
-                              print(locationController.myCorrectBuses[1]["busID"]
-                                  .toString());
-                            })
-                            : google_maps.Marker(
-                            markerId: google_maps.MarkerId("error2")),
-
+                        //correct busses
+                        ...locationController.bussesOnMapList,
 
                         //drop off marker
                         locationController.tripCreatedDone.value == true
@@ -639,7 +599,7 @@ class _MapState extends State<Map> {
 
 
                     //bus info
-                    Positioned(
+                    locationController.tripCreatedDone.value ==true && locationController.bussesOnMapList.length>0 ? Positioned(
                         right: screenSize.width / 4,
                         top: 4,
                         child: InkWell(
@@ -667,12 +627,12 @@ class _MapState extends State<Map> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text("Bus arrive in:"),
-SizedBox(width: 5,),
-                                    Text("5.00 min",style: TextStyle(color: Colors.green),),
+                                    SizedBox(width: 5,),
+                                    locationController.points.length>0 ?   Text("${locationController.timeBusToR.value.toStringAsFixed(0)} min",style: TextStyle(color: Colors.green),):Container(),
                                   ],
                                 )),
                               )),
-                        ))
+                        )):Container()
                   ]),
                 ),
                 locationController.tripCreatedDone.value == true
