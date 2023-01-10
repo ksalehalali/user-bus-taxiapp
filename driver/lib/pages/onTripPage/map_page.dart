@@ -2633,7 +2633,7 @@ class _MapsState extends State<Maps>
                                                     color: (userDetails['active'] ==
                                                         false)
                                                         ? offline
-                                                        : online,
+                                                        : onlineColor,
                                                   ),
                                                   child: (userDetails[
                                                   'active'] ==
@@ -2643,15 +2643,7 @@ class _MapsState extends State<Maps>
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                     children: [
-                                                      Container(),
-                                                      Text(
-                                                        'OFF DUTY',
-                                                        style: GoogleFonts
-                                                            .roboto(
-                                                            fontSize: media
-                                                                .width * twelve,
-                                                            color: onlineOfflineText),
-                                                      ),
+                                                      
                                                       Container(
                                                         padding: EdgeInsets.all(
                                                             media.width * 0.01),
@@ -2663,9 +2655,18 @@ class _MapsState extends State<Maps>
                                                             shape: BoxShape
                                                                 .circle,
                                                             color: onlineOfflineText),
-                                                        child: Image.asset(
-                                                            'assets/images/offline.png'),
-                                                      )
+
+                                                      ),
+                                                      Container(),
+                                                      Text(
+                                                        languages[choosenLanguage]['text_off_duty'],
+                                                        style: GoogleFonts
+                                                            .roboto(
+                                                            fontSize: media
+                                                                .width * twelve,
+                                                            color: onlineOfflineText),
+                                                      ),
+
                                                     ],
                                                   )
                                                       : Row(
@@ -2673,6 +2674,15 @@ class _MapsState extends State<Maps>
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                     children: [
+                                                      SizedBox(width:5),
+                                                      Text(
+                                                        languages[choosenLanguage]['text_on_duty'],
+                                                        style: GoogleFonts
+                                                            .roboto(
+                                                            fontSize: media
+                                                                .width * twelve,
+                                                            color: onlineOfflineText),
+                                                      ),
                                                       Container(
                                                         padding: EdgeInsets.all(
                                                             media.width * 0.01),
@@ -2681,21 +2691,21 @@ class _MapsState extends State<Maps>
                                                         width: media.width *
                                                             0.07,
                                                         decoration: BoxDecoration(
+                                                            boxShadow:[BoxShadow(blurRadius: 1,spreadRadius:3,color:onlineColor)],
                                                             shape: BoxShape
                                                                 .circle,
                                                             color: onlineOfflineText),
-                                                        child: Image.asset(
-                                                            'assets/images/online.png'),
+                                                        child: Stack(
+                                                          children: [
+                                                            Image.asset(
+                                                                'assets/images/ring_icon.png'),
+                                                            Image.asset(
+                                                                'assets/images/green_ring.png'),
+                                                          ],
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        'ON DUTY',
-                                                        style: GoogleFonts
-                                                            .roboto(
-                                                            fontSize: media
-                                                                .width * twelve,
-                                                            color: onlineOfflineText),
-                                                      ),
-                                                      Container(),
+
+
                                                     ],
                                                   ),
                                                 ),
@@ -3253,7 +3263,7 @@ class _MapsState extends State<Maps>
                                                                                   Row(
                                                                                     children: [
                                                                                       Text(
-                                                                                        driverReq['userDetail']['data']['name'],
+                                                                                        driverReq['userDetail']['data']['name'] + "HI",
                                                                                         style: GoogleFonts
                                                                                             .roboto(
                                                                                             fontSize: 14,
@@ -3874,7 +3884,7 @@ class _MapsState extends State<Maps>
                                                             ),
                                                             SizedBox(
                                                               height: media
-                                                                  .width * 0.05,
+                                                                  .width * 0.05,  
                                                             ),
                                                             (_bottom != 0)
                                                                 ? AnimatedContainer(
@@ -3885,6 +3895,7 @@ class _MapsState extends State<Maps>
                                                               child: SingleChildScrollView(
                                                                 child: Column(
                                                                   children: [
+                                                                    
                                                                     Container(
                                                                       padding: EdgeInsets
                                                                           .all(
@@ -4052,22 +4063,18 @@ class _MapsState extends State<Maps>
                                                             )
                                                                 : Container(),
                                                           ]),
-                                                      (driverReq['is_trip_start'] ==
-                                                          0)
+                                                      
+                                                      (driverReq['is_trip_start'] == 0)
                                                           ? Column(
                                                         children: [
                                                           (_bottom == 0)
                                                               ? Row(
                                                             children: [
-                                                              Icon(Icons
-                                                                  .location_on_outlined,
+                                                              Icon(Icons.location_on_outlined,
                                                                   color: secondaryColor,
-                                                                  size: media
-                                                                      .width *
-                                                                      0.075),
-                                                              SizedBox(
-                                                                  width: media
-                                                                      .width *
+                                                                  size: media.width * 0.075),
+                                                              SizedBox(width: media
+                                                                  .width *
                                                                       0.05),
                                                               Column(
                                                                 crossAxisAlignment: CrossAxisAlignment
@@ -4122,20 +4129,23 @@ class _MapsState extends State<Maps>
                                                             mainAxisAlignment: MainAxisAlignment
                                                                 .spaceAround,
                                                             children: [
-                                                              Column(
+                                                              Row(
                                                                 children: [
                                                                   InkWell(
                                                                       onTap: () {
                                                                         makingPhoneCall(
                                                                             driverReq['userDetail']['data']['mobile']);
                                                                       },
-                                                                      child: Image
-                                                                          .asset(
-                                                                        'assets/images/Call.png',
-                                                                        width: media
-                                                                            .width *
-                                                                            0.06,
+                                                                      child: Container(
+                                                                          height:25,width:25,
+                                                                        decoration:BoxDecoration(color:Colors.blue.shade100,shape:BoxShape.circle),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          'assets/images/call_icon.png',
+                                                                          
+                                                                        ),
                                                                       )),
+                                                                  SizedBox(width:5), 
                                                                   Text(
                                                                     languages[choosenLanguage]['text_call'],
                                                                     style: GoogleFonts
@@ -4147,8 +4157,7 @@ class _MapsState extends State<Maps>
                                                                   )
                                                                 ],
                                                               ),
-                                                              (driverReq['if_dispatch'] ==
-                                                                  true)
+                                                              (driverReq['if_dispatch'] == true)
                                                                   ? Container()
                                                                   : InkWell(
                                                                 onTap: () {
@@ -4159,17 +4168,18 @@ class _MapsState extends State<Maps>
                                                                           builder: (
                                                                               context) => const ChatPage()));
                                                                 },
-                                                                child: Column(
+                                                                child: Row(
                                                                   children: [
                                                                     Row(
                                                                       children: [
-                                                                        Image
-                                                                            .asset(
-                                                                          'assets/images/message-square.png',
-                                                                          width: media
-                                                                              .width *
-                                                                              0.06,
+                                                                        Container(height:25,width:25,decoration:BoxDecoration(shape:BoxShape.circle,color:Colors.blue.shade100),
+                                                                          child: Image
+                                                                              .asset(
+                                                                            'assets/images/chat_icon.png',  
+                                                                            
+                                                                          ),
                                                                         ),
+                                                                        SizedBox(width:5),
                                                                         (chatList
                                                                             .where((
                                                                             element) =>
@@ -4211,7 +4221,7 @@ class _MapsState extends State<Maps>
                                                                   ],
                                                                 ),
                                                               ),
-                                                              Column(
+                                                              Row(
                                                                 children: [
                                                                   InkWell(
                                                                     onTap: () async {
@@ -4240,21 +4250,26 @@ class _MapsState extends State<Maps>
                                                                         false;
                                                                       });
                                                                     },
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/cancel.png',
-                                                                      width: media
-                                                                          .width *
-                                                                          0.06,
+                                                                    child: Container(
+                                                                      height:25,width:25,
+                                                                      decoration:BoxDecoration(shape:BoxShape.circle,color:Colors.red.shade100),
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/cancel_icon.png',
+                                                                        width: media
+                                                                            .width *
+                                                                            0.06,
+                                                                      ),
                                                                     ),
                                                                   ),
+                                                                  SizedBox(width:5),  
                                                                   Text(
                                                                     languages[choosenLanguage]['text_cancel'],
                                                                     style: GoogleFonts
                                                                         .roboto(
                                                                       fontSize: media
                                                                           .width *
-                                                                          twelve,
+                                                                          twelve,color:verifyDeclined, 
                                                                     ),
                                                                   )
                                                                 ],
@@ -4263,17 +4278,11 @@ class _MapsState extends State<Maps>
                                                           ),
                                                         ],
                                                       )
-                                                          : (_bottom == 0 &&
-                                                          driverReq['is_trip_start'] ==
-                                                              1 &&
-                                                          driverReq['is_rental'] !=
-                                                              true &&
-                                                          driverReq['drop_address'] !=
-                                                              null)
+                                                          : (_bottom == 0 && driverReq['is_trip_start'] == 1 &&
+                                                          driverReq['is_rental'] != true && driverReq['drop_address'] != null)
                                                           ? Row(
                                                         children: [
-                                                          Icon(Icons
-                                                              .location_on_outlined,
+                                                          Icon(Icons.location_on_outlined,
                                                               color: secondaryColor,
                                                               size: media
                                                                   .width *
@@ -4329,6 +4338,8 @@ class _MapsState extends State<Maps>
                                                             0.05,
                                                       ),
                                                       Button(
+                                                          height:media.height*0.07,
+                                                          color:blueColor,
                                                           onTap:
                                                               () async {
                                                             setState(() {

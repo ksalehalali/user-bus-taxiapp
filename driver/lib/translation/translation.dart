@@ -1,5 +1,6 @@
 Map<String, dynamic> languages = {
         "en": {
+            "text_type_something":"Type something",
             "text_goto_url":"Goto URL",
             "text_welcome_line_one":"Please Login to enter the exciting",
             "text_welcome_line_two":"world of ride.",
@@ -74,8 +75,8 @@ Map<String, dynamic> languages = {
             "text_enable_location": "Please Enable Your Location",
             "text_ok": "Ok",
             "text_loc_permission": "Allow Location all the time - To book a taxi",
-            "text_off_duty": "On Duty",
-            "text_on_duty": "Off Duty",
+            "text_off_duty": "ON DUTY",
+            "text_on_duty": "Off DUTY",
             "text_pickpoint": "Pickup point",
             "text_droppoint": "Dropout point",
             "text_decline": "Decline",
@@ -382,6 +383,7 @@ Map<String, dynamic> languages = {
             "text_waitingforpayment": "Waiting For Payment"
         },
         "ar": {
+            "text_type_something":"اطبع شيئا",
             "text_goto_url":"الانتقال إلى URL",
             "text_welcome_line_one":"الرجاء تسجيل الدخول للدخول المثير",
             "text_welcome_line_two":"عالم الركوب.",
