@@ -51,6 +51,11 @@ class _LanguagesState extends State<Languages> {
       child: Stack(
         children: [
           Container(
+            color: primaryColor,
+          ),
+
+
+          Container(
             padding: EdgeInsets.fromLTRB(media.width * 0.05, media.width * 0.05,
                 media.width * 0.05, media.width * 0.05),
             height: media.height * 1,

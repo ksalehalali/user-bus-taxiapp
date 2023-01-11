@@ -32,9 +32,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Welcome', style: TextStyle(color: black, fontSize: 24.0, fontWeight: FontWeight.w600),),
+                  Text(languages[choosenLanguage]['text_welcome'], style: TextStyle(color: black, fontSize: 24.0, fontWeight: FontWeight.w600),),
                   SizedBox(height: 20,),
-                  Text('Please Login to enter the exciting \n world of ride', textAlign: TextAlign.center,
+                  Text(languages[choosenLanguage]['text_login_to_enter'], textAlign: TextAlign.center,
                     style: TextStyle(color: light_grey, fontSize: 16.0, ), ),
                   SizedBox(height: 5,),
 

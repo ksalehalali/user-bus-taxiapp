@@ -115,82 +115,141 @@ class _WalletPageState extends State<WalletPage> {
                           Stack(
                             children: [
                               Container(
-                                padding:
-                                    EdgeInsets.only(bottom: media.width * 0.05),
+                                height: media.height * 0.1,
+                                color: primaryColor,
                                 width: media.width * 1,
                                 alignment: Alignment.center,
                                 child: Text(
                                   languages[choosenLanguage]
                                       ['text_enable_wallet'],
                                   style: GoogleFonts.roboto(
-                                      fontSize: media.width * twenty,
+                                      fontSize: media.width * twentysix,
                                       fontWeight: FontWeight.w600,
-                                      color: textColor),
+                                      color: white),
                                 ),
                               ),
                               Positioned(
-                                  child: InkWell(
-                                      onTap: () {
-                                        Navigator.pushReplacement(context, MaterialPageRoute(
+                                top: media.height * 0.03,
+                                left: media.width * 0.03,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
                                             builder: (context) => Maps()));
-                                      },
-                                      child: const Icon(Icons.arrow_back)))
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    color: white,
+                                    size: media.height * 0.04,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Image.asset(
+                                    height: media.height * 0.1,
+                                    'assets/images/app_bar_left_arrow.png',
+                                    fit: BoxFit.cover,
+                                  ))
                             ],
                           ),
                           SizedBox(
                             height: media.width * 0.05,
                           ),
                           (walletBalance.isNotEmpty)
-                              ? Column(
-                                  children: [
-                                    Text(
-                                      languages[choosenLanguage]
-                                          ['text_availablebalance'],
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * twelve,
-                                          color: textColor),
-                                    ),
-                                    SizedBox(
-                                      height: media.width * 0.01,
-                                    ),
-                                    Text(
-                                      walletBalance['currency_symbol'] +
-                                          walletBalance['wallet_balance']
-                                              .toString(),
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * fourty,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    // SizedBox(
-                                    //   height: media.width * 0.05,
-                                    // ),
-                                    // Button(
-                                    //   onTap: () {
-                                    //     setState(() {
-                                    //       ispop = true;
-                                    //     });
-                                    //   },
-                                    //   text: languages[choosenLanguage]
-                                    //       ['text_share_money'],
-                                    //   width: media.width * 0.3,
-                                    // ),
-                                    SizedBox(
-                                      height: media.width * 0.05,
-                                    ),
-                                    SizedBox(
-                                      width: media.width * 0.9,
-                                      child: Text(
-                                        languages[choosenLanguage]
-                                            ['text_recenttransactions'],
-                                        style: GoogleFonts.roboto(
-                                            fontSize: media.width * fourteen,
-                                            color: textColor,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                  ],
-                                )
+                              ? Padding(
+                                padding: EdgeInsets.all(media.width * 0.05),
+                                child: Container(
+                                  // padding: EdgeInsets.fromLTRB(media.width * 0.05,
+                                  //     media.width * 0.05, media.width * 0.05, 0),
+                                    padding: EdgeInsets.zero,
+                                    margin: EdgeInsets.zero,
+                                    height: media.height * 0.2,
+                                    decoration: BoxDecoration(
+                                        color: buttonColor,
+                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                                    width: media.width,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/left_arrow.png',
+                                          height: double.infinity,
+                                          fit: BoxFit.fitHeight,
+                                          width: media.width * 0.25,
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: media.height * 0.065,
+                                            ),
+                                            Text(
+                                              languages[choosenLanguage][
+                                              'text_availablebalance'],
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: media.width * sixteen,
+                                                  color: white),
+                                            ),
+                                            SizedBox(
+                                              height: media.width * 0.01,
+                                            ),
+                                            SizedBox(
+                                              width: media.width * 0.37,
+                                              child: Center(
+                                                child: Text(
+                                                  walletBalance['currency_symbol'] + walletBalance['wallet_balance'].toString(),
+                                                  style:
+                                                  GoogleFonts.roboto(
+                                                      fontSize: media.width * twenty,
+                                                      fontWeight:
+                                                      FontWeight.w800,
+                                                      color: white),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: media.width * 0.05,
+                                            ),
+                                            // Button(
+                                            //   onTap: () {
+                                            //     setState(() {
+                                            //       ispop = true;
+                                            //     });
+                                            //   },
+                                            //   text: languages[choosenLanguage]
+                                            //       ['text_share_money'],
+                                            //   width: media.width * 0.3,
+                                            // ),
+                                            SizedBox(
+                                              height: media.width * 0.05,
+                                            ),
+                                          ],
+                                        ),
+                                        Image.asset(
+                                          'assets/images/right_arrow.png',
+                                          height: double.infinity,
+                                          fit: BoxFit.fitHeight,
+                                          width: media.width * 0.28,
+                                        ),
+                                      ],
+                                    )),
+                              )
                               : Container(),
+                          SizedBox(
+                            height: media.width * 0.05,
+                          ),
+                          SizedBox(
+                            width: media.width * 0.9,
+                            child: Text(
+                              languages[choosenLanguage]
+                              ['text_recenttransactions'],
+                              style: GoogleFonts.roboto(
+                                  fontSize: media.width * eighteen,
+                                  color: textColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
                           Expanded(
                               child: SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
@@ -198,167 +257,175 @@ class _WalletPageState extends State<WalletPage> {
                               children: [
                                 (walletHistory.isNotEmpty)
                                     ? Column(
-                                        children: walletHistory
-                                            .asMap()
-                                            .map((i, value) {
-                                              return MapEntry(
-                                                  i,
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        top: media.width * 0.02,
-                                                        bottom:
-                                                            media.width * 0.02),
-                                                    width: media.width * 0.9,
-                                                    padding: EdgeInsets.all(
-                                                        media.width * 0.025),
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: borderLines,
-                                                            width: 1.2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12),
-                                                        color: page),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          height: media.width *
-                                                              0.1067,
-                                                          width: media.width *
-                                                              0.1067,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              color: const Color(
-                                                                      0xff000000)
-                                                                  .withOpacity(
-                                                                      0.05)),
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Text(
-                                                            (walletHistory[i][
-                                                                        'is_credit'] ==
-                                                                    1)
-                                                                ? '+'
-                                                                : '-',
-                                                            style: GoogleFonts.roboto(
-                                                                fontSize: media
-                                                                        .width *
-                                                                    twentyfour,
-                                                                color:
-                                                                    textColor),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: media.width *
-                                                              0.025,
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Text(
-                                                              walletHistory[i][
-                                                                      'remarks']
-                                                                  .toString(),
-                                                              style: GoogleFonts.roboto(
-                                                                  fontSize: media
-                                                                          .width *
-                                                                      fourteen,
-                                                                  color:
-                                                                      textColor,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            SizedBox(
-                                                              height:
-                                                                  media.width *
-                                                                      0.01,
-                                                            ),
-                                                            Text(
-                                                              walletHistory[i][
-                                                                  'created_at'],
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize: media
-                                                                        .width *
-                                                                    ten,
-                                                                color:
-                                                                    hintColor,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Expanded(
-                                                            child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Text(
-                                                              walletHistory[i][
-                                                                      'currency_symbol'] +
-                                                                  ' ' +
-                                                                  walletHistory[
-                                                                              i]
-                                                                          [
-                                                                          'amount']
-                                                                      .toString(),
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize: media
-                                                                        .width *
-                                                                    twelve,
-                                                                color: const Color(
-                                                                    0xffE60000),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ))
-                                                      ],
+                                  children: walletHistory.asMap().map((i, value) {
+                                    return MapEntry(i,
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: media.width * 0.02,
+                                              bottom:
+                                              media.width * 0.02),
+                                          width: media.width * 0.9,
+                                          padding: EdgeInsets.all(
+                                              media.width * 0.025),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: borderLines,
+                                                  width: 1.2),
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(12),
+                                              color: page),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                  height:
+                                                  media.width * 0.1067,
+                                                  width: media.width * 0.1067,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(50),
+                                                  ),
+                                                  alignment: Alignment
+                                                      .center,
+                                                  child: (walletHistory[
+                                                  i][
+                                                  'is_credit'] ==
+                                                      1)
+                                                      ? Image.asset('assets/images/arrow_green_down.png', width: 40 ,fit: BoxFit.cover,)
+                                                      : Image.asset(
+                                                      'assets/images/arrow_red_up.png', fit: BoxFit.cover, width: 40,)),
+                                              // Text(
+                                              //   (walletHistory[i][
+                                              //   'is_credit'] ==
+                                              //       1)
+                                              //       ? '+'
+                                              //       : '-',
+                                              //   style: GoogleFonts.roboto(
+                                              //       fontSize: media
+                                              //           .width *
+                                              //           twentyfour,
+                                              //       color:
+                                              //       textColor),
+                                              // ),
+                                              SizedBox(
+                                                width: media.width *
+                                                    0.025,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  SizedBox(
+                                                    width:
+                                                    media.width * 0.58,
+                                                    child: Text(
+                                                      walletHistory[i]
+                                                      [
+                                                      'remarks']
+                                                          .toString(),
+                                                      style: GoogleFonts.roboto(
+                                                          fontSize: media
+                                                              .width *
+                                                              sixteen,
+                                                          color:
+                                                          textColor,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w500),
                                                     ),
-                                                  ));
-                                            })
-                                            .values
-                                            .toList(),
-                                      )
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                    media.width *
+                                                        0.01,
+                                                  ),
+                                                  Text(
+                                                    walletHistory[i][
+                                                    'created_at']
+                                                        .toString(),
+                                                    style: GoogleFonts
+                                                        .roboto(
+                                                      fontSize: media
+                                                          .width *
+                                                          fourteen,
+                                                      color:
+                                                      light_grey,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(width: 15,),
+                                              Expanded(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                    children: [
+                                                      Expanded(
+                                                        // alignment: Alignment
+                                                        //     .centerRight,
+                                                        // width:
+                                                        // media.width *
+                                                        //     0.20,
+                                                        child: Text(
+                                                          walletHistory[i]['currency_symbol'] + ' ' + walletHistory[i]['amount'].toString(),
+                                                          style: GoogleFonts.roboto(
+                                                              fontSize: media
+                                                                  .width *
+                                                                  fifteen,
+                                                              color: (walletHistory[i]['is_credit'] !=
+                                                                  1
+                                                                  ? const Color(
+                                                                  0xffE60000)
+                                                                  : Color(
+                                                                  0xFF2BCD62))),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ))
+                                            ],
+                                          ),
+                                        ));
+                                  })
+                                      .values
+                                      .toList(),
+                                )
                                     : (_completed == true)
                                         ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: media.width * 0.05,
-                                              ),
-                                              Container(
-                                                height: media.width * 0.7,
-                                                width: media.width * 0.7,
-                                                decoration: const BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            'assets/images/nodatafound.gif'),
-                                                        fit: BoxFit.contain)),
-                                              ),
-                                              SizedBox(
-                                                height: media.width * 0.02,
-                                              ),
-                                              SizedBox(
-                                                width: media.width * 0.9,
-                                                child: Text(
-                                                  languages[choosenLanguage]
-                                                      ['text_noDataFound'],
-                                                  style: GoogleFonts.roboto(
-                                                      fontSize:
-                                                          media.width * sixteen,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: textColor),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )
-                                            ],
-                                          )
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: media.width * 0.05,
+                                    ),
+                                    Container(
+                                      height: media.width * 0.7,
+                                      width: media.width * 0.7,
+                                      decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/nodatafound.gif'),
+                                              fit: BoxFit.contain)),
+                                    ),
+                                    SizedBox(
+                                      height: media.width * 0.02,
+                                    ),
+                                    SizedBox(
+                                      width: media.width * 0.9,
+                                      child: Text(
+                                        languages[choosenLanguage]
+                                        ['text_noDataFound'],
+                                        style: GoogleFonts.roboto(
+                                            fontSize:
+                                            media.width * sixteen,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            color: textColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                )
                                         : Container(),
 
                                 //load more button
@@ -366,42 +433,38 @@ class _WalletPageState extends State<WalletPage> {
                                     ? (walletPages['current_page'] <
                                             walletPages['total_pages'])
                                         ? InkWell(
-                                            onTap: () async {
-                                              setState(() {
-                                                _isLoading = true;
-                                              });
-
-                                              await getWalletHistoryPage(
-                                                  (walletPages['current_page'] +
-                                                          1)
-                                                      .toString());
-
-                                              setState(() {
-                                                _isLoading = false;
-                                              });
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.all(
-                                                  media.width * 0.025),
-                                              margin: EdgeInsets.only(
-                                                  bottom: media.width * 0.05),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: page,
-                                                  border: Border.all(
-                                                      color: borderLines,
-                                                      width: 1.2)),
-                                              child: Text(
-                                                languages[choosenLanguage]
-                                                    ['text_loadmore'],
-                                                style: GoogleFonts.roboto(
-                                                    fontSize:
-                                                        media.width * sixteen,
-                                                    color: textColor),
-                                              ),
-                                            ),
-                                          )
+                                  onTap: () async {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    await getWalletHistoryPage(
+                                        (walletPages['current_page'] + 1).toString());
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(
+                                        media.width * 0.025),
+                                    margin: EdgeInsets.only(
+                                        bottom: media.width * 0.05),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(10),
+                                        color: page,
+                                        border: Border.all(
+                                            color: borderLines,
+                                            width: 1.2)),
+                                    child: Text(
+                                      languages[choosenLanguage]
+                                      ['text_loadmore'],
+                                      style: GoogleFonts.roboto(
+                                          fontSize:
+                                          media.width * sixteen,
+                                          color: textColor),
+                                    ),
+                                  ),
+                                )
                                         : Container()
                                     : Container()
                               ],
@@ -414,16 +477,67 @@ class _WalletPageState extends State<WalletPage> {
                                   padding: EdgeInsets.only(
                                       top: media.width * 0.05,
                                       bottom: media.width * 0.05),
-                                  child: Button(
-                                      onTap: () {
-                                        if (_addPayment == false) {
-                                          setState(() {
-                                            _addPayment = true;
-                                          });
-                                        }
-                                      },
-                                      text: languages[choosenLanguage]
-                                          ['text_addmoney']),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      // Button(
+                                      //   onTap: () {
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 const Withdraw()));
+                                      //   },
+                                      //   text: languages[choosenLanguage]
+                                      //       ['text_withdraw'],
+                                      //   width: media.width * 0.4,
+                                      // ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // Button(
+                                          //   onTap: () {
+                                          //     if (_addPayment == false) {
+                                          //       setState(() {
+                                          //         _addPayment = true;
+                                          //       });
+                                          //     }
+                                          //   },
+                                          //   text: languages[choosenLanguage]
+                                          //   ['text_with_draw'],
+                                          //   width: media.width * 0.4,
+                                          // ),
+                                          // SizedBox(width: 20,),
+
+                                          InkWell(
+                                            onTap: () {
+                                              if (_addPayment == false) {
+                                                setState(() {
+                                                  _addPayment = true;
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              width: media.width/1.2,
+                                              height: media.width * 0.14,
+                                              // width: (widget.width != null) ? widget.width : null,
+                                              padding: EdgeInsets.only(left: media.width * twenty, right: media.width * twenty),
+                                              decoration: BoxDecoration(
+                                                // border: Border.all(color: (resendTime != 0 && otpNumber.length != 6)
+                                                //     ? hideButtonColor
+                                                //     : buttonColor, width: 1.5),
+                                                borderRadius: BorderRadius.circular(30),
+                                                color: primaryColor,
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text('${languages[choosenLanguage]['text_addmoney']}', style: TextStyle(color: white, fontSize: media.width * eighteen),),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 )
                               : Container()
                         ],
@@ -442,83 +556,92 @@ class _WalletPageState extends State<WalletPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.only(
-                                        bottom: media.width * 0.05),
-                                    width: media.width * 0.9,
-                                    padding:
-                                        EdgeInsets.all(media.width * 0.025),
+                                    height: media.height * 0.4,
+                                    // margin: EdgeInsets.only(
+                                    //     bottom: media.width * 0.05),
+                                    // width: media.width * 0.9,
+                                    // padding:
+                                    //     EdgeInsets.all(media.width * 0.025),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
                                             color: borderLines, width: 1.2),
                                         color: page),
                                     child: Column(children: [
-                                      Container(
-                                        height: media.width * 0.128,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                              color: borderLines, width: 1.2),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                                width: media.width * 0.1,
-                                                height: media.width * 0.128,
-                                                decoration: const BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(12),
-                                                      bottomLeft:
-                                                          Radius.circular(12),
-                                                    ),
-                                                    color: Color(0xffF0F0F0)),
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  walletBalance[
-                                                      'currency_symbol'],
-                                                  style: GoogleFonts.roboto(
-                                                      fontSize:
-                                                          media.width * fifteen,
-                                                      color: textColor,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                )),
-                                            SizedBox(
-                                              width: media.width * 0.05,
-                                            ),
-                                            Container(
-                                              height: media.width * 0.150,
-                                              // height: media.width * 0.128,
-                                              width: media.width * 0.6,
-                                              alignment: Alignment.center,
-                                              child: TextField(
-                                                controller: addMoneyController,
-                                                onChanged: (val) {
-                                                  setState(() {
-                                                    addMoney = int.parse(val);
-                                                  });
-                                                },
-                                                keyboardType: TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  hintText:
-                                                      languages[choosenLanguage]
-                                                          ['text_enteramount'],
-                                                  hintStyle: GoogleFonts.roboto(
-                                                      fontSize:
-                                                          media.width * twelve,
-                                                      color: hintColor),
-                                                ),
-                                                maxLines: 1,
+                                      SizedBox(
+                                        height: media.height * 0.03,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: media.width * 0.05),
+                                        // padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: media.width * 0.128,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            border: Border.all(
+                                                color: borderLines, width: 1.2),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                  width: media.width * 0.2,
+                                                  height: media.width * 0.128,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(12),
+                                                        bottomLeft:
+                                                            Radius.circular(12),
+                                                      ),
+                                                      color: light_grey.withOpacity(0.2))
+                                                  ,
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    walletBalance[
+                                                        'currency_symbol'],
+                                                    style: GoogleFonts.roboto(
+                                                        fontSize:
+                                                            media.width * fifteen,
+                                                        color: textColor,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  )),
+                                              SizedBox(
+                                                width: media.width * 0.05,
                                               ),
-                                            )
-                                          ],
+                                              Container(
+                                                height: media.width * 0.128,
+                                                // height: media.width * 0.128,
+                                                width: media.width * 0.6,
+                                                alignment: Alignment.center,
+                                                child: TextField(
+                                                  controller: addMoneyController,
+                                                  onChanged: (val) {
+                                                    setState(() {
+                                                      addMoney = int.parse(val);
+                                                    });
+                                                  },
+                                                  keyboardType: TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText:
+                                                        languages[choosenLanguage]
+                                                            ['text_enteramount'],
+                                                    hintStyle: GoogleFonts.roboto(
+                                                        fontSize:
+                                                            media.width * fifteen,
+                                                        color: hintColor),
+                                                  ),
+                                                  maxLines: 1,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                      SizedBox(height: 8,),
+                                      // SizedBox(height: 8,),
                                       amountError ? Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text('Please enter valid amount', style: TextStyle(color: Colors.red),)) : SizedBox(),
@@ -553,8 +676,8 @@ class _WalletPageState extends State<WalletPage> {
                                                     '100',
                                                 style: GoogleFonts.roboto(
                                                     fontSize:
-                                                        media.width * twelve,
-                                                    color: textColor,
+                                                        media.width * fourteen,
+                                                    color: textColor.withOpacity(0.7),
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -571,8 +694,8 @@ class _WalletPageState extends State<WalletPage> {
                                               });
                                             },
                                             child: Container(
-                                              height: media.width * 0.11,
-                                              width: media.width * 0.17,
+                                              height: media.width * 0.13,
+                                              width: media.width * 0.23,
                                               decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color: borderLines,
@@ -587,8 +710,8 @@ class _WalletPageState extends State<WalletPage> {
                                                     '500',
                                                 style: GoogleFonts.roboto(
                                                     fontSize:
-                                                        media.width * twelve,
-                                                    color: textColor,
+                                                        media.width * fourteen,
+                                                    color: textColor.withOpacity(0.7),
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -606,8 +729,8 @@ class _WalletPageState extends State<WalletPage> {
                                               });
                                             },
                                             child: Container(
-                                              height: media.width * 0.11,
-                                              width: media.width * 0.17,
+                                              height: media.width * 0.13,
+                                              width: media.width * 0.23,
                                               decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color: borderLines,
@@ -622,8 +745,8 @@ class _WalletPageState extends State<WalletPage> {
                                                     '1000',
                                                 style: GoogleFonts.roboto(
                                                     fontSize:
-                                                        media.width * twelve,
-                                                    color: textColor,
+                                                        media.width * fourteen,
+                                                    color: textColor.withOpacity(0.7),
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -635,25 +758,9 @@ class _WalletPageState extends State<WalletPage> {
                                         height: media.width * 0.1,
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Button(
-                                            onTap: () async {
-                                              setState(() {
-                                                _addPayment = false;
-                                                addMoney = null;
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                                addMoneyController.clear();
-                                              });
-                                            },
-                                            text: languages[choosenLanguage]
-                                                ['text_cancel'],
-                                            width: media.width * 0.4,
-                                          ),
-                                          Button(
+                                          InkWell(
                                             onTap: () async {
                                               // print(addMoney);
                                               FocusManager.instance.primaryFocus
@@ -670,9 +777,48 @@ class _WalletPageState extends State<WalletPage> {
                                                 });
                                               }
                                             },
-                                            text: languages[choosenLanguage]
-                                                ['text_addmoney'],
-                                            width: media.width * 0.4,
+                                            child: Container(
+                                              width: media.width * 0.4,
+                                              height: media.width * 0.13,
+                                              // width: (widget.width != null) ? widget.width : null,
+                                              padding: EdgeInsets.only(left: media.width * twenty, right: media.width * twenty),
+                                              decoration: BoxDecoration(
+                                                // border: Border.all(color: (resendTime != 0 && otpNumber.length != 6)
+                                                //     ? hideButtonColor
+                                                //     : buttonColor, width: 1.5),
+                                                borderRadius: BorderRadius.circular(30),
+                                                color: primaryColor,
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text('${languages[choosenLanguage]['text_addmoney']}', style: TextStyle(color: white, fontSize: media.width * eighteen),),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              setState(() {
+                                                _addPayment = false;
+                                                addMoney = null;
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                                addMoneyController.clear();
+                                              });
+                                            },
+                                            child: Container(
+                                              width: media.width * 0.4,
+                                              height: media.width * 0.13,
+                                              // width: (widget.width != null) ? widget.width : null,
+                                              padding: EdgeInsets.only(left: media.width * twenty, right: media.width * twenty),
+                                              decoration: BoxDecoration(
+                                                // border: Border.all(color: (resendTime != 0 && otpNumber.length != 6)
+                                                //     ? hideButtonColor
+                                                //     : buttonColor, width: 1.5),
+                                                borderRadius: BorderRadius.circular(30),
+                                                color: primaryColor,
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text('${languages[choosenLanguage]['text_cancel']}', style: TextStyle(color: white, fontSize: media.width * eighteen),),
+                                            ),
                                           ),
                                         ],
                                       )
@@ -693,33 +839,33 @@ class _WalletPageState extends State<WalletPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  width: media.width * 0.8,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            _choosePayment = false;
-                                            _addPayment = true;
-                                            payment_gateway == "";
-                                          });
-                                        },
-                                        child: Container(
-                                          height: media.height * 0.05,
-                                          width: media.height * 0.05,
-                                          decoration: BoxDecoration(
-                                            color: page,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Icon(Icons.cancel,
-                                              color: buttonColor),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                // SizedBox(
+                                //   width: media.width * 0.8,
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.end,
+                                //     children: [
+                                //       InkWell(
+                                //         onTap: () {
+                                //           setState(() {
+                                //             _choosePayment = false;
+                                //             _addPayment = true;
+                                //             payment_gateway == "";
+                                //           });
+                                //         },
+                                //         child: Container(
+                                //           height: media.height * 0.05,
+                                //           width: media.height * 0.05,
+                                //           decoration: BoxDecoration(
+                                //             color: page,
+                                //             shape: BoxShape.circle,
+                                //           ),
+                                //           child: Icon(Icons.cancel,
+                                //               color: buttonColor),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 SizedBox(height: media.width * 0.025),
                                 SingleChildScrollView(
                                   child: Container(
@@ -730,17 +876,33 @@ class _WalletPageState extends State<WalletPage> {
                                         borderRadius: BorderRadius.circular(12),
                                         color: page),
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                            width: media.width * 0.7,
-                                            child: Text(
-                                              languages[choosenLanguage]
-                                                  ['text_choose_payment'],
-                                              style: GoogleFonts.roboto(
-                                                  fontSize:
-                                                      media.width * eighteen,
-                                                  fontWeight: FontWeight.w600),
-                                            )),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _choosePayment = false;
+                                              _addPayment = true;
+                                              payment_gateway == "";
+                                            });
+                                          },
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: Icon(Icons.cancel,
+                                                color: light_grey),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Text(
+                                          languages[choosenLanguage]
+                                              ['text_choose_payment'],
+                                          style: GoogleFonts.roboto(
+                                              fontSize:
+                                                  media.width * twentyfour,
+                                              fontWeight: FontWeight.w600),
+                                          textAlign: TextAlign.center,
+                                        ),
                                         SizedBox(
                                           height: media.width * 0.05,
                                         ),
@@ -751,203 +913,223 @@ class _WalletPageState extends State<WalletPage> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 (walletBalance['stripe'] == true)
-                                                    ? InkWell(
+                                                    ? Card(
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                  child: InkWell(
                                                   onTap: () {
-                                                    setState(() {
-                                                      payment_gateway = "stripe";
-                                                    });
+                                                      setState(() {
+                                                        payment_gateway = "stripe";
+                                                      });
                                                   },
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Expanded(
-                                                            // height: 40, width: 50,
-                                                            child: RadioListTile(
-                                                              contentPadding: EdgeInsets.all(0),
-                                                              value: "stripe",
-                                                              groupValue: payment_gateway,
-                                                              onChanged: (value){
-                                                                setState(() {
-                                                                  payment_gateway = value.toString();
-                                                                });
-                                                              },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                contentPadding: EdgeInsets.all(0),
+                                                                value: "stripe",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Expanded(
-                                                              child: Container(
-                                                                width: media.width *
-                                                                    0.25,
-                                                                height: media.width *
-                                                                    0.125,
-                                                                decoration: const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            'assets/images/stripe-icon.png'),
-                                                                        fit: BoxFit
-                                                                            .contain)),
-                                                              )),
-                                                        ],
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.16,
+                                                                  height: media.width *
+                                                                      0.16,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/stripe-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                     : Container(),
                                                 (walletBalance['paystack'] == true)
-                                                    ? InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          payment_gateway = "paystack";
-                                                        });
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            // height: 40, width: 50,
-                                                            child: RadioListTile(
-                                                              value: "paystack",
-                                                              groupValue: payment_gateway,
-                                                              onChanged: (value){
-                                                                setState(() {
-                                                                  payment_gateway = value.toString();
-                                                                });
-                                                              },
+                                                    ? Card(
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                  child: InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            payment_gateway = "paystack";
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "paystack",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Expanded(
-                                                              child: Container(
-                                                                width: media.width *
-                                                                    0.25,
-                                                                height: media.width *
-                                                                    0.125,
-                                                                decoration: const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            'assets/images/paystack-icon.png'),
-                                                                        fit: BoxFit
-                                                                            .contain)),
-                                                              )),
-                                                        ],
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.16,
+                                                                  height: media.width *
+                                                                      0.16,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/paystack-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                     : Container(),
                                                 (walletBalance['flutter_wave'] == true)
-                                                    ? InkWell(
+                                                    ? Card(
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                  child: InkWell(
                                                   onTap: () {
-                                                    setState(() {
-                                                      payment_gateway = "flutter_wave";
-                                                    });
+                                                      setState(() {
+                                                        payment_gateway = "flutter_wave";
+                                                      });
                                                   },
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            // height: 40, width: 50,
-                                                            child: RadioListTile(
-                                                              value: "flutter_wave",
-                                                              groupValue: payment_gateway,
-                                                              onChanged: (value){
-                                                                setState(() {
-                                                                  payment_gateway = value.toString();
-                                                                });
-                                                              },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "flutter_wave",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Expanded(
-                                                              child: Container(
-                                                                width: media.width *
-                                                                    0.25,
-                                                                height: media.width *
-                                                                    0.125,
-                                                                decoration: const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            'assets/images/flutterwave-icon.png'),
-                                                                        fit: BoxFit
-                                                                            .contain)),
-                                                              )),
-                                                        ],
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.16,
+                                                                  height: media.width *
+                                                                      0.16,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/flutterwave-icon.png'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                     : Container(),
                                                 (walletBalance['razor_pay'] == true)
-                                                    ? InkWell(
+                                                    ? Card(
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                  child: InkWell(
                                                   onTap: () {
-                                                    setState(() {
-                                                      payment_gateway = "razor_pay";
-                                                    });
+                                                      setState(() {
+                                                        payment_gateway = "razor_pay";
+                                                      });
                                                   },
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            // height: 40, width: 50,
-                                                            child: RadioListTile(
-                                                              value: "razor_pay",
-                                                              groupValue: payment_gateway,
-                                                              onChanged: (value){
-                                                                setState(() {
-                                                                  payment_gateway = value.toString();
-                                                                });
-                                                              },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "razor_pay",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Expanded(
-                                                              child: Container(
-                                                                width: media.width *
-                                                                    0.25,
-                                                                height: media.width *
-                                                                    0.125,
-                                                                decoration: const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            'assets/images/razorpay-icon.jpeg'),
-                                                                        fit: BoxFit
-                                                                            .contain)),
-                                                              )),
-                                                        ],
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width *
+                                                                      0.16,
+                                                                  height: media.width *
+                                                                      0.16,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage(
+                                                                              'assets/images/razorpay-icon.jpeg'),
+                                                                          fit: BoxFit
+                                                                              .contain)),
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                     : Container(),
                                                 (walletBalance['cash_free'] == true)
-                                                    ? InkWell(
+                                                    ? Card(
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                  child: InkWell(
                                                   onTap: () {
-                                                    setState(() {
-                                                      payment_gateway = "cash_free";
-                                                    });
+                                                      setState(() {
+                                                        payment_gateway = "cash_free";
+                                                      });
                                                   },
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            // height: 40, width: 50,
-                                                            child: RadioListTile(
-                                                              value: "cash_free",
-                                                              groupValue: payment_gateway,
-                                                              onChanged: (value){
-                                                                setState(() {
-                                                                  payment_gateway = value.toString();
-                                                                });
-                                                              },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Expanded(
+                                                              // height: 40, width: 50,
+                                                              child: RadioListTile(
+                                                                value: "cash_free",
+                                                                groupValue: payment_gateway,
+                                                                onChanged: (value){
+                                                                  setState(() {
+                                                                    payment_gateway = value.toString();
+                                                                  });
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Expanded(
-                                                              child: Container(
-                                                                width: media.width *
-                                                                    0.25,
-                                                                height: media.width *
-                                                                    0.125,
-                                                                decoration: const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            'assets/images/cashfree-icon.jpeg'),
-                                                                        fit: BoxFit
-                                                                            .contain)),
-                                                              )),
-                                                        ],
+                                                            Expanded(
+                                                                child: Container(
+                                                                  width: media.width * 0.16,
+                                                                  height: media.width * 0.16,
+                                                                  decoration: const BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: AssetImage('assets/images/cashfree-icon.jpeg'),
+                                                                          fit: BoxFit.contain)),
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                     : Container(),
                                                 (walletBalance['myfatoorah'])
                                                     ? Container(
                                                     // margin: EdgeInsets.only(bottom: media.width * 0.025),
-                                                    margin: EdgeInsets.zero,
-                                                    padding: EdgeInsets.zero,
-                                                    alignment: Alignment.center,
+                                                    // margin: EdgeInsets.zero,
+                                                    // padding: EdgeInsets.zero,
+                                                    // alignment: Alignment.center,
                                                     // width: media.width * 0.7,
                                                     child: ListView.builder(
                                                         shrinkWrap: true,
@@ -959,46 +1141,51 @@ class _WalletPageState extends State<WalletPage> {
                                                             mainAxisAlignment: MainAxisAlignment.start,
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    payment_gateway = walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'];
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  padding: EdgeInsets.all(3.0),
-                                                                  decoration: BoxDecoration(
-                                                                    color: payment_gateway == walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'] ? paymentMethodsColor : null,
-                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                  ),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                    // crossAxisAlignment: CrossAxisAlignment.end,
-                                                                    children: [
-                                                                      Container(
-                                                                        height: 50, width: 50,
-                                                                        // flex: 1,
-                                                                        child: RadioListTile(
-                                                                          activeColor: loaderColor,
-                                                                          contentPadding: EdgeInsets.all(0),
-                                                                          value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
-                                                                          groupValue: payment_gateway,
-                                                                          onChanged: (value){
-                                                                            setState(() {
-                                                                              payment_gateway = value.toString();
-                                                                            });
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                      Container(
+                                                              Card(
+                                                                elevation: 3.0,
+                                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                      payment_gateway = walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'];
+                                                                    });
+                                                                  },
+                                                                  child: Container(
+                                                                    padding: EdgeInsets.all(3.0),
+                                                                    decoration: BoxDecoration(
+                                                                      color: payment_gateway == walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn'] ? paymentMethodsColor : null,
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      // crossAxisAlignment: CrossAxisAlignment.end,
+                                                                      children: [
+                                                                        Container(
                                                                           height: 50, width: 50,
                                                                           // flex: 1,
-                                                                          // width: 50, height: 30,
-                                                                          child: Container(
-                                                                              width: media.width * 0.5,
-                                                                              height: media.width * 0.010,
-                                                                              child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
-                                                                    ],
+                                                                          child: RadioListTile(
+                                                                            activeColor: loaderColor,
+                                                                            contentPadding: EdgeInsets.all(0),
+                                                                            value: "${walletBalance['myfatoorah_payment_methods'][index]['PaymentMethodEn']}",
+                                                                            groupValue: payment_gateway,
+                                                                            onChanged: (value){
+                                                                              setState(() {
+                                                                                payment_gateway = value.toString();
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                        Container(
+                                                                            height: media.width * 0.16,
+                                                                            width: media.width * 0.16,
+                                                                            // flex: 1,
+                                                                            // width: 50, height: 30,
+                                                                            child: Container(
+                                                                                width: media.width * 0.5,
+                                                                                height: media.width * 0.010,
+                                                                                child: Image.network(walletBalance['myfatoorah_payment_methods'][index]['ImageUrl'], fit: BoxFit.contain))),
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1014,137 +1201,148 @@ class _WalletPageState extends State<WalletPage> {
                                         ),
                                         payment_gateway!.isEmpty || payment_gateway == null
                                             ? SizedBox()
-                                            : Container(
-                                          padding: EdgeInsets.only(
-                                              top: media.width * 0.05,
-                                              bottom: media.width * 0.05),
-                                          child: Button(
-                                              onTap: () async {
-                                                if(payment_gateway == 'stripe') {
-                                                  var val = await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                              SelectWallet()));
-                                                  if (val) {
-                                                    setState(() {
-                                                      _choosePayment =
-                                                      false;
-                                                      _addPayment =
-                                                      false;
-                                                      addMoney = null;
-                                                      addMoneyController
-                                                          .clear();
-                                                    });
-                                                  }
-                                                }
-                                                if(payment_gateway == 'paystack') {
-                                                  var val = await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                              PayStackPage()));
-                                                  if (val) {
-                                                    setState(() {
-                                                      _choosePayment =
-                                                      false;
-                                                      _addPayment =
-                                                      false;
-                                                      addMoney = null;
-                                                      addMoneyController
-                                                          .clear();
-                                                      _isLoading = true;
-                                                    });
-                                                    getWallet();
-                                                  }
-                                                }
-                                                if(payment_gateway == 'flutter_wave') {
-                                                  var val = await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                              FlutterWavePage()));
-                                                  if (val) {
-                                                    setState(() {
-                                                      _choosePayment =
-                                                      false;
-                                                      _addPayment =
-                                                      false;
-                                                      addMoney = null;
-                                                      addMoneyController
-                                                          .clear();
-                                                    });
-                                                  }
-                                                }
-                                                if(payment_gateway == 'razor_pay') {
-                                                  var val = await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                              RazorPayPage()));
-                                                  if (val) {
-                                                    setState(() {
-                                                      _choosePayment =
-                                                      false;
-                                                      _addPayment =
-                                                      false;
-                                                      addMoney = null;
-                                                      addMoneyController
-                                                          .clear();
-                                                    });
-                                                  }
-                                                }
-                                                if(payment_gateway == 'cash_free') {
-                                                  var val = await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                              CashFreePage()));
-                                                  if (val) {
-                                                    setState(() {
-                                                      _choosePayment =
-                                                      false;
-                                                      _addPayment =
-                                                      false;
-                                                      addMoney = null;
-                                                      addMoneyController
-                                                          .clear();
-                                                    });
-                                                  }
-                                                }
-                                                if(payment_gateway == 'KNET' ) {
-                                                  getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], addMoney).then((value) {
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
-                                                  });
-                                                  // setState(() {
-                                                  //   payment_gateway!.isEmpty;
-                                                  // });
-                                                }
-                                                // if(payment_gateway == 'Apple Pay') {
-                                                //   getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][11]['PaymentMethodId'], addMoney).then((value) {
-                                                //     Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
-                                                //   });
-                                                //   setState(() {
-                                                //     payment_gateway!.isEmpty;
-                                                //   });
-                                                // }
-                                                if(payment_gateway == 'VISA/MASTER') {
-                                                  getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], addMoney).then((value) {
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
-                                                  });
-                                                  // setState(() {
-                                                  //   payment_gateway!.isEmpty;
-                                                  // });
-                                                }
-                                              },
-                                              text: languages[choosenLanguage]
-                                              ['text_pay']),
-                                        )
+                                            : InkWell(
+                                          onTap: () async {
+                                            if(payment_gateway == 'stripe') {
+                                              var val = await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          SelectWallet()));
+                                              if (val) {
+                                                setState(() {
+                                                  _choosePayment =
+                                                  false;
+                                                  _addPayment =
+                                                  false;
+                                                  addMoney = null;
+                                                  addMoneyController
+                                                      .clear();
+                                                });
+                                              }
+                                            }
+                                            if(payment_gateway == 'paystack') {
+                                              var val = await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          PayStackPage()));
+                                              if (val) {
+                                                setState(() {
+                                                  _choosePayment =
+                                                  false;
+                                                  _addPayment =
+                                                  false;
+                                                  addMoney = null;
+                                                  addMoneyController
+                                                      .clear();
+                                                  _isLoading = true;
+                                                });
+                                                getWallet();
+                                              }
+                                            }
+                                            if(payment_gateway == 'flutter_wave') {
+                                              var val = await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          FlutterWavePage()));
+                                              if (val) {
+                                                setState(() {
+                                                  _choosePayment =
+                                                  false;
+                                                  _addPayment =
+                                                  false;
+                                                  addMoney = null;
+                                                  addMoneyController
+                                                      .clear();
+                                                });
+                                              }
+                                            }
+                                            if(payment_gateway == 'razor_pay') {
+                                              var val = await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          RazorPayPage()));
+                                              if (val) {
+                                                setState(() {
+                                                  _choosePayment =
+                                                  false;
+                                                  _addPayment =
+                                                  false;
+                                                  addMoney = null;
+                                                  addMoneyController
+                                                      .clear();
+                                                });
+                                              }
+                                            }
+                                            if(payment_gateway == 'cash_free') {
+                                              var val = await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                          CashFreePage()));
+                                              if (val) {
+                                                setState(() {
+                                                  _choosePayment =
+                                                  false;
+                                                  _addPayment =
+                                                  false;
+                                                  addMoney = null;
+                                                  addMoneyController
+                                                      .clear();
+                                                });
+                                              }
+                                            }
+                                            if(payment_gateway == 'KNET' ) {
+                                              getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][0]['PaymentMethodId'], addMoney).then((value) {
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                              });
+                                              // setState(() {
+                                              //   payment_gateway!.isEmpty;
+                                              // });
+                                            }
+                                            // if(payment_gateway == 'Apple Pay') {
+                                            //   getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][11]['PaymentMethodId'], addMoney).then((value) {
+                                            //     Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                            //   });
+                                            //   setState(() {
+                                            //     payment_gateway!.isEmpty;
+                                            //   });
+                                            // }
+                                            if(payment_gateway == 'VISA/MASTER') {
+                                              getMyFatoorahLink(walletBalance['myfatoorah_payment_methods'][1]['PaymentMethodId'], addMoney).then((value) {
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => KNETPage(value)));
+                                              });
+                                              // setState(() {
+                                              //   payment_gateway!.isEmpty;
+                                              // });
+                                            }
+                                          },
+                                              child: Container(
+                                                width: media.width,
+                                          height: media.width * 0.13,
+                                          padding: EdgeInsets.all(media.width * 0.025),
+                                          margin: EdgeInsets.only(bottom: media.width * 0.05),
+                                          decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(22),
+                                                color: primaryColor,
+                                                border: Border.all(color: borderLines, width: 1.2)),
+                                          child: Center(
+                                            child: Text('${languages[choosenLanguage]
+                                            ['text_pay']}', style: GoogleFonts.roboto(
+                                                fontSize:
+                                                media.width * eighteen,
+                                                color: white), textAlign: TextAlign.center,),
+                                          )
+                                        ),
+                                            )
                                       ],
                                     ),
                                   ),

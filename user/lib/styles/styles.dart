@@ -18,6 +18,9 @@ double twentysix = 0.0693;
 double twentyeight = 0.07466;
 double twentyfour = 0.064;
 double fourty = 0.10667;
+
+Color primaryColor = const Color.fromRGBO(22, 151, 216, 1.0);
+
 Color backgroundColor = const Color(0xffe5e5e5);
 Color textColor = const Color(0xff12121D);
 Color drawerTextColor = const Color(0xff000000);
@@ -45,5 +48,6 @@ Color borderLines = const Color(0xffE5E5E5);
 Color starColor = const Color(0xff038cc8);
 Color white = Colors.white;
 Color black = Colors.black;
-Color light_grey = const Color.fromRGBO(171, 171, 171, 1);
+Color light_grey = Color.fromRGBO(171, 171, 171, 1);
 Color paymentMethodsColor = const Color.fromRGBO(226, 226, 226, 1.0);
+Color lightTextColor = Color.fromARGB(1, 75, 83, 98);
