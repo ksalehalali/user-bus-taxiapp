@@ -28,6 +28,7 @@ class NotificationTransformer extends Transformer {
             'id' => $notification->id,
             'title' => $notification->title,
             'body' => $notification->body,
+            'created_at' => $notification->created_at,
         ];
     }
 

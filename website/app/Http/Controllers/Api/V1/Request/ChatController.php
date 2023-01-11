@@ -43,6 +43,8 @@ class ChatController extends BaseController
             $from_type = 2;
         }
         foreach ($chats as $key => $chat) {
+            $fromUserData = \App\Models\User::where('id',$chat->user_id)->get();
+            $chats[$key]['user_profile_picuture'] = !empty($fromUserData[0]['profile_picture'])?$fromUserData[0]['profile_picture']:'';
             if ($chat->from_type == $from_type) {
 
                 $chats[$key]['message_status'] = 'send';
