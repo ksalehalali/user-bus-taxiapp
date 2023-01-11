@@ -273,5 +273,3 @@ class _ReferralPageState extends State<ReferralPage> {
     );
   }
 }
-
-
