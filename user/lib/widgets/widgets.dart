@@ -36,17 +36,17 @@ class _ButtonState extends State<Button> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        height: widget.height ?? media.width * 0.12,
+        height: widget.height ?? media.width * 0.13,
         width: (widget.width != null) ? widget.width : null,
-        padding: EdgeInsets.only(
-            left: media.width * twenty, right: media.width * twenty),
+        padding: EdgeInsets.only(left: media.width * twenty, right: media.width * twenty),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(22),
             color: (widget.color != null) ? widget.color : buttonColor,
-            border: Border.all(
-              color: (widget.borcolor != null) ? widget.borcolor : buttonColor,
-              width: 1,
-            )),
+            // border: Border.all(
+            //   color: (widget.borcolor != null) ? widget.borcolor : buttonColor,
+            //   width: 1,
+            // )
+        ),
         alignment: Alignment.center,
         child: FittedBox(
           fit: BoxFit.contain,

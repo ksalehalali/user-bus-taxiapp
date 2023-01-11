@@ -29,16 +29,16 @@ class _NavDrawerState extends State<NavDrawer> {
   @override
   void initState() {
 
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/images/history.png', History()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/images/notification.png', NotificationPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/images/walletIcon.png', WalletPage()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_referal'].toString(), 'assets/images/referral.png', ReferralPage()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_history'].toString(), 'assets/drawer_icons/my_rides_drawer_icon.png', History()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_notification'].toString(), 'assets/drawer_icons/notifications_drawer_icon.png', NotificationPage()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_wallet'].toString(), 'assets/drawer_icons/wallet_drawer_icon.png', WalletPage()));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_enable_referal'].toString(), 'assets/drawer_icons/profile_drawer_icon.png', ReferralPage()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_favourites'].toString(), Icons.favorite_border, Favorite()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/images/changeLanguage.png', Languages(true)));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_make_complaints'].toString(), 'assets/images/makecomplaint.png', MakeComplaint(fromPage: 0,)));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_change_language'].toString(), 'assets/drawer_icons/change_language_drawer_icon.png', Languages(true)));
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_make_complaints'].toString(), 'assets/drawer_icons/make_complaints_drawer_icon.png', MakeComplaint(fromPage: 0,)));
+    drawerList.add(DrawerModel(languages[choosenLanguage]['text_my_profile'].toString(), 'assets/drawer_icons/profile_drawer_icon.png', EditProfile()));
     drawerList.add(DrawerModel( languages[choosenLanguage]['text_delete_account'].toString(), Icons.delete_forever, Splash()));
-    drawerList.add(DrawerModel( languages[choosenLanguage]['text_logout'].toString(), 'assets/images/logout.png', Splash()));
-
+    drawerList.add(DrawerModel( languages[choosenLanguage]['text_logout'].toString(), 'assets/drawer_icons/logout_drawer_icon.png', Splash()));
 
     super.initState();
   }
@@ -73,37 +73,46 @@ class _NavDrawerState extends State<NavDrawer> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        Container(
+                          color: light_grey.withOpacity(0.15),
                           height: 10,
                         ),
-                        SizedBox(
-                          width: media.width * 0.7,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                        Container(
+                          color: light_grey.withOpacity(0.15),
+                          width: media.width,
+                          child: Column(
                             children: [
                               Container(
-                                height: media.width * 0.2,
-                                width: media.width * 0.2,
-                                margin: EdgeInsets.only(top: 16, bottom: 16),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        image: NetworkImage(userDetails['profile_picture']),
-                                        fit: BoxFit.cover)),
-                              ),
-                              SizedBox(
-                                width: media.width * 0.025,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                  padding: EdgeInsets.only(right: 10.0),
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                    onPressed: () { Navigator.pop(context); },
+                                    icon: Icon(Icons.cancel_outlined),
+                                    color: light_grey,
+                                  )),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  Container(
+                                    height: media.width * 0.2,
+                                    width: media.width * 0.2,
+                                    margin: EdgeInsets.only(top: 16, bottom: 16),
+                                    child: CircleAvatar(backgroundImage: NetworkImage(userDetails['profile_picture'])),
+                                    // decoration: BoxDecoration(
+                                    //     borderRadius: BorderRadius.circular(10),
+                                    //     image: DecorationImage(
+                                    //         image: NetworkImage(userDetails['profile_picture']),
+                                    //         fit: BoxFit.cover)),
+                                  ),
                                   SizedBox(
-                                    width: media.width * 0.45,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
+                                    width: media.width * 0.025,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: media.width * 0.45,
+                                        child: SizedBox(
                                           width: media.width * 0.3,
                                           child: Text(
                                             userDetails['name'],
@@ -114,41 +123,24 @@ class _NavDrawerState extends State<NavDrawer> {
                                             maxLines: 1,
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            var val = await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    const EditProfile()));
-                                            if (val) {
-                                              setState(() {});
-                                            }
-                                          },
-                                          child: Icon(
-                                            Icons.edit,
-                                            size: media.width * eighteen,
-                                            color: drawerTextColor,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: media.width * 0.01,
+                                      ),
+                                      SizedBox(
+                                        width: media.width * 0.45,
+                                        child: Text(
+                                          userDetails['email'],
+                                          style: GoogleFonts.roboto(
+                                              fontSize: media.width * fourteen,
+                                              color: drawerTextColor),
+                                          maxLines: 1,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: media.width * 0.01,
-                                  ),
-                                  SizedBox(
-                                    width: media.width * 0.45,
-                                    child: Text(
-                                      userDetails['email'],
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * fourteen,
-                                          color: drawerTextColor),
-                                      maxLines: 1,
-                                    ),
-                                  )
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -181,7 +173,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: drawerSelectedIndex == index ? loaderColor : white,
+                                            color: drawerSelectedIndex == index ? primaryColor : white,
                                             // border: Border(
                                             //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
                                             //
@@ -199,8 +191,8 @@ class _NavDrawerState extends State<NavDrawer> {
                                                     Image.asset(
                                                       drawerList[index].icon,
                                                       fit: BoxFit.contain,
-                                                      width: media.width * 0.075,
-                                                      color: drawerSelectedIndex != index ? drawerTextColor : white,
+                                                      width: media.width * 0.060,
+                                                      color: drawerSelectedIndex != index ? primaryColor : white,
                                                     ),
                                                     SizedBox(
                                                       width: media.width * 0.025,
@@ -277,7 +269,7 @@ class _NavDrawerState extends State<NavDrawer> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: drawerSelectedIndex == index ? loaderColor : white,
+                                      color: drawerSelectedIndex == index ? primaryColor : white,
                                       // border: Border(
                                       //   left: BorderSide(width: 5.0, color: drawerSelectedIndex == index ? white : light_grey,),
                                       //
@@ -293,10 +285,12 @@ class _NavDrawerState extends State<NavDrawer> {
                                           drawerList[index].icon.runtimeType != IconData ? Image.asset(
                                             drawerList[index].icon,
                                             fit: BoxFit.contain,
-                                            width: media.width * 0.075,
-                                            color: drawerSelectedIndex != index ? drawerTextColor : white,
+                                            width: media.width * 0.070,
+                                            color: drawerSelectedIndex != index
+                                                ? drawerList[index].name == "Logout" ? Colors.red : primaryColor
+                                                : white,
                                           ) : Icon( drawerList[index].icon,
-                                            color: drawerSelectedIndex != index ? drawerTextColor : white,
+                                            color: drawerSelectedIndex != index ? primaryColor : white,
                                           ),
                                           SizedBox(
                                             width: media.width * 0.025,
@@ -308,7 +302,10 @@ class _NavDrawerState extends State<NavDrawer> {
                                               overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.roboto(
                                                   fontSize: media.width * sixteen,
-                                                  color: drawerSelectedIndex != index ? drawerTextColor : white),
+                                                  color: drawerSelectedIndex != index
+                                                      ? drawerList[index].name == "Logout" ? Colors.red : drawerTextColor
+                                                      : white
+                                              ),
                                             ),
                                           )
                                         ],

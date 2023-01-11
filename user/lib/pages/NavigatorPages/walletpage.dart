@@ -104,10 +104,9 @@ class _WalletPageState extends State<WalletPage> {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(media.width * 0.05,
-                          media.width * 0.05, media.width * 0.05, 0),
                       height: media.height * 1,
                       width: media.width * 1,
+                      padding: EdgeInsets.zero,
                       color: page,
                       child: Column(
                         children: [

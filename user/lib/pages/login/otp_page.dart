@@ -30,10 +30,8 @@ class _OtpState extends State<Otp> {
   List otpPattern = [1, 2, 3, 4, 5, 6]; //list to create number of input box
   var resendTime = 60; //otp resend time
   late Timer timer; //timer for resend time
-  String _error =
-      ''; //otp error string to show if error occurs in otp validation
-  TextEditingController otpController =
-      TextEditingController(); //otp textediting controller
+  String _error = ''; //otp error string to show if error occurs in otp validation
+  TextEditingController otpController = TextEditingController(); //otp textediting controller
   TextEditingController first = TextEditingController();
   TextEditingController second = TextEditingController();
   TextEditingController third = TextEditingController();
@@ -166,282 +164,401 @@ class _OtpState extends State<Otp> {
                 verifyOtp();
               }
               return Scaffold(
-                body: SingleChildScrollView(
-                  child: Stack(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: media.width * 0.08, right: media.width * 0.08,
-                            top: media.width * 0.05 +
-                                MediaQuery.of(context).padding.top
-                        ),
-                        color: page,
-                        height: media.height * 1,
-                        width: media.width * 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: media.width * 1,
-                                color: topBar,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Row(
-                                          children: [
-                                            const Icon(Icons.arrow_back_ios),
-                                            Text('BACK', style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 16.0
-                                            ),)
-                                          ],
-                                        )),
-                                  ],
-                                )),
-                            SizedBox(height: 50,),
-                         //   Image.asset('assets/animated_images/verify_number.png', width: 300,),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: media.height * 0.04,
-                                  ),
-                                  SizedBox(
-                                    width: media.width * 1,
-                                    child: Text(
-                                      languages[choosenLanguage]
-                                          ['text_phone_verify'],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * twentyeight,
-                                          fontWeight: FontWeight.bold,
-                                          color: textColor,),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      languages[choosenLanguage]['text_enter_otp'],
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(
-                                          fontSize: media.width * sixteen,
-                                          color: textColor.withOpacity(0.3)),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    "+"+countries[phcode]['dial_code'].toString() + phnumber,
-                                    style: GoogleFonts.roboto(
-                                        fontSize: media.width * sixteen,
-                                        color: textColor,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 1),
-                                  ),
-                                  SizedBox(height: media.height * 0.05),
-
-                                  //otp text box
-                                  OtpTextField(
-                                    numberOfFields: 6,
-                                    borderColor: Color(0xFF512DA8),
-                                    focusedBorderColor: buttonColor,
-                                             borderRadius: BorderRadius.circular(16.0),
-                                    enabledBorderColor: buttonColor,
-                                    // orderRadius: BorderRadius.circular(16.0),
-                                    // benabledBorderColor: buttonColor,
-                                    disabledBorderColor: buttonColor,
-                                    // clearText: clearText,
-                                    showFieldAsBox: true,
-                                    // textStyle: theme.textTheme.subtitle1,
-                                    onCodeChanged: (String value) {
-                                      //Handle each value
-                                      print(otpController);
-                                    },
-                                    handleControllers: (controllers) {
-                                      //get all textFields controller, if needed
-                                      controller = controllers;
-                                    },
-                                    onSubmit: (String verificationCode) {
-                                      //set clear text to clear text from all fields
-                                      setState(() {
-                                        print(verificationCode);
-                                        otpNumber = verificationCode;
-                                      });
-                                    }, // end onSubmit
-                                  ),
-                                  // Container(
-                                  //   height: media.width * 0.15,
-                                  //   width: media.width * 0.9,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(12),
-                                  //       color: page,
-                                  //       border: Border.all(
-                                  //           color: borderLines, width: 1.2)),
-                                  //   child: TextField(
-                                  //     controller: otpController,
-                                  //     autofocus:
-                                  //         (phoneAuthCheck == false) ? false : true,
-                                  //     onChanged: (val) {
-                                  //       setState(() {
-                                  //         otpNumber = val;
-                                  //       });
-                                  //       if (val.length == 6) {
-                                  //         FocusManager.instance.primaryFocus
-                                  //             ?.unfocus();
-                                  //       }
-                                  //     },
-                                  //     decoration: InputDecoration(
-                                  //         border: InputBorder.none,
-                                  //         counterText: '',
-                                  //         hintText: languages[choosenLanguage]
-                                  //             ['text_enter_otp_login']),
-                                  //     textAlign: TextAlign.center,
-                                  //     style: GoogleFonts.roboto(
-                                  //       fontSize: media.width * twenty,
-                                  //       color: textColor,
-                                  //       fontWeight: FontWeight.w600,
-                                  //     ),
-                                  //     maxLength: 6,
-                                  //     keyboardType: TextInputType.number,
-                                  //   ),
-                                  // ),
-
-                                  //otp error
-                                  (_error != '')
-                                      ? Container(
-                                          alignment: Alignment.center,
-                                          margin: EdgeInsets.only(
-                                              top: media.height * 0.02),
-                                          child: Text(
-                                            _error,
+                body: SafeArea(
+                  child: Container(
+                    color: primaryColor,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: media.height,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                    left: 0,right: 0,bottom: 0,
+                                    child: Container(
+                                      height: media.height * 0.4,
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: media.height * 0.02,
+                                          ),
+                                          SizedBox(
+                                            child: Text(
+                                              languages[choosenLanguage]
+                                              ['text_phone_verify'],
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: media.width * twenty,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textColor),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10,),
+                                          Text(
+                                            languages[choosenLanguage]['text_enter_otp'],
+                                            maxLines:2,
+                                            style: GoogleFonts.roboto(
+                                                fontSize: media.width * fifteen,
+                                                color: textColor.withOpacity(0.6)),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "+"+countries[phcode]['dial_code'].toString() + phnumber,
                                             style: GoogleFonts.roboto(
                                                 fontSize: media.width * sixteen,
-                                                color: Colors.red),
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1),
+                                          ),
+                                          SizedBox(height: media.height * 0.02),
+                                          OtpTextField(
+                                            autoFocus: true,
+                                            numberOfFields: 6,
+                                            fieldWidth: 45,
+                                            cursorColor: white,
+                                            textStyle: TextStyle(color: white),
+                                            filled: true,
+                                            fillColor: buttonColor,
+                                            focusedBorderColor: buttonColor,
+                                            // borderColor: Color(0xFF512DA8),
+                                            // focusedBorderColor: buttonColor,
+                                            borderRadius: BorderRadius.circular(30.0),
+                                            enabledBorderColor: buttonColor,
+                                            disabledBorderColor: buttonColor,
+                                            // clearText: clearText,
+                                            showFieldAsBox: true,
+                                            // textStyle: theme.textTheme.subtitle1,
+                                            onCodeChanged: (String value) {
+                                              //Handle each value
+                                              print(otpController);
+                                            },
+                                            handleControllers: (controllers) {
+                                              //get all textFields controller, if needed
+                                              controller = controllers;
+                                            },
+                                            onSubmit: (String verificationCode) {
+                                              //set clear text to clear text from all fields
+                                              setState(() {
+                                                print(verificationCode);
+                                                otpNumber = verificationCode;
+                                              });
+                                            }, // end onSubmit
+                                          ),
+
+                                          // Container(
+                                          //   height: media.width * 0.15,
+                                          //   width: media.width * 0.9,
+                                          //   decoration: BoxDecoration(
+                                          //       borderRadius: BorderRadius.circular(12),
+                                          //       color: page,
+                                          //       border: Border.all(
+                                          //           color: borderLines, width: 1.2)),
+                                          //   child: TextField(
+                                          //     controller: otpController,
+                                          //     autofocus:
+                                          //         (phoneAuthCheck == false) ? false : true,
+                                          //     onChanged: (val) {
+                                          //       setState(() {
+                                          //         otpNumber = val;
+                                          //       });
+                                          //       if (val.length == 6) {
+                                          //         FocusManager.instance.primaryFocus
+                                          //             ?.unfocus();
+                                          //       }
+                                          //     },
+                                          //     decoration: InputDecoration(
+                                          //         border: InputBorder.none,
+                                          //         counterText: '',
+                                          //         hintText: languages[choosenLanguage]
+                                          //             ['text_enter_otp_login']),
+                                          //     textAlign: TextAlign.center,
+                                          //     style: GoogleFonts.roboto(
+                                          //       fontSize: media.width * twenty,
+                                          //       color: textColor,
+                                          //       fontWeight: FontWeight.w600,
+                                          //     ),
+                                          //     maxLength: 6,
+                                          //     keyboardType: TextInputType.number,
+                                          //   ),
+                                          // ),
+
+                                          //otp error
+                                          (_error != '')
+                                              ? Container(
+                                            alignment: Alignment.center,
+                                            margin: EdgeInsets.only(
+                                                top: media.height * 0.02),
+                                            child: Text(
+                                              _error,
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: media.width * sixteen,
+                                                  color: Colors.red),
+                                            ),
+                                          )
+                                              : Container(),
+                                          SizedBox(
+                                            height: media.height * 0.03,
+                                          ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                          width: media.width * 0.9,
+                                        child: buttonLoading
+                                            ? InkWell(
+                                          onTap: () => null,
+                                          child: Container(
+                                            height: media.width * 0.13,
+                                            padding: EdgeInsets.only(
+                                                left: media.width * twenty, right: media.width * twenty),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(22),
+                                                color: primaryColor,
+                                                border: Border.all(color: primaryColor, width: 1.5)),
+                                            alignment: Alignment.center,
+                                            child: FittedBox(
+                                              fit: BoxFit.contain,
+                                              child: Image.asset("assets/images/button_loading.gif"),
+                                            ),
                                           ),
                                         )
-                                      : Container(),
-                                  SizedBox(
-                                    height: media.height * 0.05,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    child: buttonLoading ? LoadingButton(onTap: null) : Button(
-                                      onTap: () async {
-                                        if (otpNumber.length == 6) {
-                                          setState(() {
-                                            buttonLoading = true;
-                                            _error = '';
-                                          });
-                                          //firebase code send false
-                                          if (phoneAuthCheck == false) {
-                                            var verify = await verifyUser(phnumber);
+                                            : InkWell(
+                                          onTap: () async {
+                                            if (otpNumber.length == 6) {
+                                              setState(() {
+                                                buttonLoading = true;
+                                                _error = '';
+                                              });
+                                              //firebase code send false
+                                              if (phoneAuthCheck == false) {
+                                                var verify = await verifyUser(phnumber);
 
-                                            navigate(verify);
-                                          } else {
-                                            // firebase code send true
-                                            try {
-                                              PhoneAuthCredential credential =
+                                                navigate(verify);
+                                              } else {
+                                                // firebase code send true
+                                                try {
+                                                  PhoneAuthCredential credential =
                                                   PhoneAuthProvider.credential(
                                                       verificationId: verId,
                                                       smsCode: otpNumber);
 
-                                              // Sign the user in (or link) with the credential
-                                              await FirebaseAuth.instance
-                                                  .signInWithCredential(credential);
+                                                  // Sign the user in (or link) with the credential
+                                                  await FirebaseAuth.instance
+                                                      .signInWithCredential(credential);
 
-                                              var verify = await verifyUser(phnumber);
-                                              navigate(verify);
-                                            } on FirebaseAuthException catch (error) {
-                                              if (error.code ==
-                                                  'invalid-verification-code') {
-                                                setState(() {
-                                                  otpController.clear();
-                                                  otpNumber = '';
-                                                  _error =
+                                                  var verify = await verifyUser(phnumber);
+                                                  navigate(verify);
+                                                } on FirebaseAuthException catch (error) {
+                                                  if (error.code ==
+                                                      'invalid-verification-code') {
+                                                    setState(() {
+                                                      otpController.clear();
+                                                      otpNumber = '';
+                                                      _error =
                                                       languages[choosenLanguage]
-                                                          ['text_otp_error'];
-                                                });
+                                                      ['text_otp_error'];
+                                                    });
+                                                  }
+                                                }
                                               }
+                                              setState(() {
+                                                buttonLoading = false;
+                                              });
+                                            } else if (phoneAuthCheck == true &&
+                                                resendTime == 0 &&
+                                                otpNumber.length != 6) {
+                                              setState(() {
+                                                setState(() {
+                                                  resendTime = 60;
+                                                });
+                                                timers();
+                                              });
+                                              phoneAuth("+"+countries[phcode]['dial_code'].toString() +
+                                                  phnumber);
                                             }
-                                          }
-                                          setState(() {
-                                            buttonLoading = false;
-                                          });
-                                        } else if (phoneAuthCheck == true &&
-                                            resendTime == 0 &&
-                                            otpNumber.length != 6) {
-                                          setState(() {
-                                            setState(() {
-                                              resendTime = 60;
-                                            });
-                                            timers();
-                                          });
-                                          phoneAuth("+"+countries[phcode]['dial_code'].toString() +
-                                              phnumber);
-                                        }
-                                      },
-                                      text: (otpNumber.length == 6)
-                                          ? languages[choosenLanguage]
-                                              ['text_verify']
-                                          : (resendTime == 0)
-                                              ? languages[choosenLanguage]
-                                                  ['text_resend_code']
-                                              : languages[choosenLanguage]
-                                                      ['text_resend_code'] +
-                                                  ' ' +
-                                                  resendTime.toString(),
-                                      color:
-                                          (resendTime != 0 && otpNumber.length != 6)
-                                              ? hideButtonColor
-                                              : buttonColor,
-                                      borcolor:
-                                          (resendTime != 0 && otpNumber.length != 6)
-                                              ? hideButtonColor
-                                              : buttonColor,
+                                          },
+                                          child: Container(
+                                            height: media.width * 0.13,
+                                            // width: (widget.width != null) ? widget.width : null,
+                                            padding: EdgeInsets.only(left: media.width * twenty, right: media.width * twenty),
+                                            decoration: BoxDecoration(
+                                              // border: Border.all(color: (resendTime != 0 && otpNumber.length != 6)
+                                              //     ? hideButtonColor
+                                              //     : buttonColor, width: 1.5),
+                                              borderRadius: BorderRadius.circular(22),
+                                              color: (resendTime != 0 && otpNumber.length != 6)
+                                                  ? hideButtonColor
+                                                  : primaryColor,
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Text((otpNumber.length == 6)
+                                                ? languages[choosenLanguage]['text_verify']
+                                                : (resendTime == 0)
+                                                ? languages[choosenLanguage]['text_resend_code']
+                                                : languages[choosenLanguage]['text_resend_code'] +
+                                                ' ' + resendTime.toString(), style: TextStyle(color: buttonText, fontSize: media.width * eighteen),),
+                                          ),
+                                        )
+                                      ),
+                                      ]
                                     ),
+                                ),),
+                                Positioned(
+                                  top: media.height * 0.03,
+                                  left: media.width * 0.03,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(Icons.arrow_back,
+                                          color: white, size: media.height * 0.05)),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Image.asset(
+                                    'assets/animated_images/arrow.png',
+                                    height: media.height * 0.3,
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                ),
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  top: media.height * 0.16,
+                                  child: Image.asset(
+                                    'assets/animated_images/welcome_bg.png',
+                                    color: white,
+                                    height: media.height * 0.29,
+                                  ),
+                                ),
+
+                                // Container(
+                                //   padding: EdgeInsets.only(
+                                //       left: media.width * 0.08, right: media.width * 0.08,
+                                //       top: media.width * 0.05 +
+                                //           MediaQuery.of(context).padding.top
+                                //   ),
+                                //   color: page,
+                                //   height: media.height * 1,
+                                //   width: media.width * 1,
+                                //   child: Column(
+                                //     crossAxisAlignment: CrossAxisAlignment.center,
+                                //     mainAxisAlignment: MainAxisAlignment.center,
+                                //     children: [
+                                //       Container(
+                                //           width: media.width * 1,
+                                //           color: topBar,
+                                //           child: Row(
+                                //             mainAxisAlignment: MainAxisAlignment.start,
+                                //             children: [
+                                //               InkWell(
+                                //                   onTap: () {
+                                //                     Navigator.pop(context);
+                                //                   },
+                                //                   child: Row(
+                                //                     children: [
+                                //                       const Icon(Icons.arrow_back_ios),
+                                //                       Text('BACK', style: TextStyle(
+                                //                           fontWeight: FontWeight.w700,
+                                //                           fontSize: 16.0
+                                //                       ),)
+                                //                     ],
+                                //                   )),
+                                //             ],
+                                //           )),
+                                //       SizedBox(height: 50,),
+                                //    //   Image.asset('assets/animated_images/verify_number.png', width: 300,),
+                                //       Expanded(
+                                //         child: Column(
+                                //           crossAxisAlignment: CrossAxisAlignment.center,
+                                //           children: [
+                                //             SizedBox(
+                                //               height: media.height * 0.04,
+                                //             ),
+                                //             SizedBox(
+                                //               width: media.width * 1,
+                                //               child: Text(
+                                //                 languages[choosenLanguage]
+                                //                     ['text_phone_verify'],
+                                //                 textAlign: TextAlign.center,
+                                //                 style: GoogleFonts.roboto(
+                                //                     fontSize: media.width * twentyeight,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: textColor,),
+                                //               ),
+                                //             ),
+                                //             const SizedBox(
+                                //               height: 10,
+                                //             ),
+                                //             Align(
+                                //               alignment: Alignment.center,
+                                //               child: Text(
+                                //                 languages[choosenLanguage]['text_enter_otp'],
+                                //                 textAlign: TextAlign.center,
+                                //                 style: GoogleFonts.roboto(
+                                //                     fontSize: media.width * sixteen,
+                                //                     color: textColor.withOpacity(0.3)),
+                                //               ),
+                                //             ),
+                                //             const SizedBox(height: 10),
+                                //             Text(
+                                //               "+"+countries[phcode]['dial_code'].toString() + phnumber,
+                                //               style: GoogleFonts.roboto(
+                                //                   fontSize: media.width * sixteen,
+                                //                   color: textColor,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   letterSpacing: 1),
+                                //             ),
+                                //             SizedBox(height: media.height * 0.05),
+                                //
+                                //             //otp text box
+                                //
+                                //
+                                //             SizedBox(
+                                //               height: media.height * 0.05,
+                                //             ),
+                                //
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       )
+                                //no internet
+                                  (internet == false)
+                                    ? Positioned(
+                                    top: 0,
+                                    child: NoInternet(onTap: () {
+                                      setState(() {
+                                        internetTrue();
+                                      });
+                                    }))
+                                    : Container(),
+
+                                //loader
+                                (_loading == true)
+                                    ? Positioned(
+                                    top: 0,
+                                    child: SizedBox(
+                                      height: media.height * 1,
+                                      width: media.width * 1,
+                                      child: const Loading(),
+                                    ))
+                                    : Container()
+                              ]
+                                ),
+                            ),]
+                          ),
                       ),
-
-                      //no internet
-                      (internet == false)
-                          ? Positioned(
-                              top: 0,
-                              child: NoInternet(onTap: () {
-                                setState(() {
-                                  internetTrue();
-                                });
-                              }))
-                          : Container(),
-
-                      //loader
-                      (_loading == true)
-                          ? Positioned(
-                              top: 0,
-                              child: SizedBox(
-                                height: media.height * 1,
-                                width: media.width * 1,
-                                child: const Loading(),
-                              ))
-                          : Container()
-                    ],
-                  ),
-                ),
-              );
-            }),
-      ),
-    );
+                    ),
+                )
+                  );
+    }),
+              ),
+            );
   }
 }
