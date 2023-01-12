@@ -185,7 +185,7 @@ class LocationController extends GetxController {
       myCorrectBuses.value = message.first;
       myCorrectBusesGot.value = true;
       setBussesMarkers();
-      print(bussesOnMapList.length);
+
       update();
     });
 
@@ -588,7 +588,7 @@ waitingForBusInfo.value = true;
               }));
     }
     waitingForBusInfo.value = false;
-
+    print("bussesOnMapList l... ${bussesOnMapList.length}");
     update();
   }
   //calculate the distance between tow points and
@@ -628,11 +628,12 @@ waitingForBusInfo.value = true;
     if (response.statusCode == 200) {
       print('getDistanceInformation ${response.statusCode}');
       var decoded = jsonDecode(response.body);
-      print(decoded);
+      print("driving $decoded");
       return decoded;
     }else{
       print(response);
-      return false;
+      print("boody getDistanceInformation error ${response.body}");
+      return;
     }
   }
 
