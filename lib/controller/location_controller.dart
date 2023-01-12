@@ -449,14 +449,25 @@ updatePinPos(double lat , double lng){
       print("res ====----==== ${json}");
       myFavAddresses.value = json["description"];
 
-      placePredictionList.add(
-          PlaceShort(
-              placeId: '1',
-              mainText: "${myFavAddresses[1]['name']}",
-              secondText: '${myFavAddresses[1]['desc']}',
-              lat:myFavAddresses[1]['latitude'],
-              lng:myFavAddresses[1]['longitude'],
-          ));
+     if(myFavAddresses.length>0){
+       placePredictionList.add(
+           PlaceShort(
+             placeId: '1',
+             mainText: "${myFavAddresses[0]['name']}",
+             secondText: '${myFavAddresses[0]['desc']}',
+             lat:myFavAddresses[0]['latitude'],
+             lng:myFavAddresses[0]['longitude'],
+           ));
+     }else if(myFavAddresses.length>1){
+       placePredictionList.add(
+           PlaceShort(
+             placeId: '2',
+             mainText: "${myFavAddresses[1]['name']}",
+             secondText: '${myFavAddresses[1]['desc']}',
+             lat:myFavAddresses[1]['latitude'],
+             lng:myFavAddresses[1]['longitude'],
+           ));
+     }
       return myFavAddresses;
     }
     else {
