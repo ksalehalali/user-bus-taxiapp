@@ -141,4 +141,7 @@ return array (
   'client_status_changed_succesfully' => 'تم تغيير حالة العميل بنجاح',
   'admin_profile_updated_successfully' => 'تم تحديث ملف تعريف المسؤول بنجاح',
   'owner_added_successfully' => 'تمت إضافة المالك بنجاح',
+  'rating_reason_added_succesfully' => 'تمت إضافة التقييم بنجاح',
+  'rating_reason_updated_succesfully' => 'تم تحديث التصنيف بنجاح',
+  'rating_reason_deleted_succesfully' => 'تم حذف التصنيف بنجاح',
 );

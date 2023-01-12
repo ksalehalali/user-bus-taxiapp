@@ -450,6 +450,14 @@ $sub_menu = 'translations';
             </li>
             @endif
 
+            @if(auth()->user()->can('rating'))
+            <li class="{{'rating' == $main_menu ? 'active' : '' }}">
+                <a href="{{url('/rating')}}">
+                    <i class="fa fa-ban"></i> <span>@lang('pages_names.rating')</span>
+                </a>
+            </li>
+            @endif
+
             @if(auth()->user()->can('complaints'))
             <li class="treeview {{ 'complaints' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">

@@ -41,6 +41,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
+        return true;
         $isDebugSendMailOpen = \Config::get('app.debug_sendmail_open');
         $debugSendMailEmail = \Config::get('app.debug_sendmail_email');
 

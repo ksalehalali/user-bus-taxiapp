@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => 'production',
+    'env' => 'development',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => false,
+    'debug' => true,
     
     'debug_sendmail_open' => true,
     'debug_sendmail_email' => 'routes.taxi.app@gmail.com',

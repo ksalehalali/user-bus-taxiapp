@@ -769,4 +769,7 @@ return array(
     'vehicle_make_for' => 'Vehicle Make For',
     'vehicle_make' => 'Vehicle Make',
     'model_name' => 'Model Name',
+    'rating_title' => 'Rating Title',
+    'star' => 'Star',
+    'add_rating' => 'Add Rating',
 );

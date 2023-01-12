@@ -158,5 +158,6 @@ return array (
   'country' => 'Country',
   'vehicle_make' => 'Vehicle Make',
   'vehicle_model' => 'Vehicle Model',
+  'rating' => 'Rating',
 
 );

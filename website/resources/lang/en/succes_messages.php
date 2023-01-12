@@ -141,4 +141,7 @@ return array (
   'client_status_changed_succesfully' => 'Client Status Changed Successfully',
   'admin_profile_updated_successfully' => 'Admin Profile Updated Successfully',
   'owner_added_successfully' => 'Owner Added Successfully',
+  'rating_reason_added_succesfully' => 'Rating Added Succesfully',
+  'rating_reason_updated_succesfully' => 'Rating Updated Succesfully',
+  'rating_reason_deleted_succesfully' => 'Rating Deleted Succesfully',
 );

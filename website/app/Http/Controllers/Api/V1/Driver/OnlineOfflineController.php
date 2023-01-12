@@ -6,6 +6,7 @@ use App\Models\Admin\Driver;
 use Illuminate\Support\Carbon;
 use App\Transformers\Driver\DriverProfileTransformer;
 use App\Http\Controllers\Api\V1\BaseController;
+use App\Models\Admin\Rating;
 
 class OnlineOfflineController extends BaseController
 {
@@ -95,5 +96,12 @@ class OnlineOfflineController extends BaseController
             ->loadIncludes($driver);
 
         return $this->respondSuccess($user, $success_message);
+    }
+
+    public function rating()
+    {
+        $rating = Rating::all();
+        return $this->respondOk($rating);
+
     }
 }

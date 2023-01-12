@@ -47,3 +47,30 @@ ALTER TABLE `users` ADD `refferal_code_counter` INT(11) NOT NULL DEFAULT '0' AFT
 
 
 ALTER TABLE `zone_type_price` CHANGE `base_price` `base_price` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `price_per_distance` `price_per_distance` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `waiting_charge` `waiting_charge` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `price_per_time` `price_per_time` DOUBLE(10,3) NOT NULL DEFAULT '0.000', CHANGE `cancellation_fee` `cancellation_fee` DOUBLE(10,3) NOT NULL DEFAULT '0.000'; 
+
+
+
+
+INSERT INTO `permissions` (`id`, `slug`, `name`, `description`, `main_menu`, `sub_menu`, `main_link`, `sub_link`, `sort`, `icon`, `created_at`, `updated_at`) VALUES (NULL, 'rating', 'rating', 'View Rating', 'rating', 'rating', NULL, NULL, NULL, 'fa fa-circle-thin', NULL, NULL);
+
+
+
+INSERT INTO `permissions` (`id`, `slug`, `name`, `description`, `main_menu`, `sub_menu`, `main_link`, `sub_link`, `sort`, `icon`, `created_at`, `updated_at`) VALUES (NULL, 'add-rating-title', 'add-rating-title', 'View Rating Title', 'rating', 'rating-title', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` (`id`, `slug`, `name`, `description`, `main_menu`, `sub_menu`, `main_link`, `sub_link`, `sort`, `icon`, `created_at`, `updated_at`) VALUES (NULL, 'edit-rating-title', 'edit-rating-title', 'View Rating Title', 'rating', 'rating-title', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` (`id`, `slug`, `name`, `description`, `main_menu`, `sub_menu`, `main_link`, `sub_link`, `sort`, `icon`, `created_at`, `updated_at`) VALUES (NULL, 'delete-rating-title', 'delete-rating-title', 'View Rating Title', 'rating', 'rating-title', NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+
+CREATE TABLE `ratings` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `star` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `rating`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

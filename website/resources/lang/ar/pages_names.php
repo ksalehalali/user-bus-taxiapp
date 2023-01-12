@@ -139,4 +139,5 @@ return array (
   'add_fleet_needed_doc' => 'إضافة أسطول الوثائق المطلوبة',
   'fleet_needed_doc' => 'وثيقة الأسطول المطلوبة',
   'approved_fleet_drivers' => 'سائقي الأسطول المعتمدين',
+  'rating' => 'تقييم',
 );

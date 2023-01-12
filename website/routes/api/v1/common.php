@@ -71,6 +71,7 @@ Route::namespace('Notification')->prefix('notifications')->middleware('auth')->g
     Route::middleware(role_middleware(Role::mobileAppRoles()))->group(function () {
         Route::get('get-notification', 'ShowNotificationController@getNotifications');
         Route::any('delete-notification/{notification}', 'ShowNotificationController@deleteNotification');
+        Route::any('delete-notification', 'ShowNotificationController@deleteAllNotification');
 
     });
 });

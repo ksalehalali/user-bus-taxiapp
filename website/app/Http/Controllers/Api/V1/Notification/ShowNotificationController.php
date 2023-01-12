@@ -51,6 +51,7 @@ class ShowNotificationController extends BaseController
      * */
     public function deleteNotification(Notification $notification){
 
+
         $user = auth()->user();
 
         // Log::info($user);
@@ -77,6 +78,26 @@ class ShowNotificationController extends BaseController
         return $this->respondSuccess();
 
 
+    }
+
+    public function deleteAllNotification(){
+        $user = auth()->user();
+        // Log::info($user);
+        if (access()->hasRole('user'))
+        {
+            UserDriverNotification::where('user_id',$user->id)->delete();
+        }elseif ($user->hasRole('driver'))
+        {
+            $user_id = $user->driver->id;
+            UserDriverNotification::where('driver_id',$user_id)->delete();
+        }
+        elseif ($user->hasRole('owner'))
+        {
+            $user_id = $user->owner->id;
+            UserDriverNotification::where('owner_id',$user_id)->delete();
+        }
+
+        return $this->respondSuccess();
     }
 
 

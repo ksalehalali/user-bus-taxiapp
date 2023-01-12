@@ -455,6 +455,17 @@ Route::middleware('auth:web')->group(function () {
             Route::get('delete/{reason}', 'CancellationReasonController@delete');
         });
 
+        // Rating Reason CRUD
+        Route::group(['prefix' => 'rating',  'middleware' => 'permission:cancellation-reason'], function () {
+            Route::get('/', 'RatingController@index');
+            Route::get('/fetch', 'RatingController@fetch');
+            Route::get('/create', 'RatingController@create');
+            Route::post('store', 'RatingController@store');
+            Route::get('delete/{reason}', 'RatingController@delete');
+            Route::get('/{reason}', 'RatingController@getById');
+            Route::post('update/{reason}', 'RatingController@update');
+        });
+
        
 
         // Promo Codes CRUD

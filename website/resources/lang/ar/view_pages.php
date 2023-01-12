@@ -730,4 +730,7 @@ return array (
   'default_longitude' => 'خط الطول الافتراضي',
   'google_sheet_id' => 'معرف ورقة Google',
   'minimum_wallet_amount_for_transfer' => 'الحد الأدنى لمبلغ المحفظة المراد تحويله',
+  'rating_title' => 'عنوان التصنيف',
+  'star' => 'نجمة',
+  'add_rating' => 'إضافة التقييم',
 );
