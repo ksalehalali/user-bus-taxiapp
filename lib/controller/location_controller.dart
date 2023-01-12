@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -55,6 +56,8 @@ class LocationController extends GetxController {
   var myCorrectBusesGot = false.obs;
   var bussesList = [].obs;
   var bussesOnMapList = [].obs;
+  var waitingForBusInfo = false.obs;
+
   var timeBusToR = 0.0.obs;
   late google_maps.BitmapDescriptor mapMarker;
 
@@ -76,6 +79,14 @@ class LocationController extends GetxController {
     getLocation();
   }
 
+  void resetData() {
+    myCorrectBusesGot.value =false;
+    myCorrectBuses.clear();
+    bussesList.clear();
+    bussesOnMapList.clear();
+    bussesIds.clear();
+
+  }
   //get current location from ios channel
   static const locationChannel = MethodChannel('location');
   final arguments = {'name': 'khaled'};
@@ -236,7 +247,7 @@ class LocationController extends GetxController {
   late loc.PermissionStatus _permissionGranted;
 //get location for all
   Future getLocation() async {
-    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(20,20)),'assets/icons/icons8-bus-96.png',) ;
+    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(20,20)),Platform.isAndroid?'assets/icons/bus.png':'assets/icons/bus75.png',) ;
 
     loc.Location location = loc.Location.instance;
 
@@ -459,7 +470,7 @@ updatePinPos(double lat , double lng){
 Future getRouteBusses(String routeId)async{
     print("route id: $routeId");
   myCorrectBusesGot.value =false;
-
+waitingForBusInfo.value = true;
   points.clear();
   var headers = {
     'Authorization': 'bearer ${user.accessToken}',
@@ -518,8 +529,10 @@ Future getRouteBusses(String routeId)async{
       }
 
     }
+    waitingForBusInfo.value = false;
+
     print("points length =====--== ${points.length}");
-    if(points.length>0){
+    if(bussesIds.length>0){
       Timer.periodic(Duration(seconds: 4), (Timer t) => detectingCorrectBus());
     }
 
@@ -527,9 +540,11 @@ Future getRouteBusses(String routeId)async{
       points.sort((a, b) {
         return a.distance.compareTo(b.distance);
       });
+    }else if(points.length >0){
+      timeBusToR.value = points[0].duration/60;
+
     }
 
-    timeBusToR.value = points[0].duration/60;
     update();
   }else {
     print("routeId ${trip.routeId}");
@@ -543,6 +558,11 @@ Future getRouteBusses(String routeId)async{
     for(var i = 0; myCorrectBuses.length > i; i++){
       bussesOnMapList.add( google_maps.Marker(
               icon:mapMarker,
+          flat:true,
+          draggable: false,
+          anchor :  Offset(0.5, 1.0),
+          rotation:double.parse(myCorrectBuses[i]["heading"].toString()),
+          alpha : 1,
               infoWindow: google_maps.InfoWindow(
                   title:
                   '${myCorrectBuses[i]["busID"]}',
@@ -556,6 +576,8 @@ Future getRouteBusses(String routeId)async{
                     .toString());
               }));
     }
+    waitingForBusInfo.value = false;
+
     update();
   }
   //calculate the distance between tow points and

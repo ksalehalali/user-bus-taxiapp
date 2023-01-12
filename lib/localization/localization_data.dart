@@ -148,6 +148,9 @@ Map<String,String> ar ={
 
 
   //-
+  "Bus arrive in:_txt":"يصل الباص بعد:",
+
+  //-
   "Account delete_txt":"حذف الحساب",
   "Your account will be deleted_txt":"سوف يتم حذف حسابك",
 
@@ -309,7 +312,9 @@ Map<String,String> en ={
   "Address_txt":"Address",
   "Address delete_txt":"Address delete",
 
+
   //-
+  "Bus arrive in:_txt":"Bus arrive in:",
 
 
 "Account delete_txt":"Account delete_txt",

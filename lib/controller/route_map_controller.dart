@@ -144,6 +144,8 @@ class RouteMapController extends GetxController {
     // endStation= {};
     // sharedStation= {};
     isMultiMode.value =false;
+
+
     update();
   }
 
@@ -264,7 +266,7 @@ class RouteMapController extends GetxController {
 
     if (isSecond == false) {
       final response = await http.get(Uri.parse(
-          "https://api.mapbox.com/directions/v5/mapbox/driving/$stationQuery?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
+          "https://api.mapbox.com/directions/v5/mapbox/driving-traffic/$stationQuery?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
       if (response.statusCode == 200) {
         print('true 1 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
@@ -362,6 +364,7 @@ class RouteMapController extends GetxController {
       "Latitude2": endPointLatLng.value.latitude
     };
 
+    print("trip lat lng::: $queryParameters " );
     print(queryParameters);
     final url = Uri.parse(baseURL + "/api/FindRoute");
     final headers = {
@@ -660,7 +663,7 @@ class RouteMapController extends GetxController {
         'go to multi routes', 'we trying to get multi routes for you',
         duration: 3.seconds, colorText: Colors.blue[900]);
     isMultiMode.value = true;
-    final url = Uri.parse(baseURL + "/api/test/FindMultiRoute");
+    final url = Uri.parse(baseURL + "/api/FindMultiRoute");
     final headers = {
       "Content-type": "application/json",
       "Authorization": "Bearer ${user.accessToken}",
@@ -732,8 +735,10 @@ class RouteMapController extends GetxController {
       var stationQuery3 = "";
       var stationQuery4 = "";
       var stationQuery5 = "";
+      var stationQuery6 = "";
 
       //route 1
+
       if(route1.length >50){
         isLongTrip.value =true;
         for (int i = 0; i  <= 24; i++) {
@@ -863,7 +868,78 @@ class RouteMapController extends GetxController {
       }
 
       //route 2
-      if(route2.length >50){
+      if(route2.length > 74){
+        for (int i = 0; i  < 24; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          print(route2[i]['route']);
+
+          stationQuery3 = stationQuery3 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+        for (int i = 24; i  < 49; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          print(route2[i]['route']);
+
+          stationQuery4 = stationQuery4 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+        for (int i = 49; i  < 74; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          print(route2[i]['route']);
+
+          stationQuery5 = stationQuery5 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+
+        for (int i = 74; i < jsonResponse.length; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          print(route2[i]['route']);
+          stationQuery6 = stationQuery6 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+          stationLocationPoints2.add(new LatLng(
+              route2[i]["latitude"],  route2[i]["longitude"]));
+        }
+
+
+        stationQuery3 = stationQuery3.substring(0,
+            stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirectionMulti(stationQuery3, false,true);
+
+        stationQuery4 = stationQuery4.substring(0,
+            stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirectionMulti(stationQuery4, true,true);
+
+        stationQuery5 = stationQuery5.substring(0,
+            stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirectionMulti(stationQuery5, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
+
+        stationQuery6 = stationQuery6.substring(0,
+            stationQuery6.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirectionMulti(stationQuery6, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
+
+        locationController.tripCreatedStatus(true);
+
+        return;
+      }else if(route2.length <= 74 && route2.length >50){
         for (int i = 0; i  < 24; i++) {
           print(route2[i]['station']);
           print(route2[i]['order']);

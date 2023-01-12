@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,6 +18,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../../../Assistants/assistantMethods.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
+import '../../../controller/lang_controller.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/payment_controller.dart';
 import '../../../controller/route_map_controller.dart';
@@ -42,6 +44,7 @@ class _MapState extends State<Map> {
   final routeMapController = Get.put(RouteMapController());
   final LocationController locationController = Get.find();
   final PaymentController paymentController = Get.find();
+  final LangController langController = Get.find();
 
   ///DateFormat('yyyy-MM-dd-HH:mm').format(DateTime.now());
   ///
@@ -65,7 +68,8 @@ class _MapState extends State<Map> {
   google_maps.CameraPosition cameraPosition =google_maps.CameraPosition(target: google_maps.LatLng(initialPoint.latitude, initialPoint.longitude),zoom: 14.0);
 
 
-  late google_maps.BitmapDescriptor mapMarker2;
+  late google_maps.BitmapDescriptor pickUpMapMarker2;
+  late google_maps.BitmapDescriptor dropOffMapMarker2;
 
 
   @override
@@ -98,7 +102,8 @@ class _MapState extends State<Map> {
 
   //custom icon
   void setCustomIconMarker()async{
-    mapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),'assets/icons/icons8-get-on-bus-100.png') ;
+    pickUpMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid?'assets/icons/pick75.png':'assets/icons/pick25.png') ;
+    dropOffMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid? 'assets/icons/drop75.png':'assets/icons/drop25.png') ;
 
   }
 
@@ -295,7 +300,7 @@ class _MapState extends State<Map> {
                         //picking marker
                         locationController.tripCreatedDone.value == true
                             ? google_maps.Marker(
-                            icon: mapMarker2,
+                            icon: pickUpMapMarker2,
                             flat:true,
                             draggable: false,
                             anchor :  Offset(0.5, 1.0),
@@ -356,8 +361,7 @@ class _MapState extends State<Map> {
                         //drop off marker
                         locationController.tripCreatedDone.value == true
                             ? google_maps.Marker(
-                            icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                                google_maps.BitmapDescriptor.hueBlue),
+                            icon: dropOffMapMarker2,
                             infoWindow: google_maps.InfoWindow(
                                 title:
                                 '${routeMapController.endStation['title'].toString()}',
@@ -525,7 +529,7 @@ class _MapState extends State<Map> {
                               locationController.startAddingPickUpStatus(false);
                               routeMapController.isMultiMode.value = false;
                               locationController.showPinOnMap.value =false;
-
+                              locationController.resetData();
                               if(routeMapController.resetNo==2 || routeMapController.resetNo==4){
                                 Navigator.pushAndRemoveUntil(
                                     context,
@@ -626,13 +630,15 @@ class _MapState extends State<Map> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text("Bus arrive in:"),
+                                    Text("Bus arrive in:_txt".tr),
                                     SizedBox(width: 5,),
-                                    locationController.points.length>0 ?   Text("${locationController.timeBusToR.value.toStringAsFixed(0)} min",style: TextStyle(color: Colors.green),):Container(),
+                                    locationController.points.length>0 ?    Text(langController.appLocal =="en"?"${locationController.timeBusToR.value.toStringAsFixed(0)} min":"${locationController.timeBusToR.value.toStringAsFixed(0)} دقائق",style: TextStyle(color: Colors.green),):Container(),
                                   ],
                                 )),
                               )),
-                        )):Container()
+                        )): locationController.waitingForBusInfo.value ==true ? Positioned(
+                      right: screenSize.width / 2.2,
+                      top: 4, child: CircularProgressIndicator.adaptive(strokeWidth: 2,),):Container()
                   ]),
                 ),
                 locationController.tripCreatedDone.value == true
