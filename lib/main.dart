@@ -83,7 +83,9 @@ Future<void> main() async {
             fallbackLocale: Locale('en'),
             translations: Localization(),
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(),
+            theme: ThemeData(
+              fontFamily: 'Poppins'
+            ),
             home:StreamBuilder<ConnectivityResult>(
             stream: Connectivity().onConnectivityChanged,
             builder: (context, snapshot) {

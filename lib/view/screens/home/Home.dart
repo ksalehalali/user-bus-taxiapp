@@ -151,8 +151,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           child: Text(
                             'where_to_txt'.tr,
                             style: TextStyle(
-                                fontWeight: FontWeight.w500,
+                                //fontWeight: FontWeight.w500,
                                 color: Colors.grey[900],
+                                // fontFamily: 'Poppins',
+                                // fontWeight: FontWeight.normal,
                                 fontSize: 22.sp),
                           ),
                         ),

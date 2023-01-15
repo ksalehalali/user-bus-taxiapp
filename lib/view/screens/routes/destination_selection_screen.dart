@@ -138,6 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               locationController.startAddingDropOffStatus(false);
                             },
                             onChanged: (val) {
+                              if(val.length ==0)  locationController.refreshPlacePredictionList();
                               locationController.startAddingPickUpStatus(true);
                               locationController.startAddingDropOffStatus(false);
                               pickUpFilling = true;
@@ -203,6 +204,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           autofocus: true,
                           onChanged: (val) {
                             pickUpFilling = false;
+                            if(val.length ==0)  locationController.refreshPlacePredictionList();
+
                             locationController.startAddingPickUpStatus(false);
                             locationController.startAddingDropOffStatus(true);
                             print(locationController.startAddingDropOff.value);

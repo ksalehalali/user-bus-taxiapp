@@ -211,7 +211,7 @@ class _DirectPayState extends State<DirectPay> {
                                     "Pay via scan QR code_txt".tr,
                                     style: TextStyle(
                                         decoration: TextDecoration.none,
-                                        fontSize: 15.sp,
+                                        fontSize: 14.sp,
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black87),
@@ -329,7 +329,7 @@ class _DirectPayState extends State<DirectPay> {
                                       "Pay via show QR code_txt".tr,
                                     style: TextStyle(
                                         decoration: TextDecoration.none,
-                                        fontSize: 15.sp,
+                                        fontSize: 14.sp,
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black87),
