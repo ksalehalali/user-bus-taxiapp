@@ -397,6 +397,7 @@ class RouteMapController extends GetxController {
     }else{
 
       trip.routeId =jsonResponse["description"]["res"][0]["routeID"];
+      trip.routeName = "Route ${jsonResponse["description"]["res"][0]["route"]}";
         isMultiMode.value =false ;
         String stationQuery = "";
         String stationQuery2 = "";
@@ -705,7 +706,11 @@ class RouteMapController extends GetxController {
             'there is no route', 'no route please try change your points',
             backgroundColor: Colors.white,
             duration: 5.seconds, colorText: Colors.red[900]);
-      });}
+      });
+      return;
+      }
+
+
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
 
@@ -794,6 +799,8 @@ class RouteMapController extends GetxController {
         await findStationDirectionMulti(stationQuery2, true,false);
 
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => calculateFullDurationDistanceMulti(true,false));
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
         panelController.open();
 
       }else if(route1.length <= 50 && route1.length >25){
@@ -838,6 +845,8 @@ class RouteMapController extends GetxController {
 
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude)  );
         calculateFullDurationDistanceMulti(true,false);
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
         panelController.open();
 
 
@@ -863,6 +872,8 @@ class RouteMapController extends GetxController {
             stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery, false,false);
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => Timer(2.seconds, ()=>calculateFullDurationDistanceMulti(false,false)));
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
         panelController.open();
 
       }
@@ -937,6 +948,9 @@ class RouteMapController extends GetxController {
         await findStationDirectionMulti(stationQuery6, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
 
         locationController.tripCreatedStatus(true);
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
+        panelController.open();
 
         return;
       }else if(route2.length <= 74 && route2.length >50){
@@ -988,7 +1002,9 @@ class RouteMapController extends GetxController {
             stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery5, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
         locationController.tripCreatedStatus(true);
-
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
+        panelController.open();
         return;
       }else if(route2.length <= 50 && route2.length >25){
         for (int i = 0; i  < 24; i++) {
@@ -1024,7 +1040,9 @@ class RouteMapController extends GetxController {
             stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery4, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
         locationController.tripCreatedStatus(true);
-
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
+        panelController.open();
         return;
       }else if(route2.length <= 25){
         print('route 2 <25 =========');
@@ -1044,6 +1062,9 @@ class RouteMapController extends GetxController {
         await findStationDirectionMulti(stationQuery3, false,true);
         calculateFullDurationDistanceMulti(false,true);
         locationController.tripCreatedStatus(true);
+        //get correct bus
+        await locationController.getRouteBusses(jsonResponse['rout1'][0]['routeID']);
+        panelController.open();
         update();
         return;
       }
@@ -1140,7 +1161,8 @@ class RouteMapController extends GetxController {
       trip.startStationId = tripRouteData['description']['startStation']['id'];
       trip.endStationId = tripRouteData['description']['endStation']['id'];
       trip.routeId = jsonResponse[0]["routeID"];
-      trip.routeName =jsonResponse[0]["route"];
+      trip.routeName = "Route ${jsonResponse[0]["route"]}";
+
       trip.startPoint.latitude =
       tripRouteData['description']['startPoint']['latitude'];
       trip.startPoint.latitude =

@@ -570,8 +570,8 @@ waitingForBusInfo.value = true;
           alpha : 1,
               infoWindow: google_maps.InfoWindow(
                   title:
-                  '${myCorrectBuses[i]["busID"]}',
-                  snippet: myCorrectBuses[i]["busID"]),
+                  '${trip.routeName}',
+                  snippet: trip.routeName),
               position: google_maps.LatLng(
                  myCorrectBuses[i]["latitude2"],
                  myCorrectBuses[i]["longitude2"]),
