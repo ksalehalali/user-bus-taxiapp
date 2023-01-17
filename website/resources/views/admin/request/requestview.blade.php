@@ -3,6 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
+
 <style>
 #map {
     height: 300px;
@@ -108,7 +109,7 @@ td {
                                 <th>@lang('view_pages.name')</th>
                                 <th>@lang('view_pages.email')</th>
                                 <th>@lang('view_pages.mobile')</th>
-                                <th>@lang('view_pages.rating')</th>
+                                <!-- <th>@lang('view_pages.rating')</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -117,18 +118,48 @@ td {
                                 <td>{{ $item->userDetail->name }}</td>
                                 <td>{{ $item->userDetail->email }}</td>
                                 <td>{{ $item->userDetail->mobile }}</td>
-                                <td>{{ $item->requestRating()->where('user_rating',1)->pluck('rating')->first() }}</td>
+                                <!-- <td>{{ $item->requestRating()->where('user_rating',1)->pluck('rating')->first() }}</td> -->
                                 @else
-                                 <td>{{ $item->adHocuserDetail->name }}</td>
+                                <td>{{ $item->adHocuserDetail->name }}</td>
                                 <td>{{ $item->adHocuserDetail->email }}</td>
                                 <td>{{ $item->adHocuserDetail->mobile }}</td>
-                                <td>{{ $item->requestRating()->where('user_rating',1)->pluck('rating')->first() }}</td>
+                                <!-- <td>{{ $item->requestRating()->where('user_rating',1)->pluck('rating')->first() }}</td> -->
                                 @endif
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <div class="box">
+                <div class="box-header bb-2 border-primary">
+                    <h3 class="box-title">@lang('view_pages.user_ratings')</h3>
+                </div>
+
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>@lang('view_pages.name')</th>
+                                <th>@lang('view_pages.email')</th>
+                                <th>@lang('view_pages.rating')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if ($userFeedBackData)
+                                @foreach ($userFeedBackData as $key => $value)
+                                <tr>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->email }}</td>
+                                    <td>{{ $value->star }}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
 
             <div class="box">
                 <div class="box-header bb-2 border-primary">
@@ -142,7 +173,7 @@ td {
                                 <th>@lang('view_pages.name')</th>
                                 <th>@lang('view_pages.email')</th>
                                 <th>@lang('view_pages.mobile')</th>
-                                <th>@lang('view_pages.rating')</th>
+                                <!-- <th>@lang('view_pages.rating')</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -150,12 +181,44 @@ td {
                                 <td>{{ $item->driverDetail->name }}</td>
                                 <td>{{ $item->driverDetail->email }}</td>
                                 <td>{{ $item->driverDetail->mobile }}</td>
-                                <td>{{ $item->requestRating()->where('driver_rating',1)->pluck('rating')->first() }}</td>
+                                <!-- <td>{{ $item->requestRating()->where('driver_rating',1)->pluck('rating')->first() }}</td> -->
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+
+            <div class="box">
+                <div class="box-header bb-2 border-primary">
+                    <h3 class="box-title">@lang('view_pages.driver_ratings')</h3>
+                </div>
+
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>@lang('view_pages.name')</th>
+                                <th>@lang('view_pages.email')</th>
+                                <th>@lang('view_pages.rating')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if ($driverFeedBackData)
+                                @foreach ($driverFeedBackData as $key => $value)
+                                <tr>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->email }}</td>
+                                    <td>{{ $value->star }}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
 
             @if ($item->requestBill)
             <div class="box">

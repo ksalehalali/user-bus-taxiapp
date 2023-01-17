@@ -7,11 +7,11 @@ use App\Models\Traits\HasActive;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\HasActiveCompanyKey;
 
-class Rating extends Model
+class Feedback extends Model
 {
     use UuidModel,HasActive;
 
     protected $fillable = [
-        'title','star','user_type'
+        'user_id','rating_id','request_id'
     ];
 }

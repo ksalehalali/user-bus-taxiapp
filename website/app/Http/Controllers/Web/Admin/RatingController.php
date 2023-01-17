@@ -53,14 +53,10 @@ class RatingController extends Controller
 
     public function store(CreateRatingRequest $request)
     {
-        $created_params = $request->only(['title', 'star']);
-
+        $created_params = $request->only(['title', 'star','user_type']);
         // $created_params['company_key'] = auth()->user()->company_key;
-
         $this->reason->create($created_params);
-
         $message = trans('succes_messages.rating_reason_added_succesfully');
-
         return redirect('rating')->with('success', $message);
     }
 

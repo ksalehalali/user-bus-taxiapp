@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Request\Request as RequestRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Admin\Feedback;
+use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
@@ -45,8 +47,21 @@ class RequestController extends Controller
         $sub_menu = 'request';
 
         $item = $request;
+        $request_id = $item->id;
 
-        return view('admin.request.requestview', compact('page', 'main_menu', 'sub_menu', 'item'));
+        $userFeedBackData = DB::table('feedback')
+        ->join('ratings', 'ratings.id', '=', 'feedback.rating_id')
+        ->join('users', 'users.id', '=', 'feedback.user_id')
+        ->where(['feedback.request_id'=>$request_id,'ratings.user_type'=>'user'])
+        ->get();
+        
+        $driverFeedBackData = DB::table('feedback')
+        ->join('ratings', 'ratings.id', '=', 'feedback.rating_id')
+        ->join('drivers', 'drivers.id', '=', 'feedback.user_id')
+        ->where(['feedback.request_id'=>$request_id,'ratings.user_type'=>'driver'])
+        ->get();
+
+        return view('admin.request.requestview', compact('page', 'main_menu', 'sub_menu', 'item','userFeedBackData','driverFeedBackData'));
     }
 
     public function fetchSingleRequest(RequestRequest $request){

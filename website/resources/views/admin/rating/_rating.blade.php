@@ -3,6 +3,7 @@
         <tr>
             <th> @lang('view_pages.s_no')</th>
             <th> @lang('view_pages.rating_title')</th>
+            <th> @lang('view_pages.user_type')</th>
             <th> @lang('view_pages.star')</th>
             <th> @lang('view_pages.action')</th>
         </tr>
@@ -15,6 +16,7 @@
         <tr>
             <td>{{ $i++ }} </td>
             <td>{{$result->title}}</td>
+            <td>{{ ucfirst($result->user_type) }}</td>
             <td>
                 <span class="label label-warning">{{ ucfirst($result->star) }}</span>
             </td>

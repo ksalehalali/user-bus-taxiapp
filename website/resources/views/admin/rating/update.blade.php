@@ -26,7 +26,7 @@
                             <form method="post" class="form-horizontal" action="{{ url('rating/update',$item->id) }}">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="title">@lang('view_pages.rating_title') <span class="text-danger">*</span></label>
                                             <input class="form-control" type="text" id="title" name="title"
@@ -35,7 +35,18 @@
                                             <span class="text-danger">{{ $errors->first('title') }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="user_type">@lang('view_pages.user_type') <span class="text-danger">*</span></label>
+                                            <select name="user_type" id="user_type" class="form-control" required>
+                                                <option value="" selected disabled>@lang('view_pages.select')</option>
+                                                <option value="user" {{ old('user_type') == 'user' ? 'selected' : '' }} >@lang('view_pages.user')</option>
+                                                <option value="driver" {{ old('user_type') == 'driver' ? 'selected' : '' }} >@lang('view_pages.driver')</option>
+                                            </select>
+                                            <span class="text-danger">{{ $errors->first('user_type') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="star">@lang('view_pages.star') <span class="text-danger">*</span></label>
                                             <select name="star" id="star" class="form-control" required>

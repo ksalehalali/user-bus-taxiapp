@@ -74,3 +74,14 @@ ALTER TABLE `rating`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `rating`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+  
+ALTER TABLE `ratings` ADD `user_type` VARCHAR(50) NOT NULL AFTER `star`;
+CREATE TABLE `taxi`.`feedback` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `user_id` INT(11) NOT NULL ,
+  `rating_id` INT(11) NOT NULL ,
+  `request_id` INT(11) NOT NULL ,
+  `created_at` DATETIME NOT NULL ,
+  `updated_at` DATETIME NOT NULL ,
+  PRIMARY KEY (`id`)) ENGINE = InnoDB;
