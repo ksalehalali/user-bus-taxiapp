@@ -28,7 +28,8 @@ class NotificationTransformer extends Transformer {
             'id' => $notification->id,
             'title' => $notification->title,
             'body' => $notification->body,
-            'created_at' => $notification->created_at,
+            // 'created_at' => $notification->created_at,
+            'created_at' => date('Y-m-d H:i:s', strtotime($notification->created_at)),
         ];
     }
 
