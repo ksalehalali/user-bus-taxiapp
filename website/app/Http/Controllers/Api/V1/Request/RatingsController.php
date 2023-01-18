@@ -109,13 +109,14 @@ class RatingsController extends BaseController
         if(empty($request_id)){
             throw new Exception('No request id found.');
         }
-        
+
         if (access()->hasRole('user'))
         {
-            $feedback = RequestRating::where(['user_rating' =>1,'request_id' => $request_id])->get();
+            $feedback = RequestRating::where(['request_ratings.request_id'=>'fdd2d7b8-7dce-481f-981f-739d84c285e0','request_ratings.user_rating'=>1])->with('user','triprating')->get(); 
+
         }elseif (access()->hasRole('driver'))
         {
-            $feedback = RequestRating::where(['driver_rating' => 1,'request_id' => $request_id])->get();
+            $feedback = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('driver','triprating')->get(); 
         }
         return $this->respondOk($feedback);
     }

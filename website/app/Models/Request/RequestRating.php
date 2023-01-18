@@ -75,7 +75,7 @@ class RequestRating extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     } 
 
-    public function rating()
+    public function triprating()
     {
         return $this->belongsTo(Rating::class, 'rating_id', 'id');
     } 

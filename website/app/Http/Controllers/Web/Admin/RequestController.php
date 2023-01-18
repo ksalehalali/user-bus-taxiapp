@@ -45,8 +45,8 @@ class RequestController extends Controller
         $item = $request;
         $request_id = $item->id;
 
-        $userFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.user_rating'=>1])->with('user','rating')->get(); 
-        $driverFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('driver','rating')->get(); 
+        $userFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.user_rating'=>1])->with('user','triprating')->get(); 
+        $driverFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('driver','triprating')->get(); 
         
         return view('admin.request.requestview', compact('page', 'main_menu', 'sub_menu', 'item','userFeedBackData','driverFeedBackData'));
     }

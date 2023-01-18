@@ -151,8 +151,8 @@ td {
                                 <tr>
                                     <td>{{ !empty($value->user->name)?$value->user->name:'' }}</td>
                                     <td>{{ !empty($value->user->email)?$value->user->email:'' }}</td>
-                                    <td>{{ !empty($value->rating->title)?$value->rating->title:'' }}</td>
-                                    <td>{{ !empty($value->star)?$value->star:'' }}</td>
+                                    <td>{{ !empty($value->triprating->title)?$value->triprating->title:'' }}</td>
+                                    <td>{{ !empty($value->rating)?$value->rating:'' }}</td>
                                 </tr>
                                 @endforeach
                             @endif
@@ -211,8 +211,8 @@ td {
                                 <tr>
                                     <td>{{ !empty($value->user->name)?$value->user->name:'' }}</td>
                                     <td>{{ !empty($value->user->email)?$value->user->email:'' }}</td>
-                                    <td>{{ !empty($value->rating->title)?$value->rating->title:'' }}</td>
-                                    <td>{{ !empty($value->star)?$value->star:'' }}</td>
+                                    <td>{{ !empty($value->triprating->title)?$value->triprating->title:'' }}</td>
+                                    <td>{{ !empty($value->rating)?$value->rating:'' }}</td>
                                 </tr>
                                 @endforeach
                             @endif
