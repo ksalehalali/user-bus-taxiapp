@@ -40,16 +40,16 @@
                                             <label for="user_type">@lang('view_pages.user_type') <span class="text-danger">*</span></label>
                                             <select name="user_type" id="user_type" class="form-control" required>
                                                 <option value="" selected disabled>@lang('view_pages.select')</option>
-                                                <option value="user" {{ old('user_type') == 'user' ? 'selected' : '' }} >@lang('view_pages.user')</option>
-                                                <option value="driver" {{ old('user_type') == 'driver' ? 'selected' : '' }} >@lang('view_pages.driver')</option>
+                                                <option value="user" {{ old('user_type',$item->user_type) == 'user' ? 'selected' : '' }} >@lang('view_pages.user')</option>
+                                                <option value="driver" {{ old('user_type',$item->user_type) == 'driver' ? 'selected' : '' }} >@lang('view_pages.driver')</option>
                                             </select>
                                             <span class="text-danger">{{ $errors->first('user_type') }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4"  style="display:none;">
                                         <div class="form-group">
                                             <label for="star">@lang('view_pages.star') <span class="text-danger">*</span></label>
-                                            <select name="star" id="star" class="form-control" required>
+                                            <select name="star" id="star" class="form-control">
                                                 <option value="" selected disabled>@lang('view_pages.select')</option>
                                                 <option value="5" {{ old('star',$item->star) == '5' ? 'selected' : '' }} >5</option>
                                                 <option value="4" {{ old('star',$item->star) == '4' ? 'selected' : '' }} >4</option>

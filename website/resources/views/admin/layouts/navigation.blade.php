@@ -457,7 +457,13 @@ $sub_menu = 'translations';
                 </a>
             </li>
             @endif
-
+            @if(auth()->user()->can('privacy_page_cms'))
+            <li class="{{'privacy_page_cms' == $main_menu ? 'active' : '' }}">
+                <a href="{{url('/cms/privacypagecms')}}">
+                    <i class="fa fa-ban"></i> <span>@lang('pages_names.privacy_page_cms')</span>
+                </a>
+            </li>
+            @endif
             @if(auth()->user()->can('complaints'))
             <li class="treeview {{ 'complaints' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">

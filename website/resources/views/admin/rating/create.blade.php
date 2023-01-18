@@ -45,10 +45,10 @@
                                             <span class="text-danger">{{ $errors->first('user_type') }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4" style="display:none;">
                                         <div class="form-group">
                                             <label for="star">@lang('view_pages.star') <span class="text-danger">*</span></label>
-                                            <select name="star" id="star" class="form-control" required>
+                                            <select name="star" id="star" class="form-control">
                                                 <option value="" selected disabled>@lang('view_pages.select')</option>
                                                 <option value="5" {{ old('star') == '1' ? 'selected' : '' }} >5</option>
                                                 <option value="4" {{ old('star') == '2' ? 'selected' : '' }} >4</option>

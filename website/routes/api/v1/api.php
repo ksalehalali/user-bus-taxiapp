@@ -13,6 +13,7 @@
 /*
          * Root namespace 'App\Http\Controllers\Api\V1\Common'.
     */
+
 Route::namespace('Common')->group(function () {
 
     // List all the cities.
@@ -38,4 +39,8 @@ Route::namespace('Common')->group(function () {
 
     // Get all the ServiceLocation.
     Route::get('servicelocation', 'ServiceLocationController@index');
+
+    Route::get('get-rating', 'TripRequestController@rating');
+
 });
+

@@ -15,7 +15,7 @@ class CreateRatingRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'star' => 'required',
+            'user_type' => 'required',
         ];
     }
 }

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Admin\TripRequest;
 //use Illuminate\Http\Request;
 use App\Models\Request\Request;
+use App\Models\Admin\Rating;
 
 class TripRequestController extends Controller
 {
@@ -80,5 +81,17 @@ class TripRequestController extends Controller
         $trip_request->delete();
 
         return $this->respondSuccess(null, 'trip_request_deleted');
+    }
+
+    public function rating()
+    {
+        if (access()->hasRole('user'))
+        {
+            $rating = Rating::where('user_type','user')->get();
+        }elseif (access()->hasRole('driver'))
+        {
+            $rating = Rating::where('user_type','driver')->get();
+        }
+        return $this->respondOk($rating);
     }
 }

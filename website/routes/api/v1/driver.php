@@ -31,6 +31,6 @@ Route::prefix('driver')->namespace('Driver')->middleware('auth')->group(function
         Route::get('today-earnings', 'EarningsController@index');
         Route::get('weekly-earnings', 'EarningsController@weeklyEarnings');
         Route::get('earnings-report/{from_date}/{to_date}', 'EarningsController@earningsReport');
-        Route::get('get-rating', 'OnlineOfflineController@rating');
+        
     });
 });

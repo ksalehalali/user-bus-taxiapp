@@ -12,6 +12,6 @@ class Rating extends Model
     use UuidModel,HasActive;
 
     protected $fillable = [
-        'title','star','user_type'
+        'title','user_type'
     ];
 }

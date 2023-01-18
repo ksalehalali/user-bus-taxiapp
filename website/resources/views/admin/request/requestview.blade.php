@@ -3,7 +3,6 @@
 @section('title', 'Users')
 
 @section('content')
-
 <style>
 #map {
     height: 300px;
@@ -142,16 +141,18 @@ td {
                             <tr>
                                 <th>@lang('view_pages.name')</th>
                                 <th>@lang('view_pages.email')</th>
-                                <th>@lang('view_pages.rating')</th>
+                                <th>@lang('view_pages.rating_title')</th>
+                                <th>@lang('view_pages.star')</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @if ($userFeedBackData)
+                        @if (!empty($userFeedBackData[0]))
                                 @foreach ($userFeedBackData as $key => $value)
                                 <tr>
-                                    <td>{{ $value->name }}</td>
-                                    <td>{{ $value->email }}</td>
-                                    <td>{{ $value->star }}</td>
+                                    <td>{{ !empty($value->user->name)?$value->user->name:'' }}</td>
+                                    <td>{{ !empty($value->user->email)?$value->user->email:'' }}</td>
+                                    <td>{{ !empty($value->rating->title)?$value->rating->title:'' }}</td>
+                                    <td>{{ !empty($value->star)?$value->star:'' }}</td>
                                 </tr>
                                 @endforeach
                             @endif
@@ -200,16 +201,18 @@ td {
                             <tr>
                                 <th>@lang('view_pages.name')</th>
                                 <th>@lang('view_pages.email')</th>
-                                <th>@lang('view_pages.rating')</th>
+                                <th>@lang('view_pages.rating_title')</th>
+                                <th>@lang('view_pages.star')</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @if ($driverFeedBackData)
+                        @if (!empty($driverFeedBackData[0]))
                                 @foreach ($driverFeedBackData as $key => $value)
                                 <tr>
-                                    <td>{{ $value->name }}</td>
-                                    <td>{{ $value->email }}</td>
-                                    <td>{{ $value->star }}</td>
+                                    <td>{{ !empty($value->user->name)?$value->user->name:'' }}</td>
+                                    <td>{{ !empty($value->user->email)?$value->user->email:'' }}</td>
+                                    <td>{{ !empty($value->rating->title)?$value->rating->title:'' }}</td>
+                                    <td>{{ !empty($value->star)?$value->star:'' }}</td>
                                 </tr>
                                 @endforeach
                             @endif

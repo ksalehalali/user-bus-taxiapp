@@ -49,18 +49,9 @@ class RequestController extends Controller
         $item = $request;
         $request_id = $item->id;
 
-        $userFeedBackData = DB::table('feedback')
-        ->join('ratings', 'ratings.id', '=', 'feedback.rating_id')
-        ->join('users', 'users.id', '=', 'feedback.user_id')
-        ->where(['feedback.request_id'=>$request_id,'ratings.user_type'=>'user'])
-        ->get();
+        $userFeedBackData = Feedback::where(['feedback.request_id'=>$request_id,'feedback.user_type'=>'user'])->with('user','rating')->get(); 
+        $driverFeedBackData = Feedback::where(['feedback.request_id'=>$request_id,'feedback.user_type'=>'driver'])->with('driver','rating')->get(); 
         
-        $driverFeedBackData = DB::table('feedback')
-        ->join('ratings', 'ratings.id', '=', 'feedback.rating_id')
-        ->join('drivers', 'drivers.id', '=', 'feedback.user_id')
-        ->where(['feedback.request_id'=>$request_id,'ratings.user_type'=>'driver'])
-        ->get();
-
         return view('admin.request.requestview', compact('page', 'main_menu', 'sub_menu', 'item','userFeedBackData','driverFeedBackData'));
     }
 

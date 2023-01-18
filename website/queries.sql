@@ -85,3 +85,11 @@ CREATE TABLE `taxi`.`feedback` (
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `feedback` CHANGE `request_id` `request_id` CHAR(36) NOT NULL; 
+
+
+
+ALTER TABLE `feedback` ADD `user_type` VARCHAR(255) NOT NULL AFTER `user_id`;
+ALTER TABLE `feedback` ADD `star` TINYINT(1) NOT NULL AFTER `user_type`;
+
