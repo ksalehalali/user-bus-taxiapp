@@ -77,19 +77,20 @@ ALTER TABLE `rating`
 
   
 ALTER TABLE `ratings` ADD `user_type` VARCHAR(50) NOT NULL AFTER `star`;
-CREATE TABLE `taxi`.`feedback` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `user_id` INT(11) NOT NULL ,
-  `rating_id` INT(11) NOT NULL ,
-  `request_id` INT(11) NOT NULL ,
-  `created_at` DATETIME NOT NULL ,
-  `updated_at` DATETIME NOT NULL ,
-  PRIMARY KEY (`id`)) ENGINE = InnoDB;
+-- CREATE TABLE `taxi`.`feedback` (
+--   `id` INT(11) NOT NULL AUTO_INCREMENT ,
+--   `user_id` INT(11) NOT NULL ,
+--   `rating_id` INT(11) NOT NULL ,
+--   `request_id` INT(11) NOT NULL ,
+--   `created_at` DATETIME NOT NULL ,
+--   `updated_at` DATETIME NOT NULL ,
+--   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-ALTER TABLE `feedback` CHANGE `request_id` `request_id` VARCHAR(36) NOT NULL; 
+-- ALTER TABLE `feedback` CHANGE `request_id` `request_id` VARCHAR(36) NOT NULL; 
 
 
 
-ALTER TABLE `feedback` ADD `user_type` VARCHAR(255) NOT NULL AFTER `user_id`;
-ALTER TABLE `feedback` ADD `star` TINYINT(1) NOT NULL AFTER `user_type`;
+-- ALTER TABLE `feedback` ADD `user_type` VARCHAR(255) NOT NULL AFTER `user_id`;
+-- ALTER TABLE `feedback` ADD `star` TINYINT(1) NOT NULL AFTER `user_type`;
 
+ALTER TABLE `request_ratings` ADD `rating_id` INT NOT NULL AFTER `driver_id`;

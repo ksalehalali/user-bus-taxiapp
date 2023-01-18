@@ -21,7 +21,7 @@ class RequestRating extends Model
      *
      * @var array
      */
-    protected $fillable = ['request_id','user_id','driver_id','rating','comment','user_rating','driver_rating'];
+    protected $fillable = ['request_id','user_id','driver_id','rating','comment','user_rating','driver_rating','rating_id'];
 
     /**
      * The relationships that can be loaded with query string filtering includes.

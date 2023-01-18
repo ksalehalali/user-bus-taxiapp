@@ -6,8 +6,9 @@ use App\Models\Request\RequestRating;
 use App\Base\Constants\Auth\Role as RoleSlug;
 use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\Request\TripRatingRequest;
+use App\Models\Admin\Feedback;
+use App\Http\Requests\Request\FeedbackRequest;
 use Exception;
-
 /**
  * @group Ratings
  *
@@ -70,15 +71,22 @@ class RatingsController extends BaseController
             $user_type = 'driver';
         }
         
+    // Store rating to the request rating table
         foreach($options as $option){
-            $request_feedback_params = ['user_id'=>$user_id,'user_type'=>$user_type,'star'=>$option['star'],'rating_id'=>$option['rating_id'],'request_id'=>$request->request_id];
-            Feedback::create($request_feedback_params);
+            $request_rating_params = [
+                'user_id'=>$user_id,
+                'driver_id'=>$driver_id,
+                'request_id'=>$request->request_id,
+                'rating'=>$option['star'],
+                'comment'=>$request->comment,
+                'rating_id'=>$option['rating_id'],
+                'user_rating'=>$user_rating,
+                'driver_rating'=>$driver_rating
+            ];
+            RequestRating::create($request_rating_params);
         }
+    // Update Rating with existing rating
 
-        $request_rating_params = ['user_id'=>$user_id,'driver_id'=>$driver_id,'request_id'=>$request->request_id,'rating'=>$request->rating,'comment'=>$request->comment,'user_rating'=>$user_rating,'driver_rating'=>$driver_rating];
-        // Store rating to the request rating table
-        RequestRating::create($request_rating_params);
-        // Update Rating with existing rating
         $user = auth()->user();
         $rating_total = ($user->rating_total+$request->rating);
         $no_of_ratings =($user->no_of_ratings+1);
@@ -104,10 +112,10 @@ class RatingsController extends BaseController
         
         if (access()->hasRole('user'))
         {
-            $feedback = Feedback::where(['user_type' => 'user','request_id' => $request_id])->get();
+            $feedback = RequestRating::where(['user_rating' =>1,'request_id' => $request_id])->get();
         }elseif (access()->hasRole('driver'))
         {
-            $feedback = Feedback::where(['user_type' => 'driver','request_id' => $request_id])->get();
+            $feedback = RequestRating::where(['driver_rating' => 1,'request_id' => $request_id])->get();
         }
         return $this->respondOk($feedback);
     }
