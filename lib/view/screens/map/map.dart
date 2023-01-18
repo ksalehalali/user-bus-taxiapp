@@ -102,8 +102,8 @@ class _MapState extends State<Map> {
 
   //custom icon
   void setCustomIconMarker()async{
-    pickUpMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid?'assets/icons/pick75.png':'assets/icons/pick25.png') ;
-    dropOffMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid? 'assets/icons/drop75.png':'assets/icons/drop25.png') ;
+    pickUpMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid?'assets/icons/icons8-location-96.png':'assets/icons/icons8-location-48.png') ;
+    dropOffMapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1,1)),Platform.isAndroid? 'assets/icons/icons8-location-96.png':'assets/icons/icons8-location-48.png') ;
 
   }
 

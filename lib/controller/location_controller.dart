@@ -185,7 +185,6 @@ class LocationController extends GetxController {
       myCorrectBuses.value = message.first;
       myCorrectBusesGot.value = true;
       setBussesMarkers();
-
       update();
     });
 
@@ -583,8 +582,27 @@ waitingForBusInfo.value = true;
     }
     waitingForBusInfo.value = false;
     print("bussesOnMapList l... ${bussesOnMapList.length}");
+
+    updateTimeBusToStart( myCorrectBuses[0]["latitude2"], myCorrectBuses[0]["longitude2"]);
     update();
   }
+
+  //update time bus to start
+  updateTimeBusToStart(double correctBusLat , double correctBusLng)async{
+    var  query =
+        correctBusLng.toString() +
+            "," +
+            correctBusLat.toString() +
+            ";"+trip.startPoint.longitude.toString()+","+trip.startPoint.latitude.toString();
+
+
+    var busToStartUpdated = await getDistanceInformation(query);
+    timeBusToR.value = 0.0;
+    timeBusToR.value = busToStartUpdated["routes"][0]["duration"]/60;
+    update();
+  }
+
+
   //calculate the distance between tow points and
   calculateDistance(LocationModel point1 ,LocationModel point2,stationQuery)async{
    double calculateDistance(lat1, lon1, lat2, lon2){

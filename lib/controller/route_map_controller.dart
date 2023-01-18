@@ -65,7 +65,7 @@ class RouteMapController extends GetxController {
 
 
 
-  var centerOfDirRoute =  google_maps.LatLng(0.0, 0.0).obs;
+  var centerOfDirRoute =  google_maps.LatLng(29.319332280708146,48.00436401873049).obs;
   var index = 0.obs;
   int indexOfStations = 0;
   int intIndex = 0;
@@ -246,7 +246,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
+         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 12.0);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -301,7 +301,7 @@ class RouteMapController extends GetxController {
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 12.0);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
 
@@ -345,7 +345,7 @@ class RouteMapController extends GetxController {
         locationController.tripCreatedStatus(true);
         //moving camera
         google_maps.CameraPosition cameraPosition =
-        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 13.6);
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 12.0);
         newGoogleMapController!.animateCamera(
             google_maps.CameraUpdate.newCameraPosition(cameraPosition));
       } else {
