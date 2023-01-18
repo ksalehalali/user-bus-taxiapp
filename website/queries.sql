@@ -86,7 +86,7 @@ CREATE TABLE `taxi`.`feedback` (
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-ALTER TABLE `feedback` CHANGE `request_id` `request_id` CHAR(36) NOT NULL; 
+ALTER TABLE `feedback` CHANGE `request_id` `request_id` VARCHAR(36) NOT NULL; 
 
 
 
