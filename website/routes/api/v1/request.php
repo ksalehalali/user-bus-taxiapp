@@ -68,5 +68,7 @@ Route::prefix('request')->namespace('Request')->middleware('auth')->group(functi
     Route::post('send','ChatController@send');
     // Update Seen
     Route::post('seen','ChatController@updateSeen');
+    // GET the Request feedback
+    Route::get('get-feedback', 'RatingsController@getFeedback');
 
 });

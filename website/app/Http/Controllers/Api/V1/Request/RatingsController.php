@@ -27,8 +27,21 @@ class RatingsController extends BaseController
     */
     public function rateRequest(TripRatingRequest $request)
     {
+        $postData = $request->all('options');
+        $options = @json_decode($postData['options'],true);
+        $json_OK= json_last_error() == JSON_ERROR_NONE;
+
+        if(empty($json_OK)){
+            throw new Exception('Feedback json is not correct.');
+        }
+
+        if(empty($options[0]['rating_id']) && empty($options[0]['star'])){
+            throw new Exception('Feedback json data not found.');
+        }
+        
         $user_rating = false;
         $driver_rating = false;
+        $user_type = '';
         if (access()->hasRole(RoleSlug::USER)) {
             $user_id = auth()->user()->id;
             $request_detail = auth()->user()->requestDetail()->where('id', $request->request_id)->first();
@@ -41,6 +54,7 @@ class RatingsController extends BaseController
             $driver_id = $request_detail->driver_id;
             $user_rating = true;
             $exist_user_rating = auth()->user()->rating;
+            $user_type = 'user';
         } else {
             $driver_id = auth()->user()->driver->id;
             $request_detail = auth()->user()->driver->requestDetail()->where('id', $request->request_id)->first();
@@ -53,7 +67,14 @@ class RatingsController extends BaseController
             $user_id = $request_detail->user_id;
             $driver_rating = true;
             $exist_user_rating = auth()->user()->rating;
+            $user_type = 'driver';
         }
+        
+        foreach($options as $option){
+            $request_feedback_params = ['user_id'=>$user_id,'user_type'=>$user_type,'star'=>$option['star'],'rating_id'=>$option['rating_id'],'request_id'=>$request->request_id];
+            Feedback::create($request_feedback_params);
+        }
+
         $request_rating_params = ['user_id'=>$user_id,'driver_id'=>$driver_id,'request_id'=>$request->request_id,'rating'=>$request->rating,'comment'=>$request->comment,'user_rating'=>$user_rating,'driver_rating'=>$driver_rating];
         // Store rating to the request rating table
         RequestRating::create($request_rating_params);
@@ -72,5 +93,22 @@ class RatingsController extends BaseController
         }
 
         return $this->respondSuccess(null, 'rated_successfully');
+    }
+
+    public function getFeedback(FeedbackRequest $request){
+        // $postData = $_GET;
+        $request_id = $request->request_id;
+        if(empty($request_id)){
+            throw new Exception('No request id found.');
+        }
+        
+        if (access()->hasRole('user'))
+        {
+            $feedback = Feedback::where(['user_type' => 'user','request_id' => $request_id])->get();
+        }elseif (access()->hasRole('driver'))
+        {
+            $feedback = Feedback::where(['user_type' => 'driver','request_id' => $request_id])->get();
+        }
+        return $this->respondOk($feedback);
     }
 }

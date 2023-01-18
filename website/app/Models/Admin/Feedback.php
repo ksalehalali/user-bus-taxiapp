@@ -15,7 +15,7 @@ class Feedback extends Model
     use UuidModel,HasActive;
 
     protected $fillable = [
-        'user_id','rating_id','request_id','star'
+        'user_id','rating_id','request_id','star','user_type'
     ];
 
 
