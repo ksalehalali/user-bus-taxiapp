@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Base\Filters\Admin\RequestFilter;
-use App\Base\Filters\Master\CommonMasterFilter;
 use App\Base\Libraries\QueryFilter\QueryFilterContract;
 use App\Http\Controllers\Controller;
 use App\Models\Request\Request as RequestRequest;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\Admin\Feedback;
-use Illuminate\Support\Facades\DB;
+use App\Models\Request\RequestRating;
 
 class RequestController extends Controller
 {
@@ -49,8 +45,8 @@ class RequestController extends Controller
         $item = $request;
         $request_id = $item->id;
 
-        $userFeedBackData = Feedback::where(['feedback.request_id'=>$request_id,'feedback.user_type'=>'user'])->with('user','rating')->get(); 
-        $driverFeedBackData = Feedback::where(['feedback.request_id'=>$request_id,'feedback.user_type'=>'driver'])->with('driver','rating')->get(); 
+        $userFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.user_rating'=>1])->with('user','rating')->get(); 
+        $driverFeedBackData = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('driver','rating')->get(); 
         
         return view('admin.request.requestview', compact('page', 'main_menu', 'sub_menu', 'item','userFeedBackData','driverFeedBackData'));
     }

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Admin\Driver;
 use App\Models\Request\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Rating;
 
 class RequestRating extends Model
 {
@@ -68,4 +69,19 @@ class RequestRating extends Model
         $timezone = $this->serviceLocationDetail->timezone?:env('SYSTEM_DEFAULT_TIMEZONE');
         return Carbon::parse($this->created_at)->setTimezone($timezone)->format('jS M h:i A');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    } 
+
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class, 'rating_id', 'id');
+    } 
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class, 'user_id', 'id');
+    } 
 }
