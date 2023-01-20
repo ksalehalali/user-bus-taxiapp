@@ -140,4 +140,15 @@ return array (
   'fleet_needed_doc' => 'وثيقة الأسطول المطلوبة',
   'approved_fleet_drivers' => 'سائقي الأسطول المعتمدين',
   'rating' => 'تقييم',
+
+  'documents' => 'مستندات',
+  'company_needed_document' => 'المستندات المطلوبة للشركة',
+  'vehicle_needed_doc' => 'وثيقة المركبة المطلوبة',
+  'companies' => 'شركات',
+  'manage_vehicle' => 'إدارة السيارة',
+  'vehicles' => 'مركبات',
+  'vehicle_drivers' => 'سائقي المركبات',
+  'approved_vehicle_drivers' => 'السائقين المعتمدين',
+  'company_report' => 'تقرير الشركة',
+
 );

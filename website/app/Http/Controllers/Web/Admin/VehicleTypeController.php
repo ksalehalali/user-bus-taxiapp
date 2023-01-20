@@ -48,8 +48,8 @@ class VehicleTypeController extends BaseController
     public function index()
     {
         $page = trans('pages_names.types');
-        $main_menu = 'types';
-        $sub_menu = '';
+        $main_menu = 'vehicles';
+        $sub_menu = 'types';
         return view('admin.types.index', compact('page', 'main_menu', 'sub_menu'))->render();
     }
 

@@ -29,7 +29,7 @@ class CarMakeController extends BaseController
       
         $page = trans('pages_names.view_car_make');
 
-        $main_menu = 'master';
+        $main_menu = 'vehicles';
         $sub_menu = 'car_make';
 
         return view('admin.master.carmake.index', compact('page', 'main_menu', 'sub_menu'));

@@ -735,4 +735,7 @@ return array (
   'rating_title' => 'عنوان التصنيف',
   'star' => 'نجمة',
   'add_rating' => 'إضافة التقييم',
+
+  'add_company_needed_doc'=> 'أضف وثيقة',
+  'add_vehicle_needed_doc'=> 'أضف وثيقة',
 );

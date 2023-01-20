@@ -167,7 +167,7 @@
         deleteAllMarkers();
 
 
-        alert('test');
+        // alert('test');
         Object.entries(data).forEach(([key, val]) => {
             if( typeof val.l !=  'undefined'  ) {
             var contentString = `<div class="p-2">

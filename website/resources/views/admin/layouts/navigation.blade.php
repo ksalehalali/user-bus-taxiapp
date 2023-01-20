@@ -51,7 +51,7 @@ $sub_menu = 'translations';
                     </li>
                     @endif
                     @if(auth()->user()->can('admin'))
-                    <li class="{{'admin' == $main_menu ? 'active' : '' }}">
+                    <li class="{{'admin' == $sub_menu ? 'active' : '' }}">
                         <a href="{{url('/admins')}}">
                             <i class="fa fa-circle-thin"></i><span>@lang('pages_names.admins')</span>
                         </a>
@@ -181,7 +181,7 @@ $sub_menu = 'translations';
             @endif --}}
 
             @if(auth()->user()->can('master-data'))
-            <li class="treeview {{ 'trip-request' == $main_menu ? 'active menu-open' : '' }}">
+            <li class="treeview {{ 'vehicles' == $main_menu ? 'active menu-open' : '' }}">
                 <a href="javascript: void(0);">
                     <i class="fa fa-map"></i>
                     <span> @lang('pages_names.vehicles') </span>
@@ -201,7 +201,7 @@ $sub_menu = 'translations';
                     </li>
                     @endif
                     @if(auth()->user()->can('view-types'))
-                    <li class="{{'types' == $main_menu ? 'active' : '' }}">
+                    <li class="{{'types' == $sub_menu ? 'active' : '' }}">
                         <a href="{{url('/types')}}">
                             <i class="fa fa-circle-thin"></i><span>@lang('pages_names.types')</span>
                         </a>

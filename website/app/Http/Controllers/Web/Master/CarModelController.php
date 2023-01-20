@@ -28,7 +28,7 @@ class CarModelController extends BaseController
     {
         $page = trans('pages_names.view_car_model');
 
-        $main_menu = 'master';
+        $main_menu = 'vehicles';
         $sub_menu = 'car_model';
 
         return view('admin.master.carmodel.index', compact('page', 'main_menu', 'sub_menu'));

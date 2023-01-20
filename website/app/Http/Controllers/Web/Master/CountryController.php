@@ -31,7 +31,7 @@ class CountryController extends BaseController
       
         $page = trans('pages_names.view_country');
 
-        $main_menu = 'master';
+        $main_menu = 'settings';
         $sub_menu = 'country';
 
         return view('admin.master.country.index', compact('page', 'main_menu', 'sub_menu'));

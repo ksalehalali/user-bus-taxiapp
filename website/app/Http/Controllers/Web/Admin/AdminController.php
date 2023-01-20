@@ -72,8 +72,8 @@ class AdminController extends BaseController
     {
         $page = trans('pages_names.admins');
 
-        $main_menu = 'admin';
-        $sub_menu = null;
+        $main_menu = 'users';
+        $sub_menu = 'admin';
 
         return view('admin.admin.index', compact('page', 'main_menu', 'sub_menu'));
     }

@@ -159,5 +159,15 @@ return array (
   'vehicle_make' => 'Vehicle Make',
   'vehicle_model' => 'Vehicle Model',
   'rating' => 'Rating',
+  
+  'documents' => 'Documents',
+  'company_needed_document' => 'Company Needed Document',
+  'vehicle_needed_doc' => 'Vehicle Needed Document',
+  'companies' => 'Companies',
+  'manage_vehicle' => 'Manage Vehicle',
+  'vehicles' => 'Vehicles',
+  'vehicle_drivers' => 'Vehicle Drivers ',
+  'approved_vehicle_drivers' => 'Approved Drivers',
+  'company_report' => 'Company Report',
 
 );

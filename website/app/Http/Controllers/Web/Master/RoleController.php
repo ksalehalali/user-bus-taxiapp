@@ -64,7 +64,7 @@ class RoleController extends BaseController
 
         $page = trans('pages_names.roles');
 
-        $main_menu = 'settings';
+        $main_menu = 'users';
 
         $sub_menu = 'roles';
 

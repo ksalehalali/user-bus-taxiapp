@@ -774,4 +774,7 @@ return array(
     'rating_title' => 'Rating Title',
     'star' => 'Star',
     'add_rating' => 'Add Rating',
+    
+    'add_company_needed_doc'=> 'Add Document',
+    'add_vehicle_needed_doc'=> 'Add Document',
 );
