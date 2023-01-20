@@ -110,14 +110,38 @@ class RatingsController extends BaseController
             throw new Exception('No request id found.');
         }
 
+        $response_data = [];
+
         if (access()->hasRole('user'))
         {
-            $feedback = RequestRating::where(['request_ratings.request_id'=>'fdd2d7b8-7dce-481f-981f-739d84c285e0','request_ratings.user_rating'=>1])->with('user','triprating')->get(); 
-
+            // user feedback will have driver rating data on his screen
+            $feedback = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('user','triprating')->get();
+            if (!empty($feedback)) {
+                foreach ($feedback as $key => $value) {
+                    $rated_star = $value->rating;
+                    $comment = $value->comment;
+                    $rating_title = $value->triprating->title;
+                    $response_data['comment'] = $comment;
+                    $response_data['user'][$key]['rated_star'] = $rated_star;
+                    $response_data['user'][$key]['rating_title'] = $rating_title;
+                }
+            }
         }elseif (access()->hasRole('driver'))
         {
-            $feedback = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.driver_rating'=>1])->with('driver','triprating')->get(); 
+            // driver feedback will have user rating data on his screen
+            $feedback = RequestRating::where(['request_ratings.request_id'=>$request_id,'request_ratings.user_rating'=>1])->with('driver','triprating')->get(); 
+            if (!empty($feedback)) {
+                foreach ($feedback as $key => $value) {
+                    $rated_star = $value->rating;
+                    $comment = $value->comment;
+                    $rating_title = $value->triprating->title;
+                    $response_data['comment'] = $comment;
+                    $response_data['driver'][$key]['rated_star'] = $rated_star;
+                    $response_data['driver'][$key]['rating_title'] = $rating_title;
+                }
+            }
+
         }
-        return $this->respondOk($feedback);
+        return $this->respondOk($response_data);
     }
 }
