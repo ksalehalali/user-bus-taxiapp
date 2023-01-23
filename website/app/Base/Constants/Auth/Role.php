@@ -10,6 +10,7 @@ class Role
     const DRIVER = 'driver';
     const DISPATCHER = 'dispatcher';
     const OWNER = 'owner';
+    const Useragent = 'useragent';
 
 
     /**
@@ -23,6 +24,7 @@ class Role
             self::SUPER_ADMIN,
             self::ADMIN,
             self::DISPATCHER,
+            self::Useragent,
         ];
     }
     /**

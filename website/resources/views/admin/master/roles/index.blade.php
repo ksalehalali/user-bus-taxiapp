@@ -17,10 +17,10 @@
                             <form method="get" name="search" action="{{ url('roles') }}">
                                 <div class="row text-right">
                             @if(auth()->user()->can('create-roles'))
-                           <!--      <div class="col-sm-12 text-right">
+                                <div class="col-sm-12 text-right">
                                  <a href="{{ url('roles/create') }}" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-plus-circle mr-2"></i>@lang('view_pages.add_role')</a>
-                                </div> -->
+                                </div>
                             @endif
                                     <div class="col-8 col-md-3">
                                         <div class="form-group">
