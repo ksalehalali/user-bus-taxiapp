@@ -50,6 +50,7 @@ class Role
             self::SUPER_ADMIN,
             self::ADMIN,
             self::OWNER,
+            self::Useragent,
         ];
     }
     /**
@@ -62,6 +63,7 @@ class Role
         return [
             self::SUPER_ADMIN,
             self::ADMIN,
+            self::Useragent,
         ];
     }
 
@@ -74,6 +76,7 @@ class Role
         return [
             self::ADMIN,
             self::SUPER_ADMIN,
+            self::Useragent,
 
         ];
     }
@@ -88,6 +91,7 @@ class Role
             self::USER,
             self::SUPER_ADMIN,
             self::ADMIN,
+            self::Useragent,
         ];
     }
 
