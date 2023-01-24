@@ -1,12 +1,21 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:location/location.dart' as loc ;
+import 'dart:async';
 
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:circular_reveal_animation/circular_reveal_animation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import '../../../Assistants/assistantMethods.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
@@ -32,7 +41,7 @@ class  MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   final List<Widget> screens = [
     Home(),
@@ -54,6 +63,47 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     locatePosition();
     autoLang();
+    final systemTheme = SystemUiOverlayStyle.light.copyWith(
+      systemNavigationBarColor: Colors.blue,
+      systemNavigationBarIconBrightness: Brightness.light,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemTheme);
+
+    _fabAnimationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _borderRadiusAnimationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    fabCurve = CurvedAnimation(
+      parent: _fabAnimationController,
+      curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+    borderRadiusCurve = CurvedAnimation(
+      parent: _borderRadiusAnimationController,
+      curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+
+    fabAnimation = Tween<double>(begin: 0, end: 1).animate(fabCurve);
+    borderRadiusAnimation = Tween<double>(begin: 0, end: 1).animate(
+      borderRadiusCurve,
+    );
+
+    _hideBottomBarAnimationController = AnimationController(
+      duration: Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    Future.delayed(
+      Duration(seconds: 1),
+          () => _fabAnimationController.forward(),
+    );
+    Future.delayed(
+      Duration(seconds: 1),
+          () => _borderRadiusAnimationController.forward(),
+    );
   }
 
   void autoLang()async{
@@ -130,6 +180,35 @@ class _MainScreenState extends State<MainScreen> {
     }
 
   }
+
+  //icons nav bar
+  final autoSizeGroup = AutoSizeGroup();
+  var _bottomNavIndex = 0; //default index of a first screen
+
+  late AnimationController _fabAnimationController;
+  late AnimationController _borderRadiusAnimationController;
+  late Animation<double> fabAnimation;
+  late Animation<double> borderRadiusAnimation;
+  late CurvedAnimation fabCurve;
+  late CurvedAnimation borderRadiusCurve;
+  late AnimationController _hideBottomBarAnimationController;
+
+  final iconList = <IconData>[
+    Icons.home_outlined,
+    Icons.payment_sharp,
+    Icons.account_balance_wallet_outlined,
+    Icons.alt_route_sharp,
+    Icons.person,
+
+  ];
+
+  final barTextList=[
+    'home_btn'.tr,
+    'pay_btn'.tr,
+    'wallet_btn'.tr,
+    'routes_btn'.tr,
+    'profile_btn'.tr,
+  ];
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -150,74 +229,57 @@ class _MainScreenState extends State<MainScreen> {
           body: PageStorage(bucket: bucket, child: currentScreen,
 
           ),
-            bottomNavigationBar: NavigationBar(
-                height: 62.0,
-                backgroundColor: Colors.white,
-                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-                selectedIndex: currentTp!,
-                onDestinationSelected: (index) {
-                  setState(() {
-                    currentScreen = screens[index];
-                    currentTp = index;
-                  });
-                },
-                animationDuration: Duration(milliseconds: 1),
-                destinations: [
+            floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar:
+    AnimatedBottomNavigationBar.builder(
+            itemCount: iconList.length,
+            tabBuilder: (int index, bool isActive) {
+              final color = isActive ? Colors.black87 : Colors.black26;
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    iconList[index],
+                    size: 24,
+                    color: color,
+                  ),
+                  const SizedBox(height: 4),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: AutoSizeText(
+                      "${barTextList[index]}",
+                      maxLines: 1,
+                      style: TextStyle(color: color),
+                      group: autoSizeGroup,
+                    ),
+                  )
+                ],
+              );
+            },
+            backgroundColor: Colors.white,
+            activeIndex: _bottomNavIndex,
+            splashColor: routes_color7,
+            notchAndCornersAnimation: borderRadiusAnimation,
+            splashSpeedInMilliseconds: 300,
+            notchSmoothness: NotchSmoothness.defaultEdge,
+            gapLocation: GapLocation.none,
+            leftCornerRadius: 2,
+            rightCornerRadius: 2,
+            onTap: (index) => setState(() {
+              _bottomNavIndex = index;
+              currentScreen =screens[index];
+            }),
+            hideAnimationController: _hideBottomBarAnimationController,
+            shadow: BoxShadow(
+              offset: Offset(0, 1),
+              blurRadius: 3,
+              spreadRadius: 0.1,
+              color: routes_color,
+            ),
+          )
 
-
-                  NavigationBarTheme(
-                      data: NavigationBarThemeData(
-                          indicatorColor: Colors.grey.shade200,
-                          labelTextStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                      child: NavigationDestination(
-//                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
-                        label: 'home_btn'.tr,
-                        icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 20, color: Colors.grey[600],),
-                        selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
-                      )),
-                  NavigationBarTheme(
-                      data: NavigationBarThemeData(
-                          indicatorColor: Colors.grey.shade200,
-                          labelTextStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                      child: NavigationDestination(
-                        icon: SvgPicture.asset("${assetsDir}pay.svg", width: 20, color: Colors.grey[600],),
-                        label: 'pay_btn'.tr,
-                        selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
-                      )),
-                  NavigationBarTheme(
-                      data: NavigationBarThemeData(
-                          indicatorColor: Colors.grey.shade200,
-                          labelTextStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                      child: NavigationDestination(
-                        icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 20, color: Colors.grey[600],),
-                        label: 'wallet_btn'.tr,
-                        selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
-                      )),
-                  NavigationBarTheme(
-                      data: NavigationBarThemeData(
-                          indicatorColor: Colors.grey.shade200,
-                          labelTextStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                      child: NavigationDestination(
-                        icon: SvgPicture.asset("${assetsDir}routes.svg", width: 20, color: Colors.grey[600],),
-                        label: 'routes_btn'.tr,
-                        selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
-                      )),
-
-                  NavigationBarTheme(
-                      data: NavigationBarThemeData(
-                          indicatorColor: Colors.grey.shade200,
-                          labelTextStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                      child: NavigationDestination(
-                        icon: SvgPicture.asset("${assetsDir}profile.svg", width: 20, color: Colors.grey[600],),
-                        label: 'profile_btn'.tr,
-                        selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
-                      )),
-                ])
         ),
       ),
     );

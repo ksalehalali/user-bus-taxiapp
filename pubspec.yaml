@@ -89,6 +89,10 @@ dependencies:
   device_info_plus: ^3.2.2
   audioplayers:
   signalr_core:
+  animated_bottom_navigation_bar: ^1.1.0+1
+  auto_size_text:
+  circular_reveal_animation:
+  rxdart: ^0.26.0
 
 
 dev_dependencies:
