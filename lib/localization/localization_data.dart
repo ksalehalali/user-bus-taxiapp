@@ -23,8 +23,8 @@ Map<String,String> ar ={
   'btn_logOut': 'خروج',
 
   //-
-'profile_btn':'ملفي',
-'routes_btn':'الخطوط',
+  'profile_btn':'ملفي',
+  'routes_btn':'الخطوط',
   'wallet_btn':'المحفضة',
   'pay_btn':'ادفع',
   'home_btn':'الرئيسية',
@@ -33,23 +33,23 @@ Map<String,String> ar ={
   'enter_your_destination_txt':'ادخل وجهتك هنا',
   //-
 
-'start_pay_txt':'امسح الكود لتقوم بالدفع',
-'msg_0_balance':'الرصيد المتبقي غير كافي لاتمام العملية',
+  'start_pay_txt':'امسح الكود لتقوم بالدفع',
+  'msg_0_balance':'الرصيد المتبقي غير كافي لاتمام العملية',
   'msg_offline':"انت غير متصل بالشبكة",
   'Pay offline_btn':'ادفع بدون اتصال',
   'scan_btn':'امسح',
   'Pay via show QR code_txt':'اظهر qr code للدفع',
   'Pay via scan QR code_txt':'امسح qr code للدفع',
-"Use Package_txt":"استخدم الباقة",
-"Use Wallet_txt":"استخدم المحفظة",
+  "Use Package_txt":"استخدم الباقة",
+  "Use Wallet_txt":"استخدم المحفظة",
 
 
   //-
 
-'available_balance_txt':'الرصيد المتوفر',
-'add_redit_btn':'اضافة رصيد',
-'payments_txt':'الدفعات',
-'recharges_txt':'الشحن',
+  'available_balance_txt':'الرصيد المتوفر',
+  'add_redit_btn':'اضافة رصيد',
+  'payments_txt':'الدفعات',
+  'recharges_txt':'الشحن',
   //-
 
   "route_name_txt":'اسم الخط',
@@ -137,6 +137,7 @@ Map<String,String> ar ={
   "My Packages_txt":"باقاتي",
   "Activation Date: _txt":"تاريخ التفعيل:",
   "Remaining : _txt":"تبقى:",
+  "Using Count_txt":"عدد مرات الاستخدام:",
   //-
 
   "Save_txt":"احفظ",
@@ -184,8 +185,8 @@ Map<String,String> en ={
   'btn_logOut': 'Log Out',
 
   //-
-'routes_btn':'Routes',
-'profile_btn':'Profile',
+  'routes_btn':'Routes',
+  'profile_btn':'Profile',
   'wallet_btn':'Wallet',
   'pay_btn':'Pay',
   'home_btn':'Home',
@@ -269,6 +270,8 @@ Map<String,String> en ={
   "Expiry Date : ":"Expiry Date : ",
   "Price : ":"Price : ",
   "Routes : _txt":"Routes : ",
+  "Using Count_txt":"Using Count:",
+
 
 
   "Send some credit to your friends_txt":"Send some credit to your friends",
@@ -295,8 +298,8 @@ Map<String,String> en ={
   //-
 
   "Packages_txt":"Packages",
-"Add Package_txt":"Add Package",
-"Unlimited Pass_txt":"Unlimited Pass",
+  "Add Package_txt":"Add Package",
+  "Unlimited Pass_txt":"Unlimited Pass",
   "BUY WITH WALLET_btn":"BUY WITH WALLET",
   "BUY WITH CARD_btn":"BUY WITH CARD",
   "Cancel_btn":"Cancel",
@@ -317,8 +320,8 @@ Map<String,String> en ={
   "Bus arrive in:_txt":"Bus arrive in:",
 
 
-"Account delete_txt":"Account delete_txt",
-"Your account will be deleted_txt":"Your account will be deleted_txt",
+  "Account delete_txt":"Account delete_txt",
+  "Your account will be deleted_txt":"Your account will be deleted_txt",
 
 
 
@@ -335,7 +338,7 @@ Map<String,String> hi ={
   'btn_Profile':'प्रोफ़ाइल',
   'btn_Lang':'भाषा: हिन्दी',
   'btn_Exit':'बाहर जाएं',
-'choz_method':'कृपया भुगतान विधि चुनें',
+  'choz_method':'कृपया भुगतान विधि चुनें',
   'amount':'रकम ',
   'profile':'मेरी प्रोफाइल',
   'setting_title':'स्थापना',

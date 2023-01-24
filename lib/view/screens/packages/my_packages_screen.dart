@@ -75,101 +75,101 @@ class _MyPackagesScreenState extends State<MyPackagesScreen> {
               Container(
                 height: screenSize.height-screenSize.height *0.2-20,
                 child: Obx(()=> ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: packagesController.myPackages.length,
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: packagesController.myPackages.length,
 
-                      itemBuilder: (context,index)=>InkWell(
-                        onTap: (){
+                    itemBuilder: (context,index)=>InkWell(
+                      onTap: (){
 
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
 
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(padding: EdgeInsets.zero,
-                                      height: screenSize.height *0.1,
-                                      width: 3 ,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[400],
+                            Container(
+                              child: Row(
+                                children: [
+                                  Container(padding: EdgeInsets.zero,
+                                    height: screenSize.height *0.1,
+                                    width: 3 ,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[400],
 
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      SizedBox(
+                                        width: screenSize.width *0.3 ,
+                                        child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
+                                          ,style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),),
                                       ),
-                                    ),
-                                    SizedBox(width: 10,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
+                                      SizedBox(height: 8.0,),
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              langController.appLocal=="en"?
+                                              Text("Expiry: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),):
+                                              Text("تاريخ الانتهاء: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),),
+                                              SizedBox(height: 12.0,),
+                                              // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
+                                              // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
 
-                                        SizedBox(
-                                          width: screenSize.width *0.3 ,
-                                          child: Text(  packagesController.myPackages[index]['packageKind'],overflow:TextOverflow.ellipsis,maxLines: 1
-                                            ,style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),),
-                                        ),
-                                        SizedBox(height: 8.0,),
-                                        Row(
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  //Text('Route : ${trips.trips[index]['rout']}'),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                                    children: [
+                                      RichText(text: TextSpan(
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                langController.appLocal=="en"?
-                                                Text("Expiry: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),):
-                                                Text("تاريخ الانتهاء: ${packagesController.myPackages[index]['activationExpiryDate']}",style: TextStyle(color: Colors.black,),),
-                                                SizedBox(height: 12.0,),
-                                                // langController.appLocal=="en"?Text("Price : ${packagesController.allPackages[index]['price'].toStringAsFixed(3)}",style: TextStyle(color: Colors.black,),):
-                                                // Text("${packagesController.allPackages[index]['price'].toStringAsFixed(3)}السعر : ",style: TextStyle(color: Colors.black,),),
+                                            TextSpan(text: 'Activation Date: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
+                                            TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.green[800])),
 
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    //Text('Route : ${trips.trips[index]['rout']}'),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                          ]
+                                      )),
+                                      const SizedBox(height: 8,),
 
-                                      children: [
-                                        RichText(text: TextSpan(
-                                            children: [
-                                              TextSpan(text: 'Activation: _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                              TextSpan(text: " ${packagesController.myPackages[index]['activationDate']}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.green[800])),
+                                      RichText(text: TextSpan(
+                                          children: [
+                                            TextSpan(text: 'Using Count_txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
+                                            TextSpan(text: ' ${packagesController.myPackages[index]['usingNumber']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
 
-                                            ]
-                                        )),
-                                        const SizedBox(height: 8,),
-
-                                        RichText(text: TextSpan(
-                                            children: [
-                                              TextSpan(text: 'Remaining : _txt'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
-                                              TextSpan(text: ' ${packagesController.myPackages[index]['duration']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.green)),
-
-                                            ]
-                                        )),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                          ]
+                                      )),
+                                    ],
+                                  )
+                                ],
                               ),
-                              const SizedBox(height: 8,),
-                              Container(
-                                height: 2,
-                                width: screenSize.width ,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
+                            ),
+                            const SizedBox(height: 8,),
+                            Container(
+                              height: 2,
+                              width: screenSize.width ,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
 
-                                ),
                               ),
+                            ),
 
-                            ],
-                          ),
+                          ],
                         ),
-                      )),
+                      ),
+                    )),
                 ),
               ),
             ],
