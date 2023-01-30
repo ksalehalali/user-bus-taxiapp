@@ -6,6 +6,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tagyourtaxi_driver/bus_lib/view/screens/Auth/login.dart';
 import 'package:tagyourtaxi_driver/pages/loadingPage/loading.dart';
 import 'package:tagyourtaxi_driver/pages/login/welcome_screen.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/booking_confirmation.dart';
@@ -38,7 +39,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 6), () {
+    Timer(Duration(seconds: 5), () {
       getLanguageDone();
     });
 
@@ -53,8 +54,7 @@ class _LoadingPageState extends State<LoadingPage> {
           context,
           MaterialPageRoute(builder: (context) => Invoice()),
           (route) => false);
-    } else if (userRequestData.isNotEmpty &&
-        userRequestData['is_completed'] != 1) {
+    } else if (userRequestData.isNotEmpty && userRequestData['is_completed'] != 1) {
       //searching ride page
       if (userRequestData['is_rental'] == true) {
         Navigator.pushAndRemoveUntil(
@@ -72,12 +72,12 @@ class _LoadingPageState extends State<LoadingPage> {
       }
     } else {
       //home page
-     // Future.delayed(Duration(seconds: 3), () {
+     Future.delayed(Duration(seconds:1), () {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const Maps()),
+            MaterialPageRoute(builder: (context) =>  Login()),
                 (route) => false);
-    //  });
+     });
     }
   }
 
@@ -96,9 +96,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     if (platform == TargetPlatform.android) {
       _version = await FirebaseDatabase.instance
-          .ref()
-          .child('user_android_version')
-          .get();
+          .ref().child('user_android_version').get();
     } else {
       _version = await FirebaseDatabase.instance.ref().child('user_ios_version').get();
     }
@@ -143,7 +141,7 @@ class _LoadingPageState extends State<LoadingPage> {
           Future.delayed(const Duration(seconds: 2), () {
             //login page
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+                MaterialPageRoute(builder: (context) =>  Login()));
           });
         } else {
           Future.delayed(const Duration(seconds: 2), () {

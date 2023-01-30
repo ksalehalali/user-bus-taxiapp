@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tagyourtaxi_driver/pages/login/login.dart';
 import 'package:tagyourtaxi_driver/pages/onTripPage/map_page.dart';
 
+import '../../bus_lib/controller/confirm_number_controller.dart';
 import '../../functions/functions.dart';
 import '../../helper.dart';
 import '../../styles/styles.dart';
@@ -27,6 +29,7 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
   TextEditingController controller = TextEditingController();
   late PersistentBottomSheetController _controller;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final ConfirmNumberController confirmNumberController =  Get.find();
 
 
   bool _isLoading = true;
@@ -533,7 +536,8 @@ class _EnterPhoneNumberState extends State<EnterPhoneNumber> {
                                             //otp is true
                                             if (val.value == true) {
                                               phoneAuthCheck = true;
-                                              await phoneAuth("+"+countries[phcode]['dial_code'].toString() + phnumber);
+                                             // await phoneAuth("+"+countries[phcode]['dial_code'].toString() + phnumber);
+                                              confirmNumberController.makeCodeConfirmationRequest();
 
                                               navigate();
                                             }

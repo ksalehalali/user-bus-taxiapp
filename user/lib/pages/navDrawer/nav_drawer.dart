@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tagyourtaxi_driver/functions/functions.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/editprofile.dart';
@@ -13,6 +14,8 @@ import 'package:tagyourtaxi_driver/pages/splash.dart';
 import 'package:tagyourtaxi_driver/styles/styles.dart';
 import 'package:tagyourtaxi_driver/translations/translation.dart';
 
+import '../../bus_lib/controller/login_controller.dart';
+import '../../bus_lib/view/screens/Auth/login.dart';
 import '../NavigatorPages/notification.dart';
 import 'drawer_model.dart';
 
@@ -25,6 +28,7 @@ class NavDrawer extends StatefulWidget {
 class _NavDrawerState extends State<NavDrawer> {
 
   List<DrawerModel> drawerList = [];
+  final LoginController loginController =  Get.find();
 
   @override
   void initState() {
@@ -149,7 +153,7 @@ class _NavDrawerState extends State<NavDrawer> {
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return index == 1 ? ValueListenableBuilder(
                                   valueListenable: valueNotifierNotification.value,
@@ -237,7 +241,7 @@ class _NavDrawerState extends State<NavDrawer> {
                               ) :  Padding(
                                 padding:  EdgeInsets.only(left: 8.0, right: 8, top: 10),
                                 child: InkWell(
-                                  onTap: (){
+                                  onTap: ()async{
                                     setState(() {
                                       drawerSelectedIndex = index;
                                     });
@@ -262,7 +266,9 @@ class _NavDrawerState extends State<NavDrawer> {
                                         logout = true;
                                       });
                                       valueNotifierHome.incrementNotifier();
-                                      Navigator.pop(context);
+                                      await loginController.logout();
+                                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Login()), (route) => false);
+
                                     }else {
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => drawerList[index].pageName));
                                     }

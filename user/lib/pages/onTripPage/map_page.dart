@@ -24,6 +24,7 @@ import 'package:tagyourtaxi_driver/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
+import '../../bus_lib/view/screens/Auth/login.dart';
 import '../login/enter_phone_number.dart';
 import '../navDrawer/nav_drawer.dart';
 
@@ -2361,12 +2362,8 @@ class _MapsState extends State<Maps>
                                                 var result = await userDelete();
                                                 if (result == 'success') {
                                                   setState(() {
-                                                    Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const EnterPhoneNumber()),
-                                                        (route) => false);
+                                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>  Login()), (route) => false);
+
                                                     userDetails.clear();
                                                   });
                                                 } else {
@@ -2454,13 +2451,14 @@ class _MapsState extends State<Maps>
                                                 var result = await userLogout();
                                                 if (result == 'success') {
                                                   setState(() {
-                                                    Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const EnterPhoneNumber()),
-                                                        (route) => false);
+                                                    // Navigator.pushAndRemoveUntil(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             const EnterPhoneNumber()),
+                                                    //     (route) => false);
                                                     userDetails.clear();
+                                                    userRequestData.clear();
                                                   });
                                                 } else {
                                                   setState(() {

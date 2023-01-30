@@ -135,8 +135,8 @@ class _GetStartedState extends State<GetStarted> {
                                     Navigator.pop(context);
                                   },
                                   child: Row(
-                                    children: [
-                                      const Icon(Icons.arrow_back_ios),
+                                    children: const [
+                                      Icon(Icons.arrow_back_ios),
                                       Text('BACK', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),)
                                     ],
                                   )),

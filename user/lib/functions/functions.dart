@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 // import 'package:location/location.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/editprofile.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/history.dart';
@@ -26,6 +27,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../bus_lib/controller/login_controller.dart';
+import '../bus_lib/controller/personal_information_controller.dart';
 import '../pages/login/enter_phone_number.dart';
 
 //languages code
@@ -38,6 +41,8 @@ double duration = 30.0;
 var audio = 'audio/notification_sound.mp3';
 bool internet = true;
 var request_number;
+PersonalInformationController personalInfoController = Get.find();
+final LoginController loginController =  Get.find();
 
 //base url
 // String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
@@ -67,11 +72,15 @@ checkInternetConnection() {
 // }
 
 getDetailsOfDevice() async {
+  print("-----...............------");
+
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.none) {
     internet = false;
   } else {
     internet = true;
+
+    await getCountryCode();
   }
   try {
     rootBundle.loadString('assets/map_style_black.json').then((value) {
@@ -214,10 +223,12 @@ List languagesCode = [
 List countries = [];
 getCountryCode() async {
   dynamic result;
+  print("----------------------get country code--------------------");
   try {
     final response = await http.get(Uri.parse('${url}api/v1/countries'));
 
     if (response.statusCode == 200) {
+      print(response.body);
       countries = jsonDecode(response.body)['data'];
       phcode =
           (countries.where((element) => element['default'] == true).isNotEmpty)
@@ -328,6 +339,7 @@ List<BearerClass> bearerToken = <BearerClass>[];
 registerUser() async {
   bearerToken.clear();
   dynamic result;
+  print("user inf for register == $name .. $phnumber .. $email .. $fcm .. null .. android .. $choosenLanguage}");
   try {
     final response =
         http.MultipartRequest('POST', Uri.parse('${url}api/v1/user/register'));
@@ -348,10 +360,9 @@ registerUser() async {
 
     var request = await response.send();
     var respon = await http.Response.fromStream(request);
-
     if (respon.statusCode == 200) {
       var jsonVal = jsonDecode(respon.body);
-
+      print("------- register ${respon.body}");
       bearerToken.add(BearerClass(
           type: jsonVal['token_type'].toString(),
           token: jsonVal['access_token'].toString()));
@@ -369,6 +380,8 @@ registerUser() async {
     } else {
       debugPrint(respon.body);
       result = jsonDecode(respon.body)['message'];
+      personalInfoController.deleteMyAccount('id');
+      loginController.logout();
     }
     return result;
   } catch (e) {
@@ -524,10 +537,11 @@ verifyUser(String number) async {
     var response = await http.post(
         Uri.parse('${url}api/v1/user/validate-mobile-for-login'),
         body: {"mobile": number});
+    print("verifyUser number $number");
 
     if (response.statusCode == 200) {
       val = jsonDecode(response.body)['success'];
-
+      print("verifyUser ...... ${response.body}");
       if (val == true) {
         var check = await userLogin();
         if (check == true) {
@@ -556,6 +570,7 @@ userLogin() async {
   bearerToken.clear();
   dynamic result;
   try {
+
     var response = await http.post(Uri.parse('${url}api/v1/user/login'),
         headers: {
           'Content-Type': 'application/json',
@@ -565,13 +580,19 @@ userLogin() async {
           'device_token': fcm,
           "login_by": (platform == TargetPlatform.android) ? 'android' : 'ios',
         }));
+    print("userLogin phone $phnumber user login device_token $fcm");
+
+
     if (response.statusCode == 200) {
+      print("try Login ..........");
+
       var jsonVal = jsonDecode(response.body);
       bearerToken.add(BearerClass(
           type: jsonVal['token_type'].toString(),
           token: jsonVal['access_token'].toString()));
       result = true;
       pref.setString('Bearer', bearerToken[0].token);
+      print("user Login data === $jsonVal");
     } else if (response.statusCode == 422) {
       debugPrint(response.body);
       var error = jsonDecode(response.body)['errors'];
@@ -580,12 +601,17 @@ userLogin() async {
           .replaceAll('[', '')
           .replaceAll(']', '')
           .toString();
+      print("login failed..... ${response.body}");
+
     } else {
       debugPrint(response.body);
       result = false;
+      print("login failed..... ${response.body}");
+
     }
     return result;
   } catch (e) {
+    print(e);
     if (e is SocketException) {
       internet = false;
     }

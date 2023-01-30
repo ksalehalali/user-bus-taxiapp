@@ -212,6 +212,12 @@
       <excludeFolder url="file://$MODULE_DIR$/website/vendor/srmklive/paypal" />
       <excludeFolder url="file://$MODULE_DIR$/website/vendor/mtdowling/jmespath.php" />
       <excludeFolder url="file://$MODULE_DIR$/website/vendor/dasprid/enum" />
+      <excludeFolder url="file://$MODULE_DIR$/user/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/user/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/user/build" />
+      <excludeFolder url="file://$MODULE_DIR$/driver/build" />
+      <excludeFolder url="file://$MODULE_DIR$/driver/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/driver/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
