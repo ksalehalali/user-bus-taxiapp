@@ -200,7 +200,6 @@ class _MyBusAppState extends State<MyBusApp> with TickerProviderStateMixin {
         } else {
           startUpController.isConnected.value = true;
           user.isConnected = true;
-          //startUpController.fetchUserLoginPreference();
         }
       },
       );
@@ -239,7 +238,6 @@ class _MyBusAppState extends State<MyBusApp> with TickerProviderStateMixin {
                 TextButton(
                   onPressed: () async {
                     Navigator.pop(context, 'Cancel');
-                    // setState(() => isAlertSet = false);
                     isDeviceConnected =
                     await InternetConnectionChecker().hasConnection;
                     if (!isDeviceConnected) {

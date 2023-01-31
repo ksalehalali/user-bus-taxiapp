@@ -6,6 +6,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 // import 'package:location/location.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/editprofile.dart';
 import 'package:tagyourtaxi_driver/pages/NavigatorPages/history.dart';
@@ -42,11 +43,12 @@ var audio = 'audio/notification_sound.mp3';
 bool internet = true;
 var request_number;
 PersonalInformationController personalInfoController = Get.find();
-final LoginController loginController =  Get.find();
+final LoginController loginController = Get.find();
 
 //base url
 // String url = 'http://routesadmin.com/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
-String url = 'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
+String url =
+    'https://taxi.crescenttechnologies.com.pk/'; // please add '/' at the end of the url as 'https://yourwebsite.com/'
 String mapkey = 'AIzaSyCcAHa78kdTUAZBKF7m2SQheNXfAuOSghc';
 int drawerSelectedIndex = 0;
 
@@ -221,6 +223,7 @@ List languagesCode = [
 //getting country code
 
 List countries = [];
+
 getCountryCode() async {
   dynamic result;
   print("----------------------get country code--------------------");
@@ -339,7 +342,8 @@ List<BearerClass> bearerToken = <BearerClass>[];
 registerUser() async {
   bearerToken.clear();
   dynamic result;
-  print("user inf for register == $name .. $phnumber .. $email .. $fcm .. null .. android .. $choosenLanguage}");
+  print(
+      "user inf for register == $name .. $phnumber .. $email .. $fcm .. null .. android .. $choosenLanguage}");
   try {
     final response =
         http.MultipartRequest('POST', Uri.parse('${url}api/v1/user/register'));
@@ -570,7 +574,6 @@ userLogin() async {
   bearerToken.clear();
   dynamic result;
   try {
-
     var response = await http.post(Uri.parse('${url}api/v1/user/login'),
         headers: {
           'Content-Type': 'application/json',
@@ -581,7 +584,6 @@ userLogin() async {
           "login_by": (platform == TargetPlatform.android) ? 'android' : 'ios',
         }));
     print("userLogin phone $phnumber user login device_token $fcm");
-
 
     if (response.statusCode == 200) {
       print("try Login ..........");
@@ -602,12 +604,10 @@ userLogin() async {
           .replaceAll(']', '')
           .toString();
       print("login failed..... ${response.body}");
-
     } else {
       debugPrint(response.body);
       result = false;
       print("login failed..... ${response.body}");
-
     }
     return result;
   } catch (e) {
@@ -633,8 +633,10 @@ getUserDetails() async {
       },
     );
     if (response.statusCode == 200) {
-      userDetails = Map<String, dynamic>.from(jsonDecode(response.body)['data']);
-          if(userDetails['notifications_count'] != 0 && userDetails['notifications_count'] != null){
+      userDetails =
+          Map<String, dynamic>.from(jsonDecode(response.body)['data']);
+      if (userDetails['notifications_count'] != 0 &&
+          userDetails['notifications_count'] != null) {
         valueNotifierNotification.incrementNotifier();
       }
       favAddress = userDetails['favouriteLocations']['data'];
@@ -733,6 +735,7 @@ getUserDetails() async {
 class BearerClass {
   final String type;
   final String token;
+
   BearerClass({required this.type, required this.token});
 
   BearerClass.fromJson(Map<String, dynamic> json)
@@ -771,7 +774,8 @@ class ValueNotifyingNotification {
 }
 
 ValueNotifyingHome valueNotifierHome = ValueNotifyingHome();
-ValueNotifyingNotification valueNotifierNotification = ValueNotifyingNotification();
+ValueNotifyingNotification valueNotifierNotification =
+    ValueNotifyingNotification();
 
 class ValueNotifyingBook {
   ValueNotifier value = ValueNotifier(0);
@@ -860,13 +864,14 @@ getAutoAddress(input, sessionToken, lat, lng) async {
   dynamic response;
   var countryCode = userDetails['country_code'];
   try {
-    if(userDetails['enable_country_restrict_on_map'] == '1' && userDetails['country_code'] != null ) {
+    if (userDetails['enable_country_restrict_on_map'] == '1' &&
+        userDetails['country_code'] != null) {
       response = await http.get(Uri.parse(
           'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&library=places&location=$lat%2C$lng&radius=2000&components=country:$countryCode&key=$mapkey&sessiontoken=$sessionToken'));
-    }else {
+    } else {
       response = await http.get(Uri.parse(
           'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&library=places&key=$mapkey&sessiontoken=$sessionToken'));
-    } 
+    }
     if (response.statusCode == 200) {
       addAutoFill = jsonDecode(response.body)['predictions'];
       valueNotifierHome.incrementNotifier();
@@ -915,6 +920,7 @@ class AddressList {
 //get polylines
 
 List<LatLng> polyList = [];
+
 getPolylines() async {
   polyList.clear();
   String pickLat = '';
@@ -974,7 +980,8 @@ getPolylineshistory({pickLat, pickLng, dropLat, dropLng}) async {
     var response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key=$mapkey'));
     if (response.statusCode == 200) {
-      var steps = jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
+      var steps =
+          jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
       decodeEncodedPolyline(steps);
     } else {
       debugPrint(response.body);
@@ -1074,16 +1081,28 @@ etaRequest() async {
             ? jsonEncode({
                 'pick_lat': (userRequestData.isNotEmpty)
                     ? userRequestData['pick_lat']
-                    : addressList.firstWhere((e) => e.id == 'pickup').latlng.latitude,
+                    : addressList
+                        .firstWhere((e) => e.id == 'pickup')
+                        .latlng
+                        .latitude,
                 'pick_lng': (userRequestData.isNotEmpty)
                     ? userRequestData['pick_lng']
-                    : addressList.firstWhere((e) => e.id == 'pickup').latlng.longitude,
+                    : addressList
+                        .firstWhere((e) => e.id == 'pickup')
+                        .latlng
+                        .longitude,
                 'drop_lat': (userRequestData.isNotEmpty)
                     ? userRequestData['drop_lat']
-                    : addressList.firstWhere((e) => e.id == 'drop').latlng.latitude,
+                    : addressList
+                        .firstWhere((e) => e.id == 'drop')
+                        .latlng
+                        .latitude,
                 'drop_lng': (userRequestData.isNotEmpty)
                     ? userRequestData['drop_lng']
-                    : addressList.firstWhere((e) => e.id == 'drop').latlng.longitude,
+                    : addressList
+                        .firstWhere((e) => e.id == 'drop')
+                        .latlng
+                        .longitude,
                 'ride_type': 1
               })
             : jsonEncode({
@@ -1274,19 +1293,41 @@ createRequest() async {
         },
         body: (addressList.where((element) => element.id == 'drop').isNotEmpty)
             ? jsonEncode({
-                'pick_lat': addressList.firstWhere((e) => e.id == 'pickup').latlng.latitude,
-                'pick_lng': addressList.firstWhere((e) => e.id == 'pickup').latlng.longitude,
-                'drop_lat': addressList.firstWhere((e) => e.id == 'drop').latlng.latitude,
-                'drop_lng': addressList.firstWhere((e) => e.id == 'drop').latlng.longitude,
+                'pick_lat': addressList
+                    .firstWhere((e) => e.id == 'pickup')
+                    .latlng
+                    .latitude,
+                'pick_lng': addressList
+                    .firstWhere((e) => e.id == 'pickup')
+                    .latlng
+                    .longitude,
+                'drop_lat': addressList
+                    .firstWhere((e) => e.id == 'drop')
+                    .latlng
+                    .latitude,
+                'drop_lng': addressList
+                    .firstWhere((e) => e.id == 'drop')
+                    .latlng
+                    .longitude,
                 'vehicle_type': etaDetails[choosenVehicle]['zone_type_id'],
                 'ride_type': 1,
-                'payment_opt': (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] == 'card')
+                'payment_opt': (etaDetails[choosenVehicle]['payment_type']
+                            .toString()
+                            .split(',')
+                            .toList()[payingVia] ==
+                        'card')
                     ? 0
-                    : (etaDetails[choosenVehicle]['payment_type'].toString().split(',').toList()[payingVia] == 'cash')
+                    : (etaDetails[choosenVehicle]['payment_type']
+                                .toString()
+                                .split(',')
+                                .toList()[payingVia] ==
+                            'cash')
                         ? 1
                         : 2,
-                'pick_address': addressList.firstWhere((e) => e.id == 'pickup').address,
-                'drop_address': addressList.firstWhere((e) => e.id == 'drop').address,
+                'pick_address':
+                    addressList.firstWhere((e) => e.id == 'pickup').address,
+                'drop_address':
+                    addressList.firstWhere((e) => e.id == 'drop').address,
                 'request_eta_amount': etaDetails[choosenVehicle]['total']
               })
             : jsonEncode({
@@ -1943,6 +1984,7 @@ makingPhoneCall(phnumber) async {
 
 //cancellation reason
 List cancelReasonsList = [];
+
 cancelReason(reason) async {
   dynamic result;
   try {
@@ -2324,6 +2366,7 @@ removeFavAddress(id) async {
 //get user referral
 
 Map<String, dynamic> myReferralCode = {};
+
 getReferral() async {
   dynamic result;
   try {
@@ -2503,9 +2546,11 @@ getWalletHistoryPage(page) async {
 
 Future getMyRefferes() async {
   List refferes = [];
-  try{
-    var response = await http.get(Uri.parse('${url}api/v1/user/myreferrers'),
-        headers: {'Authorization': 'Bearer ${bearerToken[0].token}'},);
+  try {
+    var response = await http.get(
+      Uri.parse('${url}api/v1/user/myreferrers'),
+      headers: {'Authorization': 'Bearer ${bearerToken[0].token}'},
+    );
     if (response.statusCode == 200) {
       refferes = jsonDecode(response.body)['data']['referrers'];
     } else {
@@ -2523,15 +2568,14 @@ Future getMyRefferes() async {
 Future getMyFatoorahLink(payment_method_id, price) async {
   dynamic result;
   try {
-
     var response = await http.post(
         Uri.parse('${url}api/v1/payment/wallet/wallet-top-up-my-fatoorah-link'),
         headers: {
           'Authorization': 'Bearer ${bearerToken[0].token}',
           'Content-Type': 'application/json'
         },
-        body: jsonEncode({'payment_method_id': payment_method_id,'price': price})
-    );
+        body: jsonEncode(
+            {'payment_method_id': payment_method_id, 'price': price}));
     print('Dattaa : ${response}');
     if (response.statusCode == 200) {
       result = jsonDecode(response.body)['response']['PaymentURL'];
@@ -2548,18 +2592,25 @@ Future getMyFatoorahLink(payment_method_id, price) async {
   }
   return result;
 }
-Future getGetCompleteMyFatoorahLink(payment_method_id, price, ) async {
+
+Future getGetCompleteMyFatoorahLink(
+  payment_method_id,
+  price,
+) async {
   dynamic result;
   try {
-    https://taxi.crescenttechnologies.com.pk/
+    https: //taxi.crescenttechnologies.com.pk/
     var response = await http.post(
         Uri.parse('${url}api/v1/payment/complete-ride-myfatoorah-link'),
         headers: {
           'Authorization': 'Bearer ${bearerToken[0].token}',
           'Content-Type': 'application/json'
         },
-        body: jsonEncode({'payment_method_id': payment_method_id,'price': price, 'request_id': userRequestData['id']})
-    );
+        body: jsonEncode({
+          'payment_method_id': payment_method_id,
+          'price': price,
+          'request_id': userRequestData['id']
+        }));
     print('Dattaa : ${response}');
     if (response.statusCode == 200) {
       result = jsonDecode(response.body)['response']['PaymentURL'];
@@ -2584,9 +2635,7 @@ getClientToken() async {
   try {
     var response = await http.get(
         Uri.parse('${url}api/v1/payment/client/token'),
-        headers: {
-          'Authorization': 'Bearer ${bearerToken[0].token}'
-        });
+        headers: {'Authorization': 'Bearer ${bearerToken[0].token}'});
     if (response.statusCode == 200) {
       result = 'success';
     } else {
@@ -2674,7 +2723,7 @@ payMoneyStripe(nonce) async {
           'Content-Type': 'application/json'
         },
         body: jsonEncode(
-            {'request_id' : userRequestData['id'], 'payment_id': nonce}));
+            {'request_id': userRequestData['id'], 'payment_id': nonce}));
     if (response.statusCode == 200) {
       result = 'success';
     } else {
@@ -2968,6 +3017,7 @@ internetTrue() {
 //make complaint
 
 List generalComplaintList = [];
+
 getGeneralComplaint(type) async {
   dynamic result;
   try {

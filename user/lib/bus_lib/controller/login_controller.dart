@@ -277,13 +277,14 @@ class LoginController extends GetxController {
         //call func to save installation
         //if(promoterId!="")saveInstallationForPromoters(promoterId);
         phnumber =jsonResponse["description"]["phoneNumber"];
-
+        await getDetailsOfDevice();
+        await getLocalData();
         var check = await verifyUser(jsonResponse["description"]["phoneNumber"]);
         if(check==true){
           Get.offAll(const Separator());
         }else {
           Fluttertoast.showToast(
-              msg: "Username and password do not match!",
+              msg: "Username and password-------------- do not match!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
@@ -293,7 +294,6 @@ class LoginController extends GetxController {
         }
 
       } else {
-
         Fluttertoast.showToast(
             msg: "Username and password do not match!",
             toastLength: Toast.LENGTH_LONG,
@@ -302,11 +302,10 @@ class LoginController extends GetxController {
             backgroundColor: Colors.white70,
             textColor: Colors.black,
             fontSize: 16.0);
-       Timer(const Duration(milliseconds: 100),(){
+       Timer(const Duration(milliseconds: 200),(){
          Get.to(()=>Login());
        });
-        await getDetailsOfDevice();
-        await getLocalData();
+
       }
     }
 
@@ -321,7 +320,7 @@ class LoginController extends GetxController {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('$baseURL/api/AddPromoterInstallation'));
+    var request = http.Request('POST', Uri.parse(baseURL + '/api/AddPromoterInstallation'));
     request.body = json.encode({
       "PromoterID": promoterIdN
     });
@@ -357,9 +356,9 @@ class LoginController extends GetxController {
 
   Future<void> getUserLoginPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    user.name =await prefs.getString('username');
-    user.id =  await prefs.getString('id');
-    user.phone =  await prefs.getString('phoneNumber');
+    user.name =prefs.getString('username');
+    user.id =  prefs.getString('id');
+    user.phone =  prefs.getString('phoneNumber');
 
   }
 

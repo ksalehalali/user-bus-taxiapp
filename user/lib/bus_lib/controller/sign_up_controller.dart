@@ -175,13 +175,13 @@ class SignUpController extends GetxController {
                         children: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: Text("Cancel"),
+                            child: const Text("Cancel"),
                           ),
                           TextButton(
                             onPressed: () async{
                               await makeCodeConfirmationRequest(context,false);
                             },
-                            child: Text("Ok"),
+                            child: const Text("Ok"),
                           ),
                         ],
                       ),
