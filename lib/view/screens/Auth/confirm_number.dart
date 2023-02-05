@@ -96,7 +96,7 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
                     primary: routes_color
                   ),
                   onPressed: () async{
-                    confirmNumberController.makeCodeConfirmationRequest();
+                    confirmNumberController.makeCodeConfirmationRequest(false);
                   },
                   child: Text(
                     "Send Code",

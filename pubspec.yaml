@@ -84,6 +84,7 @@ dependencies:
   connectivity_plus:
   double_back_to_close_app: ^2.1.0
   encrypt: ^5.0.1
+  timer_count_down:
   #flutter_background_service_ios: ^2.4.0
   #flutter_background_service_android: ^3.0.2
   device_info_plus: ^3.2.2
@@ -93,6 +94,8 @@ dependencies:
   auto_size_text:
   circular_reveal_animation:
   rxdart: ^0.26.0
+  otp_autofill: ^2.1.0
+  sms_autofill:
 
 
 dev_dependencies:

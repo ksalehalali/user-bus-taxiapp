@@ -235,36 +235,36 @@ class _LoginState extends State<Login> {
                         height:screenSize.height *0.1.h-20,
                       ),
                       //pay offline button
-                      Align(
-                        alignment:Alignment.bottomCenter,
-                        child: OutlinedButton.icon(
-                          style: ButtonStyle(
-                            backgroundColor:MaterialStateProperty.all(routes_color.withOpacity(0.9)),
-                            foregroundColor: MaterialStateProperty.all(Colors.white),
-                            padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 16.w)),
-
-                          ) ,
-                          onPressed: ()async{
-                            createQRCodeToPay();
-                              // Fluttertoast.showToast(
-                              //     msg: "msg_offline".tr,
-                              //     toastLength: Toast.LENGTH_SHORT,
-                              //     gravity: ToastGravity.CENTER,
-                              //     timeInSecForIosWeb: 1,
-                              //     backgroundColor: Colors.white70,
-                              //     textColor: Colors.black,
-                              //     fontSize: 16.0.sp);
-
-                          }, label: Text(
-                          "Pay offline_btn".tr,
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.bold
-
-                          ),
-                        ), icon: Icon(Icons.qr_code), ),
-                      ),
+                      // Align(
+                      //   alignment:Alignment.bottomCenter,
+                      //   child: OutlinedButton.icon(
+                      //     style: ButtonStyle(
+                      //       backgroundColor:MaterialStateProperty.all(routes_color.withOpacity(0.9)),
+                      //       foregroundColor: MaterialStateProperty.all(Colors.white),
+                      //       padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 16.w)),
+                      //
+                      //     ) ,
+                      //     onPressed: ()async{
+                      //       createQRCodeToPay();
+                      //         // Fluttertoast.showToast(
+                      //         //     msg: "msg_offline".tr,
+                      //         //     toastLength: Toast.LENGTH_SHORT,
+                      //         //     gravity: ToastGravity.CENTER,
+                      //         //     timeInSecForIosWeb: 1,
+                      //         //     backgroundColor: Colors.white70,
+                      //         //     textColor: Colors.black,
+                      //         //     fontSize: 16.0.sp);
+                      //
+                      //     }, label: Text(
+                      //     "Pay offline_btn".tr,
+                      //     style: TextStyle(
+                      //         fontSize: 13.sp,
+                      //         letterSpacing: 0,
+                      //         fontWeight: FontWeight.bold
+                      //
+                      //     ),
+                      //   ), icon: Icon(Icons.qr_code), ),
+                      // ),
 
                       SizedBox(
                         height: 30.h,

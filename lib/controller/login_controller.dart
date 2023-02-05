@@ -121,6 +121,7 @@ class LoginController extends GetxController {
       isLoginLoading.value = false;
 
     } else {
+      print("login info ==-- ${loginCredentials[0]} -- ${loginCredentials[1]}  FCMToken: $fcmToken");
       var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
         {
           "UserName": loginCredentials[0],

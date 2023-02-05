@@ -5,14 +5,44 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sms_autofill/sms_autofill.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../Assistants/globals.dart';
+import '../view/screens/Auth/confirm_otp.dart';
 import '../view/screens/Auth/reset_password.dart';
 
 class ConfirmNumberController extends GetxController {
   RxString phoneNum = "".obs;
 
-  Future<void> makeCodeConfirmationRequest() async{
+  CountdownController countdownController = CountdownController(autoStart: true);
+  TextEditingController otpEditingController = TextEditingController();
+  var messageOtpCode = ''.obs;
+  var appSignature =''.obs;
+  @override
+  void onInit() async {
+    super.onInit();
+    appSignature.value = await SmsAutoFill().getAppSignature;
+    print("appSignature == $appSignature");
+    // Listen for SMS OTP
+    await SmsAutoFill().listenForCode();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    //countdownController.start();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    otpEditingController.dispose();
+    SmsAutoFill().unregisterListener();
+  }
+
+  Future<void> makeCodeConfirmationRequest(bool isSignup) async{
+
 
     List<String> codeCredentials = [
       phoneNum.value.replaceAll("+", ""),
@@ -36,6 +66,7 @@ class ConfirmNumberController extends GetxController {
       var response = await http.post(Uri.parse(baseURL + "/api/RestUser"), body: jsonEncode(
         {
           "UserName": "${codeCredentials[0]}",
+          "appSignature":appSignature.value
         },
       ), headers: head
       ).timeout(const Duration(seconds: 20), onTimeout:() {
@@ -53,6 +84,7 @@ class ConfirmNumberController extends GetxController {
 
       if(response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
+        print("message has been sent to ........................ ${codeCredentials[0]}");
         if(jsonResponse["status"]){
           Fluttertoast.showToast(
               msg: "An SMS message has been sent to your number.",
@@ -62,8 +94,15 @@ class ConfirmNumberController extends GetxController {
               backgroundColor: Colors.white70,
               textColor: Colors.black,
               fontSize: 16.0);
+          countdownController.start();
 
-          Get.to(ResetPassword(phoneNum.value.replaceAll("+", "")));
+          if(isSignup){
+            Get.to(ConfirmOTP(phoneNum.value.replaceAll("+", "")));
+
+          }else {
+            Get.to(ResetPassword(phoneNum.value.replaceAll("+", "")));
+          }
+
         } else{
           Fluttertoast.showToast(
               msg: "${jsonResponse["description"]}",

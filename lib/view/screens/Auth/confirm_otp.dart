@@ -3,26 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:routes/view/screens/Auth/login.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import '../../../Assistants/globals.dart';
 import '../../../controller/confirm_number_controller.dart';
-import '../../../controller/lang_controller.dart';
 import '../../../controller/reset_password_controller.dart';
+import '../../../controller/sign_up_controller.dart';
 
-class ResetPassword extends StatefulWidget {
+class ConfirmOTP extends StatefulWidget {
   final String phoneNum;
-  ResetPassword(this.phoneNum);
+  ConfirmOTP(this.phoneNum);
 
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  _ConfirmOTPState createState() => _ConfirmOTPState();
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class _ConfirmOTPState extends State<ConfirmOTP> {
 
-  final resetPasswordController = Get.put(ResetPasswordController());
   final confirmNumberController = Get.put(ConfirmNumberController());
-  final LangController langController = Get.find();
+  final SignUpController signUpController= Get.find();
 
   @override
   void initState() {
@@ -30,15 +30,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     super.initState();
   }
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    confirmNumberController.countdownController.pause();
-
-  }
-  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent.withOpacity(0.0),
@@ -66,15 +58,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                   SizedBox(height: 16,),
 
-
-                  //pin field autofill
                   Obx(
                         () => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:18.0),
-                          child: PinFieldAutoFill(
-                      textInputAction: TextInputAction.done,
-                      controller: confirmNumberController.otpEditingController,
-                      decoration: UnderlineDecoration(
+                      padding: const EdgeInsets.symmetric(horizontal:18.0),
+                      child: PinFieldAutoFill(
+                        textInputAction: TextInputAction.done,
+                        controller: confirmNumberController.otpEditingController,
+                        decoration: UnderlineDecoration(
                           textStyle: const TextStyle(fontSize: 16, color: Colors.blue),
                           colorBuilder: const FixedColorBuilder(
                             Colors.transparent,
@@ -82,18 +72,20 @@ class _ResetPasswordState extends State<ResetPassword> {
                           bgColorBuilder: FixedColorBuilder(
                             Colors.grey.withOpacity(0.2),
                           ),
-                      ),
-                      currentCode: confirmNumberController.messageOtpCode.value,
-                      onCodeSubmitted: (code) {},
-                      onCodeChanged: (code) {
-                        confirmNumberController.messageOtpCode.value = code!;
-                        confirmNumberController.countdownController.pause();
+                        ),
+                        currentCode: confirmNumberController.messageOtpCode.value,
+                        onCodeSubmitted: (code) {},
+                        onCodeChanged: (code) {
+                          confirmNumberController.messageOtpCode.value = code!;
+                          confirmNumberController.countdownController.pause();
+                          signUpController.codeController.text= code;
+
                           if (code.length == 6) {
                             // To perform some operation
                           }
-                      },
+                        },
+                      ),
                     ),
-                        ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -116,7 +108,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                                 print(confirmNumberController.appSignature);
                                 confirmNumberController.countdownController.start();
-                                confirmNumberController.makeCodeConfirmationRequest(false);
+                                confirmNumberController.makeCodeConfirmationRequest(true);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -151,10 +143,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                               border: Border.all(color: Colors.blue, width: 1),
                             ),
                             width: context.width,
-                            child:langController.appLocal =="en"? Text(
+                            child: Text(
                                 "Wait |${currentRemainingTime.toString().length == 4 ? " ${currentRemainingTime.toString().substring(0, 2)}" : " ${currentRemainingTime.toString().substring(0, 1)}"}",
-                                style: const TextStyle(fontSize: 16)):Text(
-                                "${currentRemainingTime.toString().length == 4 ? " ${currentRemainingTime.toString().substring(0, 2)}" : " ${currentRemainingTime.toString().substring(0, 1)} انتظر | "}",
                                 style: const TextStyle(fontSize: 16)),
                           );
                         }
@@ -162,90 +152,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                   ),
 
-                  SizedBox(height: 64,),
-                  // PASSWORD
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Text(
-                            "Password",
-                          ),
-                        ),
-                        SizedBox(height: 8,),
-                        TextField(
-                          cursorColor: routes_color,
-                          controller: resetPasswordController.passwordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              hintText: "Code",
-                              hintStyle: TextStyle(color: Colors.white),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 16,),
-                  // CONFIRM PASSWORD
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Text(
-                            "Password Confirm",
-                          ),
-                        ),
-                        SizedBox(height: 8,),
-                        TextField(
-                          cursorColor: routes_color,
-                          controller: resetPasswordController.passwordConfirmController,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              hintText: "Code",
-                              hintStyle: TextStyle(color: Colors.white),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
+
                 ],
               ),
             ),
@@ -255,7 +162,13 @@ class _ResetPasswordState extends State<ResetPassword> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: routes_color,
         onPressed: () async{
-          validatePassword(resetPasswordController.passwordConfirmController.text);
+
+          bool confirm = await signUpController.makeCodeConfirmationRequest(context);
+          if(confirm){
+            signUpController.codeController.clear();
+
+            Get.offAll(()=>Login());
+          }
         },
         child: Icon(Icons.forward),
       ),
@@ -271,7 +184,9 @@ class _ResetPasswordState extends State<ResetPassword> {
       if (!regex.hasMatch(value)) {
         _showDialogBoxWrongPassword();
       } else {
-        await resetPasswordController.resetPassword(widget.phoneNum.replaceAll("+", ""),confirmNumberController.messageOtpCode.value);
+
+        bool confirm = await signUpController.makeCodeConfirmationRequest(context);
+
       }
     }
   }

@@ -3,12 +3,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
+import 'package:sms_autofill/sms_autofill.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../Assistants/globals.dart';
 import '../view/screens/Auth/login.dart';
@@ -18,21 +19,18 @@ class ResetPasswordController extends GetxController {
   final passwordController = new TextEditingController();
   final passwordConfirmController = new TextEditingController();
 
-
-
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
-  late CountdownTimerController controller;
-  void onEnd() {
-    print('onEnd');
-  }
 
-  Future<void> resetPassword(phoneNum) async{
+
+
+
+  Future<void> resetPassword(phoneNum , String code) async{
     var head = {
       "Accept": "application/json",
       "content-type":"application/json"
     };
 
-    if (codeController.text.isEmpty || passwordController.text.isEmpty ||  passwordConfirmController.text.isEmpty ) {
+    if (code.isEmpty || passwordController.text.isEmpty ||  passwordConfirmController.text.isEmpty ) {
       Fluttertoast.showToast(
           msg: "Please fill all the required information",
           toastLength: Toast.LENGTH_SHORT,
@@ -54,7 +52,7 @@ class ResetPasswordController extends GetxController {
       var response = await http.post(Uri.parse(baseURL + "/api/EditePassword"), body: jsonEncode(
         {
           "UserName": "${phoneNum}",
-          "Code": "${codeController.text}",
+          "Code": code,
           "Password": "${passwordController.text}",
         },
       ), headers: head
@@ -73,6 +71,7 @@ class ResetPasswordController extends GetxController {
       if(response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         if(jsonResponse["status"]){
+          codeController.clear();
           Get.to(Login());
         } else{
           Fluttertoast.showToast(

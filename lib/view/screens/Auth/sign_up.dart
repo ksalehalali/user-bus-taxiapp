@@ -5,8 +5,11 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:routes/view/screens/Auth/confirm_otp.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../Assistants/globals.dart';
+import '../../../controller/confirm_number_controller.dart';
 import '../../../controller/sign_up_controller.dart';
 import 'login.dart';
 
@@ -24,6 +27,7 @@ class _SignUpState extends State<SignUp> {
 
 //  final TextEditingController controller = TextEditingController();
   PhoneNumber number = PhoneNumber(isoCode: 'KW');
+  final confirmNumberController = Get.put(ConfirmNumberController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class _SignUpState extends State<SignUp> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.28),
+                    top: MediaQuery.of(context).size.height * 0.26),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                             onInputChanged: (PhoneNumber number) {
                               print(number.phoneNumber);
                               signUpController.phoneNum.value = number.phoneNumber!;
-
+                              confirmNumberController.phoneNum.value = number.phoneNumber!;
                             },
                             onInputValidated: (bool value) {
                               print(value);
@@ -95,34 +99,93 @@ class _SignUpState extends State<SignUp> {
                             },
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 22,
                           ),
-                          // PASSWORD TEXT FIELD
-                          TextField(
-                            controller: signUpController.passwordController,
-                            style: TextStyle(color: Colors.black87),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: Colors.black87,
+                          // PASSWORD
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.75,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Password",
                                   ),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
+                                SizedBox(height: 8,),
+                                TextField(
+                                  cursorColor: routes_color,
+                                  controller: signUpController.passwordController,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscureText: true,
+                                  enableSuggestions: false,
+                                  autocorrect: false,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                     // hintText: "Code",
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 16,),
+                          // CONFIRM PASSWORD
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.75,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Password Confirm",
                                   ),
                                 ),
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.black87),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
+                                SizedBox(height: 8,),
+                                TextField(
+                                  cursorColor: routes_color,
+                                  controller: signUpController.confirmPasswordController,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscureText: true,
+                                  enableSuggestions: false,
+                                  autocorrect: false,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    //  hintText: "Code",
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 20,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,7 +205,12 @@ class _SignUpState extends State<SignUp> {
                                 child:  Obx(() => IconButton(
                                   color: Colors.white,
                                   onPressed: () async{
-                                   validatePassword(signUpController.passwordController.text);
+                                    if(signUpController.phoneNum.value.replaceAll("+", "").length>=10 ){
+                                     validatePassword(signUpController.passwordController.text);
+                                    }else{
+                                      Get.snackbar("Wrong phone number", "Please enter a valid phone number");
+                                    }
+
                                   },
                                   icon: !signUpController.isSignUpLoading.value ?
                                   Icon(Icons.arrow_forward,
@@ -197,13 +265,22 @@ class _SignUpState extends State<SignUp> {
     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (value.isEmpty) {
       _showDialogBoxWrongPassword();
+    } else if(signUpController.passwordController.text != signUpController.confirmPasswordController.text){
+      Get.snackbar("Password not matched", "Wrong password");
+      return;
     } else {
       if (!regex.hasMatch(value)) {
         _showDialogBoxWrongPassword();
       } else {
-        signUpController.isSignUpLoading.value = true;
-        await signUpController.makeSignUpRequest(context);
-        signUpController.isSignUpLoading.value = false;
+        await SmsAutoFill().listenForCode();
+        confirmNumberController.appSignature.value = await SmsAutoFill().getAppSignature;
+        bool signUp = await signUpController.makeSignUpRequest(context);
+
+        print(confirmNumberController.appSignature);
+       if(signUp) {
+         confirmNumberController.makeCodeConfirmationRequest(true);
+         Get.offAll(()=>ConfirmOTP(signUpController.phoneNum.value));
+       }
       }
     }
   }

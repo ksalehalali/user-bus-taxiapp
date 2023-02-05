@@ -18,6 +18,8 @@ class SignUpController extends GetxController {
 
   final phoneNumController = new TextEditingController();
   final passwordController = new TextEditingController();
+  final confirmPasswordController = new TextEditingController();
+
   final codeController = new TextEditingController();
   var isSignUpLoading = false.obs;
 
@@ -44,7 +46,7 @@ class SignUpController extends GetxController {
 
 
 
-  Future<void> makeSignUpRequest(context) async {
+  Future<bool> makeSignUpRequest(context) async {
 
     List<String> signUpCredentials = [
       phoneNum.value.replaceAll("+", ""),
@@ -69,6 +71,7 @@ class SignUpController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      return false;
     } else if(signUpCredentials[0].length < 8){
       Fluttertoast.showToast(
           msg: "Please enter a valid phone number",
@@ -78,6 +81,7 @@ class SignUpController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      return false;
     } else {
       var response = await http.post(Uri.parse(baseURL + "/api/Register"), body: jsonEncode(
         {
@@ -110,77 +114,12 @@ class SignUpController extends GetxController {
             backgroundColor: Colors.white70,
             textColor: Colors.black,
             fontSize: 16.0);
+        return false;
       } else if(response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
         if(jsonResponse["status"]){
           print(jsonResponse["description"]);
-          endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
-          showDialog<String>(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                print("Ssssssssssssssssss");
-                return AlertDialog(
-                  title:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Enter the SMS code",
-                        style: TextStyle(
-                            color: Color.fromRGBO(46, 96, 113, 1),
-                            fontSize: 16
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 0 , right: 0 ),
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                            onTap: (){
-                              Navigator.pop(context);
-                            },
-                            child: Icon(Icons.cancel,color:Color.fromRGBO(46, 96, 113, 1), size: 25,)
-                        ),
-                      ),
-                    ],
-                  ),
-                  // CODE TEXT FIELD
-                  content: Container(
-                    width: 300,
-                    height: 100,
-                    child: Column(
-                      children: [
-                        CountdownTimer(
-                          endTime: endTime,
-                          onEnd: onEnd,
-                        ),
-                        SizedBox(height: 16,),
-                        TextField(
-                          controller: codeController,
-                          keyboardType: TextInputType.number,
-                        ),
-                      ],
-                    )
-                  ),
-                  actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'Cancel'),
-                          child: Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () async{
-                            await makeCodeConfirmationRequest(context);
-                          },
-                          child: Text("Ok"),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              }
-          );
+        return true;
         } else {
           Fluttertoast.showToast(
               msg: "${jsonResponse["description"]}",
@@ -190,6 +129,7 @@ class SignUpController extends GetxController {
               backgroundColor: Colors.white70,
               textColor: Colors.black,
               fontSize: 16.0);
+          return false;
         }
       }else {
         Fluttertoast.showToast(
@@ -201,6 +141,7 @@ class SignUpController extends GetxController {
             textColor: Colors.black,
             fontSize: 16.0);
       }
+      return false;
     }
 
   }
@@ -209,11 +150,11 @@ class SignUpController extends GetxController {
     print('onEnd');
   }
 
-  Future<void> makeCodeConfirmationRequest(context) async{
+  Future<bool> makeCodeConfirmationRequest(context) async{
 
     List<String> codeCredentials = [
       phoneNum.value.replaceAll("+", ""),
-      codeController.text
+      codeController.text,
     ];
 
     var head = {
@@ -234,6 +175,7 @@ class SignUpController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      return false;
     } else {
       var response = await http.post(Uri.parse(baseURL + "/api/ConfirmPhoneNumber"), body: jsonEncode(
         {
@@ -269,8 +211,8 @@ class SignUpController extends GetxController {
               fontSize: 16.0
           );
           saveInstallationForPromoters(promoterId);
+          return true;
 
-          Get.offAll(()=>Login());
         } else{
           Fluttertoast.showToast(
               msg: "${jsonResponse["description"]}",
@@ -280,6 +222,8 @@ class SignUpController extends GetxController {
               backgroundColor: Colors.white70,
               textColor: Colors.black,
               fontSize: 16.0);
+          return false;
+
         }
       } else{
         Fluttertoast.showToast(
@@ -291,6 +235,7 @@ class SignUpController extends GetxController {
             textColor: Colors.black,
             fontSize: 16.0);
       }
+      return false;
     }
 
   }
